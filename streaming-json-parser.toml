@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "streaming-json-parser"
+version = "0.1.0"
+authors = [
+    { name = "Aramis Facchinetti", email = "aramis.facchinetti16@gmail.com" },
+]
+description = "A streaming JSON parser that processes JSON data incrementally, handling partial states. Useful for incrementally parsing partial responses from streaming outputs of Large Language Models (LLMs)."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: JSON",
+]
+keywords = ["streaming", "json", "parser", "llm", "large language model", "incremental parsing"]
+
+# dependencies = [
+#     "some-package>=1.0",
+# ]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.3.5",
+]
+
+[project.urls]
+Homepage = "https://github.com/aramisfacchinetti/streaming-json-parser"
+Repository = "https://github.com/aramisfacchinetti/streaming-json-parser"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["streaming_json_parser*"]
+exclude = ["tests*"]

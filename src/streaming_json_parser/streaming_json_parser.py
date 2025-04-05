@@ -2,7 +2,8 @@ import json
 import re
 from typing import Any
 
-from iterative_state_machine import IterativeStateMachine
+from src.streaming_json_parser.iterative_state_machine import \
+    IterativeStateMachine
 
 
 class StreamingJsonParser:

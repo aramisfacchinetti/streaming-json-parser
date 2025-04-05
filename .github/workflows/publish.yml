@@ -1,0 +1,48 @@
+name: Build and Publish to PyPI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-publish:
+    name: Build and Publish
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the repository code
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # 2. Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # 3. Install dependencies (including build tools and test dependencies)
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build .[test]
+
+      # 4. Run tests with pytest
+      - name: Run tests
+        run: |
+          pytest tests/
+
+      # 5. Build the package (source distribution and wheel)
+      - name: Build package
+        run: |
+          python -m build
+
+      # 6. Publish distribution to PyPI
+      - name: Publish package to PyPI
+        # Only run this step on push events to the main branch (not on pull requests or manual triggers)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          # skip_existing: true
