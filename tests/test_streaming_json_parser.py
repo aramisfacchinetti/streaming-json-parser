@@ -263,7 +263,7 @@ class TestStreamingJsonParser:
         assert "key" in result
 
     def test_very_large_json(self):
-        NUMBER_OF_KEYS = 10**1 # 100 million keys
+        NUMBER_OF_KEYS = 10**6 # 1 million keys
 
         parser = StreamingJsonParser()
         # Create a large JSON with many key-value pairs

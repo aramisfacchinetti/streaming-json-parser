@@ -1,10 +1,12 @@
 name: Build and Publish to PyPI
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   build-and-publish:
@@ -43,6 +45,3 @@ jobs:
         # Only run this step on push events to the main branch (not on pull requests or manual triggers)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          # skip_existing: true

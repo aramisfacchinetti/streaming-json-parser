@@ -24,7 +24,7 @@ classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Text Processing :: JSON",
+    "Topic :: Text Processing",
 ]
 keywords = ["streaming", "json", "parser", "llm", "large language model", "incremental parsing"]
 
