@@ -42,6 +42,4 @@ jobs:
 
       # 6. Publish distribution to PyPI
       - name: Publish package to PyPI
-        # Only run this step on push events to the main branch (not on pull requests or manual triggers)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: pypa/gh-action-pypi-publish@release/v1
