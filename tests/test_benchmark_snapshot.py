@@ -216,9 +216,17 @@ def test_partial_strategy_matrix_covers_workloads_and_semantic_families():
     expected_families = {
         "strict_incremental",
         "structural_finisher",
-        "permissive_recovery",
-        "event_driven_partial",
     }
+    if any(
+        getattr(matrix_module._partial, name) is not None
+        for name in ("PartialJsonParser", "partial_json_loads", "repair_json", "untruncate_json")
+    ):
+        expected_families.add("permissive_recovery")
+    if (
+        matrix_module._partial.jsonriver is not None
+        or matrix_module._partial._ijson_yajl2_c is not None
+    ):
+        expected_families.add("event_driven_partial")
     if matrix_module._partial._PYDANTIC_CORE_TRAILING_STRINGS:
         expected_families.add("structural_trailing_finisher")
     assert families == expected_families
