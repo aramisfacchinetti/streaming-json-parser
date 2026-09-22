@@ -666,6 +666,11 @@ def test_make_complete_json_decoder_caches_same_immutable_input(monkeypatch):
 
     monkeypatch.setattr(high_performance_parser, "_is_numeric_array_data", counting_probe)
     monkeypatch.setattr(high_performance_parser, "_GLOBAL_MSGSPEC_DECODER", None)
+    monkeypatch.setattr(
+        high_performance_parser,
+        "_backend_orjson",
+        SimpleNamespace(loads=json.loads),
+    )
     decoder = make_complete_json_decoder()
     payload = b"[1,2,3]"
 
