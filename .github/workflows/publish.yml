@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   build-and-publish:
-    name: Build and publish
+    name: Build and Publish
     runs-on: ubuntu-latest
 
     steps:
