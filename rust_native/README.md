@@ -2,12 +2,14 @@
 
 Optional Rust acceleration for the `streaming-json-parser` Python package.
 
-Install the Python facade first, then install the matching native wheel when a
-platform-specific build is available:
+Prebuilt native wheels are not currently published. The Python facade works
+without the extension. To build and install it from this checkout, activate a
+Python virtual environment and run these commands from the repository root:
 
 ```bash
-python -m pip install streaming-json-parser
-python -m pip install streaming-json-parser-native
+python -m pip install -e '.[native-build]'
+cd rust_native
+maturin develop --release
 ```
 
-The facade remains fully functional without this optional extension.
+Building the extension requires Rust 1.83 or newer.

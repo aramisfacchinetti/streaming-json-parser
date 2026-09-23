@@ -33,7 +33,7 @@ keywords = ["streaming", "json", "parser", "llm", "large language model", "incre
 
 [project.optional-dependencies]
 test = [
-    "pytest>=8.3.5",
+    "pytest>=9.0.3",
     "msgspec>=0.18",
     "pydantic-core>=2.0",
     "jiter>=0.12",

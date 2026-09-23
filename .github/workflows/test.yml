@@ -30,12 +30,56 @@ jobs:
       - name: Run tests
         run: python -m pytest -q
 
+  native:
+    name: Native build and test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          components: rustfmt, clippy
+
+      - name: Install Python dependencies
+        run: python -m pip install --upgrade pip '.[test,native-build]'
+
+      - name: Check Rust formatting
+        run: cargo fmt --manifest-path rust_native/Cargo.toml --check
+
+      - name: Lint Rust
+        run: cargo clippy --manifest-path rust_native/Cargo.toml --all-targets --locked -- -D warnings
+
+      - name: Test Rust
+        run: cargo test --manifest-path rust_native/Cargo.toml --locked
+
+      - name: Build native wheel
+        run: maturin build --manifest-path rust_native/Cargo.toml --release --locked --out dist-native
+
+      - name: Install native wheel
+        run: python -m pip install dist-native/*.whl
+
+      - name: Run Python tests with native extension
+        run: python -m pytest -q
+
   package:
     name: Build and Publish
     runs-on: ubuntu-latest
-    needs: test
+    needs: [test, native]
+    if: ${{ always() }}
 
     steps:
+      - name: Require tests and native checks to pass
+        if: ${{ needs.test.result != 'success' || needs.native.result != 'success' }}
+        run: exit 1
+
       - name: Check out repository
         uses: actions/checkout@v4
 
