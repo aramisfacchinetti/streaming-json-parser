@@ -1,0 +1,86 @@
+name: Publish native package
+
+on:
+  pull_request:
+  push:
+    tags:
+      - "native-v*"
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: Native build and test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          components: rustfmt, clippy
+
+      - name: Install Python dependencies
+        run: python -m pip install --upgrade pip twine '.[test,native-build]'
+
+      - name: Check Rust formatting
+        run: cargo fmt --manifest-path rust_native/Cargo.toml --check
+
+      - name: Lint Rust
+        run: cargo clippy --manifest-path rust_native/Cargo.toml --all-targets --locked -- -D warnings
+
+      - name: Test Rust
+        run: cargo test --manifest-path rust_native/Cargo.toml --locked
+
+      - name: Build manylinux wheel and source distribution
+        uses: PyO3/maturin-action@v1
+        with:
+          maturin-version: v1.14.0
+          manylinux: 2014
+          command: build
+          args: --release --locked --sdist --compatibility pypi -i python3.12 --manifest-path rust_native/Cargo.toml --out dist-native
+
+      - name: Check package metadata
+        run: python -m twine check dist-native/*
+
+      - name: Install native wheel
+        run: python -m pip install dist-native/*.whl
+
+      - name: Run Python tests with native extension
+        run: python -m pytest -q
+
+      - name: Save release distributions
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-distributions
+          path: dist-native/*
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    name: Publish to PyPI
+    if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/native-v') }}
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Download release distributions
+        uses: actions/download-artifact@v4
+        with:
+          name: native-distributions
+          path: dist-native
+
+      - name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

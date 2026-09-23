@@ -2,9 +2,20 @@
 
 Optional Rust acceleration for the `streaming-json-parser` Python package.
 
-Prebuilt native wheels are not currently published. The Python facade works
-without the extension. To build and install it from this checkout, activate a
-Python virtual environment and run these commands from the repository root:
+Once the native distribution has been published, install the Python package and
+native extension with:
+
+```bash
+python -m pip install streaming-json-parser streaming-json-parser-native
+```
+
+The initial release provides a prebuilt wheel for CPython 3.12 on Linux x86_64.
+On other Python versions or platforms, pip builds from the source distribution,
+which requires Rust 1.83 or newer. The Python package works without the native
+extension.
+
+To build and install the extension from this checkout, activate a Python
+virtual environment and run these commands from the repository root:
 
 ```bash
 python -m pip install -e '.[native-build]'
