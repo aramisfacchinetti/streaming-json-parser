@@ -9,11 +9,10 @@ native extension with:
 python -m pip install streaming-json-parser streaming-json-parser-native
 ```
 
-Version 0.2.0 provides a prebuilt wheel only for CPython 3.12 on Linux x86_64.
-CI builds macOS arm64 wheels for CPython 3.10 through 3.14; they will be
-published with a future native package release. Until then, pip builds from the
-source distribution on macOS, which requires Rust 1.83 or newer. The Python
-package works without the native extension.
+Version 0.2.1 provides a prebuilt wheel for CPython 3.12 on Linux x86_64 and
+for CPython 3.10 through 3.14 on macOS arm64. For other Python versions or
+platforms, pip builds from the source distribution, which requires Rust 1.83 or
+newer. The Python package works without the native extension.
 
 To build and install the extension from this checkout, activate a Python
 virtual environment and run these commands from the repository root:
