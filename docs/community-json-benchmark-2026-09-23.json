@@ -1,0 +1,1015 @@
+{
+  "benchmark": "TkTech/json_benchmark complete-document load workload (adapted)",
+  "date": "2026-09-23",
+  "environment": {
+    "architecture": "arm64",
+    "benchmark_library_versions": {
+      "json (stdlib)": "3.14.0",
+      "msgspec": "0.21.1",
+      "orjson": "3.12.0",
+      "rapidjson": "1.23",
+      "simdjson": "7.0.2",
+      "ujson": "5.12.1",
+      "yyjson": "4.0.6"
+    },
+    "native_extension_importable": true,
+    "native_extension_version": "0.1.0",
+    "operating_system": "Darwin",
+    "package_version": "0.2.0",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "processor": "Apple M2 Pro",
+    "python_version": "3.14.0",
+    "source_revision": "6b11966cc4f10c07ed2ac555da7b298aba2d3151",
+    "working_tree_dirty": true
+  },
+  "excluded_candidates": {
+    "citm_catalog.json": {
+      "yyjson_loads": "decoded value differs from Python json.loads"
+    },
+    "fgo.json": {
+      "yyjson_loads": "decoded value differs from Python json.loads"
+    },
+    "gsoc-2018.json": {
+      "yyjson_loads": "decoded value differs from Python json.loads"
+    },
+    "poet.json": {
+      "yyjson_loads": "decoded value differs from Python json.loads"
+    },
+    "twitter.json": {
+      "yyjson_loads": "decoded value differs from Python json.loads"
+    }
+  },
+  "methodology": {
+    "aggregation": "median per-operation process CPU time across 7 measured batches",
+    "clock": "time.process_time",
+    "comparison": "each candidate output was compared recursively with Python json.loads; booleans, integers, and floats must retain their exact Python value types, and incompatible candidates are excluded for that file",
+    "input": "UTF-8 data file decoded to Python str before timing; file I/O and UTF-8 decoding are outside timing",
+    "operation": "decode the complete document into an ordinary Python JSON value",
+    "repetitions_per_sample": "max(1, floor(4 MiB / UTF-8 file byte length)), capped at 50; same count for every compatible decoder on a file",
+    "samples_per_case": 7,
+    "scope_note": "This adapts only the upstream complete-load workload. Its SAX/event streaming cases are not comparable because this library materializes Python values.",
+    "throughput": "UTF-8 file bytes divided by median per-operation CPU time; chart uses MiB/s, higher is better",
+    "warmup_invocations_per_case": 1
+  },
+  "sections": [
+    {
+      "file_name": "canada.json",
+      "name": "data/canada.json",
+      "payload_size_bytes": 2251051,
+      "repetitions_per_sample": 1,
+      "results": [
+        {
+          "maximum_seconds_per_operation": 0.006189999999999918,
+          "mib_per_second": 357.1401636367675,
+          "minimum_seconds_per_operation": 0.005908999999999942,
+          "name": "yyjson_loads",
+          "sample_seconds_per_operation": [
+            0.006116999999999928,
+            0.005908999999999942,
+            0.006021000000000054,
+            0.005947999999999842,
+            0.005936999999999859,
+            0.006189999999999918,
+            0.006010999999999989
+          ],
+          "seconds_per_operation": 0.006010999999999989
+        },
+        {
+          "maximum_seconds_per_operation": 0.006591999999999987,
+          "mib_per_second": 339.89384477843424,
+          "minimum_seconds_per_operation": 0.005947000000000036,
+          "name": "reusable_complete_decoder",
+          "sample_seconds_per_operation": [
+            0.0065850000000000075,
+            0.006512999999999991,
+            0.006591999999999987,
+            0.006192000000000031,
+            0.006055000000000033,
+            0.005947000000000036,
+            0.006316000000000044
+          ],
+          "seconds_per_operation": 0.006316000000000044
+        },
+        {
+          "maximum_seconds_per_operation": 0.007473000000000063,
+          "mib_per_second": 329.3096370027036,
+          "minimum_seconds_per_operation": 0.006161000000000083,
+          "name": "orjson_loads",
+          "sample_seconds_per_operation": [
+            0.006423999999999985,
+            0.006164999999999976,
+            0.006985000000000019,
+            0.007473000000000063,
+            0.00716400000000017,
+            0.0065189999999999415,
+            0.006161000000000083
+          ],
+          "seconds_per_operation": 0.0065189999999999415
+        },
+        {
+          "maximum_seconds_per_operation": 0.007373999999999992,
+          "mib_per_second": 308.9321519097152,
+          "minimum_seconds_per_operation": 0.0065699999999999925,
+          "name": "decode_complete_json",
+          "sample_seconds_per_operation": [
+            0.0067939999999999945,
+            0.0065699999999999925,
+            0.006982000000000016,
+            0.007282000000000011,
+            0.007373999999999992,
+            0.006677000000000016,
+            0.006948999999999983
+          ],
+          "seconds_per_operation": 0.006948999999999983
+        },
+        {
+          "maximum_seconds_per_operation": 0.007670000000000066,
+          "mib_per_second": 290.6538753886504,
+          "minimum_seconds_per_operation": 0.007170000000000121,
+          "name": "msgspec_decode",
+          "sample_seconds_per_operation": [
+            0.007170000000000121,
+            0.007519000000000053,
+            0.00730799999999987,
+            0.007387000000000032,
+            0.007357000000000058,
+            0.007386000000000115,
+            0.007670000000000066
+          ],
+          "seconds_per_operation": 0.007386000000000115
+        },
+        {
+          "maximum_seconds_per_operation": 0.007916999999999952,
+          "mib_per_second": 281.43281641591693,
+          "minimum_seconds_per_operation": 0.007136999999999949,
+          "name": "simdjson_loads",
+          "sample_seconds_per_operation": [
+            0.007681000000000049,
+            0.007627999999999968,
+            0.007136999999999949,
+            0.007893999999999846,
+            0.007916999999999952,
+            0.0073750000000001315,
+            0.007481000000000071
+          ],
+          "seconds_per_operation": 0.007627999999999968
+        },
+        {
+          "maximum_seconds_per_operation": 0.011724000000000068,
+          "mib_per_second": 192.156240925583,
+          "minimum_seconds_per_operation": 0.010970000000000146,
+          "name": "ujson_loads",
+          "sample_seconds_per_operation": [
+            0.01140999999999992,
+            0.011503000000000041,
+            0.011724000000000068,
+            0.01117199999999996,
+            0.011109000000000036,
+            0.010995000000000088,
+            0.010970000000000146
+          ],
+          "seconds_per_operation": 0.01117199999999996
+        },
+        {
+          "maximum_seconds_per_operation": 0.024488999999999983,
+          "mib_per_second": 89.39658214460678,
+          "minimum_seconds_per_operation": 0.023042999999999925,
+          "name": "rapidjson_loads",
+          "sample_seconds_per_operation": [
+            0.023839000000000166,
+            0.023042999999999925,
+            0.024014000000000202,
+            0.023988999999999816,
+            0.024488999999999983,
+            0.02420800000000023,
+            0.024021999999999988
+          ],
+          "seconds_per_operation": 0.024014000000000202
+        },
+        {
+          "maximum_seconds_per_operation": 0.027355000000000018,
+          "mib_per_second": 81.04381153009199,
+          "minimum_seconds_per_operation": 0.026052999999999882,
+          "name": "json_loads",
+          "sample_seconds_per_operation": [
+            0.02626099999999998,
+            0.026052999999999882,
+            0.026098000000000177,
+            0.026488999999999985,
+            0.02692300000000003,
+            0.027355000000000018,
+            0.02730100000000002
+          ],
+          "seconds_per_operation": 0.026488999999999985
+        },
+        {
+          "maximum_seconds_per_operation": 0.047892000000000046,
+          "mib_per_second": 45.09546315766422,
+          "minimum_seconds_per_operation": 0.04650900000000002,
+          "name": "streaming_parser_one_buffer",
+          "sample_seconds_per_operation": [
+            0.04650900000000002,
+            0.04760500000000001,
+            0.04764999999999997,
+            0.04714799999999997,
+            0.047714000000000034,
+            0.047892000000000046,
+            0.046879000000000004
+          ],
+          "seconds_per_operation": 0.04760500000000001
+        }
+      ],
+      "sample_count": 7,
+      "sha256": "f83b3b354030d5dd58740c68ac4fecef64cb730a0d12a90362a7f23077f50d78",
+      "text_character_count": 2251051,
+      "warmup_batches": 1
+    },
+    {
+      "file_name": "citm_catalog.json",
+      "name": "data/citm_catalog.json",
+      "payload_size_bytes": 1727204,
+      "repetitions_per_sample": 2,
+      "results": [
+        {
+          "maximum_seconds_per_operation": 0.002619499999999997,
+          "mib_per_second": 673.8351785617374,
+          "minimum_seconds_per_operation": 0.0022535000000001304,
+          "name": "reusable_complete_decoder",
+          "sample_seconds_per_operation": [
+            0.0024644999999998696,
+            0.002619499999999997,
+            0.0022535000000001304,
+            0.002481999999999873,
+            0.0023290000000000255,
+            0.0022969999999999935,
+            0.0024444999999999606
+          ],
+          "seconds_per_operation": 0.0024444999999999606
+        },
+        {
+          "maximum_seconds_per_operation": 0.0025975000000000303,
+          "mib_per_second": 672.3224873445298,
+          "minimum_seconds_per_operation": 0.0023765000000000036,
+          "name": "decode_complete_json",
+          "sample_seconds_per_operation": [
+            0.0024500000000000632,
+            0.0025975000000000303,
+            0.0024060000000001303,
+            0.0025759999999999117,
+            0.0023765000000000036,
+            0.00251900000000016,
+            0.0024290000000000145
+          ],
+          "seconds_per_operation": 0.0024500000000000632
+        },
+        {
+          "maximum_seconds_per_operation": 0.003202499999999997,
+          "mib_per_second": 652.6109722639302,
+          "minimum_seconds_per_operation": 0.0023170000000001245,
+          "name": "orjson_loads",
+          "sample_seconds_per_operation": [
+            0.002610500000000071,
+            0.002454999999999874,
+            0.002418999999999949,
+            0.0023170000000001245,
+            0.0025239999999999707,
+            0.002782000000000062,
+            0.003202499999999997
+          ],
+          "seconds_per_operation": 0.0025239999999999707
+        },
+        {
+          "maximum_seconds_per_operation": 0.002917999999999976,
+          "mib_per_second": 576.5453601659354,
+          "minimum_seconds_per_operation": 0.0026165000000000216,
+          "name": "msgspec_decode",
+          "sample_seconds_per_operation": [
+            0.00289549999999994,
+            0.0028120000000000367,
+            0.002917999999999976,
+            0.0026165000000000216,
+            0.002699500000000077,
+            0.0028570000000001095,
+            0.0029169999999998364
+          ],
+          "seconds_per_operation": 0.0028570000000001095
+        },
+        {
+          "maximum_seconds_per_operation": 0.004474499999999937,
+          "mib_per_second": 444.4657566093217,
+          "minimum_seconds_per_operation": 0.0035434999999999217,
+          "name": "ujson_loads",
+          "sample_seconds_per_operation": [
+            0.003614500000000076,
+            0.004474499999999937,
+            0.0035434999999999217,
+            0.003889999999999949,
+            0.003705999999999987,
+            0.0036724999999999675,
+            0.0037285000000000235
+          ],
+          "seconds_per_operation": 0.003705999999999987
+        },
+        {
+          "maximum_seconds_per_operation": 0.003951499999999886,
+          "mib_per_second": 429.3470856234138,
+          "minimum_seconds_per_operation": 0.0035815000000001262,
+          "name": "simdjson_loads",
+          "sample_seconds_per_operation": [
+            0.003793999999999853,
+            0.003835000000000033,
+            0.003951499999999886,
+            0.0038364999999997984,
+            0.003842500000000193,
+            0.0038599999999999746,
+            0.0035815000000001262
+          ],
+          "seconds_per_operation": 0.0038364999999997984
+        },
+        {
+          "maximum_seconds_per_operation": 0.005188999999999888,
+          "mib_per_second": 332.36281154038613,
+          "minimum_seconds_per_operation": 0.004843500000000001,
+          "name": "rapidjson_loads",
+          "sample_seconds_per_operation": [
+            0.005188999999999888,
+            0.005118500000000026,
+            0.005168000000000061,
+            0.004843500000000001,
+            0.0049559999999999604,
+            0.004919499999999966,
+            0.004875500000000033
+          ],
+          "seconds_per_operation": 0.0049559999999999604
+        },
+        {
+          "maximum_seconds_per_operation": 0.006305000000000005,
+          "mib_per_second": 272.55565384199815,
+          "minimum_seconds_per_operation": 0.0057755000000001555,
+          "name": "json_loads",
+          "sample_seconds_per_operation": [
+            0.006040000000000045,
+            0.00587049999999989,
+            0.0057755000000001555,
+            0.006061499999999942,
+            0.006305000000000005,
+            0.0060435000000000905,
+            0.006224000000000007
+          ],
+          "seconds_per_operation": 0.0060435000000000905
+        },
+        {
+          "maximum_seconds_per_operation": 0.011644999999999905,
+          "mib_per_second": 144.44601166257334,
+          "minimum_seconds_per_operation": 0.011154499999999956,
+          "name": "streaming_parser_one_buffer",
+          "sample_seconds_per_operation": [
+            0.011464499999999989,
+            0.0114034999999999,
+            0.0115289999999999,
+            0.011154499999999956,
+            0.011384999999999978,
+            0.011274500000000076,
+            0.011644999999999905
+          ],
+          "seconds_per_operation": 0.0114034999999999
+        }
+      ],
+      "sample_count": 7,
+      "sha256": "a73e7a883f6ea8de113dff59702975e60119b4b58d451d518a929f31c92e2059",
+      "text_character_count": 1727030,
+      "warmup_batches": 1
+    },
+    {
+      "file_name": "twitter.json",
+      "name": "data/twitter.json",
+      "payload_size_bytes": 631514,
+      "repetitions_per_sample": 6,
+      "results": [
+        {
+          "maximum_seconds_per_operation": 0.0009570000000000226,
+          "mib_per_second": 664.011777564479,
+          "minimum_seconds_per_operation": 0.0008641666666666659,
+          "name": "decode_complete_json",
+          "sample_seconds_per_operation": [
+            0.0008941666666666404,
+            0.0008946666666666362,
+            0.0009570000000000226,
+            0.0009085000000000528,
+            0.0008641666666666659,
+            0.0009123333333333298,
+            0.0009069999999999911
+          ],
+          "seconds_per_operation": 0.0009069999999999911
+        },
+        {
+          "maximum_seconds_per_operation": 0.0012335000000000356,
+          "mib_per_second": 649.4522094726417,
+          "minimum_seconds_per_operation": 0.0008465000000000463,
+          "name": "reusable_complete_decoder",
+          "sample_seconds_per_operation": [
+            0.001059166666666685,
+            0.0012335000000000356,
+            0.0008633333333332901,
+            0.0009346666666666023,
+            0.0008465000000000463,
+            0.0008953333333333221,
+            0.0009273333333333541
+          ],
+          "seconds_per_operation": 0.0009273333333333541
+        },
+        {
+          "maximum_seconds_per_operation": 0.0018461666666667043,
+          "mib_per_second": 513.5804567234155,
+          "minimum_seconds_per_operation": 0.0010443333333333509,
+          "name": "msgspec_decode",
+          "sample_seconds_per_operation": [
+            0.0016650000000000276,
+            0.0018461666666667043,
+            0.0014364999999999888,
+            0.0011020000000000103,
+            0.0011406666666666787,
+            0.0010443333333333509,
+            0.0011726666666666368
+          ],
+          "seconds_per_operation": 0.0011726666666666368
+        },
+        {
+          "maximum_seconds_per_operation": 0.0014533333333333065,
+          "mib_per_second": 454.7064418655835,
+          "minimum_seconds_per_operation": 0.0011258333333333443,
+          "name": "orjson_loads",
+          "sample_seconds_per_operation": [
+            0.0012728333333333897,
+            0.0013245000000000247,
+            0.0014533333333333065,
+            0.0013718333333333128,
+            0.0013728333333333786,
+            0.0011258333333333443,
+            0.0011426666666666623
+          ],
+          "seconds_per_operation": 0.0013245000000000247
+        },
+        {
+          "maximum_seconds_per_operation": 0.0016665000000000152,
+          "mib_per_second": 378.3428011209116,
+          "minimum_seconds_per_operation": 0.0015178333333333665,
+          "name": "ujson_loads",
+          "sample_seconds_per_operation": [
+            0.001631666666666698,
+            0.0015623333333333693,
+            0.0016663333333333252,
+            0.001575166666666646,
+            0.0015918333333333479,
+            0.0015178333333333665,
+            0.0016665000000000152
+          ],
+          "seconds_per_operation": 0.0015918333333333479
+        },
+        {
+          "maximum_seconds_per_operation": 0.0022570000000000276,
+          "mib_per_second": 325.8094034357472,
+          "minimum_seconds_per_operation": 0.0017246666666666706,
+          "name": "simdjson_loads",
+          "sample_seconds_per_operation": [
+            0.002213666666666706,
+            0.001895499999999976,
+            0.0018328333333332836,
+            0.0018484999999999936,
+            0.0017665000000000042,
+            0.0017246666666666706,
+            0.0022570000000000276
+          ],
+          "seconds_per_operation": 0.0018484999999999936
+        },
+        {
+          "maximum_seconds_per_operation": 0.0029961666666666886,
+          "mib_per_second": 245.5859788980522,
+          "minimum_seconds_per_operation": 0.0023298333333333274,
+          "name": "json_loads",
+          "sample_seconds_per_operation": [
+            0.0023298333333333274,
+            0.0024488333333333814,
+            0.002494166666666686,
+            0.002757999999999964,
+            0.0029961666666666886,
+            0.0024523333333332786,
+            0.0023643333333333385
+          ],
+          "seconds_per_operation": 0.0024523333333332786
+        },
+        {
+          "maximum_seconds_per_operation": 0.003171666666666647,
+          "mib_per_second": 232.15882386802747,
+          "minimum_seconds_per_operation": 0.002403666666666693,
+          "name": "rapidjson_loads",
+          "sample_seconds_per_operation": [
+            0.002756000000000055,
+            0.002594166666666675,
+            0.002666166666666673,
+            0.003171666666666647,
+            0.002495166666666678,
+            0.002403666666666693,
+            0.002489666666666649
+          ],
+          "seconds_per_operation": 0.002594166666666675
+        },
+        {
+          "maximum_seconds_per_operation": 0.004985333333333323,
+          "mib_per_second": 130.7315977535493,
+          "minimum_seconds_per_operation": 0.0043666666666667036,
+          "name": "streaming_parser_one_buffer",
+          "sample_seconds_per_operation": [
+            0.004985333333333323,
+            0.004963166666666667,
+            0.004636833333333312,
+            0.0044506666666666765,
+            0.0043666666666667036,
+            0.00447066666666666,
+            0.004606833333333338
+          ],
+          "seconds_per_operation": 0.004606833333333338
+        }
+      ],
+      "sample_count": 7,
+      "sha256": "a08b769f32b95f426cbc3abafcec65c1a19d3eb544d4ddf320eae142c99efc5d",
+      "text_character_count": 567916,
+      "warmup_batches": 1
+    },
+    {
+      "file_name": "gsoc-2018.json",
+      "name": "data/gsoc-2018.json",
+      "payload_size_bytes": 3327831,
+      "repetitions_per_sample": 1,
+      "results": [
+        {
+          "maximum_seconds_per_operation": 0.003890000000000171,
+          "mib_per_second": 934.2558004241548,
+          "minimum_seconds_per_operation": 0.003213999999999828,
+          "name": "reusable_complete_decoder",
+          "sample_seconds_per_operation": [
+            0.003890000000000171,
+            0.0036249999999999893,
+            0.003213999999999828,
+            0.0038399999999998435,
+            0.003319000000000294,
+            0.003351000000000326,
+            0.0033969999999996503
+          ],
+          "seconds_per_operation": 0.0033969999999996503
+        },
+        {
+          "maximum_seconds_per_operation": 0.005417000000000005,
+          "mib_per_second": 757.0770405631478,
+          "minimum_seconds_per_operation": 0.003438999999999748,
+          "name": "decode_complete_json",
+          "sample_seconds_per_operation": [
+            0.005040999999999851,
+            0.004240999999999939,
+            0.005417000000000005,
+            0.003903000000000212,
+            0.003438999999999748,
+            0.003782000000000174,
+            0.0041919999999997515
+          ],
+          "seconds_per_operation": 0.0041919999999997515
+        },
+        {
+          "maximum_seconds_per_operation": 0.004979999999999762,
+          "mib_per_second": 751.5195249917423,
+          "minimum_seconds_per_operation": 0.0034119999999999706,
+          "name": "msgspec_decode",
+          "sample_seconds_per_operation": [
+            0.003687000000000218,
+            0.004979999999999762,
+            0.0034119999999999706,
+            0.0035500000000006082,
+            0.004223000000000532,
+            0.004953999999999681,
+            0.004837000000000202
+          ],
+          "seconds_per_operation": 0.004223000000000532
+        },
+        {
+          "maximum_seconds_per_operation": 0.005719999999999281,
+          "mib_per_second": 740.6457302312604,
+          "minimum_seconds_per_operation": 0.0034359999999997726,
+          "name": "orjson_loads",
+          "sample_seconds_per_operation": [
+            0.005519999999999747,
+            0.004256999999999955,
+            0.0034359999999997726,
+            0.0038210000000002964,
+            0.004867999999999206,
+            0.005719999999999281,
+            0.004284999999999428
+          ],
+          "seconds_per_operation": 0.004284999999999428
+        },
+        {
+          "maximum_seconds_per_operation": 0.005635999999999974,
+          "mib_per_second": 617.5650815412846,
+          "minimum_seconds_per_operation": 0.004335999999999451,
+          "name": "simdjson_loads",
+          "sample_seconds_per_operation": [
+            0.005174999999999486,
+            0.004335999999999451,
+            0.005635999999999974,
+            0.005159999999999165,
+            0.004681999999999853,
+            0.005138999999999783,
+            0.004546999999999635
+          ],
+          "seconds_per_operation": 0.005138999999999783
+        },
+        {
+          "maximum_seconds_per_operation": 0.006319000000000408,
+          "mib_per_second": 592.9870990359458,
+          "minimum_seconds_per_operation": 0.004514999999999603,
+          "name": "ujson_loads",
+          "sample_seconds_per_operation": [
+            0.0053520000000002454,
+            0.004902999999999658,
+            0.006319000000000408,
+            0.005824999999999747,
+            0.0063029999999999475,
+            0.005137999999999643,
+            0.004514999999999603
+          ],
+          "seconds_per_operation": 0.0053520000000002454
+        },
+        {
+          "maximum_seconds_per_operation": 0.007512999999999437,
+          "mib_per_second": 444.9897579978635,
+          "minimum_seconds_per_operation": 0.006923999999999708,
+          "name": "json_loads",
+          "sample_seconds_per_operation": [
+            0.0069990000000004216,
+            0.006923999999999708,
+            0.007247999999999699,
+            0.007512999999999437,
+            0.007131999999999472,
+            0.007160999999999973,
+            0.006997000000000142
+          ],
+          "seconds_per_operation": 0.007131999999999472
+        },
+        {
+          "maximum_seconds_per_operation": 0.010222999999999871,
+          "mib_per_second": 349.98532797094185,
+          "minimum_seconds_per_operation": 0.008577999999999975,
+          "name": "streaming_parser_one_buffer",
+          "sample_seconds_per_operation": [
+            0.010222999999999871,
+            0.009068000000000076,
+            0.008577999999999975,
+            0.009592000000000489,
+            0.010172999999999988,
+            0.00897799999999993,
+            0.00896299999999961
+          ],
+          "seconds_per_operation": 0.009068000000000076
+        },
+        {
+          "maximum_seconds_per_operation": 0.00990800000000025,
+          "mib_per_second": 344.21550477662964,
+          "minimum_seconds_per_operation": 0.008822999999999581,
+          "name": "rapidjson_loads",
+          "sample_seconds_per_operation": [
+            0.009220000000000006,
+            0.00974699999999995,
+            0.009157000000000082,
+            0.008822999999999581,
+            0.0091019999999995,
+            0.00990800000000025,
+            0.0099020000000003
+          ],
+          "seconds_per_operation": 0.009220000000000006
+        }
+      ],
+      "sample_count": 7,
+      "sha256": "72f1ef4898d88049da856c2ab8f4ec3e2c968ce209b2bbfd16cef842eb2e185f",
+      "text_character_count": 3327831,
+      "warmup_batches": 1
+    },
+    {
+      "file_name": "poet.json",
+      "name": "data/poet.json",
+      "payload_size_bytes": 3512883,
+      "repetitions_per_sample": 1,
+      "results": [
+        {
+          "maximum_seconds_per_operation": 0.0050469999999993576,
+          "mib_per_second": 755.5584784935199,
+          "minimum_seconds_per_operation": 0.00401399999999974,
+          "name": "orjson_loads",
+          "sample_seconds_per_operation": [
+            0.004864999999999675,
+            0.0050469999999993576,
+            0.00401399999999974,
+            0.004186000000000689,
+            0.004102999999999746,
+            0.004779000000000089,
+            0.004433999999999827
+          ],
+          "seconds_per_operation": 0.004433999999999827
+        },
+        {
+          "maximum_seconds_per_operation": 0.005548000000000108,
+          "mib_per_second": 701.3075766464874,
+          "minimum_seconds_per_operation": 0.004462000000000188,
+          "name": "ujson_loads",
+          "sample_seconds_per_operation": [
+            0.004490000000000549,
+            0.004462000000000188,
+            0.005536000000000207,
+            0.004776999999999809,
+            0.004642999999999731,
+            0.005548000000000108,
+            0.005098000000000269
+          ],
+          "seconds_per_operation": 0.004776999999999809
+        },
+        {
+          "maximum_seconds_per_operation": 0.006120999999999377,
+          "mib_per_second": 603.7387445738914,
+          "minimum_seconds_per_operation": 0.005081000000000557,
+          "name": "reusable_complete_decoder",
+          "sample_seconds_per_operation": [
+            0.005081000000000557,
+            0.005628999999999884,
+            0.005101000000000688,
+            0.005576999999999721,
+            0.00554899999999936,
+            0.005516000000000076,
+            0.006120999999999377
+          ],
+          "seconds_per_operation": 0.00554899999999936
+        },
+        {
+          "maximum_seconds_per_operation": 0.006408999999999665,
+          "mib_per_second": 566.8606249814028,
+          "minimum_seconds_per_operation": 0.005336999999999925,
+          "name": "msgspec_decode",
+          "sample_seconds_per_operation": [
+            0.005378000000000327,
+            0.006383999999999723,
+            0.006408999999999665,
+            0.006240000000000023,
+            0.005910000000000082,
+            0.0055120000000004055,
+            0.005336999999999925
+          ],
+          "seconds_per_operation": 0.005910000000000082
+        },
+        {
+          "maximum_seconds_per_operation": 0.00696600000000025,
+          "mib_per_second": 512.0981800122111,
+          "minimum_seconds_per_operation": 0.005796000000000134,
+          "name": "decode_complete_json",
+          "sample_seconds_per_operation": [
+            0.006542000000000492,
+            0.006657000000000579,
+            0.005796000000000134,
+            0.00637200000000071,
+            0.00696600000000025,
+            0.006494,
+            0.006740999999999886
+          ],
+          "seconds_per_operation": 0.006542000000000492
+        },
+        {
+          "maximum_seconds_per_operation": 0.007699999999999818,
+          "mib_per_second": 480.65226594544447,
+          "minimum_seconds_per_operation": 0.006077000000000332,
+          "name": "json_loads",
+          "sample_seconds_per_operation": [
+            0.007699999999999818,
+            0.006901999999999298,
+            0.006911999999999807,
+            0.006970000000000809,
+            0.006077000000000332,
+            0.007433999999999941,
+            0.0075059999999993465
+          ],
+          "seconds_per_operation": 0.006970000000000809
+        },
+        {
+          "maximum_seconds_per_operation": 0.007704999999999629,
+          "mib_per_second": 462.855249190398,
+          "minimum_seconds_per_operation": 0.0068429999999999325,
+          "name": "simdjson_loads",
+          "sample_seconds_per_operation": [
+            0.00711800000000018,
+            0.007238000000000078,
+            0.007265999999999551,
+            0.00744500000000059,
+            0.007704999999999629,
+            0.007200999999999347,
+            0.0068429999999999325
+          ],
+          "seconds_per_operation": 0.007238000000000078
+        },
+        {
+          "maximum_seconds_per_operation": 0.011695999999999707,
+          "mib_per_second": 303.37284194876054,
+          "minimum_seconds_per_operation": 0.009935000000000471,
+          "name": "streaming_parser_one_buffer",
+          "sample_seconds_per_operation": [
+            0.011251999999999818,
+            0.010080000000000311,
+            0.010271999999999615,
+            0.011695999999999707,
+            0.011123000000000438,
+            0.011042999999999914,
+            0.009935000000000471
+          ],
+          "seconds_per_operation": 0.011042999999999914
+        },
+        {
+          "maximum_seconds_per_operation": 0.011897000000000268,
+          "mib_per_second": 291.1651567564695,
+          "minimum_seconds_per_operation": 0.010892999999999375,
+          "name": "rapidjson_loads",
+          "sample_seconds_per_operation": [
+            0.011506000000000682,
+            0.011550999999999867,
+            0.011492999999999753,
+            0.010892999999999375,
+            0.011897000000000268,
+            0.011619999999999742,
+            0.01098100000000013
+          ],
+          "seconds_per_operation": 0.011506000000000682
+        }
+      ],
+      "sample_count": 7,
+      "sha256": "2c2689a3b5df460f02e4dee2a36ac32cc27c43e2964fba7965eba3469bf617ec",
+      "text_character_count": 1707203,
+      "warmup_batches": 1
+    },
+    {
+      "file_name": "fgo.json",
+      "name": "data/fgo.json",
+      "payload_size_bytes": 48765043,
+      "repetitions_per_sample": 1,
+      "results": [
+        {
+          "maximum_seconds_per_operation": 0.2145279999999996,
+          "mib_per_second": 227.44975496068386,
+          "minimum_seconds_per_operation": 0.1998110000000004,
+          "name": "decode_complete_json",
+          "sample_seconds_per_operation": [
+            0.20399100000000026,
+            0.20446700000000106,
+            0.20137699999999903,
+            0.1998110000000004,
+            0.2145279999999996,
+            0.20545999999999864,
+            0.20936599999999927
+          ],
+          "seconds_per_operation": 0.20446700000000106
+        },
+        {
+          "maximum_seconds_per_operation": 0.22061200000000092,
+          "mib_per_second": 217.3399557316462,
+          "minimum_seconds_per_operation": 0.19510499999999986,
+          "name": "reusable_complete_decoder",
+          "sample_seconds_per_operation": [
+            0.21953099999999992,
+            0.22061200000000092,
+            0.2161849999999994,
+            0.2139780000000009,
+            0.19510499999999986,
+            0.19593400000000116,
+            0.19604400000000055
+          ],
+          "seconds_per_operation": 0.2139780000000009
+        },
+        {
+          "maximum_seconds_per_operation": 0.28245199999999926,
+          "mib_per_second": 195.2973768316595,
+          "minimum_seconds_per_operation": 0.22297599999999917,
+          "name": "orjson_loads",
+          "sample_seconds_per_operation": [
+            0.22845900000000086,
+            0.2381290000000007,
+            0.26485100000000017,
+            0.28245199999999926,
+            0.24516099999999952,
+            0.23544499999999857,
+            0.22297599999999917
+          ],
+          "seconds_per_operation": 0.2381290000000007
+        },
+        {
+          "maximum_seconds_per_operation": 0.2850079999999977,
+          "mib_per_second": 187.1738724625969,
+          "minimum_seconds_per_operation": 0.1969139999999996,
+          "name": "msgspec_decode",
+          "sample_seconds_per_operation": [
+            0.21644300000000527,
+            0.1969139999999996,
+            0.24245600000000422,
+            0.2534530000000004,
+            0.2636760000000038,
+            0.24846399999999846,
+            0.2850079999999977
+          ],
+          "seconds_per_operation": 0.24846399999999846
+        },
+        {
+          "maximum_seconds_per_operation": 0.361972999999999,
+          "mib_per_second": 137.6494534613559,
+          "minimum_seconds_per_operation": 0.33451000000000164,
+          "name": "ujson_loads",
+          "sample_seconds_per_operation": [
+            0.3352259999999987,
+            0.3590510000000009,
+            0.33451000000000164,
+            0.3378579999999971,
+            0.33773300000000006,
+            0.34594200000000086,
+            0.361972999999999
+          ],
+          "seconds_per_operation": 0.3378579999999971
+        },
+        {
+          "maximum_seconds_per_operation": 0.5775719999999964,
+          "mib_per_second": 109.51032572796665,
+          "minimum_seconds_per_operation": 0.36286400000000185,
+          "name": "simdjson_loads",
+          "sample_seconds_per_operation": [
+            0.5081709999999973,
+            0.5775719999999964,
+            0.482368000000001,
+            0.4214320000000029,
+            0.3650249999999957,
+            0.36286400000000185,
+            0.42467199999999394
+          ],
+          "seconds_per_operation": 0.42467199999999394
+        },
+        {
+          "maximum_seconds_per_operation": 0.4664110000000008,
+          "mib_per_second": 106.2270020592746,
+          "minimum_seconds_per_operation": 0.4312320000000014,
+          "name": "rapidjson_loads",
+          "sample_seconds_per_operation": [
+            0.4377980000000008,
+            0.4312320000000014,
+            0.4321170000000052,
+            0.4664110000000008,
+            0.4578550000000021,
+            0.4662489999999977,
+            0.43596399999999846
+          ],
+          "seconds_per_operation": 0.4377980000000008
+        },
+        {
+          "maximum_seconds_per_operation": 0.5416229999999977,
+          "mib_per_second": 89.5375240132815,
+          "minimum_seconds_per_operation": 0.5041620000000009,
+          "name": "json_loads",
+          "sample_seconds_per_operation": [
+            0.5416229999999977,
+            0.5083710000000004,
+            0.5041620000000009,
+            0.5215200000000024,
+            0.5278090000000013,
+            0.5194019999999995,
+            0.5095929999999989
+          ],
+          "seconds_per_operation": 0.5194019999999995
+        },
+        {
+          "maximum_seconds_per_operation": 0.9379449999999991,
+          "mib_per_second": 53.233392223137656,
+          "minimum_seconds_per_operation": 0.854376000000002,
+          "name": "streaming_parser_one_buffer",
+          "sample_seconds_per_operation": [
+            0.8736239999999995,
+            0.9379449999999991,
+            0.8808410000000002,
+            0.858236999999999,
+            0.8657280000000007,
+            0.8846269999999983,
+            0.854376000000002
+          ],
+          "seconds_per_operation": 0.8736239999999995
+        }
+      ],
+      "sample_count": 7,
+      "sha256": "4d0153f122aa4f049888dce8162d38b677e0127e2be90ae3afd998813f44a738",
+      "text_character_count": 45690911,
+      "warmup_batches": 1
+    }
+  ],
+  "upstream": {
+    "benchmark_definition": "tests/test_json.py::test_full_document_read",
+    "commit": "52d596b8a9bc0e00e654747298a8ec5b0d95152b",
+    "data_definition": "tests/conftest.py::SAMPLE_FILES",
+    "license": "Public Domain (upstream project metadata)",
+    "repository": "https://github.com/TkTech/json_benchmark"
+  }
+}

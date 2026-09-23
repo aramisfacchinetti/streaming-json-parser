@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title description">
+  <title id="title">streaming-json-parser</title>
+  <desc id="description">A Python library for complete JSON decoding, selective extraction, and strict incremental parsing as chunks arrive.</desc>
+  <rect width="1280" height="640" fill="#101b2a"/>
+  <path d="M0 520c240-110 389-28 598-78s411-176 682-117v315H0z" fill="#14263a"/>
+  <circle cx="1103" cy="121" r="178" fill="#183254" opacity=".62"/>
+  <circle cx="1103" cy="121" r="122" fill="none" stroke="#4e7fcf" stroke-width="2" opacity=".72"/>
+  <circle cx="1103" cy="121" r="74" fill="none" stroke="#56c9b0" stroke-width="2" opacity=".72"/>
+
+  <text x="78" y="92" fill="#83a9ee" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17" font-weight="700">PYTHON · JSON · STREAMING</text>
+  <text x="78" y="202" fill="#f4f7fb" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="58" font-weight="750">streaming-json-parser</text>
+  <text x="82" y="262" fill="#c3cfdf" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="25">Decode complete documents or parse JSON as chunks arrive.</text>
+  <text x="82" y="300" fill="#c3cfdf" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="22">Partial values. Explicit states. Selective extraction.</text>
+
+  <rect x="78" y="370" width="1124" height="188" rx="18" fill="#0b1420" stroke="#31445d"/>
+  <text x="112" y="414" fill="#8192a9" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" font-weight="700">CHUNKS ARRIVE</text>
+  <text x="112" y="457" fill="#f4f7fb" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20">{"message":"hel</text>
+  <rect x="108" y="482" width="114" height="32" rx="16" fill="#183254"/>
+  <text x="129" y="503" fill="#9bbaff" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="700">PARTIAL</text>
+
+  <path d="M468 463h102" stroke="#72839a" stroke-width="3"/>
+  <path d="m558 453 16 10-16 10" fill="none" stroke="#72839a" stroke-width="3"/>
+  <text x="478" y="440" fill="#8192a9" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13">then feed()</text>
+  <text x="485" y="496" fill="#c3cfdf" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">lo"}</text>
+
+  <text x="625" y="414" fill="#8192a9" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" font-weight="700">VALUE SO FAR</text>
+  <text x="625" y="457" fill="#e5fff7" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20">{"message": "hello"}</text>
+  <rect x="625" y="482" width="126" height="32" rx="16" fill="#174536"/>
+  <text x="646" y="503" fill="#8fe0c2" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="700">COMPLETE</text>
+  <text x="890" y="500" fill="#91a0b4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="44">{ } [ ]</text>
+</svg>

@@ -22,13 +22,49 @@ def test_collect_current_snapshot_uses_expected_sections(monkeypatch):
     monkeypatch.setattr(benchmark_parser, "collect_selective_access_snapshot", lambda: selective)
     monkeypatch.setattr(benchmark_parser, "collect_ndjson_selective_access_snapshot", lambda: ndjson)
     monkeypatch.setattr(benchmark_parser.time, "strftime", lambda _fmt: "2026-06-13")
+    monkeypatch.setattr(benchmark_parser, "_collect_environment_metadata", lambda: {"package_version": "0.2.0"})
+    monkeypatch.setattr(benchmark_parser, "_benchmark_methodology", lambda: {"samples_per_case": 7})
 
     snapshot = benchmark_parser.collect_current_snapshot()
 
     assert snapshot == {
         "date": "2026-06-13",
+        "environment": {"package_version": "0.2.0"},
+        "methodology": {"samples_per_case": 7},
         "sections": [complete, selective, ndjson],
     }
+
+
+def test_environment_distinguishes_source_from_installed_distribution(monkeypatch):
+    monkeypatch.setattr(benchmark_parser, "_PROJECT_VERSION", "0.2.0")
+    monkeypatch.setattr(
+        benchmark_parser,
+        "_distribution_version",
+        lambda name: "0.1.0" if name in {"streaming-json-parser", "streaming-json-parser-native"} else None,
+    )
+    monkeypatch.setattr(benchmark_parser, "_git_provenance", lambda: {"commit_sha": "abc", "working_tree_dirty": False})
+    monkeypatch.setattr(benchmark_parser, "_cpu_identifier", lambda: "test processor")
+    monkeypatch.setattr(benchmark_parser, "_backend_native", object())
+
+    environment = benchmark_parser._collect_environment_metadata()
+
+    assert environment["package_version"] == "0.2.0"
+    assert environment["installed_distribution_version"] == "0.1.0"
+    assert environment["native_extension"] == {
+        "installed": True,
+        "importable": True,
+        "version": "0.1.0",
+    }
+
+
+def test_complete_selective_snapshot_records_two_common_paths():
+    snapshot = benchmark_parser.collect_selective_access_snapshot(iterations=1)
+
+    assert snapshot["selected_paths"] == ["meta.name", "tail.count"]
+    assert snapshot["record_count"] == 5_000
+    assert snapshot["payload_size_bytes"] > 0
+    assert snapshot["samples_per_case"] == benchmark_parser._SAMPLE_COUNT
+    assert snapshot["warmup_invocations_per_case"] == benchmark_parser._WARMUP_INVOCATIONS
 
 
 def test_partial_benchmark_prefixes_include_the_final_payload():
@@ -727,6 +763,9 @@ def test_write_artifact_bundle_writes_scorecard(monkeypatch, tmp_path):
     assert created["scorecard"].exists()
     assert created["current_scorecard"].exists()
     assert "Current API Scorecard" in created["scorecard"].read_text()
+    assert created["chart:complete_1mb_object"].exists()
+    assert created["chart:complete_selective_extraction"].exists()
+    assert created["chart:ndjson_selective_extraction"].exists()
 
 
 def test_render_artifact_bundle_returns_expected_paths(monkeypatch, tmp_path):
@@ -750,6 +789,8 @@ def test_render_artifact_bundle_returns_expected_paths(monkeypatch, tmp_path):
     assert rendered["current_json"][0] == tmp_path / "benchmark-snapshot.json"
     assert rendered["current_scorecard"][0] == tmp_path / "current-api-scorecard.md"
     assert rendered["current_scorecard"][1] == f"score:2026-06-13:{tmp_path.name}\n"
+    assert rendered["chart:complete_1mb_object"][0] == tmp_path / "assets/benchmarks/complete-decoding.svg"
+    assert "No benchmark results recorded" in rendered["chart:complete_1mb_object"][1]
 
 
 def test_verify_artifact_bundle_returns_empty_for_matching_files(monkeypatch, tmp_path):
@@ -926,6 +967,44 @@ def test_verify_artifact_bundle_reports_missing_json(monkeypatch, tmp_path):
     mismatches = benchmark_parser.verify_artifact_bundle(tmp_path)
 
     assert mismatches == [f"missing:json:{tmp_path / 'benchmark-snapshot.json'}"]
+
+
+def test_verify_artifact_bundle_reports_stale_chart(monkeypatch, tmp_path):
+    snapshot = {
+        "date": "2026-06-13",
+        "sections": [
+            {"section": "complete_1mb_object", "iterations": 1, "results": []},
+            {"section": "complete_selective_extraction", "iterations": 1, "results": []},
+            {"section": "ndjson_selective_extraction", "iterations": 1, "results": []},
+        ],
+    }
+    monkeypatch.setattr(benchmark_parser, "collect_current_snapshot", lambda: snapshot)
+    benchmark_parser.write_artifact_bundle(tmp_path)
+    chart_path = tmp_path / "assets/benchmarks/complete-decoding.svg"
+    chart_path.write_text("stale\n")
+
+    mismatches = benchmark_parser.verify_artifact_bundle(tmp_path)
+
+    assert f"stale:chart:complete_1mb_object:{chart_path}" in mismatches
+
+
+def test_verify_artifact_bundle_reports_stale_dated_artifact(monkeypatch, tmp_path):
+    snapshot = {
+        "date": "2026-06-13",
+        "sections": [
+            {"section": "complete_1mb_object", "iterations": 1, "results": []},
+            {"section": "complete_selective_extraction", "iterations": 1, "results": []},
+            {"section": "ndjson_selective_extraction", "iterations": 1, "results": []},
+        ],
+    }
+    monkeypatch.setattr(benchmark_parser, "collect_current_snapshot", lambda: snapshot)
+    benchmark_parser.write_artifact_bundle(tmp_path)
+    dated_path = tmp_path / "benchmark-snapshot-2026-06-13.md"
+    dated_path.write_text("stale\n")
+
+    mismatches = benchmark_parser.verify_artifact_bundle(tmp_path)
+
+    assert f"stale:dated_markdown:{dated_path}" in mismatches
 
 
 def test_compare_snapshots_reports_structure_changes():

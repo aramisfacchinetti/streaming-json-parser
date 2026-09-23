@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="292" viewBox="0 0 1100 292" role="img" aria-labelledby="title description">
+  <title id="title">Strict incremental JSON parsing across two chunks</title>
+  <desc id="description">The first JSON chunk produces a partial value containing the received text. A second chunk continues the same parser and completes the value.</desc>
+  <rect width="1100" height="292" rx="18" fill="#f6f8fb"/>
+  <text x="40" y="40" fill="#182536" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="17" font-weight="700">The parser keeps its state between chunks</text>
+
+  <rect x="40" y="64" width="455" height="166" rx="12" fill="#ffffff" stroke="#d6deea"/>
+  <text x="64" y="94" fill="#526174" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="700">CHUNK 1</text>
+  <text x="64" y="125" fill="#182536" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16">{"message":"hel</text>
+  <path d="M66 151h110" stroke="#9aa8bb" stroke-width="2"/>
+  <path d="m171 145 9 6-9 6" fill="none" stroke="#9aa8bb" stroke-width="2"/>
+  <rect x="64" y="168" width="96" height="29" rx="14" fill="#e7eefc"/>
+  <text x="79" y="187" fill="#244eac" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="700">PARTIAL</text>
+  <text x="176" y="187" fill="#253142" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">{"message": "hel"}</text>
+
+  <path d="M510 146h74" stroke="#6c7c92" stroke-width="2.5"/>
+  <path d="m576 139 11 7-11 7" fill="none" stroke="#6c7c92" stroke-width="2.5"/>
+  <text x="518" y="128" fill="#526174" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">same parser</text>
+
+  <rect x="605" y="64" width="455" height="166" rx="12" fill="#ffffff" stroke="#d6deea"/>
+  <text x="629" y="94" fill="#526174" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="700">CHUNK 2</text>
+  <text x="629" y="125" fill="#182536" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16">lo"}</text>
+  <path d="M631 151h110" stroke="#9aa8bb" stroke-width="2"/>
+  <path d="m736 145 9 6-9 6" fill="none" stroke="#9aa8bb" stroke-width="2"/>
+  <rect x="629" y="168" width="108" height="29" rx="14" fill="#e4f4ef"/>
+  <text x="644" y="187" fill="#176348" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="700">COMPLETE</text>
+  <text x="752" y="187" fill="#253142" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">{"message": "hello"}</text>
+
+  <text x="40" y="265" fill="#526174" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13">Each poll reports an explicit status: EMPTY, PARTIAL, COMPLETE, or INVALID.</text>
+</svg>

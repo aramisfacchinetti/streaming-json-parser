@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="344" viewBox="0 0 1160 344" role="img" aria-labelledby="chart-title chart-description">
+  <title id="chart-title">Complete JSON decoding</title>
+  <desc id="chart-description">Complete JSON decoding. Horizontal bars show total process CPU time across each benchmark batch. All benchmark results are included and lower is better.</desc>
+  <rect width="1160" height="344" fill="#ffffff"/>
+  <text x="36" y="40" fill="#17202b" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="22" font-weight="700">Complete JSON decoding</text>
+  <text x="36" y="67" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="14">1,000,000-byte string value in a complete JSON object (1,000,012 serialized bytes) · 20 iterations · total process CPU time · lower is better</text>
+  <rect x="36" y="83" width="13" height="13" rx="2" fill="#315fc5"/>
+  <text x="56" y="94" fill="#344052" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12">streaming-json-parser API</text>
+  <rect x="247" y="83" width="13" height="13" rx="2" fill="#98a3b1"/>
+  <text x="267" y="94" fill="#344052" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12">alternative</text>
+  <text x="36" y="133" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">HighPerformanceStreamingJsonParser</text>
+  <rect x="390" y="119" width="600" height="18" rx="4" fill="#edf0f4"/>
+  <rect x="390" y="119" width="337.99" height="18" rx="4" fill="#315fc5"/>
+  <text x="1008" y="133" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">5.08 ms</text>
+  <text x="36" y="167" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">Reusable complete decoder</text>
+  <rect x="390" y="153" width="600" height="18" rx="4" fill="#edf0f4"/>
+  <rect x="390" y="153" width="339.85" height="18" rx="4" fill="#315fc5"/>
+  <text x="1008" y="167" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">5.11 ms</text>
+  <text x="36" y="201" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="400">simdjson, materialized as dict</text>
+  <rect x="390" y="187" width="600" height="18" rx="4" fill="#edf0f4"/>
+  <rect x="390" y="187" width="368.96" height="18" rx="4" fill="#98a3b1"/>
+  <text x="1008" y="201" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">5.55 ms</text>
+  <text x="36" y="235" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="400">msgspec</text>
+  <rect x="390" y="221" width="600" height="18" rx="4" fill="#edf0f4"/>
+  <rect x="390" y="221" width="390.96" height="18" rx="4" fill="#98a3b1"/>
+  <text x="1008" y="235" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">5.88 ms</text>
+  <text x="36" y="269" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">decode_complete_json</text>
+  <rect x="390" y="255" width="600" height="18" rx="4" fill="#edf0f4"/>
+  <rect x="390" y="255" width="498.11" height="18" rx="4" fill="#315fc5"/>
+  <text x="1008" y="269" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">7.49 ms</text>
+  <text x="36" y="303" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="400">orjson</text>
+  <rect x="390" y="289" width="600" height="18" rx="4" fill="#edf0f4"/>
+  <rect x="390" y="289" width="600.00" height="18" rx="4" fill="#98a3b1"/>
+  <text x="1008" y="303" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">9.03 ms</text>
+</svg>

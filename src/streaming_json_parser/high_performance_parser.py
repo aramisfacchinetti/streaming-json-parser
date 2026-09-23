@@ -302,6 +302,32 @@ def _has_dense_json_escapes_text(payload: str) -> bool:
     )
 
 
+def _has_non_ascii_unicode_escape(payload: str | bytes | bytearray) -> bool:
+    """Return whether a JSON string contains a ``\\u`` escape above ASCII."""
+    is_bytes = isinstance(payload, (bytes, bytearray))
+    backslash = ord("\\") if is_bytes else "\\"
+    marker = b"\\u" if is_bytes else r"\u"
+    index = 0
+    while True:
+        index = payload.find(marker, index)
+        if index < 0:
+            return False
+        preceding_backslashes = 0
+        cursor = index - 1
+        while cursor >= 0 and payload[cursor] == backslash:
+            preceding_backslashes += 1
+            cursor -= 1
+        if preceding_backslashes % 2 == 0 and index + 6 <= len(payload):
+            try:
+                codepoint = int(payload[index + 2:index + 6], 16)
+            except ValueError:
+                pass
+            else:
+                if codepoint > 0x7F:
+                    return True
+        index += 2
+
+
 def _looks_plain_ascii_text(payload: str) -> bool:
     if len(payload) <= _NDJSON_ESCAPE_PROBE_BYTES:
         return payload.isascii() and "\\" not in payload
@@ -1254,7 +1280,12 @@ def _select_complete_decoder(
         if decoder is not None:
             return decoder.decode
     if b"\\" in payload and _has_dense_json_escapes(payload):
-        if _backend_yyjson is not None and isinstance(payload, bytes) and payload.isascii():
+        if (
+            _backend_yyjson is not None
+            and isinstance(payload, bytes)
+            and payload.isascii()
+            and not _has_non_ascii_unicode_escape(payload)
+        ):
             return _backend_yyjson.loads
         if _backend_orjson is not None:
             return _backend_orjson.loads
@@ -1347,7 +1378,11 @@ def _select_complete_decoder(
         return _GLOBAL_MSGSPEC_DECODER.decode
     if _GLOBAL_SIMD_PARSER is not None:
         return _decode_simdjson_bytes
-    if _backend_yyjson is not None and payload.isascii():
+    if (
+        _backend_yyjson is not None
+        and payload.isascii()
+        and not _has_non_ascii_unicode_escape(payload)
+    ):
         return _backend_yyjson.loads
     if _backend_orjson is not None:
         return _backend_orjson.loads
@@ -1362,7 +1397,11 @@ def _select_complete_decoder_text(data: str, value_type: Any | None = None) -> A
         if decoder is not None:
             return decoder.decode
     if "\\" in data and _has_dense_json_escapes_text(data):
-        if _backend_yyjson is not None and data.isascii():
+        if (
+            _backend_yyjson is not None
+            and data.isascii()
+            and not _has_non_ascii_unicode_escape(data)
+        ):
             return _backend_yyjson.loads
         if _backend_orjson is not None:
             return _backend_orjson.loads
@@ -1455,7 +1494,11 @@ def _select_complete_decoder_text(data: str, value_type: Any | None = None) -> A
         return _GLOBAL_MSGSPEC_DECODER.decode
     if _GLOBAL_SIMD_PARSER is not None:
         return _decode_simdjson_bytes
-    if _backend_yyjson is not None and data.isascii():
+    if (
+        _backend_yyjson is not None
+        and data.isascii()
+        and not _has_non_ascii_unicode_escape(data)
+    ):
         return _backend_yyjson.loads
     if _backend_orjson is not None:
         return _backend_orjson.loads
