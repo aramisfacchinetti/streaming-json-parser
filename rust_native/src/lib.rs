@@ -889,7 +889,7 @@ impl NativeCore {
 fn python_float_from_raw(py: Python<'_>, raw: &str) -> PyResult<Py<PyAny>> {
     let raw = PyString::new(py, raw);
     let ptr = unsafe { pyo3::ffi::PyFloat_FromString(raw.as_ptr()) };
-    let value = unsafe { Py::<PyAny>::from_owned_ptr_or_err(py, ptr)? };
+    let value = unsafe { Bound::<PyAny>::from_owned_ptr_or_err(py, ptr)? }.unbind();
     if !value.bind(py).extract::<f64>()?.is_finite() {
         return Err(PyValueError::new_err("non-finite JSON number"));
     }
