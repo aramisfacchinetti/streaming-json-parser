@@ -1,128 +1,159 @@
 # Streaming JSON Parser
 
-## Objective
+High-performance JSON decoding and true incremental parsing for Python streams.
+The package chooses an appropriate backend for complete documents, NDJSON, typed
+decoding, selective extraction, and partial input. The strict incremental API
+owns the semantics that ordinary JSON decoders do not provide.
 
-This Python module implements a streaming JSON parser designed to process JSON data incrementally. The primary goal is to handle potentially incomplete JSON data streams, such as those produced by Large Language Models (LLMs), and return the current state of the parsed object at any time.
+The current release is `0.2.0` and is in beta while the public API settles.
 
-## Requirements Subset
+## Install
 
-The parser is specifically designed for a subset of JSON where:
+```bash
+python -m pip install streaming-json-parser
+```
 
-- Values consist solely of **strings** and **objects**.
-- **Escape sequences** in strings are not expected (though the implementation handles them).
-- **Duplicate keys** in objects are not expected (though the implementation may tolerate them, typically keeping the last value).
+Optional backend groups:
 
-## Features
+```bash
+python -m pip install 'streaming-json-parser[accelerated]'
+python -m pip install 'streaming-json-parser[partial]'
+```
 
-- **Incremental Parsing:** Consumes JSON data in chunks via the `consume()` method.
-- **Partial State Retrieval:** The `get()` method returns the currently parsed JSON object state, even if the input stream is incomplete.
-- **Partial String Values:** Returns partial string values as they are received (e.g., `{"key": "val` is valid partial state).
-- **Key Handling:** Keys are only included in the returned object once their value type (string or object start) is identified.
-- **Robustness:** Attempts to parse standard JSON efficiently and falls back to a more lenient state-machine parser for incomplete or slightly non-standard input.
-- **Non-Standard JSON:** Tolerates some non-standard features like unquoted keys and single-quoted strings.
-- **Error Handling:** Attempts to recover from invalid characters or find the first valid JSON object within the buffer.
-- **Support for Primitives & Arrays:** Although the requirements focused on strings and objects, the implementation also handles numbers, booleans, null, and arrays as values within objects.
+The Rust extension is optional. When a compatible wheel is available, install
+it separately:
 
-## Implementation Approach
+```bash
+python -m pip install streaming-json-parser-native
+```
 
-1.  **Buffering:** The `consume()` method appends incoming data chunks to an internal string buffer after escaping potentially invalid control characters.
-2.  **Parsing (`get()`):**
-    - The buffer is first cleaned by removing leading whitespace and any characters before the first `{`.
-    - It attempts parsing using `json.raw_decode` for speed and standard compliance. If a dictionary is successfully decoded, it's returned, and the consumed portion is removed from the buffer.
-    - If `raw_decode` fails (due to incomplete data, syntax errors, or non-standard features), it falls back to the `IterativeStateMachine`.
-    - The `IterativeStateMachine` parses the buffer character by character, maintaining state to handle nested structures, different value types (including non-standard ones like unquoted keys), and partial inputs.
-    - The `get()` method returns the dictionary parsed by either method and updates the buffer, removing the parsed object and any leading garbage before the _next_ potential object. If no complete object can be parsed, an empty dictionary is returned.
+The Python implementation remains functional without optional dependencies.
 
-## Assumptions and Extensions
+## Choose An API
 
-The implementation makes the following assumptions or extends the requirements:
+| Workload | API |
+| --- | --- |
+| Complete JSON document | `decode_complete_json` |
+| Complete document with zero-copy view semantics | `decode_complete_json_view` |
+| Newline-delimited JSON | `decode_ndjson` or `StreamingJsonParser(framing="ndjson")` |
+| True incremental parsing | `StreamingJsonParser` |
+| Structural partial snapshots | `decode_structural_partial_json` |
+| Repeated selective extraction | `make_tuned_json_path_extractor` |
 
-1.  **Handling of Additional Primitive Types:** Supports numbers (int, float), booleans (`true`, `false`), and `null` as values, beyond the specified strings and objects.
-2.  **Handling of Arrays:** Supports JSON arrays (`[...]`) as values within objects and can parse them, although `get()` only returns top-level _objects_ (`dict`).
-3.  **Non-Standard JSON Support:** Tolerates and parses:
-    - Unquoted object keys (e.g., `{key: "value"}`).
-    - Single-quoted strings (e.g., `{'key': 'value'}`).
-4.  **Escape Sequence Handling:** Actively handles standard JSON escape sequences (e.g., `\n`, `\"`) and Unicode escapes (`\uXXXX`) within strings, although they were "not expected".
-5.  **Control Character Handling:** Escapes invalid JSON control characters (U+0000 to U+001F) found _outside_ of strings in the input buffer using `\uXXXX` format during `consume`.
-6.  **Error Recovery/Robustness:** Discards leading non-JSON data before the first `{` and attempts to parse the first valid object found. Handles multiple objects in the buffer sequentially across `get()` calls.
-7.  **Duplicate Keys:** Does not explicitly prevent duplicate keys; standard Python dictionary behavior (last key wins) likely applies.
-8.  **Efficiency Strategy:** Uses `json.raw_decode` first, falling back to a custom parser only when necessary.
-9.  **Input Type:** `consume` expects string input; other types are ignored.
+There is no universal fastest decoder for every payload. The tuned factories
+calibrate compatible backends for a representative workload; the benchmark
+[scorecard](docs/current-api-scorecard.md) records the current evidence.
 
-## Algorithmic Complexity
-
-The efficiency of the `StreamingJsonParser` depends on the method being called and the nature of the input data stream.
-
-- **`consume(buffer: str)`:**
-
-  - **Time Complexity:** Primarily involves appending the new `buffer` (length `k`) to the internal buffer and performing basic character escaping. This is typically **O(k)**. String concatenation in Python can sometimes be O(N+k) where N is the current buffer size, but often optimized closer to O(k) amortized.
-  - **Space Complexity:** Increases the internal buffer size by O(k).
-
-- **`get()`:**
-
-  - **Time Complexity:**
-    - **Fast Path (`json.raw_decode`):** If the buffer starts with a complete, standard JSON object of size `P`, Python's built-in decoder is used. This is generally efficient, expected to be around **O(P)**.
-    - **Fallback Path (`IterativeStateMachine`):** If `raw_decode` fails (due to incomplete data or non-standard syntax), the custom state machine parses the buffer character by character. In the worst case, it might need to scan a significant portion of the buffer (size `B'`). The complexity is dominated by this scan and subsequent buffer slicing, making it roughly **O(B')**.
-    - **Overall:** The complexity varies. It's close to O(P) when complete objects are readily available and standard, and approaches O(B') when parsing incomplete or non-standard streams requires the iterative fallback.
-  - **Space Complexity:** Does not inherently allocate significant additional space beyond the internal representation of the parsed object being returned. The main space usage comes from the internal buffer managed by `consume`.
-
-- **Overall Space Complexity:** The primary factor is the internal buffer. In the worst case (e.g., a very large stream is consumed without any complete objects being parsed and removed by `get()`), the space complexity can be **O(T)**, where T is the total size of the streamed data received so far. In typical usage where `get()` successfully parses and removes objects, the buffer size stays manageable.
-
-## Usage
+## Complete Documents
 
 ```python
-# Import the class
-from streaming_json_parser import StreamingJsonParser
+from streaming_json_parser import decode_complete_json
 
-# Initialize the parser
-parser = StreamingJsonParser()
-
-# Consume JSON data chunks
-parser.consume('{"name": "Example", "data": {"val') # Partial object value
-parser.consume('ue": "stream"}')                  # Complete the object
-
-# Get the current state of the parsed object
-# This will return the first complete object found.
-current_object = parser.get()
-print(current_object)
-# Output: {'name': 'Example', 'data': {'value': 'stream'}}
-
-# The buffer is cleared/updated after get(), ready for the next object
-parser.consume('{"next": "object"}')
-next_object = parser.get()
-print(next_object)
-# Output: {'next': 'object'}
-
-# Example with partial string value
-parser = StreamingJsonParser()
-parser.consume('{"key": "partial string')
-partial_state = parser.get()
-print(partial_state)
-# Output: {'key': 'partial string'}
-
-parser.consume(' complete"}')
-complete_state = parser.get()
-print(complete_state)
-# Output: {'key': 'partial string complete'}
+value = decode_complete_json(b'{"name":"example","ok":true}')
+assert value == {"name": "example", "ok": True}
 ```
 
-## Setup
+For a stable repeated workload, bind a decoder once:
 
-To use this parser and run the tests, you need to install the dependencies:
+```python
+from streaming_json_parser import make_tuned_complete_json_decoder
 
-```bash
-pip install -r requirements.txt
+decode = make_tuned_complete_json_decoder(
+    sample=b'{"id":1,"name":"example"}',
+    payload_size_hint=1024,
+)
+value = decode(b'{"id":2,"name":"another"}')
 ```
 
-The `requirements.txt` file includes:
+## Incremental Streams
 
-- `pytest`
-- `pytest-cov`
+`StreamingJsonParser` preserves state across chunks and reports
+one of `EMPTY`, `PARTIAL`, `COMPLETE`, or `INVALID`.
 
-## Testing
+```python
+from streaming_json_parser import StreamingJsonParser, ParseStatus
 
-Unit tests are provided in `test_streaming_json_parser.py`. You can run them using `pytest`:
+parser = StreamingJsonParser()
+result = parser.feed(b'{"message":"hel')
+assert result.status is ParseStatus.PARTIAL
+assert result.value == {"message": "hel"}
+
+result = parser.feed(b'lo"}')
+assert result.status is ParseStatus.COMPLETE
+assert result.value == {"message": "hello"}
+```
+
+Call `finish()` when the input source ends. This is required for ambiguous root
+scalars and for an NDJSON stream whose final record has no trailing newline.
+
+```python
+parser = StreamingJsonParser()
+parser.consume("12")
+result = parser.finish()
+assert result.value == 12
+```
+
+For NDJSON, use `poll_many()` to drain complete records:
+
+```python
+parser = StreamingJsonParser(framing="ndjson")
+parser.consume(b'{"id":1}\n{"id":2}\n')
+assert parser.poll_many() == [{"id": 1}, {"id": 2}]
+```
+
+## Partial JSON
+
+Structural mode is useful when an unfinished string value does not need to be
+returned. It is a cumulative finisher, not a resumable strict state machine:
+
+```python
+from streaming_json_parser import decode_structural_partial_json
+
+assert decode_structural_partial_json('{"items":[1,2') == {"items": [1, 2]}
+assert decode_structural_partial_json('{"text":"hel') == {}
+assert decode_structural_partial_json('{"text":"hel', trailing_strings=True) == {
+    "text": "hel"
+}
+```
+
+Use `StreamingJsonParser(partial_mode="structural")` when the
+prefix arrives as many small chunks and a stateful parser is preferable.
+
+## Selective Extraction
+
+```python
+from streaming_json_parser import make_tuned_json_path_extractor
+
+extract = make_tuned_json_path_extractor(
+    ("meta", "name"),
+    ("meta", "count"),
+    framing="single",
+    sample={"meta": {"name": "example", "count": 1}},
+    payload_size_hint=1024,
+)
+assert extract(b'{"meta":{"name":"example","count":2}}') == ("example", 2)
+```
+
+## Development
 
 ```bash
+python -m pip install -e '.[test]'
 pytest
 ```
+
+Build and inspect release artifacts locally:
+
+```bash
+python -m build
+python -m twine check dist/*
+```
+
+Benchmark artifacts are optional and can be regenerated with:
+
+```bash
+make benchmark-artifacts
+make verify-benchmark-artifacts
+```
+
+The package supports Python 3.10 and later. It is distributed under the MIT
+license.

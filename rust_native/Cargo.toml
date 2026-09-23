@@ -1,0 +1,13 @@
+[package]
+name = "streaming_json_parser_native"
+version = "0.2.0"
+edition = "2021"
+
+[lib]
+name = "streaming_json_parser_native"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.27.1", features = ["extension-module"] }
+sonic-rs = "0.5.8"
+serde_json = "1.0"

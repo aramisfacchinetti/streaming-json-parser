@@ -4,24 +4,23 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "streaming-json-parser"
-version = "0.1.0"
+version = "0.2.0"
 authors = [
     { name = "Aramis Facchinetti", email = "aramis.facchinetti16@gmail.com" },
 ]
-description = "A streaming JSON parser that processes JSON data incrementally, handling partial states. Useful for incrementally parsing partial responses from streaming outputs of Large Language Models (LLMs)."
+description = "High-performance JSON decoding and true incremental parsing for Python streams."
 readme = "README.md"
-requires-python = ">=3.8"
-license = { text = "MIT" }
+requires-python = ">=3.10"
+license = "MIT"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Operating System :: OS Independent",
-    "Development Status :: 5 - Production/Stable",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Text Processing",
@@ -35,11 +34,43 @@ keywords = ["streaming", "json", "parser", "llm", "large language model", "incre
 [project.optional-dependencies]
 test = [
     "pytest>=8.3.5",
+    "msgspec>=0.18",
+    "pydantic-core>=2.0",
+    "jiter>=0.12",
+]
+accelerated = [
+    "msgspec>=0.18",
+    "orjson>=3.9",
+    "pysimdjson>=5",
+    "ujson>=5",
+    "python-rapidjson>=1.23",
+    "yyjson>=4",
+]
+partial = [
+    "pydantic-core>=2.0",
+    "jiter>=0.12",
+]
+benchmark = [
+    "ijson>=3.3",
+    "partial-json-parser>=0.2",
+    "partialjson>=1.1",
+    "json-repair>=0.63",
+    "jsonriver>=1.0",
+    "untruncate-json>=1.1",
+    "ujson>=5",
+    "python-rapidjson>=1.23",
+    "yyjson>=4",
+    "pydantic-core>=2.0",
+    "jiter>=0.12",
+]
+native-build = [
+    "maturin>=1,<2",
 ]
 
 [project.urls]
 Homepage = "https://github.com/aramisfacchinetti/streaming-json-parser"
 Repository = "https://github.com/aramisfacchinetti/streaming-json-parser"
+Issues = "https://github.com/aramisfacchinetti/streaming-json-parser/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

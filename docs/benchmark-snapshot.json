@@ -1,0 +1,144 @@
+{
+  "date": "2026-09-22",
+  "sections": [
+    {
+      "iterations": 20,
+      "payload_size": 1000000,
+      "results": [
+        {
+          "name": "msgspec_decode",
+          "seconds": 0.005487999999999937
+        },
+        {
+          "name": "facade_reusable_complete_decoder",
+          "seconds": 0.007369000000000014
+        },
+        {
+          "name": "simdjson_parse",
+          "seconds": 0.008910999999999891
+        },
+        {
+          "name": "hybrid_complete_once",
+          "seconds": 0.008965
+        },
+        {
+          "name": "facade_decode_complete_json",
+          "seconds": 0.00932700000000003
+        },
+        {
+          "name": "orjson_loads",
+          "seconds": 0.013222999999999985
+        }
+      ],
+      "section": "complete_1mb_object"
+    },
+    {
+      "iterations": 200,
+      "results": [
+        {
+          "name": "tuned_json_extract_once",
+          "seconds": 0.07172300000000043
+        },
+        {
+          "name": "repo_path_extractor",
+          "seconds": 0.07235900000000006
+        },
+        {
+          "name": "repo_extract_once",
+          "seconds": 0.07406299999999999
+        },
+        {
+          "name": "simdjson_proxy_manual",
+          "seconds": 0.07661600000000046
+        },
+        {
+          "name": "tuned_json_path_extractor",
+          "seconds": 0.0786030000000002
+        },
+        {
+          "name": "tuned_complete_extract_once",
+          "seconds": 0.08395700000000073
+        },
+        {
+          "name": "tuned_complete_path_extractor",
+          "seconds": 0.091024
+        },
+        {
+          "name": "typed_complete_path_extractor",
+          "seconds": 0.09160299999999966
+        },
+        {
+          "name": "typed_complete_extract_once",
+          "seconds": 0.09803700000000015
+        },
+        {
+          "name": "orjson_full_then_select",
+          "seconds": 0.3348779999999998
+        },
+        {
+          "name": "msgspec_full_then_select",
+          "seconds": 0.3704110000000007
+        }
+      ],
+      "section": "complete_selective_extraction"
+    },
+    {
+      "iterations": 25,
+      "results": [
+        {
+          "name": "tuned_json_path_extractor",
+          "seconds": 0.05975399999999986
+        },
+        {
+          "name": "tuned_ndjson_path_extractor",
+          "seconds": 0.06157699999999977
+        },
+        {
+          "name": "typed_ndjson_extract_once",
+          "seconds": 0.061661000000000854
+        },
+        {
+          "name": "typed_ndjson_path_extractor",
+          "seconds": 0.06291699999999878
+        },
+        {
+          "name": "tuned_json_extract_once",
+          "seconds": 0.06394599999999961
+        },
+        {
+          "name": "tuned_ndjson_extract_once",
+          "seconds": 0.068187
+        },
+        {
+          "name": "native_ndjson_path_extractor",
+          "seconds": 0.07624600000000115
+        },
+        {
+          "name": "native_ndjson_extract_once",
+          "seconds": 0.07888300000000115
+        },
+        {
+          "name": "orjson_full_then_select",
+          "seconds": 0.09975500000000181
+        },
+        {
+          "name": "msgspec_full_then_select",
+          "seconds": 0.09984800000000149
+        },
+        {
+          "name": "generic_ndjson_extract_once",
+          "seconds": 0.11547300000000149
+        },
+        {
+          "name": "generic_ndjson_path_extractor",
+          "seconds": 0.11593399999999932
+        },
+        {
+          "name": "simdjson_proxy_manual",
+          "seconds": 0.22244400000000297
+        }
+      ],
+      "section": "ndjson_selective_extraction"
+    }
+  ]
+}

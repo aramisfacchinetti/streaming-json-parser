@@ -1,0 +1,15 @@
+[build-system]
+requires = ["maturin>=1,<2"]
+build-backend = "maturin"
+
+[project]
+name = "streaming-json-parser-native"
+version = "0.2.0"
+description = "Experimental native extensions for streaming-json-parser."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+
+[tool.maturin]
+module-name = "streaming_json_parser_native"
+manifest-path = "Cargo.toml"

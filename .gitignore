@@ -172,3 +172,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Generated benchmark history; keep the current snapshot files only.
+docs/benchmark-snapshot-20*.json
+docs/benchmark-snapshot-20*.md
+docs/current-api-scorecard-20*.md
