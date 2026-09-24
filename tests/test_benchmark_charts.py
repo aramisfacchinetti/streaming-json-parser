@@ -50,3 +50,10 @@ def test_render_all_charts_has_stable_repository_paths(tmp_path):
         "chart:ndjson_selective_extraction",
     }
     assert all(path.parent == tmp_path / "assets" / "benchmarks" for path, _ in rendered.values())
+
+
+def test_streaming_parser_complete_input_label_is_explicit():
+    assert (
+        benchmark_charts._label("streaming_parser_single_chunk")
+        == "StreamingJsonParser — single chunk"
+    )

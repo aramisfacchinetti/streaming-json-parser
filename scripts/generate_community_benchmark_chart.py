@@ -10,7 +10,7 @@ from typing import Any
 RESULT_LABELS = {
     "decode_complete_json": "decode_complete_json",
     "reusable_complete_decoder": "Reusable complete decoder",
-    "streaming_parser_one_buffer": "StreamingJsonParser.feed (one buffer)",
+    "streaming_parser_single_chunk": "StreamingJsonParser — single chunk",
     "json_loads": "Python json.loads",
     "orjson_loads": "orjson",
     "msgspec_decode": "msgspec",
@@ -23,7 +23,7 @@ RESULT_LABELS = {
 PROJECT_RESULTS = {
     "decode_complete_json",
     "reusable_complete_decoder",
-    "streaming_parser_one_buffer",
+    "streaming_parser_single_chunk",
 }
 
 

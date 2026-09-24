@@ -49,12 +49,45 @@ def test_environment_distinguishes_source_from_installed_distribution(monkeypatc
     environment = benchmark_parser._collect_environment_metadata()
 
     assert environment["package_version"] == "0.2.0"
+    assert environment["package_module_version"] == "0.2.0"
     assert environment["installed_distribution_version"] == "0.1.0"
+    assert environment["package_source"] == "repository source tree"
     assert environment["native_extension"] == {
         "installed": True,
         "importable": True,
         "version": "0.1.0",
     }
+
+
+def test_environment_can_measure_the_installed_distribution(monkeypatch, tmp_path):
+    monkeypatch.setattr(benchmark_parser, "_USE_INSTALLED_PACKAGE", True)
+    monkeypatch.setattr(benchmark_parser, "_PROJECT_VERSION", "0.2.0")
+    monkeypatch.setattr(
+        benchmark_parser,
+        "_distribution_version",
+        lambda name: "0.2.1" if name.startswith("streaming-json-parser") else None,
+    )
+    monkeypatch.setattr(
+        benchmark_parser._PROJECT_MODULE,
+        "__file__",
+        str(tmp_path / "site-packages" / "streaming_json_parser" / "__init__.py"),
+    )
+    monkeypatch.setattr(benchmark_parser, "_git_provenance", lambda: {"commit_sha": "abc", "working_tree_dirty": False})
+    monkeypatch.setattr(benchmark_parser, "_cpu_identifier", lambda: "test processor")
+
+    environment = benchmark_parser._collect_environment_metadata()
+
+    assert environment["package_version"] == "0.2.1"
+    assert environment["package_module_version"] == "0.2.0"
+    assert environment["package_source"] == "installed distribution"
+
+
+def test_installed_mode_rejects_importing_the_repository_source(monkeypatch):
+    monkeypatch.setattr(benchmark_parser, "_USE_INSTALLED_PACKAGE", True)
+    monkeypatch.setattr(benchmark_parser, "_distribution_version", lambda _name: "0.2.1")
+
+    with pytest.raises(RuntimeError, match="must not import the repository source tree"):
+        benchmark_parser._collect_environment_metadata()
 
 
 def test_complete_selective_snapshot_records_two_common_paths():
@@ -581,7 +614,7 @@ def test_format_current_api_scorecard_renders_dynamic_links_and_values():
                     {"name": "simdjson_parse", "seconds": 0.004684},
                     {"name": "msgspec_decode", "seconds": 0.005132},
                     {"name": "orjson_loads", "seconds": 0.006165},
-                    {"name": "hybrid_complete_once", "seconds": 0.007136},
+                    {"name": "streaming_parser_single_chunk", "seconds": 0.007136},
                     {"name": "json_loads", "seconds": 0.020029},
                     {"name": "custom_complete_once", "seconds": 0.086587},
                 ],
@@ -622,6 +655,7 @@ def test_format_current_api_scorecard_renders_dynamic_links_and_values():
     assert "benchmark-snapshot-2026-06-13.json" in rendered
     assert "make benchmark-artifacts" in rendered
     assert "make verify-benchmark-artifacts" in rendered
+    assert "StreamingJsonParser — single chunk" in rendered
     assert "`simdjson_parse`: `0.004684s`" in rendered
     assert "`tuned_complete_path_extractor`: `0.060461s`" in rendered
     assert 'native `sonic-rs` path: `0.039371s-0.040976s`' in rendered
@@ -717,7 +751,7 @@ def test_write_artifact_bundle_writes_scorecard(monkeypatch, tmp_path):
                     {"name": "simdjson_parse", "seconds": 0.004684},
                     {"name": "msgspec_decode", "seconds": 0.005132},
                     {"name": "orjson_loads", "seconds": 0.006165},
-                    {"name": "hybrid_complete_once", "seconds": 0.007136},
+                    {"name": "streaming_parser_single_chunk", "seconds": 0.007136},
                     {"name": "json_loads", "seconds": 0.020029},
                     {"name": "custom_complete_once", "seconds": 0.086587},
                 ],

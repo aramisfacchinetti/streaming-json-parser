@@ -1,6 +1,6 @@
 # Current API Scorecard
 
-Date: 2026-09-23
+Date: 2026-09-24
 
 This scorecard is the shortest honest answer to "what should I use from this repo today?"
 
@@ -54,32 +54,32 @@ Use the structural parser when the caller needs a stateful snapshot after many s
 
 ## Latest Snapshot
 
-These numbers come from the current repo benchmark slices run on 2026-09-23; they report median process CPU seconds from seven measured batches after one untimed warm-up invocation, not wall-clock latency.
+These numbers come from the current repo benchmark slices run on 2026-09-24; they report median process CPU seconds from seven measured batches after one untimed warm-up invocation, not wall-clock latency.
 
 - Complete 1 MB object, 20 iterations:
-  - `simdjson_parse`: `0.005551s`
-  - `facade_decode_complete_json`: `0.007494s`
-  - `facade_reusable_complete_decoder`: `0.005113s`
-  - `msgspec_decode`: `0.005882s`
-  - `orjson_loads`: `0.009027s`
-  - `hybrid_complete_once`: `0.005085s`
+  - `simdjson_parse`: `0.007285s`
+  - `facade_decode_complete_json`: `0.008152s`
+  - `facade_reusable_complete_decoder`: `0.005577s`
+  - `msgspec_decode`: `0.008178s`
+  - `orjson_loads`: `0.011341s`
+  - `StreamingJsonParser — single chunk`: `0.006307s`
 
 - Complete selective extraction, 200 iterations:
-  - `simdjson_proxy_manual`: `0.060506s`
-  - `tuned_complete_path_extractor`: `0.060856s`
-  - `tuned_json_path_extractor`: `0.060322s`
-  - `repo_path_extractor`: `0.060333s`
-  - `orjson_full_then_select`: `0.285126s`
-  - `msgspec_full_then_select`: `0.313620s`
+  - `simdjson_proxy_manual`: `0.081011s`
+  - `tuned_complete_path_extractor`: `0.073133s`
+  - `tuned_json_path_extractor`: `0.073053s`
+  - `repo_path_extractor`: `0.092917s`
+  - `orjson_full_then_select`: `0.357683s`
+  - `msgspec_full_then_select`: `0.337088s`
 
 - NDJSON selective extraction, 25 iterations:
-  - `tuned_ndjson_path_extractor`: `0.067430s`
-  - `tuned_json_path_extractor`: `0.047164s`
-  - `typed_ndjson_path_extractor`: `0.044827s`
-  - `orjson_full_then_select`: `0.066419s`
-  - `msgspec_full_then_select`: `0.065789s`
-  - `generic_ndjson_path_extractor`: `0.091227s`
-  - native `sonic-rs` path: `0.051155s-0.051456s`
+  - `tuned_ndjson_path_extractor`: `0.061075s`
+  - `tuned_json_path_extractor`: `0.064452s`
+  - `typed_ndjson_path_extractor`: `0.050625s`
+  - `orjson_full_then_select`: `0.068556s`
+  - `msgspec_full_then_select`: `0.067465s`
+  - `generic_ndjson_path_extractor`: `0.120177s`
+  - native `sonic-rs` path: `0.056145s-0.059338s`
 
 ## Non-Recommendations
 

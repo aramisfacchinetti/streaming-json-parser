@@ -1,10 +1,12 @@
-.PHONY: help benchmark-artifacts verify-benchmark-artifacts benchmark-community-corpus verify-community-benchmark-artifacts benchmark-strategy benchmark-ndjson benchmark-partial benchmark-partial-matrix native-wheel native-install
+.PHONY: help benchmark-artifacts verify-benchmark-artifacts benchmark-community-corpus benchmark-release-artifacts verify-release-benchmark-artifacts verify-community-benchmark-artifacts benchmark-strategy benchmark-ndjson benchmark-partial benchmark-partial-matrix native-wheel native-install
 
 help:
 	@printf '%s\n' 'Available targets:'
 	@printf '%s\n' '  make benchmark-artifacts        Regenerate benchmark snapshot, scorecard, and SVG charts'
 	@printf '%s\n' '  make verify-benchmark-artifacts Verify generated reports and charts against the snapshot and current measurements'
 	@printf '%s\n' '  make benchmark-community-corpus Run the TkTech complete-load corpus (set COMMUNITY_JSON_CORPUS_DIR)'
+	@printf '%s\n' '  make benchmark-release-artifacts Generate all release benchmarks from a clean tree and installed packages'
+	@printf '%s\n' '  make verify-release-benchmark-artifacts Verify all release benchmarks using installed packages'
 	@printf '%s\n' '  make verify-community-benchmark-artifacts Verify the saved community corpus report and chart'
 	@printf '%s\n' '  make benchmark-strategy       Compare complete-document backend strategies'
 	@printf '%s\n' '  make benchmark-ndjson         Compare strict NDJSON backend strategies'
@@ -22,6 +24,16 @@ verify-benchmark-artifacts:
 benchmark-community-corpus:
 	@if [ -z "$(COMMUNITY_JSON_CORPUS_DIR)" ]; then echo 'Set COMMUNITY_JSON_CORPUS_DIR to TkTech/json_benchmark/data'; exit 2; fi
 	python scripts/benchmark_community_corpus.py --corpus-dir "$(COMMUNITY_JSON_CORPUS_DIR)" --output-dir docs
+
+benchmark-release-artifacts:
+	@if [ -z "$(COMMUNITY_JSON_CORPUS_DIR)" ]; then echo 'Set COMMUNITY_JSON_CORPUS_DIR to TkTech/json_benchmark/data'; exit 2; fi
+	python scripts/benchmark_release_artifacts.py --corpus-dir "$(COMMUNITY_JSON_CORPUS_DIR)"
+
+verify-release-benchmark-artifacts:
+	@if [ -z "$(COMMUNITY_JSON_CORPUS_DIR)" ]; then echo 'Set COMMUNITY_JSON_CORPUS_DIR to TkTech/json_benchmark/data'; exit 2; fi
+	@resolved_corpus_dir="$$(cd "$(COMMUNITY_JSON_CORPUS_DIR)" && pwd -P)"; \
+	BENCHMARK_USE_INSTALLED_PACKAGE=1 BENCHMARK_ARTIFACT_COMMAND="make benchmark-release-artifacts COMMUNITY_JSON_CORPUS_DIR=$$resolved_corpus_dir" python scripts/benchmark_parser.py --verify-artifacts
+	python scripts/benchmark_community_corpus.py --verify --output-dir docs
 
 verify-community-benchmark-artifacts:
 	python scripts/benchmark_community_corpus.py --verify --output-dir docs
