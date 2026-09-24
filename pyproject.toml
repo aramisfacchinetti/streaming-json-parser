@@ -71,6 +71,8 @@ native-build = [
 Homepage = "https://github.com/aramisfacchinetti/streaming-json-parser"
 Repository = "https://github.com/aramisfacchinetti/streaming-json-parser"
 Issues = "https://github.com/aramisfacchinetti/streaming-json-parser/issues"
+Changelog = "https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/CHANGELOG.md"
+Contributing = "https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/CONTRIBUTING.md"
 
 [tool.setuptools.packages.find]
 where = ["src"]

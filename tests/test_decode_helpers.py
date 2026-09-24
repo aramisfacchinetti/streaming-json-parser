@@ -419,6 +419,47 @@ def test_decode_complete_ascii_escape_payload_uses_yyjson_for_immutable_input(mo
     ) is yyjson_decoder
 
 
+@pytest.mark.parametrize("dense_escapes", [False, True])
+def test_complete_decoders_avoid_yyjson_for_non_ascii_unicode_escapes(
+    monkeypatch, dense_escapes
+):
+    yyjson_calls = []
+
+    def wrong_yyjson_decoder(payload):
+        yyjson_calls.append(payload)
+        return {"wrong": True}
+
+    monkeypatch.setattr(
+        high_performance_parser,
+        "_backend_yyjson",
+        SimpleNamespace(loads=wrong_yyjson_decoder),
+    )
+    monkeypatch.setattr(high_performance_parser, "_backend_orjson", None)
+    monkeypatch.setattr(high_performance_parser, "_GLOBAL_MSGSPEC_DECODER", None)
+    monkeypatch.setattr(high_performance_parser, "_GLOBAL_SIMD_PARSER", None)
+    monkeypatch.setattr(high_performance_parser, "_backend_native", None)
+
+    escape_prefix = r"\n" * 24 if dense_escapes else "x" * 100
+    payload = '{"text":"' + escape_prefix + r"\u2019" + '"}'
+    expected = json.loads(payload)
+
+    assert high_performance_parser._has_non_ascii_unicode_escape(payload)
+    assert high_performance_parser._has_non_ascii_unicode_escape(payload.encode())
+    assert high_performance_parser._has_non_ascii_unicode_escape(bytearray(payload.encode()))
+    assert not high_performance_parser._has_non_ascii_unicode_escape(r'{"text":"\\u2019"}')
+    assert not high_performance_parser._has_non_ascii_unicode_escape(r'{"text":"\u007f"}')
+    assert high_performance_parser._select_complete_decoder_text(payload) is json.loads
+    assert high_performance_parser._select_complete_decoder(payload.encode()) is json.loads
+    assert decode_complete_json(payload) == expected
+    assert decode_complete_json(payload.encode()) == expected
+    assert decode_complete_json(bytearray(payload.encode())) == expected
+    reusable = make_complete_json_decoder()
+    assert reusable(payload) == expected
+    assert reusable(payload.encode()) == expected
+    assert reusable(bytearray(payload.encode())) == expected
+    assert yyjson_calls == []
+
+
 def test_bytearray_calibration_does_not_wrap_yyjson(monkeypatch):
     yyjson_decoder = lambda payload: payload
     monkeypatch.setattr(

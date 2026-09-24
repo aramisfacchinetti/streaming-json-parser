@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 import argparse
+import importlib.metadata
 import json
 import math
+import platform
 import statistics
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -10,11 +13,16 @@ from typing import Callable
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_ROOT = REPO_ROOT / "src"
+SCRIPTS_ROOT = REPO_ROOT / "scripts"
 DOCS_ROOT = REPO_ROOT / "docs"
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
+if str(SCRIPTS_ROOT) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS_ROOT))
+
+from generate_benchmark_charts import render_benchmark_charts
 
 from streaming_json_parser.high_performance_parser import (
     HighPerformanceStreamingJsonParser,
@@ -42,7 +50,27 @@ from streaming_json_parser.high_performance_parser import (
     make_ndjson_typed_path_extractor,
     make_ndjson_decoder,
     make_tuned_ndjson_decoder,
+    _backend_native,
 )
+
+try:
+    from streaming_json_parser import __version__ as _PROJECT_VERSION
+except ImportError:  # pragma: no cover - editable source checkout without importable package
+    _PROJECT_VERSION = "unknown"
+
+
+_SAMPLE_COUNT = 7
+_WARMUP_INVOCATIONS = 1
+_BENCHMARK_PACKAGE_DISTRIBUTIONS = {
+    "msgspec": "msgspec",
+    "orjson": "orjson",
+    "simdjson": "pysimdjson",
+    "ujson": "ujson",
+    "rapidjson": "python-rapidjson",
+    "ijson": "ijson",
+    "pydantic-core": "pydantic-core",
+    "jiter": "jiter",
+}
 
 try:
     import ijson
@@ -103,10 +131,113 @@ def _is_strictly_compatible(
     return True
 
 
+def _distribution_version(distribution: str) -> str | None:
+    try:
+        return importlib.metadata.version(distribution)
+    except importlib.metadata.PackageNotFoundError:
+        return None
+
+
+def _git_provenance() -> dict[str, object]:
+    try:
+        revision = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=REPO_ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        status = subprocess.run(
+            ["git", "status", "--porcelain=v1", "--untracked-files=normal"],
+            cwd=REPO_ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout
+    except (OSError, subprocess.CalledProcessError):  # pragma: no cover - non-git source archive
+        return {"commit_sha": None, "working_tree_dirty": None}
+    return {"commit_sha": revision or None, "working_tree_dirty": bool(status.strip())}
+
+
+def _cpu_identifier() -> str:
+    processor = platform.processor().strip()
+    generic_identifiers = {
+        "arm",
+        "arm64",
+        "aarch64",
+        "x86_64",
+        "amd64",
+        "i386",
+        "i686",
+    }
+    if processor and processor.lower() not in generic_identifiers:
+        return processor
+
+    if platform.system() == "Darwin":
+        try:
+            result = subprocess.run(
+                ["sysctl", "-n", "machdep.cpu.brand_string"],
+                check=True,
+                capture_output=True,
+                text=True,
+                timeout=2,
+            )
+            processor = result.stdout.strip()
+        except (OSError, subprocess.SubprocessError):  # pragma: no cover - platform-specific
+            processor = ""
+    elif platform.system() == "Linux":
+        try:
+            for line in Path("/proc/cpuinfo").read_text().splitlines():
+                if line.lower().startswith(("model name", "hardware")):
+                    processor = line.partition(":")[2].strip()
+                    if processor:
+                        break
+        except OSError:  # pragma: no cover - platform-specific
+            processor = ""
+    return processor or "unavailable"
+
+
+def _collect_environment_metadata() -> dict[str, object]:
+    project_distribution = _distribution_version("streaming-json-parser")
+    native_version = _distribution_version("streaming-json-parser-native")
+    return {
+        **_git_provenance(),
+        "package_version": _PROJECT_VERSION,
+        "installed_distribution_version": project_distribution,
+        "package_source": "repository source tree",
+        "python_version": platform.python_version(),
+        "operating_system": platform.system(),
+        "platform": platform.platform(),
+        "architecture": platform.machine() or "unavailable",
+        "processor": _cpu_identifier(),
+        "benchmark_package_versions": {
+            key: _distribution_version(distribution)
+            for key, distribution in _BENCHMARK_PACKAGE_DISTRIBUTIONS.items()
+        },
+        "native_extension": {
+            "installed": native_version is not None,
+            "importable": _backend_native is not None,
+            "version": native_version,
+        },
+    }
+
+
+def _benchmark_methodology() -> dict[str, object]:
+    return {
+        "command": "make benchmark-artifacts",
+        "clock": "time.process_time",
+        "aggregation": f"median of {_SAMPLE_COUNT} measured batch totals per case",
+        "samples_per_case": _SAMPLE_COUNT,
+        "warmup_invocations_per_case": _WARMUP_INVOCATIONS,
+        "timing_scope": "process CPU time for the repeated operation batch; payload construction and decoder/extractor setup are outside the timed batch",
+    }
+
+
 def _measure(name: str, iterations: int, func: Callable[[], object]) -> tuple[str, float]:
-    func()
+    for _ in range(_WARMUP_INVOCATIONS):
+        func()
     samples = []
-    for _ in range(7):
+    for _ in range(_SAMPLE_COUNT):
         started = time.process_time()
         for _ in range(iterations):
             func()
@@ -195,7 +326,14 @@ def collect_complete_baseline_snapshot(payload_size: int = 1_000_000, iterations
     return {
         "section": "complete_1mb_object",
         "payload_size": payload_size,
+        "payload_size_bytes": len(payload_bytes),
+        "workload": (
+            f"{payload_size:,}-byte string value in a complete JSON object "
+            f"({len(payload_bytes):,} serialized bytes)"
+        ),
         "iterations": iterations,
+        "samples_per_case": _SAMPLE_COUNT,
+        "warmup_invocations_per_case": _WARMUP_INVOCATIONS,
         "results": results,
     }
 
@@ -469,8 +607,8 @@ def benchmark_selective_access(iterations: int) -> None:
             "tail": {"count": 5_000, "checksum": "abc123"},
         }
     ).encode()
-    paths = (("meta", "name"), ("tail", "count"), ("rows", 0, "a"))
-    typed_paths = (("meta", "name"), ("tail", "count"))
+    paths = (("meta", "name"), ("tail", "count"))
+    typed_paths = paths
     typed_sample = {
         "meta": {"version": 1, "name": "dataset", "ok": True},
         "tail": {"count": 5_000, "checksum": "abc123"},
@@ -506,7 +644,7 @@ def benchmark_selective_access(iterations: int) -> None:
             (
                 "simdjson_proxy_manual",
                 lambda: (
-                    lambda doc: (doc["meta"]["name"], doc["tail"]["count"], doc["rows"][0]["a"])
+                    lambda doc: (doc["meta"]["name"], doc["tail"]["count"])
                 )(parser.parse(payload)),
             )
         )
@@ -516,7 +654,7 @@ def benchmark_selective_access(iterations: int) -> None:
             (
                 "orjson_full_then_select",
                 lambda: (
-                    lambda doc: (doc["meta"]["name"], doc["tail"]["count"], doc["rows"][0]["a"])
+                    lambda doc: (doc["meta"]["name"], doc["tail"]["count"])
                 )(orjson.loads(payload)),
             )
         )
@@ -527,7 +665,7 @@ def benchmark_selective_access(iterations: int) -> None:
             (
                 "msgspec_full_then_select",
                 lambda: (
-                    lambda doc: (doc["meta"]["name"], doc["tail"]["count"], doc["rows"][0]["a"])
+                    lambda doc: (doc["meta"]["name"], doc["tail"]["count"])
                 )(decoder.decode(payload)),
             )
         )
@@ -548,8 +686,8 @@ def collect_selective_access_snapshot(iterations: int = 200) -> dict[str, object
             "tail": {"count": 5_000, "checksum": "abc123"},
         }
     ).encode()
-    paths = (("meta", "name"), ("tail", "count"), ("rows", 0, "a"))
-    typed_paths = (("meta", "name"), ("tail", "count"))
+    paths = (("meta", "name"), ("tail", "count"))
+    typed_paths = paths
     typed_sample = {
         "meta": {"version": 1, "name": "dataset", "ok": True},
         "tail": {"count": 5_000, "checksum": "abc123"},
@@ -585,7 +723,7 @@ def collect_selective_access_snapshot(iterations: int = 200) -> dict[str, object
             (
                 "simdjson_proxy_manual",
                 lambda: (
-                    lambda doc: (doc["meta"]["name"], doc["tail"]["count"], doc["rows"][0]["a"])
+                    lambda doc: (doc["meta"]["name"], doc["tail"]["count"])
                 )(parser.parse(payload)),
             )
         )
@@ -595,7 +733,7 @@ def collect_selective_access_snapshot(iterations: int = 200) -> dict[str, object
             (
                 "orjson_full_then_select",
                 lambda: (
-                    lambda doc: (doc["meta"]["name"], doc["tail"]["count"], doc["rows"][0]["a"])
+                    lambda doc: (doc["meta"]["name"], doc["tail"]["count"])
                 )(orjson.loads(payload)),
             )
         )
@@ -606,7 +744,7 @@ def collect_selective_access_snapshot(iterations: int = 200) -> dict[str, object
             (
                 "msgspec_full_then_select",
                 lambda: (
-                    lambda doc: (doc["meta"]["name"], doc["tail"]["count"], doc["rows"][0]["a"])
+                    lambda doc: (doc["meta"]["name"], doc["tail"]["count"])
                 )(decoder.decode(payload)),
             )
         )
@@ -616,6 +754,15 @@ def collect_selective_access_snapshot(iterations: int = 200) -> dict[str, object
     return {
         "section": "complete_selective_extraction",
         "iterations": iterations,
+        "samples_per_case": _SAMPLE_COUNT,
+        "warmup_invocations_per_case": _WARMUP_INVOCATIONS,
+        "payload_size_bytes": len(payload),
+        "record_count": 5_000,
+        "selected_paths": ["meta.name", "tail.count"],
+        "workload": (
+            f"5,000-row complete JSON document with 2 selected paths "
+            f"({len(payload):,} serialized bytes)"
+        ),
         "results": results,
     }
 
@@ -787,6 +934,15 @@ def collect_ndjson_selective_access_snapshot(iterations: int = 25) -> dict[str, 
     return {
         "section": "ndjson_selective_extraction",
         "iterations": iterations,
+        "samples_per_case": _SAMPLE_COUNT,
+        "warmup_invocations_per_case": _WARMUP_INVOCATIONS,
+        "payload_size_bytes": len(payload),
+        "record_count": 5_000,
+        "selected_paths": ["row.id", "row.value"],
+        "workload": (
+            f"5,000 newline-delimited records with 2 selected paths "
+            f"({len(payload):,} serialized bytes)"
+        ),
         "results": results,
     }
 
@@ -794,6 +950,8 @@ def collect_ndjson_selective_access_snapshot(iterations: int = 25) -> dict[str, 
 def collect_current_snapshot() -> dict[str, object]:
     return {
         "date": time.strftime("%Y-%m-%d"),
+        "environment": _collect_environment_metadata(),
+        "methodology": _benchmark_methodology(),
         "sections": [
             collect_complete_baseline_snapshot(),
             collect_selective_access_snapshot(),
@@ -803,12 +961,44 @@ def collect_current_snapshot() -> dict[str, object]:
 
 
 def _format_snapshot_markdown(snapshot: dict[str, object]) -> str:
+    methodology = snapshot.get("methodology", {})
+    environment = snapshot.get("environment", {})
+    package_versions = environment.get("benchmark_package_versions", {})
+    package_version_text = ", ".join(
+        f"{name}={version or 'not installed'}"
+        for name, version in sorted(package_versions.items())
+    )
+    native = environment.get("native_extension", {})
+    native_state = "available" if native.get("importable") else "not available"
+    native_version = native.get("version") or "unknown"
+    revision = environment.get("commit_sha") or "unavailable"
+    if environment.get("working_tree_dirty") is True:
+        revision += " (working tree had uncommitted changes)"
+    elif environment.get("working_tree_dirty") is False:
+        revision += " (clean working tree)"
+
     lines = [
         "# Benchmark Snapshot",
         "",
         f"Date: {snapshot['date']}",
         "",
-        "Times are median process CPU seconds from seven warmed samples; they are not wall-clock latency.",
+        "## Provenance",
+        "",
+        f"- Package source: `streaming-json-parser {environment.get('package_version', 'unknown')}` ({environment.get('package_source', 'unknown source')})",
+        f"- Installed distribution metadata: `streaming-json-parser {environment.get('installed_distribution_version') or 'not installed'}`",
+        f"- Source revision: `{revision}`",
+        f"- Python: `{environment.get('python_version', 'unknown')}`",
+        f"- Platform: `{environment.get('platform', 'unknown')}`",
+        f"- Architecture and processor: `{environment.get('architecture', 'unknown')}` / `{environment.get('processor', 'unknown')}`",
+        f"- Native extension: {native_state} (`streaming-json-parser-native {native_version}`)",
+        f"- Benchmark dependency versions: {package_version_text or 'not recorded'}",
+        "",
+        "## Methodology",
+        "",
+        f"- Command: `{methodology.get('command', 'make benchmark-artifacts')}`",
+        f"- Clock: `{methodology.get('clock', 'time.process_time')}`; process CPU time, not wall-clock latency.",
+        f"- Per case: {methodology.get('warmup_invocations_per_case', _WARMUP_INVOCATIONS)} untimed warm-up invocation(s), then {methodology.get('samples_per_case', _SAMPLE_COUNT)} measured batches; each batch repeats the operation count recorded per workload.",
+        "- The reported time is the median batch total. Payload construction and decoder/extractor setup are outside the timed batch.",
         "",
         "Generated by:",
         "",
@@ -821,7 +1011,11 @@ def _format_snapshot_markdown(snapshot: dict[str, object]) -> str:
     }
     for section in snapshot["sections"]:
         lines.extend(["", f"## {section_titles.get(section['section'], section['section'])}", ""])
-        if "payload_size" in section:
+        if "workload" in section:
+            lines.append(
+                f"{section['iterations']} iterations per measured batch; {section['workload']}."
+            )
+        elif "payload_size" in section:
             lines.append(f"{section['iterations']} iterations, payload size `{section['payload_size']}` bytes.")
         else:
             lines.append(f"{section['iterations']} iterations.")
@@ -876,18 +1070,66 @@ def _format_current_api_scorecard(
     def format_seconds(section_name: str, result_name: str) -> str:
         return f"{results[section_name][result_name]:.6f}s"
 
-    native_once = results["ndjson_selective_extraction"]["native_ndjson_extract_once"]
-    native_reused = results["ndjson_selective_extraction"]["native_ndjson_path_extractor"]
-    native_low = min(native_once, native_reused)
-    native_high = max(native_once, native_reused)
-    complete_facade_lines = [
-        f"  - `{label}`: `{format_seconds('complete_1mb_object', name)}`"
-        for name, label in (
-            ("facade_decode_complete_json", "facade_decode_complete_json"),
-            ("facade_reusable_complete_decoder", "facade_reusable_complete_decoder"),
+    complete_entries = [
+        (name, name)
+        for name in (
+            "simdjson_parse",
+            "facade_decode_complete_json",
+            "facade_reusable_complete_decoder",
+            "msgspec_decode",
+            "orjson_loads",
+            "hybrid_complete_once",
         )
         if name in results["complete_1mb_object"]
     ]
+    complete_lines = [
+        f"  - `{label}`: `{format_seconds('complete_1mb_object', name)}`"
+        for name, label in complete_entries
+    ]
+    selective_entries = [
+        (name, name)
+        for name in (
+            "simdjson_proxy_manual",
+            "tuned_complete_path_extractor",
+            "tuned_json_path_extractor",
+            "repo_path_extractor",
+            "orjson_full_then_select",
+            "msgspec_full_then_select",
+        )
+        if name in results["complete_selective_extraction"]
+    ]
+    selective_lines = [
+        f"  - `{label}`: `{format_seconds('complete_selective_extraction', name)}`"
+        for name, label in selective_entries
+    ]
+    ndjson_entries = [
+        (name, name)
+        for name in (
+            "tuned_ndjson_path_extractor",
+            "tuned_json_path_extractor",
+            "typed_ndjson_path_extractor",
+            "orjson_full_then_select",
+            "msgspec_full_then_select",
+            "generic_ndjson_path_extractor",
+        )
+        if name in results["ndjson_selective_extraction"]
+    ]
+    ndjson_lines = [
+        f"  - `{label}`: `{format_seconds('ndjson_selective_extraction', name)}`"
+        for name, label in ndjson_entries
+    ]
+    native_entries = [
+        results["ndjson_selective_extraction"][name]
+        for name in ("native_ndjson_extract_once", "native_ndjson_path_extractor")
+        if name in results["ndjson_selective_extraction"]
+    ]
+    if native_entries:
+        native_summary = (
+            f"native `sonic-rs` path: `{min(native_entries):.6f}s-"
+            f"{max(native_entries):.6f}s`"
+        )
+    else:
+        native_summary = "native selective path: optional extension not available in this benchmark run"
     snapshot_description = "current benchmark snapshot" if stable_links else "dated benchmark snapshot"
 
     lines = [
@@ -947,30 +1189,17 @@ def _format_current_api_scorecard(
         "",
         "## Latest Snapshot",
         "",
-        f"These numbers come from the current repo benchmark slices run on {snapshot_date}; they report median process CPU seconds from seven warmed samples, not wall-clock latency.",
+        f"These numbers come from the current repo benchmark slices run on {snapshot_date}; they report median process CPU seconds from seven measured batches after one untimed warm-up invocation, not wall-clock latency.",
         "",
         f"- Complete 1 MB object, {iterations['complete_1mb_object']} iterations:",
-        f"  - `simdjson_parse`: `{format_seconds('complete_1mb_object', 'simdjson_parse')}`",
-        *complete_facade_lines,
-        f"  - `msgspec_decode`: `{format_seconds('complete_1mb_object', 'msgspec_decode')}`",
-        f"  - `orjson_loads`: `{format_seconds('complete_1mb_object', 'orjson_loads')}`",
-        f"  - `hybrid_complete_once`: `{format_seconds('complete_1mb_object', 'hybrid_complete_once')}`",
+        *complete_lines,
         "",
         f"- Complete selective extraction, {iterations['complete_selective_extraction']} iterations:",
-        f"  - `simdjson_proxy_manual`: `{format_seconds('complete_selective_extraction', 'simdjson_proxy_manual')}`",
-        f"  - `tuned_complete_path_extractor`: `{format_seconds('complete_selective_extraction', 'tuned_complete_path_extractor')}`",
-        f"  - `tuned_json_path_extractor` with `framing=\"single\"`: `{format_seconds('complete_selective_extraction', 'tuned_json_path_extractor')}`",
-        f"  - `repo_path_extractor`: `{format_seconds('complete_selective_extraction', 'repo_path_extractor')}`",
-        f"  - `orjson_full_then_select`: `{format_seconds('complete_selective_extraction', 'orjson_full_then_select')}`",
+        *selective_lines,
         "",
         f"- NDJSON selective extraction, {iterations['ndjson_selective_extraction']} iterations:",
-        f"  - `tuned_ndjson_path_extractor`: `{format_seconds('ndjson_selective_extraction', 'tuned_ndjson_path_extractor')}`",
-        f"  - `tuned_json_path_extractor` with `framing=\"ndjson\"`: `{format_seconds('ndjson_selective_extraction', 'tuned_json_path_extractor')}`",
-        f"  - `typed_ndjson_path_extractor`: `{format_seconds('ndjson_selective_extraction', 'typed_ndjson_path_extractor')}`",
-        f"  - `orjson_full_then_select`: `{format_seconds('ndjson_selective_extraction', 'orjson_full_then_select')}`",
-        f"  - `msgspec_full_then_select`: `{format_seconds('ndjson_selective_extraction', 'msgspec_full_then_select')}`",
-        f"  - `generic_ndjson_path_extractor`: `{format_seconds('ndjson_selective_extraction', 'generic_ndjson_path_extractor')}`",
-        f"  - native `sonic-rs` path: `{native_low:.6f}s-{native_high:.6f}s`",
+        *ndjson_lines,
+        f"  - {native_summary}",
         "",
         "## Non-Recommendations",
         "",
@@ -1018,6 +1247,10 @@ def write_artifact_bundle(output_dir: Path, snapshot: dict[str, object] | None =
     current_scorecard_path.write_text(
         _format_current_api_scorecard(current_snapshot, resolved_output_dir, stable_links=True)
     )
+    chart_artifacts = render_benchmark_charts(current_snapshot, resolved_output_dir)
+    for chart_path, chart_content in chart_artifacts.values():
+        chart_path.parent.mkdir(parents=True, exist_ok=True)
+        chart_path.write_text(chart_content)
     return {
         "markdown": snapshot_paths["markdown"],
         "json": snapshot_paths["json"],
@@ -1025,6 +1258,7 @@ def write_artifact_bundle(output_dir: Path, snapshot: dict[str, object] | None =
         "current_markdown": current_markdown_path,
         "current_json": current_json_path,
         "current_scorecard": current_scorecard_path,
+        **{name: path for name, (path, _content) in chart_artifacts.items()},
     }
 
 
@@ -1038,7 +1272,7 @@ def render_artifact_bundle(output_dir: Path, snapshot: dict[str, object] | None 
     current_markdown_path = resolved_output_dir / "benchmark-snapshot.md"
     current_json_path = resolved_output_dir / "benchmark-snapshot.json"
     current_scorecard_path = resolved_output_dir / "current-api-scorecard.md"
-    return {
+    rendered = {
         "markdown": (markdown_path, _render_snapshot(current_snapshot, "markdown")),
         "json": (json_path, _render_snapshot(current_snapshot, "json")),
         "scorecard": (scorecard_path, _format_current_api_scorecard(current_snapshot, resolved_output_dir)),
@@ -1049,6 +1283,8 @@ def render_artifact_bundle(output_dir: Path, snapshot: dict[str, object] | None 
             _format_current_api_scorecard(current_snapshot, resolved_output_dir, stable_links=True),
         ),
     }
+    rendered.update(render_benchmark_charts(current_snapshot, resolved_output_dir))
+    return rendered
 
 
 def _compare_snapshots(
@@ -1067,13 +1303,30 @@ def _compare_snapshots(
         mismatches.append(f"structure:sections:{','.join(missing)}")
         return mismatches
 
+    if tracked_snapshot.get("methodology") != current_snapshot.get("methodology"):
+        mismatches.append("structure:methodology")
+
     for section_name, tracked_section in tracked_sections.items():
         current_section = current_sections[section_name]
-        if tracked_section.get("iterations") != current_section.get("iterations"):
-            mismatches.append(f"structure:iterations:{section_name}")
-            continue
-        if tracked_section.get("payload_size") != current_section.get("payload_size"):
-            mismatches.append(f"structure:payload_size:{section_name}")
+        structural_fields = (
+            "iterations",
+            "payload_size",
+            "payload_size_bytes",
+            "record_count",
+            "selected_paths",
+            "workload",
+            "samples_per_case",
+            "warmup_invocations_per_case",
+        )
+        changed_fields = [
+            field
+            for field in structural_fields
+            if tracked_section.get(field) != current_section.get(field)
+        ]
+        if changed_fields:
+            mismatches.append(
+                f"structure:workload:{section_name}:{','.join(changed_fields)}"
+            )
             continue
 
         tracked_results = {result["name"]: result["seconds"] for result in tracked_section["results"]}
@@ -1128,6 +1381,38 @@ def verify_artifact_bundle(output_dir: Path, snapshot: dict[str, object] | None 
     expected_scorecard = _format_current_api_scorecard(tracked_snapshot, resolved_output_dir, stable_links=True)
     if scorecard_path.read_text() != expected_scorecard:
         mismatches.append(f"stale:scorecard:{scorecard_path}")
+
+    snapshot_date = str(tracked_snapshot["date"])
+    dated_artifacts = (
+        (
+            "dated_markdown",
+            resolved_output_dir / f"benchmark-snapshot-{snapshot_date}.md",
+            _render_snapshot(tracked_snapshot, "markdown"),
+        ),
+        (
+            "dated_json",
+            resolved_output_dir / f"benchmark-snapshot-{snapshot_date}.json",
+            _render_snapshot(tracked_snapshot, "json"),
+        ),
+        (
+            "dated_scorecard",
+            resolved_output_dir / f"current-api-scorecard-{snapshot_date}.md",
+            _format_current_api_scorecard(tracked_snapshot, resolved_output_dir),
+        ),
+    )
+    for label, path, expected in dated_artifacts:
+        if not path.exists():
+            mismatches.append(f"missing:{label}:{path}")
+        elif path.read_text() != expected:
+            mismatches.append(f"stale:{label}:{path}")
+
+    for label, (chart_path, expected_chart) in render_benchmark_charts(
+        tracked_snapshot, resolved_output_dir
+    ).items():
+        if not chart_path.exists():
+            mismatches.append(f"missing:{label}:{chart_path}")
+        elif chart_path.read_text() != expected_chart:
+            mismatches.append(f"stale:{label}:{chart_path}")
 
     mismatches.extend(_compare_snapshots(tracked_snapshot, current_snapshot))
     return mismatches
