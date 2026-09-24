@@ -270,10 +270,10 @@ def _measure(
             decoder()
     elapsed_per_operation = []
     for _ in range(samples):
-        started = time.process_time()
+        started = time.perf_counter()
         for _ in range(repetitions):
             decoder()
-        elapsed_per_operation.append((time.process_time() - started) / repetitions)
+        elapsed_per_operation.append((time.perf_counter() - started) / repetitions)
     return elapsed_per_operation
 
 
@@ -355,13 +355,13 @@ def collect_snapshot(
             ),
             "operation": "decode the complete document into an ordinary Python JSON value",
             "input": "UTF-8 data file decoded to Python str before timing; file I/O and UTF-8 decoding are outside timing",
-            "clock": "time.process_time",
-            "aggregation": f"median per-operation process CPU time across {samples} measured batches",
+            "clock": "time.perf_counter",
+            "aggregation": f"median per-operation elapsed time across {samples} measured batches",
             "samples_per_case": samples,
             "warmup_invocations_per_case": warmups,
             "repetitions_per_sample": "max(1, floor(4 MiB / UTF-8 file byte length)), capped at 50; same count for every compatible decoder on a file",
             "comparison": "each candidate output was compared recursively with Python json.loads; booleans, integers, and floats must retain their exact Python value types, and incompatible candidates are excluded for that file",
-            "throughput": "UTF-8 file bytes divided by median per-operation CPU time; chart uses MiB/s, higher is better",
+            "throughput": "UTF-8 file bytes divided by median per-operation elapsed time; chart uses MiB/s, higher is better",
             "scope_note": "This adapts only the upstream complete-load workload. Its SAX/event streaming cases are not comparable because this library materializes Python values.",
         },
         "excluded_candidates": excluded,
@@ -439,7 +439,7 @@ def _format_report(snapshot: dict[str, Any]) -> str:
                 "",
                 f"SHA-256: `{section['sha256']}`. {section['repetitions_per_sample']} load(s) per sample; {section['sample_count']} samples.",
                 "",
-                "| Rank | Decoder | Median CPU ms/load | MiB/s |",
+                "| Rank | Decoder | Median elapsed ms/load | MiB/s |",
                 "| ---: | --- | ---: | ---: |",
             ]
         )
