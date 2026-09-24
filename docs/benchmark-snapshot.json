@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-23",
+  "date": "2026-09-24",
   "environment": {
     "architecture": "arm64",
     "benchmark_package_versions": {
@@ -12,25 +12,26 @@
       "simdjson": "7.0.2",
       "ujson": "5.12.1"
     },
-    "commit_sha": "6b11966cc4f10c07ed2ac555da7b298aba2d3151",
-    "installed_distribution_version": "0.2.0",
+    "commit_sha": "80f3576cc3c6e899c26bff70ca7a2324d4496e08",
+    "installed_distribution_version": "0.2.1",
     "native_extension": {
       "importable": true,
       "installed": true,
-      "version": "0.2.0"
+      "version": "0.2.1"
     },
     "operating_system": "Darwin",
-    "package_source": "repository source tree",
-    "package_version": "0.2.0",
+    "package_module_version": "0.2.0",
+    "package_source": "installed distribution",
+    "package_version": "0.2.1",
     "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
     "processor": "Apple M2 Pro",
     "python_version": "3.14.0",
-    "working_tree_dirty": true
+    "working_tree_dirty": false
   },
   "methodology": {
     "aggregation": "median of 7 measured batch totals per case",
     "clock": "time.process_time",
-    "command": "make benchmark-artifacts",
+    "command": "make benchmark-release-artifacts COMMUNITY_JSON_CORPUS_DIR=/private/tmp/tktech-json-benchmark/data",
     "samples_per_case": 7,
     "timing_scope": "process CPU time for the repeated operation batch; payload construction and decoder/extractor setup are outside the timed batch",
     "warmup_invocations_per_case": 1
@@ -42,28 +43,28 @@
       "payload_size_bytes": 1000012,
       "results": [
         {
-          "name": "hybrid_complete_once",
-          "seconds": 0.005084999999999978
+          "name": "facade_reusable_complete_decoder",
+          "seconds": 0.005576999999999999
         },
         {
-          "name": "facade_reusable_complete_decoder",
-          "seconds": 0.005112999999999979
+          "name": "streaming_parser_single_chunk",
+          "seconds": 0.006306999999999979
         },
         {
           "name": "simdjson_parse",
-          "seconds": 0.005551000000000028
-        },
-        {
-          "name": "msgspec_decode",
-          "seconds": 0.005881999999999998
+          "seconds": 0.007284999999999986
         },
         {
           "name": "facade_decode_complete_json",
-          "seconds": 0.007494000000000001
+          "seconds": 0.008151999999999993
+        },
+        {
+          "name": "msgspec_decode",
+          "seconds": 0.008177999999999963
         },
         {
           "name": "orjson_loads",
-          "seconds": 0.009027000000000007
+          "seconds": 0.011341000000000045
         }
       ],
       "samples_per_case": 7,
@@ -77,48 +78,48 @@
       "record_count": 5000,
       "results": [
         {
-          "name": "tuned_json_path_extractor",
-          "seconds": 0.06032200000000021
-        },
-        {
-          "name": "repo_path_extractor",
-          "seconds": 0.06033299999999997
-        },
-        {
-          "name": "repo_extract_once",
-          "seconds": 0.06043200000000004
-        },
-        {
           "name": "tuned_complete_extract_once",
-          "seconds": 0.0604429999999998
+          "seconds": 0.07185400000000008
         },
         {
-          "name": "simdjson_proxy_manual",
-          "seconds": 0.06050600000000017
-        },
-        {
-          "name": "tuned_json_extract_once",
-          "seconds": 0.06054599999999999
-        },
-        {
-          "name": "tuned_complete_path_extractor",
-          "seconds": 0.06085600000000024
-        },
-        {
-          "name": "typed_complete_path_extractor",
-          "seconds": 0.06423400000000012
+          "name": "tuned_json_path_extractor",
+          "seconds": 0.07305299999999981
         },
         {
           "name": "typed_complete_extract_once",
-          "seconds": 0.06621999999999995
+          "seconds": 0.07312999999999992
         },
         {
-          "name": "orjson_full_then_select",
-          "seconds": 0.285126
+          "name": "tuned_complete_path_extractor",
+          "seconds": 0.07313299999999989
+        },
+        {
+          "name": "typed_complete_path_extractor",
+          "seconds": 0.076214
+        },
+        {
+          "name": "tuned_json_extract_once",
+          "seconds": 0.07897700000000007
+        },
+        {
+          "name": "simdjson_proxy_manual",
+          "seconds": 0.08101100000000017
+        },
+        {
+          "name": "repo_extract_once",
+          "seconds": 0.089669
+        },
+        {
+          "name": "repo_path_extractor",
+          "seconds": 0.09291699999999992
         },
         {
           "name": "msgspec_full_then_select",
-          "seconds": 0.31362000000000023
+          "seconds": 0.3370879999999996
+        },
+        {
+          "name": "orjson_full_then_select",
+          "seconds": 0.35768299999999975
         }
       ],
       "samples_per_case": 7,
@@ -137,55 +138,55 @@
       "results": [
         {
           "name": "typed_ndjson_path_extractor",
-          "seconds": 0.04482699999999973
-        },
-        {
-          "name": "typed_ndjson_extract_once",
-          "seconds": 0.04611799999999988
-        },
-        {
-          "name": "tuned_json_path_extractor",
-          "seconds": 0.04716399999999865
-        },
-        {
-          "name": "tuned_ndjson_extract_once",
-          "seconds": 0.04716999999999949
-        },
-        {
-          "name": "tuned_json_extract_once",
-          "seconds": 0.049386999999999404
-        },
-        {
-          "name": "native_ndjson_extract_once",
-          "seconds": 0.05115499999999962
+          "seconds": 0.05062500000000014
         },
         {
           "name": "native_ndjson_path_extractor",
-          "seconds": 0.051455999999999946
+          "seconds": 0.05614500000000078
         },
         {
-          "name": "msgspec_full_then_select",
-          "seconds": 0.06578899999999877
+          "name": "typed_ndjson_extract_once",
+          "seconds": 0.05736600000000003
         },
         {
-          "name": "orjson_full_then_select",
-          "seconds": 0.06641899999999978
+          "name": "native_ndjson_extract_once",
+          "seconds": 0.059338000000000335
         },
         {
           "name": "tuned_ndjson_path_extractor",
-          "seconds": 0.06742999999999988
+          "seconds": 0.06107500000000066
+        },
+        {
+          "name": "tuned_ndjson_extract_once",
+          "seconds": 0.06407899999999955
+        },
+        {
+          "name": "tuned_json_path_extractor",
+          "seconds": 0.06445199999999929
+        },
+        {
+          "name": "tuned_json_extract_once",
+          "seconds": 0.0651250000000001
+        },
+        {
+          "name": "msgspec_full_then_select",
+          "seconds": 0.06746499999999855
+        },
+        {
+          "name": "orjson_full_then_select",
+          "seconds": 0.06855600000000095
         },
         {
           "name": "generic_ndjson_extract_once",
-          "seconds": 0.08993999999999858
+          "seconds": 0.10158500000000004
         },
         {
           "name": "generic_ndjson_path_extractor",
-          "seconds": 0.09122699999999995
+          "seconds": 0.12017699999999998
         },
         {
           "name": "simdjson_proxy_manual",
-          "seconds": 0.15281500000000037
+          "seconds": 0.16771399999999836
         }
       ],
       "samples_per_case": 7,
