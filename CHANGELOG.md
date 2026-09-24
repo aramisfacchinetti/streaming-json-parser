@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.2.2 - 2026-09-24
+
+- Updated README links so the PyPI project page can render its documentation and benchmark images.
+- Synchronized the public `__version__` attribute with the 0.2.2 core distribution.
+- Refreshed benchmark provenance for core 0.2.2 with native 0.2.1.
+
 ## 0.2.1 - 2026-09-24
 
 - Fixed complete JSON decoding for non-ASCII Unicode escapes when the optional `yyjson` backend is installed.

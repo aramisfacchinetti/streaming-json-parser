@@ -135,10 +135,10 @@ The native package is optional. Backend-specific packages such as `msgspec`, `or
 
 The benchmark snapshot includes the date, source revision and dirty-state flag, Python and platform details, processor and architecture, installed benchmark-package versions, native-extension availability, payload sizes, record counts, and selected paths. The methodology records its clock, warm-up, sample count, and repetitions.
 
-To reproduce the published benchmark artifacts, install the 0.2.1 release, clone the pinned community corpus, and run the guarded release target from a clean Git checkout:
+To reproduce the published benchmark artifacts, install core 0.2.2 and native 0.2.1, clone the pinned community corpus, and run the guarded release target from a clean Git checkout:
 
 ```bash
-python -m pip install 'streaming-json-parser[benchmark,accelerated]==0.2.1'
+python -m pip install 'streaming-json-parser[benchmark,accelerated]==0.2.2'
 python -m pip install 'streaming-json-parser-native==0.2.1'
 git clone https://github.com/TkTech/json_benchmark.git /tmp/tktech-json-benchmark
 git -C /tmp/tktech-json-benchmark checkout 52d596b8a9bc0e00e654747298a8ec5b0d95152b
