@@ -36,7 +36,7 @@ def test_collect_current_snapshot_uses_expected_sections(monkeypatch):
 
 
 def test_environment_distinguishes_source_from_installed_distribution(monkeypatch):
-    monkeypatch.setattr(benchmark_parser, "_PROJECT_VERSION", "0.2.0")
+    monkeypatch.setattr(benchmark_parser, "_PROJECT_VERSION", "0.2.2")
     monkeypatch.setattr(
         benchmark_parser,
         "_distribution_version",
@@ -48,8 +48,8 @@ def test_environment_distinguishes_source_from_installed_distribution(monkeypatc
 
     environment = benchmark_parser._collect_environment_metadata()
 
-    assert environment["package_version"] == "0.2.0"
-    assert environment["package_module_version"] == "0.2.0"
+    assert environment["package_version"] == "0.2.2"
+    assert environment["package_module_version"] == "0.2.2"
     assert environment["installed_distribution_version"] == "0.1.0"
     assert environment["package_source"] == "repository source tree"
     assert environment["native_extension"] == {
@@ -61,7 +61,7 @@ def test_environment_distinguishes_source_from_installed_distribution(monkeypatc
 
 def test_environment_can_measure_the_installed_distribution(monkeypatch, tmp_path):
     monkeypatch.setattr(benchmark_parser, "_USE_INSTALLED_PACKAGE", True)
-    monkeypatch.setattr(benchmark_parser, "_PROJECT_VERSION", "0.2.0")
+    monkeypatch.setattr(benchmark_parser, "_PROJECT_VERSION", "0.2.2")
     monkeypatch.setattr(
         benchmark_parser,
         "_distribution_version",
@@ -78,7 +78,7 @@ def test_environment_can_measure_the_installed_distribution(monkeypatch, tmp_pat
     environment = benchmark_parser._collect_environment_metadata()
 
     assert environment["package_version"] == "0.2.1"
-    assert environment["package_module_version"] == "0.2.0"
+    assert environment["package_module_version"] == "0.2.2"
     assert environment["package_source"] == "installed distribution"
 
 

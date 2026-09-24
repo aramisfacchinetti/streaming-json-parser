@@ -43,13 +43,13 @@ def test_release_version_check_accepts_core_and_community_metadata_shapes():
     )
     core_environment = {
         "installed_distribution_version": core_version,
-        "package_module_version": "0.2.0",
+        "package_module_version": core_version,
         "package_source": "installed distribution",
         "native_extension": {"version": native_version, "importable": True},
     }
     community_environment = {
         "installed_distribution_version": core_version,
-        "package_module_version": "0.2.0",
+        "package_module_version": core_version,
         "package_source": "installed distribution",
         "native_extension_version": native_version,
         "native_extension_importable": True,
