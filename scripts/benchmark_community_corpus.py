@@ -13,6 +13,7 @@ import hashlib
 import importlib.metadata
 import json
 import math
+import os
 import platform
 import statistics
 import subprocess
@@ -24,9 +25,10 @@ from typing import Any, Callable
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_ROOT = REPO_ROOT / "src"
 SCRIPTS_ROOT = REPO_ROOT / "scripts"
+_USE_INSTALLED_PACKAGE = os.environ.get("BENCHMARK_USE_INSTALLED_PACKAGE") == "1"
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
-if str(SRC_ROOT) not in sys.path:
+if not _USE_INSTALLED_PACKAGE and str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 if str(SCRIPTS_ROOT) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_ROOT))
@@ -35,6 +37,7 @@ from generate_community_benchmark_chart import (  # noqa: E402
     community_corpus_chart_path,
     render_community_corpus_chart,
 )
+import streaming_json_parser as _PROJECT_MODULE  # noqa: E402
 from streaming_json_parser import (  # noqa: E402
     ParseStatus,
     StreamingJsonParser,
@@ -115,8 +118,16 @@ def _cpu_identifier() -> str:
 
 
 def _environment() -> dict[str, Any]:
-    import streaming_json_parser
     import streaming_json_parser.high_performance_parser as parser_module
+
+    distribution_version = _version("streaming-json-parser")
+    if _USE_INSTALLED_PACKAGE:
+        module_path = Path(_PROJECT_MODULE.__file__).resolve()
+        if distribution_version is None or SRC_ROOT in module_path.parents:
+            raise RuntimeError(
+                "BENCHMARK_USE_INSTALLED_PACKAGE=1 requires an installed distribution "
+                "and must not import the repository source tree"
+            )
 
     try:
         revision = subprocess.run(
@@ -146,7 +157,14 @@ def _environment() -> dict[str, Any]:
         native_version = None
 
     return {
-        "package_version": streaming_json_parser.__version__,
+        "package_version": (
+            distribution_version if _USE_INSTALLED_PACKAGE else _PROJECT_MODULE.__version__
+        ),
+        "package_module_version": _PROJECT_MODULE.__version__,
+        "installed_distribution_version": distribution_version,
+        "package_source": (
+            "installed distribution" if _USE_INSTALLED_PACKAGE else "repository source tree"
+        ),
         "source_revision": revision or None,
         "working_tree_dirty": dirty,
         "python_version": platform.python_version(),
@@ -176,7 +194,7 @@ def _candidate_decoders(payload: str) -> list[tuple[str, Callable[[], Any]]]:
     candidates: list[tuple[str, Callable[[], Any]]] = [
         ("decode_complete_json", lambda: decode_complete_json(payload)),
         ("reusable_complete_decoder", lambda: reusable_decoder(payload)),
-        ("streaming_parser_one_buffer", lambda: _streaming_parser_decode(payload)),
+        ("streaming_parser_single_chunk", lambda: _streaming_parser_decode(payload)),
         ("json_loads", lambda: json.loads(payload)),
     ]
 
@@ -325,6 +343,16 @@ def collect_snapshot(
         },
         "environment": _environment(),
         "methodology": {
+            "command": os.environ.get(
+                "BENCHMARK_ARTIFACT_COMMAND",
+                (
+                    "BENCHMARK_USE_INSTALLED_PACKAGE=1 make benchmark-community-corpus "
+                    "COMMUNITY_JSON_CORPUS_DIR=/path/to/json_benchmark/data"
+                    if _USE_INSTALLED_PACKAGE
+                    else "make benchmark-community-corpus "
+                    "COMMUNITY_JSON_CORPUS_DIR=/path/to/json_benchmark/data"
+                ),
+            ),
             "operation": "decode the complete document into an ordinary Python JSON value",
             "input": "UTF-8 data file decoded to Python str before timing; file I/O and UTF-8 decoding are outside timing",
             "clock": "time.process_time",
@@ -346,6 +374,27 @@ def _format_report(snapshot: dict[str, Any]) -> str:
     upstream = snapshot["upstream"]
     methodology = snapshot["methodology"]
     versions = environment["benchmark_library_versions"]
+    reproduce_commands = [
+        f"python -m pip install 'streaming-json-parser[accelerated,benchmark]=={environment['package_version']}'"
+    ]
+    if environment.get("native_extension_version"):
+        reproduce_commands.append(
+            f"python -m pip install 'streaming-json-parser-native=={environment['native_extension_version']}'"
+        )
+    reproduce_commands.append(
+        "git clone https://github.com/TkTech/json_benchmark.git /tmp/tktech-json-benchmark"
+    )
+    if upstream.get("commit"):
+        reproduce_commands.append(
+            f"git -C /tmp/tktech-json-benchmark checkout {upstream['commit']}"
+        )
+    reproduce_commands.append(
+        methodology.get(
+            "command",
+            "BENCHMARK_USE_INSTALLED_PACKAGE=1 make benchmark-community-corpus "
+            "COMMUNITY_JSON_CORPUS_DIR=/tmp/tktech-json-benchmark/data",
+        )
+    )
     lines = [
         "# Community JSON Benchmark Snapshot",
         "",
@@ -357,7 +406,8 @@ def _format_report(snapshot: dict[str, Any]) -> str:
         "",
         f"- Upstream commit: `{upstream.get('commit') or 'unavailable'}`",
         f"- Upstream benchmark definition: `{upstream['benchmark_definition']}`",
-        f"- Package version and source revision: `{environment['package_version']}` / `{environment.get('source_revision') or 'unavailable'}`",
+        f"- Package: `streaming-json-parser {environment['package_version']}` ({environment['package_source']}); source revision: `{environment.get('source_revision') or 'unavailable'}`",
+        f"- Module `__version__`: `{environment['package_module_version']}`; installed distribution metadata: `{environment.get('installed_distribution_version') or 'not installed'}`",
         f"- Working tree dirty: `{environment.get('working_tree_dirty')}`",
         f"- Python and platform: `{environment['python_version']}` / `{environment['platform']}`",
         f"- Processor: `{environment['processor']}` ({environment['architecture']})",
@@ -403,10 +453,7 @@ def _format_report(snapshot: dict[str, Any]) -> str:
             "## Reproduce",
             "",
             "```bash",
-            "python -m pip install -e '.[accelerated]'",
-            "python -m pip install 'streaming-json-parser-native==0.2.0'",
-            "git clone --depth 1 https://github.com/TkTech/json_benchmark.git /tmp/json_benchmark",
-            "make benchmark-community-corpus COMMUNITY_JSON_CORPUS_DIR=/tmp/json_benchmark/data",
+            *reproduce_commands,
             "```",
             "",
             "The input files are not copied into this repository. The JSON snapshot records the upstream revision, file hashes, and exact tool versions for this run.",

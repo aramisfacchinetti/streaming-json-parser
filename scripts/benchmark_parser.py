@@ -3,6 +3,7 @@ import argparse
 import importlib.metadata
 import json
 import math
+import os
 import platform
 import statistics
 import subprocess
@@ -15,14 +16,16 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_ROOT = REPO_ROOT / "src"
 SCRIPTS_ROOT = REPO_ROOT / "scripts"
 DOCS_ROOT = REPO_ROOT / "docs"
+_USE_INSTALLED_PACKAGE = os.environ.get("BENCHMARK_USE_INSTALLED_PACKAGE") == "1"
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
-if str(SRC_ROOT) not in sys.path:
+if not _USE_INSTALLED_PACKAGE and str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 if str(SCRIPTS_ROOT) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_ROOT))
 
 from generate_benchmark_charts import render_benchmark_charts
+from streaming_json_parser import ParseStatus, StreamingJsonParser
 
 from streaming_json_parser.high_performance_parser import (
     HighPerformanceStreamingJsonParser,
@@ -54,8 +57,11 @@ from streaming_json_parser.high_performance_parser import (
 )
 
 try:
-    from streaming_json_parser import __version__ as _PROJECT_VERSION
+    import streaming_json_parser as _PROJECT_MODULE
+
+    _PROJECT_VERSION = _PROJECT_MODULE.__version__
 except ImportError:  # pragma: no cover - editable source checkout without importable package
+    _PROJECT_MODULE = None
     _PROJECT_VERSION = "unknown"
 
 
@@ -200,11 +206,23 @@ def _cpu_identifier() -> str:
 def _collect_environment_metadata() -> dict[str, object]:
     project_distribution = _distribution_version("streaming-json-parser")
     native_version = _distribution_version("streaming-json-parser-native")
+    if _USE_INSTALLED_PACKAGE:
+        module_path = (
+            Path(_PROJECT_MODULE.__file__).resolve() if _PROJECT_MODULE is not None else None
+        )
+        if project_distribution is None or module_path is None or SRC_ROOT in module_path.parents:
+            raise RuntimeError(
+                "BENCHMARK_USE_INSTALLED_PACKAGE=1 requires an installed distribution "
+                "and must not import the repository source tree"
+            )
     return {
         **_git_provenance(),
-        "package_version": _PROJECT_VERSION,
+        "package_version": project_distribution if _USE_INSTALLED_PACKAGE else _PROJECT_VERSION,
+        "package_module_version": _PROJECT_VERSION,
         "installed_distribution_version": project_distribution,
-        "package_source": "repository source tree",
+        "package_source": (
+            "installed distribution" if _USE_INSTALLED_PACKAGE else "repository source tree"
+        ),
         "python_version": platform.python_version(),
         "operating_system": platform.system(),
         "platform": platform.platform(),
@@ -224,7 +242,14 @@ def _collect_environment_metadata() -> dict[str, object]:
 
 def _benchmark_methodology() -> dict[str, object]:
     return {
-        "command": "make benchmark-artifacts",
+        "command": os.environ.get(
+            "BENCHMARK_ARTIFACT_COMMAND",
+            (
+                "BENCHMARK_USE_INSTALLED_PACKAGE=1 make benchmark-artifacts"
+                if _USE_INSTALLED_PACKAGE
+                else "make benchmark-artifacts"
+            ),
+        ),
         "clock": "time.process_time",
         "aggregation": f"median of {_SAMPLE_COUNT} measured batch totals per case",
         "samples_per_case": _SAMPLE_COUNT,
@@ -250,13 +275,14 @@ def benchmark_complete_parse_baselines(payload_size: int, iterations: int) -> No
     payload_bytes = payload_text.encode()
     reusable_decoder = make_complete_json_decoder()
 
-    def hybrid_once() -> object:
-        parser = HighPerformanceStreamingJsonParser()
-        parser.consume(payload_bytes)
-        return parser.poll().value
+    def streaming_parser_single_chunk() -> object:
+        result = StreamingJsonParser().feed(payload_bytes)
+        if result.status is not ParseStatus.COMPLETE:
+            raise ValueError(f"streaming parser returned {result.status!r} for a complete document")
+        return result.value
 
     cases: list[tuple[str, object]] = [
-        ("hybrid_complete_once", hybrid_once),
+        ("streaming_parser_single_chunk", streaming_parser_single_chunk),
         ("facade_decode_complete_json", lambda: decode_complete_json(payload_bytes)),
         ("facade_reusable_complete_decoder", lambda: reusable_decoder(payload_bytes)),
         ("json_loads", lambda: json.loads(payload_bytes)),
@@ -292,13 +318,14 @@ def collect_complete_baseline_snapshot(payload_size: int = 1_000_000, iterations
     reference = json.loads(payload_bytes)
     reusable_decoder = make_complete_json_decoder()
 
-    def hybrid_once() -> object:
-        parser = HighPerformanceStreamingJsonParser()
-        parser.consume(payload_bytes)
-        return parser.poll().value
+    def streaming_parser_single_chunk() -> object:
+        result = StreamingJsonParser().feed(payload_bytes)
+        if result.status is not ParseStatus.COMPLETE:
+            raise ValueError(f"streaming parser returned {result.status!r} for a complete document")
+        return result.value
 
     cases: list[tuple[str, Callable[[], object]]] = [
-        ("hybrid_complete_once", hybrid_once),
+        ("streaming_parser_single_chunk", streaming_parser_single_chunk),
         ("facade_decode_complete_json", lambda: decode_complete_json(payload_bytes)),
         ("facade_reusable_complete_decoder", lambda: reusable_decoder(payload_bytes)),
     ]
@@ -985,6 +1012,7 @@ def _format_snapshot_markdown(snapshot: dict[str, object]) -> str:
         "## Provenance",
         "",
         f"- Package source: `streaming-json-parser {environment.get('package_version', 'unknown')}` ({environment.get('package_source', 'unknown source')})",
+        f"- Package module `__version__`: `{environment.get('package_module_version', environment.get('package_version', 'unknown'))}`",
         f"- Installed distribution metadata: `streaming-json-parser {environment.get('installed_distribution_version') or 'not installed'}`",
         f"- Source revision: `{revision}`",
         f"- Python: `{environment.get('python_version', 'unknown')}`",
@@ -1002,7 +1030,7 @@ def _format_snapshot_markdown(snapshot: dict[str, object]) -> str:
         "",
         "Generated by:",
         "",
-        "- `make benchmark-artifacts`",
+        f"- `{methodology.get('command', 'make benchmark-artifacts')}`",
     ]
     section_titles = {
         "complete_1mb_object": "Complete 1 MB Object",
@@ -1071,14 +1099,19 @@ def _format_current_api_scorecard(
         return f"{results[section_name][result_name]:.6f}s"
 
     complete_entries = [
-        (name, name)
+        (
+            name,
+            "StreamingJsonParser — single chunk"
+            if name == "streaming_parser_single_chunk"
+            else name,
+        )
         for name in (
             "simdjson_parse",
             "facade_decode_complete_json",
             "facade_reusable_complete_decoder",
             "msgspec_decode",
             "orjson_loads",
-            "hybrid_complete_once",
+            "streaming_parser_single_chunk",
         )
         if name in results["complete_1mb_object"]
     ]

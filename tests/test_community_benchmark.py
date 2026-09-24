@@ -27,8 +27,29 @@ def test_community_corpus_snapshot_includes_compatible_decoders_and_provenance(t
     assert section["name"] == "data/canada.json"
     assert section["payload_size_bytes"] == len('{"city":"Zurich","rows":[1,2,3]}'.encode())
     assert len(section["sha256"]) == 64
-    assert {"decode_complete_json", "reusable_complete_decoder", "streaming_parser_one_buffer", "json_loads"} <= names
+    assert {"decode_complete_json", "reusable_complete_decoder", "streaming_parser_single_chunk", "json_loads"} <= names
     assert all(result["mib_per_second"] > 0 for result in section["results"])
+
+
+def test_environment_records_installed_distribution_version(monkeypatch, tmp_path):
+    monkeypatch.setattr(community_benchmark, "_USE_INSTALLED_PACKAGE", True)
+    monkeypatch.setattr(
+        community_benchmark._PROJECT_MODULE,
+        "__file__",
+        str(tmp_path / "site-packages" / "streaming_json_parser" / "__init__.py"),
+    )
+    monkeypatch.setattr(
+        community_benchmark,
+        "_version",
+        lambda name: "0.2.1" if name.startswith("streaming-json-parser") else None,
+    )
+
+    environment = community_benchmark._environment()
+
+    assert environment["package_version"] == "0.2.1"
+    assert environment["package_module_version"] == community_benchmark._PROJECT_MODULE.__version__
+    assert environment["installed_distribution_version"] == "0.2.1"
+    assert environment["package_source"] == "installed distribution"
 
 
 def test_compatibility_requires_exact_json_value_types():
@@ -51,6 +72,9 @@ def test_community_corpus_artifacts_are_deterministic_and_verifiable(tmp_path):
         },
         "environment": {
             "package_version": "0.2.0",
+            "package_module_version": "0.2.0",
+            "installed_distribution_version": "0.2.0",
+            "package_source": "installed distribution",
             "source_revision": "abc123",
             "working_tree_dirty": True,
             "python_version": "3.14.0",
