@@ -81,8 +81,13 @@ def _require_release_versions(
                 f"{label} requires installed streaming-json-parser {expected_core}; "
                 f"found {core_version or 'not installed'}"
             )
-        native_version = environment.get("native_extension_version")
-        native_importable = environment.get("native_extension_importable")
+        native = environment.get("native_extension")
+        if native is not None:
+            native_version = native.get("version")
+            native_importable = native.get("importable")
+        else:
+            native_version = environment.get("native_extension_version")
+            native_importable = environment.get("native_extension_importable")
         if native_version != expected_native or native_importable is not True:
             raise RuntimeError(
                 f"{label} requires importable streaming-json-parser-native {expected_native}; "
