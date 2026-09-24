@@ -31,7 +31,8 @@ benchmark-release-artifacts:
 
 verify-release-benchmark-artifacts:
 	@if [ -z "$(COMMUNITY_JSON_CORPUS_DIR)" ]; then echo 'Set COMMUNITY_JSON_CORPUS_DIR to TkTech/json_benchmark/data'; exit 2; fi
-	BENCHMARK_USE_INSTALLED_PACKAGE=1 BENCHMARK_ARTIFACT_COMMAND="make benchmark-release-artifacts COMMUNITY_JSON_CORPUS_DIR=$(COMMUNITY_JSON_CORPUS_DIR)" python scripts/benchmark_parser.py --verify-artifacts
+	@resolved_corpus_dir="$$(cd "$(COMMUNITY_JSON_CORPUS_DIR)" && pwd -P)"; \
+	BENCHMARK_USE_INSTALLED_PACKAGE=1 BENCHMARK_ARTIFACT_COMMAND="make benchmark-release-artifacts COMMUNITY_JSON_CORPUS_DIR=$$resolved_corpus_dir" python scripts/benchmark_parser.py --verify-artifacts
 	python scripts/benchmark_community_corpus.py --verify --output-dir docs
 
 verify-community-benchmark-artifacts:
