@@ -2,7 +2,9 @@
 
 ## Unreleased
 
-- Keep complete decoding away from the optional yyjson backend when ASCII JSON contains non-ASCII `\\uXXXX` escapes that the backend would return with different text.
+## 0.2.1 - 2026-09-24
+
+- Fixed complete JSON decoding for non-ASCII Unicode escapes when the optional `yyjson` backend is installed.
 
 ## 0.2.0 - 2026-09-22
 
