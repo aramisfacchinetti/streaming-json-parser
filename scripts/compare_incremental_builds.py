@@ -14,6 +14,8 @@ _NATIVE_CASES = (
     "streaming_json_parser_native_public",
     "native_incremental_direct_result",
 )
+_PYTHON_CONTROL = "streaming_json_parser_python_fallback"
+_MAX_CONTROL_DIFFERENCE = 0.25
 
 
 def _case_key(case: dict[str, Any]) -> tuple[Any, ...]:
@@ -26,7 +28,7 @@ def _case_key(case: dict[str, Any]) -> tuple[Any, ...]:
     )
 
 
-def _validate_pair(abi3: dict[str, Any], cpython: dict[str, Any]) -> None:
+def _validate_pair(abi3: dict[str, Any], cpython: dict[str, Any]) -> list[float]:
     abi3_environment = abi3["environment"]
     cpython_environment = cpython["environment"]
     abi3_native = abi3_environment["native_extension"]
@@ -85,10 +87,37 @@ def _validate_pair(abi3: dict[str, Any], cpython: dict[str, Any]) -> None:
     cpython_cases = {_case_key(case): case for case in cpython.get("cases", [])}
     if not abi3_cases or abi3_cases.keys() != cpython_cases.keys():
         raise ValueError("build comparison requires identical shape/chunk workloads")
+    control_differences = []
     for key, abi3_case in abi3_cases.items():
         cpython_case = cpython_cases[key]
         if abi3_case.get("sample_count") != cpython_case.get("sample_count"):
             raise ValueError(f"sample count differs for workload {key}")
+        abi3_python = next(
+            (result for result in abi3_case["results"] if result["name"] == _PYTHON_CONTROL),
+            None,
+        )
+        cpython_python = next(
+            (result for result in cpython_case["results"] if result["name"] == _PYTHON_CONTROL),
+            None,
+        )
+        if (
+            not abi3_python
+            or not cpython_python
+            or not abi3_python.get("valid")
+            or not cpython_python.get("valid")
+        ):
+            raise ValueError(f"missing valid Python timing control for workload {key}")
+        abi3_python_seconds = abi3_python["median_seconds_per_stream"]
+        cpython_python_seconds = cpython_python["median_seconds_per_stream"]
+        if abi3_python_seconds <= 0 or cpython_python_seconds <= 0:
+            raise ValueError(f"Python timing control is not positive for workload {key}")
+        control_difference = abs(abi3_python_seconds / cpython_python_seconds - 1.0)
+        if control_difference > _MAX_CONTROL_DIFFERENCE:
+            raise ValueError(
+                f"Python fallback timing control differs by {control_difference:.1%} "
+                f"for workload {key}; maximum allowed is {_MAX_CONTROL_DIFFERENCE:.0%}"
+            )
+        control_differences.append(control_difference * 100.0)
         for name in _NATIVE_CASES:
             abi3_result = next(
                 (result for result in abi3_case["results"] if result["name"] == name),
@@ -100,10 +129,11 @@ def _validate_pair(abi3: dict[str, Any], cpython: dict[str, Any]) -> None:
             )
             if not abi3_result or not cpython_result or not abi3_result.get("valid") or not cpython_result.get("valid"):
                 raise ValueError(f"missing valid {name} measurements for workload {key}")
+    return control_differences
 
 
 def build_comparison(abi3: dict[str, Any], cpython: dict[str, Any]) -> dict[str, Any]:
-    _validate_pair(abi3, cpython)
+    control_differences = _validate_pair(abi3, cpython)
     abi3_environment = abi3["environment"]
     cpython_environment = cpython["environment"]
     abi3_cases = {_case_key(case): case for case in abi3["cases"]}
@@ -199,6 +229,16 @@ def build_comparison(abi3: dict[str, Any], cpython: dict[str, Any]) -> dict[str,
             "payload_sizes": abi3["sizes"],
             "comparison": "Both wheels were built locally from the same source revision, Rust files, Cargo.lock, compiler/toolchain, Python, and machine. The PyO3 abi3-py310 feature is the only source manifest difference.",
             "scope": "strict incremental public API and direct native result API only; Python fallback is excluded from ABI-mode deltas",
+            "python_fallback_control": (
+                "Python fallback per-workload medians between build runs must differ by no more than "
+                f"{_MAX_CONTROL_DIFFERENCE:.0%}; this detects timing-environment drift and is not part of ABI-mode deltas"
+            ),
+        },
+        "python_fallback_timing_control": {
+            "max_per_workload_difference_percent": max(control_differences),
+            "median_per_workload_difference_percent": statistics.median(control_differences),
+            "compared_workload_count": len(control_differences),
+            "maximum_allowed_difference_percent": _MAX_CONTROL_DIFFERENCE * 100.0,
         },
         "summary": summary,
         "cases": cases,
@@ -232,6 +272,7 @@ def render_markdown(comparison: dict[str, Any]) -> str:
         f"- ABI3 wheel binary: `{builds['abi3']['module_filename']}`; SHA-256 `{builds['abi3']['binary_sha256']}`; PyO3 `abi3-py310` enabled.",
         f"- CPython-specific wheel binary: `{builds['cpython_specific']['module_filename']}`; SHA-256 `{builds['cpython_specific']['binary_sha256']}`; PyO3 `abi3-py310` omitted.",
         f"- {comparison['methodology']['comparison']}",
+        f"- Python fallback timing control max difference: `{comparison['python_fallback_timing_control']['max_per_workload_difference_percent']:.1f}%` (limit `{comparison['python_fallback_timing_control']['maximum_allowed_difference_percent']:.0f}%`).",
         "",
         "## ABI3 timing difference",
         "",

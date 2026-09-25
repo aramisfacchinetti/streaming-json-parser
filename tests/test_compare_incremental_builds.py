@@ -69,6 +69,13 @@ def _snapshot(variant, abi3, public_seconds):
                         "median_seconds_per_stream": public_seconds * 0.9,
                         "sample_seconds_per_stream": [public_seconds * 0.9],
                     },
+                    {
+                        "name": "streaming_json_parser_python_fallback",
+                        "display_name": "Python fallback",
+                        "valid": True,
+                        "median_seconds_per_stream": 0.01,
+                        "sample_seconds_per_stream": [0.01],
+                    },
                 ],
             }
         ],
@@ -98,6 +105,16 @@ def test_build_comparison_reports_abi3_slowdown_without_mixing_fallback():
         for result in case["results"]
     }
     assert "PyO3 `abi3-py310` enabled" in compare_builds.render_markdown(comparison)
+    assert comparison["python_fallback_timing_control"]["max_per_workload_difference_percent"] == 0
+
+
+def test_build_comparison_rejects_timing_environment_drift():
+    abi3 = _snapshot("abi3", True, 0.0011)
+    cpython = _snapshot("cpython-specific", False, 0.001)
+    cpython["cases"][0]["results"][2]["median_seconds_per_stream"] = 0.02
+
+    with pytest.raises(ValueError, match="Python fallback timing control differs"):
+        compare_builds.build_comparison(abi3, cpython)
 
 
 def test_build_comparison_artifacts_render_deterministically_and_detect_staleness(tmp_path):
