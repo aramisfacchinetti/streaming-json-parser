@@ -7,6 +7,7 @@ import argparse
 import importlib.util
 import json
 import math
+import os
 import statistics
 import sys
 import time
@@ -15,10 +16,12 @@ from typing import Any, Callable
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_ROOT = REPO_ROOT / "src"
-if str(REPO_ROOT) not in sys.path:
-    sys.path.insert(0, str(REPO_ROOT))
-if str(SRC_ROOT) not in sys.path:
-    sys.path.insert(0, str(SRC_ROOT))
+_USE_INSTALLED_PACKAGE = os.environ.get("BENCHMARK_USE_INSTALLED_PACKAGE") == "1"
+if not _USE_INSTALLED_PACKAGE:
+    if str(REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(REPO_ROOT))
+    if str(SRC_ROOT) not in sys.path:
+        sys.path.insert(0, str(SRC_ROOT))
 
 from streaming_json_parser import ParseStatus
 

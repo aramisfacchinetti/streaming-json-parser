@@ -1164,6 +1164,8 @@ def _format_current_api_scorecard(
     else:
         native_summary = "native selective path: optional extension not available in this benchmark run"
     snapshot_description = "current benchmark snapshot" if stable_links else "dated benchmark snapshot"
+    incremental_report = docs_dir / "incremental-benchmark.md"
+    abi3_investigation = docs_dir / "abi3-incremental-investigation.md"
 
     lines = [
         "# Current API Scorecard",
@@ -1173,6 +1175,7 @@ def _format_current_api_scorecard(
         'This scorecard is the shortest honest answer to "what should I use from this repo today?"',
         "",
         f"For the {snapshot_description} behind these recommendations, see {_markdown_link(snapshot_markdown_path)} and {_markdown_link(snapshot_json_path)}. To regenerate all tracked artifacts from the current harness, run `make benchmark-artifacts`. To verify that those tracked generated artifacts are current without rewriting them, run `make verify-benchmark-artifacts`.",
+        f"Strict chunk-by-chunk performance is measured separately in {_markdown_link(incremental_report)}; the same-source ABI-mode investigation is in {_markdown_link(abi3_investigation)}.",
         "",
         "## Recommended APIs",
         "",

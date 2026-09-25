@@ -1,4 +1,4 @@
-.PHONY: help benchmark-artifacts verify-benchmark-artifacts benchmark-community-corpus benchmark-release-artifacts verify-release-benchmark-artifacts verify-community-benchmark-artifacts benchmark-strategy benchmark-ndjson benchmark-partial benchmark-partial-matrix native-wheel native-install
+.PHONY: help benchmark-artifacts verify-benchmark-artifacts benchmark-community-corpus benchmark-release-artifacts verify-release-benchmark-artifacts verify-community-benchmark-artifacts benchmark-incremental verify-incremental-benchmark-artifacts benchmark-strategy benchmark-ndjson benchmark-partial benchmark-partial-matrix native-wheel native-install
 
 help:
 	@printf '%s\n' 'Available targets:'
@@ -7,6 +7,8 @@ help:
 	@printf '%s\n' '  make benchmark-community-corpus Run the TkTech complete-load corpus (set COMMUNITY_JSON_CORPUS_DIR)'
 	@printf '%s\n' '  make benchmark-release-artifacts Generate all release benchmarks from a clean tree and installed packages'
 	@printf '%s\n' '  make verify-release-benchmark-artifacts Verify all release benchmarks using installed packages'
+	@printf '%s\n' '  make benchmark-incremental       Measure strict incremental parsing by byte chunk size'
+	@printf '%s\n' '  make verify-incremental-benchmark-artifacts Verify the incremental report and chart against its JSON snapshot'
 	@printf '%s\n' '  make verify-community-benchmark-artifacts Verify the saved community corpus report and chart'
 	@printf '%s\n' '  make benchmark-strategy       Compare complete-document backend strategies'
 	@printf '%s\n' '  make benchmark-ndjson         Compare strict NDJSON backend strategies'
@@ -33,10 +35,19 @@ verify-release-benchmark-artifacts:
 	@if [ -z "$(COMMUNITY_JSON_CORPUS_DIR)" ]; then echo 'Set COMMUNITY_JSON_CORPUS_DIR to TkTech/json_benchmark/data'; exit 2; fi
 	@resolved_corpus_dir="$$(cd "$(COMMUNITY_JSON_CORPUS_DIR)" && pwd -P)"; \
 	BENCHMARK_USE_INSTALLED_PACKAGE=1 BENCHMARK_ARTIFACT_COMMAND="make benchmark-release-artifacts COMMUNITY_JSON_CORPUS_DIR=$$resolved_corpus_dir" python scripts/benchmark_parser.py --verify-artifacts
+	BENCHMARK_USE_INSTALLED_PACKAGE=1 python scripts/benchmark_incremental.py --verify --output-dir docs
+	python scripts/compare_incremental_builds.py --verify --output-dir docs
 	python scripts/benchmark_community_corpus.py --verify --output-dir docs
+	BENCHMARK_USE_INSTALLED_PACKAGE=1 python scripts/benchmark_release_artifacts.py --verify
 
 verify-community-benchmark-artifacts:
 	python scripts/benchmark_community_corpus.py --verify --output-dir docs
+
+benchmark-incremental:
+	python scripts/benchmark_incremental.py
+
+verify-incremental-benchmark-artifacts:
+	python scripts/benchmark_incremental.py --verify --output-dir docs
 
 benchmark-strategy:
 	python scripts/benchmark_strategy_matrix.py --format markdown

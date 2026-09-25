@@ -54,8 +54,146 @@ def test_release_version_check_accepts_core_and_community_metadata_shapes():
         "native_extension_version": native_version,
         "native_extension_importable": True,
     }
+    incremental_environment = {
+        "installed_distribution_version": core_version,
+        "package_module_version": core_version,
+        "package_source": "installed distribution",
+        "native_extension": {
+            "distribution_version": native_version,
+            "importable": True,
+            "abi3_binary": True,
+        },
+    }
 
     release_benchmark._require_release_versions(
         {"environment": core_environment},
-        {"environment": community_environment},
+        {"environment": community_environment, "methodology": {"clock": "time.perf_counter"}},
+        {
+            "environment": incremental_environment,
+            "methodology": {"clock": "time.perf_counter"},
+            "semantics_family": "strict_incremental",
+        },
     )
+
+
+def test_release_version_check_rejects_stale_native_incremental_package():
+    core_version = release_benchmark._project_version(release_benchmark.REPO_ROOT / "pyproject.toml")
+    native_version = release_benchmark._project_version(
+        release_benchmark.REPO_ROOT / "rust_native" / "pyproject.toml"
+    )
+    core_environment = {
+        "installed_distribution_version": core_version,
+        "package_module_version": core_version,
+        "package_source": "installed distribution",
+        "native_extension": {"version": native_version, "importable": True},
+    }
+    community_environment = {
+        "installed_distribution_version": core_version,
+        "package_module_version": core_version,
+        "package_source": "installed distribution",
+        "native_extension_version": native_version,
+        "native_extension_importable": True,
+    }
+    incremental_environment = {
+        "installed_distribution_version": core_version,
+        "package_module_version": core_version,
+        "package_source": "installed distribution",
+        "native_extension": {
+            "distribution_version": "0.2.1",
+            "importable": True,
+            "abi3_binary": True,
+        },
+    }
+
+    with pytest.raises(RuntimeError, match="strict incremental benchmark requires importable"):
+        release_benchmark._require_release_versions(
+            {"environment": core_environment},
+            {"environment": community_environment, "methodology": {"clock": "time.perf_counter"}},
+            {
+                "environment": incremental_environment,
+                "methodology": {"clock": "time.perf_counter"},
+                "semantics_family": "strict_incremental",
+            },
+        )
+
+
+def test_release_version_check_rejects_old_community_clock():
+    core_version = release_benchmark._project_version(release_benchmark.REPO_ROOT / "pyproject.toml")
+    native_version = release_benchmark._project_version(
+        release_benchmark.REPO_ROOT / "rust_native" / "pyproject.toml"
+    )
+    core_environment = {
+        "installed_distribution_version": core_version,
+        "package_module_version": core_version,
+        "package_source": "installed distribution",
+        "native_extension": {"version": native_version, "importable": True},
+    }
+    community_environment = {
+        "installed_distribution_version": core_version,
+        "package_module_version": core_version,
+        "package_source": "installed distribution",
+        "native_extension_version": native_version,
+        "native_extension_importable": True,
+    }
+    incremental_environment = {
+        "installed_distribution_version": core_version,
+        "package_module_version": core_version,
+        "package_source": "installed distribution",
+        "native_extension": {
+            "distribution_version": native_version,
+            "importable": True,
+            "abi3_binary": True,
+        },
+    }
+
+    with pytest.raises(RuntimeError, match="Community benchmark must use"):
+        release_benchmark._require_release_versions(
+            {"environment": core_environment},
+            {"environment": community_environment, "methodology": {"clock": "time.process_time"}},
+            {
+                "environment": incremental_environment,
+                "methodology": {"clock": "time.perf_counter"},
+                "semantics_family": "strict_incremental",
+            },
+        )
+
+
+def test_release_version_check_rejects_non_abi3_incremental_binary():
+    core_version = release_benchmark._project_version(release_benchmark.REPO_ROOT / "pyproject.toml")
+    native_version = release_benchmark._project_version(
+        release_benchmark.REPO_ROOT / "rust_native" / "pyproject.toml"
+    )
+    core_environment = {
+        "installed_distribution_version": core_version,
+        "package_module_version": core_version,
+        "package_source": "installed distribution",
+        "native_extension": {"version": native_version, "importable": True},
+    }
+    community_environment = {
+        "installed_distribution_version": core_version,
+        "package_module_version": core_version,
+        "package_source": "installed distribution",
+        "native_extension_version": native_version,
+        "native_extension_importable": True,
+    }
+    incremental_environment = {
+        "installed_distribution_version": core_version,
+        "package_module_version": core_version,
+        "package_source": "installed distribution",
+        "native_extension": {
+            "distribution_version": native_version,
+            "importable": True,
+            "abi3_binary": False,
+        },
+    }
+
+    with pytest.raises(RuntimeError, match="did not import an ABI3 native binary"):
+        release_benchmark._require_release_versions(
+            {"environment": core_environment},
+            {"environment": community_environment, "methodology": {"clock": "time.perf_counter"}},
+            {
+                "environment": incremental_environment,
+                "methodology": {"clock": "time.perf_counter"},
+                "semantics_family": "strict_incremental",
+            },
+        )
