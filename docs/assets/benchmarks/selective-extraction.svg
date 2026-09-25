@@ -8,48 +8,48 @@
   <text x="56" y="94" fill="#344052" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12">streaming-json-parser API</text>
   <rect x="247" y="83" width="13" height="13" rx="2" fill="#98a3b1"/>
   <text x="267" y="94" fill="#344052" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12">alternative</text>
-  <text x="36" y="133" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">extract_complete_json_paths</text>
+  <text x="36" y="133" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="400">simdjson parse + selected fields</text>
   <rect x="390" y="119" width="600" height="18" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="119" width="119.53" height="18" rx="4" fill="#315fc5"/>
-  <text x="1008" y="133" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">62.61 ms</text>
-  <text x="36" y="167" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">make_json_path_extractor</text>
+  <rect x="390" y="119" width="111.23" height="18" rx="4" fill="#98a3b1"/>
+  <text x="1008" y="133" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">69.80 ms</text>
+  <text x="36" y="167" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">make_tuned_json_path_extractor</text>
   <rect x="390" y="153" width="600" height="18" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="153" width="119.81" height="18" rx="4" fill="#315fc5"/>
-  <text x="1008" y="167" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">62.76 ms</text>
-  <text x="36" y="201" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">make_tuned_json_path_extractor</text>
+  <rect x="390" y="153" width="112.61" height="18" rx="4" fill="#315fc5"/>
+  <text x="1008" y="167" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">70.66 ms</text>
+  <text x="36" y="201" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">extract_tuned_json_paths</text>
   <rect x="390" y="187" width="600" height="18" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="187" width="120.05" height="18" rx="4" fill="#315fc5"/>
-  <text x="1008" y="201" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">62.88 ms</text>
-  <text x="36" y="235" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">extract_tuned_json_paths</text>
+  <rect x="390" y="187" width="113.66" height="18" rx="4" fill="#315fc5"/>
+  <text x="1008" y="201" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">71.32 ms</text>
+  <text x="36" y="235" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">extract_tuned_complete_json_paths</text>
   <rect x="390" y="221" width="600" height="18" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="221" width="120.90" height="18" rx="4" fill="#315fc5"/>
-  <text x="1008" y="235" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">63.32 ms</text>
+  <rect x="390" y="221" width="117.86" height="18" rx="4" fill="#315fc5"/>
+  <text x="1008" y="235" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">73.95 ms</text>
   <text x="36" y="269" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">make_tuned_complete_json_path_extractor</text>
   <rect x="390" y="255" width="600" height="18" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="255" width="123.31" height="18" rx="4" fill="#315fc5"/>
-  <text x="1008" y="269" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">64.59 ms</text>
-  <text x="36" y="303" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">make_complete_json_typed_path_extractor</text>
+  <rect x="390" y="255" width="120.15" height="18" rx="4" fill="#315fc5"/>
+  <text x="1008" y="269" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">75.39 ms</text>
+  <text x="36" y="303" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">make_json_path_extractor</text>
   <rect x="390" y="289" width="600" height="18" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="289" width="127.40" height="18" rx="4" fill="#315fc5"/>
-  <text x="1008" y="303" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">66.73 ms</text>
+  <rect x="390" y="289" width="121.13" height="18" rx="4" fill="#315fc5"/>
+  <text x="1008" y="303" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">76.00 ms</text>
   <text x="36" y="337" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">extract_complete_json_typed_paths</text>
   <rect x="390" y="323" width="600" height="18" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="323" width="130.96" height="18" rx="4" fill="#315fc5"/>
-  <text x="1008" y="337" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">68.60 ms</text>
-  <text x="36" y="371" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">extract_tuned_complete_json_paths</text>
+  <rect x="390" y="323" width="123.19" height="18" rx="4" fill="#315fc5"/>
+  <text x="1008" y="337" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">77.29 ms</text>
+  <text x="36" y="371" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">make_complete_json_typed_path_extractor</text>
   <rect x="390" y="357" width="600" height="18" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="357" width="139.17" height="18" rx="4" fill="#315fc5"/>
-  <text x="1008" y="371" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">72.90 ms</text>
-  <text x="36" y="405" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="400">simdjson parse + selected fields</text>
+  <rect x="390" y="357" width="123.24" height="18" rx="4" fill="#315fc5"/>
+  <text x="1008" y="371" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">77.33 ms</text>
+  <text x="36" y="405" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">extract_complete_json_paths</text>
   <rect x="390" y="391" width="600" height="18" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="391" width="147.61" height="18" rx="4" fill="#98a3b1"/>
-  <text x="1008" y="405" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">77.32 ms</text>
+  <rect x="390" y="391" width="129.74" height="18" rx="4" fill="#315fc5"/>
+  <text x="1008" y="405" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">81.41 ms</text>
   <text x="36" y="439" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="400">orjson decode + selected paths</text>
   <rect x="390" y="425" width="600" height="18" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="425" width="583.45" height="18" rx="4" fill="#98a3b1"/>
-  <text x="1008" y="439" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">305.60 ms</text>
+  <rect x="390" y="425" width="509.66" height="18" rx="4" fill="#98a3b1"/>
+  <text x="1008" y="439" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">319.79 ms</text>
   <text x="36" y="473" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="400">msgspec decode + selected paths</text>
   <rect x="390" y="459" width="600" height="18" rx="4" fill="#edf0f4"/>
   <rect x="390" y="459" width="600.00" height="18" rx="4" fill="#98a3b1"/>
-  <text x="1008" y="473" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">314.27 ms</text>
+  <text x="1008" y="473" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">376.48 ms</text>
 </svg>

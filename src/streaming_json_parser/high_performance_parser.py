@@ -4,6 +4,7 @@ import copy
 import dataclasses
 import json
 import keyword
+import math
 import time
 from collections import deque
 from enum import Enum
@@ -4497,6 +4498,9 @@ class _IncrementalStrictCore:
         try:
             value = json.loads(token)
         except json.JSONDecodeError:
+            self.error = f"invalid number {token!r}"
+            return
+        if isinstance(value, float) and not math.isfinite(value):
             self.error = f"invalid number {token!r}"
             return
         self._attach_value(value)

@@ -2,7 +2,9 @@
 
 import argparse
 import asyncio
+import importlib.metadata
 import json
+import os
 import statistics
 import sys
 import time
@@ -11,16 +13,33 @@ from typing import Any, Callable
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_ROOT = REPO_ROOT / "src"
-if str(REPO_ROOT) not in sys.path:
-    sys.path.insert(0, str(REPO_ROOT))
-if str(SRC_ROOT) not in sys.path:
-    sys.path.insert(0, str(SRC_ROOT))
+_USE_INSTALLED_PACKAGE = os.environ.get("BENCHMARK_USE_INSTALLED_PACKAGE") == "1"
+if not _USE_INSTALLED_PACKAGE:
+    if str(REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(REPO_ROOT))
+    if str(SRC_ROOT) not in sys.path:
+        sys.path.insert(0, str(SRC_ROOT))
 
 from streaming_json_parser import (
     HighPerformanceStreamingJsonParser,
     decode_structural_partial_json,
     make_tuned_structural_partial_decoder,
 )
+
+if _USE_INSTALLED_PACKAGE:
+    import streaming_json_parser as _project_module
+
+    try:
+        importlib.metadata.version("streaming-json-parser")
+    except importlib.metadata.PackageNotFoundError as exc:
+        raise RuntimeError(
+            "BENCHMARK_USE_INSTALLED_PACKAGE=1 requires an installed "
+            "streaming-json-parser distribution"
+        ) from exc
+    if SRC_ROOT in Path(_project_module.__file__).resolve().parents:
+        raise RuntimeError(
+            "BENCHMARK_USE_INSTALLED_PACKAGE=1 must not import the repository source tree"
+        )
 
 try:
     import streaming_json_parser_native

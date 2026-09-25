@@ -878,6 +878,18 @@ class TestHighPerformanceStreamingJsonParser:
         assert result.status == ParseStatus.INVALID
         assert "invalid number" in (result.error or "")
 
+    def test_python_fallback_rejects_float_overflow(self, monkeypatch):
+        monkeypatch.setattr(high_performance_parser, "_backend_native", None)
+        parser = HighPerformanceStreamingJsonParser()
+        payload = b'{"value":1e400}'
+
+        for offset in range(len(payload)):
+            parser.feed(payload[offset : offset + 1])
+        result = parser.finish()
+
+        assert result.status == ParseStatus.INVALID
+        assert result.error == "invalid number '1e400'"
+
     def test_invalid_prefix_rejected(self):
         parser = HighPerformanceStreamingJsonParser()
         parser.consume("noise")

@@ -1,0 +1,2728 @@
+{
+  "benchmark": "same-source ABI3 versus CPython-specific strict incremental build investigation",
+  "builds": {
+    "abi3": {
+      "binary_sha256": "7eefd7c3b86fba9bb94f91c18256fb4bc42ea6df47c85442a80c6e0bc34d0e53",
+      "module_filename": "streaming_json_parser_native.abi3.so",
+      "pyo3_feature": "abi3-py310",
+      "snapshot_date": "2026-09-25",
+      "variant": "abi3"
+    },
+    "cpython_specific": {
+      "binary_sha256": "6a37f01965eeed35cf7daba9618205f616699e751a5f5cf287f0a2f84f9ed633",
+      "module_filename": "streaming_json_parser_native.cpython-314-darwin.so",
+      "pyo3_feature": "abi3-py310 omitted; extension-module retained",
+      "snapshot_date": "2026-09-25",
+      "variant": "cpython-specific"
+    }
+  },
+  "cases": [
+    {
+      "chunk_count": 13115,
+      "chunk_size_bytes": 1,
+      "payload_size_bytes": 13115,
+      "python_fallback_control_difference_percent": 13.3337890083009,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.010118103993590921,
+          "abi3_sample_seconds_per_stream": [
+            0.009829646034631878,
+            0.01004183350596577,
+            0.010364249930717051,
+            0.010118103993590921,
+            0.010369124938733876,
+            0.010128249996341765,
+            0.00996935396688059
+          ],
+          "abi3_slowdown_percent": -36.34894985474494,
+          "cpython_specific_median_seconds_per_stream": 0.01589620904996991,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.013453457970172167,
+            0.013057749951258302,
+            0.01589620904996991,
+            0.013554207980632782,
+            0.01830933301243931,
+            0.016514125047251582,
+            0.01840754202567041
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.010194208472967148,
+          "abi3_sample_seconds_per_stream": [
+            0.01107791590038687,
+            0.009824771026615053,
+            0.010632958030328155,
+            0.010194208472967148,
+            0.010160167003050447,
+            0.012168082990683615,
+            0.010149562498554587
+          ],
+          "abi3_slowdown_percent": -30.618013897142827,
+          "cpython_specific_median_seconds_per_stream": 0.014692874974571168,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.016472832998260856,
+            0.014692874974571168,
+            0.013363874983042479,
+            0.012317584012635052,
+            0.01375129190273583,
+            0.015252417069859803,
+            0.01654108299408108
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "escape_heavy_object"
+    },
+    {
+      "chunk_count": 1640,
+      "chunk_size_bytes": 8,
+      "payload_size_bytes": 13115,
+      "python_fallback_control_difference_percent": 17.933338358958494,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.0018060624909897645,
+          "abi3_sample_seconds_per_stream": [
+            0.002125826334425559,
+            0.0018462846637703478,
+            0.0017967125051654876,
+            0.0018486389890313148,
+            0.0017896874924190342,
+            0.0018060624909897645,
+            0.0017999791695425908
+          ],
+          "abi3_slowdown_percent": -49.18474056776765,
+          "cpython_specific_median_seconds_per_stream": 0.0035541735123842955,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.002100173655586938,
+            0.0021412707981653513,
+            0.00208927079802379,
+            0.0035541735123842955,
+            0.0037448957446031272,
+            0.004275867987113695,
+            0.005034430650994182
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.0018408208969049155,
+          "abi3_sample_seconds_per_stream": [
+            0.0018387291735659044,
+            0.0018730833350370328,
+            0.0018496734943861763,
+            0.0018408208969049155,
+            0.001812486172032853,
+            0.001776326505932957,
+            0.001958895823918283
+          ],
+          "abi3_slowdown_percent": -41.096348186273055,
+          "cpython_specific_median_seconds_per_stream": 0.0031251388330323002,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.004674374999012798,
+            0.006040125008439645,
+            0.0044086980051361024,
+            0.0030182221671566367,
+            0.0028153499821200966,
+            0.002468354165709267,
+            0.0031251388330323002
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "escape_heavy_object"
+    },
+    {
+      "chunk_count": 205,
+      "chunk_size_bytes": 64,
+      "payload_size_bytes": 13115,
+      "python_fallback_control_difference_percent": 17.466668920059657,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.00031737269536178146,
+          "abi3_sample_seconds_per_stream": [
+            0.00031737269536178146,
+            0.0002952076494693756,
+            0.00034091891909672603,
+            0.0003009126544034538,
+            0.00037133219302631915,
+            0.00031837856929217066,
+            0.0002975406270707026
+          ],
+          "abi3_slowdown_percent": -3.5288488878218116,
+          "cpython_specific_median_seconds_per_stream": 0.00032898197202263653,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0003884656779358492,
+            0.0003638958345012118,
+            0.00033745721511140063,
+            0.00032898197202263653,
+            0.000324347972039234,
+            0.00029343402517649036,
+            0.0002948423514041949
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.0003242111812472682,
+          "abi3_sample_seconds_per_stream": [
+            0.00033432986108689674,
+            0.00030734522733837365,
+            0.0003500980297651361,
+            0.0003041868789516615,
+            0.00035029168440295117,
+            0.0003242111812472682,
+            0.00030613658600486815
+          ],
+          "abi3_slowdown_percent": -4.0680539002304394,
+          "cpython_specific_median_seconds_per_stream": 0.000337959558237344,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.00032728239117811125,
+            0.00029366102535277605,
+            0.0004802387289551867,
+            0.000337959558237344,
+            0.0005271187517791986,
+            0.0004884791657483826,
+            0.00029820045833853454
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "escape_heavy_object"
+    },
+    {
+      "chunk_count": 52,
+      "chunk_size_bytes": 256,
+      "payload_size_bytes": 13115,
+      "python_fallback_control_difference_percent": 16.246382102286628,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.00013721984118762376,
+          "abi3_sample_seconds_per_stream": [
+            0.00013957094602488182,
+            0.00013397077806052063,
+            0.0001528244756627828,
+            0.00013357570832140927,
+            0.00013721984118762376,
+            0.00018040919139121586,
+            0.00013651771296281369
+          ],
+          "abi3_slowdown_percent": -30.210657117464624,
+          "cpython_specific_median_seconds_per_stream": 0.0001966200504546701,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.00020661174362017349,
+            0.00021970338953690509,
+            0.00023720239447097162,
+            0.00014993565781867203,
+            0.0001457193878251223,
+            0.0001526115411252249,
+            0.0001966200504546701
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.0001511291103483534,
+          "abi3_sample_seconds_per_stream": [
+            0.00015253399952167742,
+            0.00017457377052286992,
+            0.00015038773643835966,
+            0.0001366536132991314,
+            0.00016410768866635762,
+            0.0001511291103483534,
+            0.0001303177054711234
+          ],
+          "abi3_slowdown_percent": -4.5985328841177004,
+          "cpython_specific_median_seconds_per_stream": 0.0001584138220482289,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0002081268943253566,
+            0.0001584138220482289,
+            0.00013567207762124863,
+            0.00013390803715304994,
+            0.00016235802495093258,
+            0.00014324626998784833,
+            0.00017246526803295963
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "escape_heavy_object"
+    },
+    {
+      "chunk_count": 13,
+      "chunk_size_bytes": 1024,
+      "payload_size_bytes": 13115,
+      "python_fallback_control_difference_percent": 0.549999337887852,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 8.398009802996447e-05,
+          "abi3_sample_seconds_per_stream": [
+            8.609307171296208e-05,
+            8.976486035037872e-05,
+            8.33865741259177e-05,
+            8.16458321361128e-05,
+            8.671517207403667e-05,
+            8.006378847471985e-05,
+            8.398009802996447e-05
+          ],
+          "abi3_slowdown_percent": 2.2313853708302744,
+          "cpython_specific_median_seconds_per_stream": 8.214708010200412e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.00010329936183272646,
+            8.10524885080696e-05,
+            8.210991362593774e-05,
+            9.591519449125317e-05,
+            8.214708010200412e-05,
+            8.229683730895667e-05,
+            8.125360560141445e-05
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 8.588458692270612e-05,
+          "abi3_sample_seconds_per_stream": [
+            0.00010172935068473086,
+            8.459655579090828e-05,
+            8.588458692270612e-05,
+            9.631674988575431e-05,
+            8.355620201648206e-05,
+            8.539745168199817e-05,
+            9.433232806622983e-05
+          ],
+          "abi3_slowdown_percent": 6.920317496342299,
+          "cpython_specific_median_seconds_per_stream": 8.032578740298278e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            8.161748143235095e-05,
+            8.08320464924551e-05,
+            8.331975814971057e-05,
+            8.032578740298278e-05,
+            7.846544740903306e-05,
+            8.030343473753856e-05,
+            7.81458306044121e-05
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "escape_heavy_object"
+    },
+    {
+      "chunk_count": 4,
+      "chunk_size_bytes": 4096,
+      "payload_size_bytes": 13115,
+      "python_fallback_control_difference_percent": 13.27174852993358,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 8.993560561176503e-05,
+          "abi3_sample_seconds_per_stream": [
+            7.13033330005904e-05,
+            7.251998311428188e-05,
+            8.756934299266764e-05,
+            9.240700025111437e-05,
+            0.00010093086250666259,
+            8.993560561176503e-05,
+            0.00010424596820807745
+          ],
+          "abi3_slowdown_percent": 30.79062396842418,
+          "cpython_specific_median_seconds_per_stream": 6.876303735157462e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            6.636652396991849e-05,
+            6.876303735157462e-05,
+            6.736162853288792e-05,
+            7.02532806452874e-05,
+            6.741470494776364e-05,
+            7.108055546672808e-05,
+            6.879842077414024e-05
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.00011825570878240146,
+          "abi3_sample_seconds_per_stream": [
+            0.00012127099264609187,
+            0.00011553082964383066,
+            0.00014691088301041266,
+            0.00011825570878240146,
+            0.00016128241744202873,
+            0.00010804252695828063,
+            0.0001081108874190719
+          ],
+          "abi3_slowdown_percent": 74.98613413462938,
+          "cpython_specific_median_seconds_per_stream": 6.758004533743163e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            6.799689868490236e-05,
+            6.579095218649567e-05,
+            6.5528045151717e-05,
+            6.747108234680797e-05,
+            6.758004533743163e-05,
+            6.759680341929197e-05,
+            6.802176395253202e-05
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "escape_heavy_object"
+    },
+    {
+      "chunk_count": 8203,
+      "chunk_size_bytes": 1,
+      "payload_size_bytes": 8203,
+      "python_fallback_control_difference_percent": 13.88382268257029,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.004148236320664485,
+          "abi3_sample_seconds_per_stream": [
+            0.0043151249798635645,
+            0.0038631250305722156,
+            0.004148236320664485,
+            0.005056055689541002,
+            0.004461927252123132,
+            0.004141430680950482,
+            0.004126235997925202
+          ],
+          "abi3_slowdown_percent": 17.44538401789375,
+          "cpython_specific_median_seconds_per_stream": 0.0035320556489750743,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0035320556489750743,
+            0.003354610991664231,
+            0.0036308473208919168,
+            0.0038320833506683507,
+            0.0035916113605101905,
+            0.0034293056620905795,
+            0.003449749987339601
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.0037235417015229664,
+          "abi3_sample_seconds_per_stream": [
+            0.004188153000238041,
+            0.003943958358528714,
+            0.003969305311329663,
+            0.0037235417015229664,
+            0.0036908889887854457,
+            0.0034568889920289316,
+            0.003606541664339602
+          ],
+          "abi3_slowdown_percent": 8.09149898542849,
+          "cpython_specific_median_seconds_per_stream": 0.0034448053144539395,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0035416666651144624,
+            0.0033698610107724867,
+            0.0034157500291864076,
+            0.0034448053144539395,
+            0.0034169030065337815,
+            0.003482406260445714,
+            0.0034766666746387878
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "flat_string_object"
+    },
+    {
+      "chunk_count": 1026,
+      "chunk_size_bytes": 8,
+      "payload_size_bytes": 8203,
+      "python_fallback_control_difference_percent": 3.7633455476666633,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.0005245189108377831,
+          "abi3_sample_seconds_per_stream": [
+            0.0005245189108377831,
+            0.0004517644815875784,
+            0.0004964239146236492,
+            0.0005239981742899703,
+            0.0005322173895800244,
+            0.0005450490006136105,
+            0.0005849383913142526
+          ],
+          "abi3_slowdown_percent": 15.623890027049603,
+          "cpython_specific_median_seconds_per_stream": 0.00045364233180104446,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.00047097282747373634,
+            0.00045364233180104446,
+            0.00043548787167916697,
+            0.00045159199604919803,
+            0.0004670435499230569,
+            0.0004441195633262396,
+            0.0004541996701542909
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.0005378605210748703,
+          "abi3_sample_seconds_per_stream": [
+            0.0004966811722387438,
+            0.0005180967923746828,
+            0.0006199004710651934,
+            0.0005268062523100525,
+            0.0005514232662359351,
+            0.0005752209968783933,
+            0.0005378605210748703
+          ],
+          "abi3_slowdown_percent": 14.782618595568797,
+          "cpython_specific_median_seconds_per_stream": 0.0004685905650662987,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0004463715449674055,
+            0.0004685905650662987,
+            0.0005081553139131178,
+            0.0004798107935736577,
+            0.00047354526190168184,
+            0.00046404168365131085,
+            0.00043286804187421996
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "flat_string_object"
+    },
+    {
+      "chunk_count": 129,
+      "chunk_size_bytes": 64,
+      "payload_size_bytes": 8203,
+      "python_fallback_control_difference_percent": 20.454652459219137,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 7.433590418595362e-05,
+          "abi3_sample_seconds_per_stream": [
+            7.397581096999086e-05,
+            7.16535597583735e-05,
+            7.233687953904588e-05,
+            7.433590418595362e-05,
+            7.765163156322967e-05,
+            7.617109907619285e-05,
+            7.536600715742051e-05
+          ],
+          "abi3_slowdown_percent": -0.14222820720412033,
+          "cpython_specific_median_seconds_per_stream": 7.444178139704544e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            6.600079619011302e-05,
+            7.444178139704544e-05,
+            7.969559285979552e-05,
+            6.760761174488782e-05,
+            6.66619502535125e-05,
+            7.565133354445506e-05,
+            8.264650879878431e-05
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 7.587755067261304e-05,
+          "abi3_sample_seconds_per_stream": [
+            0.0001177554342733777,
+            0.00011092179293672625,
+            7.70211302459348e-05,
+            7.175236894148038e-05,
+            7.587755067261304e-05,
+            7.261284756370717e-05,
+            7.507725822506473e-05
+          ],
+          "abi3_slowdown_percent": -13.662875820187093,
+          "cpython_specific_median_seconds_per_stream": 8.788519584528216e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            7.102224343405986e-05,
+            9.952899088840122e-05,
+            0.00010022917163691351,
+            6.925684657679604e-05,
+            8.788519584528216e-05,
+            8.736006066560595e-05,
+            9.795978219936724e-05
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "flat_string_object"
+    },
+    {
+      "chunk_count": 33,
+      "chunk_size_bytes": 256,
+      "payload_size_bytes": 8203,
+      "python_fallback_control_difference_percent": 2.6084946157011735,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 3.321823336824818e-05,
+          "abi3_sample_seconds_per_stream": [
+            4.468886836017244e-05,
+            3.2878308625453535e-05,
+            3.676948388322042e-05,
+            3.115648591615768e-05,
+            3.050474670151768e-05,
+            3.321823336824818e-05,
+            3.954756642337394e-05
+          ],
+          "abi3_slowdown_percent": -5.180219634078586,
+          "cpython_specific_median_seconds_per_stream": 3.5033020789601975e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            2.824606918641981e-05,
+            3.671091445515641e-05,
+            3.5033020789601975e-05,
+            3.130984556368866e-05,
+            3.794838675773306e-05,
+            2.7991771627561885e-05,
+            3.617930307455076e-05
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 3.216483227416492e-05,
+          "abi3_sample_seconds_per_stream": [
+            3.549239245479373e-05,
+            2.9936769149369662e-05,
+            2.9462882405917707e-05,
+            3.566312479652021e-05,
+            3.216483227416492e-05,
+            4.367527216062194e-05,
+            2.849350678606903e-05
+          ],
+          "abi3_slowdown_percent": 22.267310581567767,
+          "cpython_specific_median_seconds_per_stream": 2.6306976182899606e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            2.874947876490634e-05,
+            2.6123839540441646e-05,
+            2.7401221295197804e-05,
+            2.572948483712211e-05,
+            2.6306976182899606e-05,
+            2.6453293595509028e-05,
+            2.5913384261316266e-05
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "flat_string_object"
+    },
+    {
+      "chunk_count": 9,
+      "chunk_size_bytes": 1024,
+      "payload_size_bytes": 8203,
+      "python_fallback_control_difference_percent": 9.545341613452063,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 2.109418407295986e-05,
+          "abi3_sample_seconds_per_stream": [
+            2.380846148935078e-05,
+            2.109418407295986e-05,
+            2.1486380025024575e-05,
+            2.1219193349152906e-05,
+            1.7783341728848438e-05,
+            1.790849810211564e-05,
+            1.935797561926128e-05
+          ],
+          "abi3_slowdown_percent": 18.26551572218036,
+          "cpython_specific_median_seconds_per_stream": 1.7836293144412936e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            2.118284261763789e-05,
+            1.7407203337088938e-05,
+            1.7836293144412936e-05,
+            1.7380279924480185e-05,
+            1.7261597647785576e-05,
+            2.720171543420089e-05,
+            2.2618083191611246e-05
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 1.6819935747185703e-05,
+          "abi3_sample_seconds_per_stream": [
+            2.4092416512280536e-05,
+            2.1643764178387503e-05,
+            1.7146724662220572e-05,
+            1.6301218399253508e-05,
+            1.6819935747185703e-05,
+            1.6102109219801436e-05,
+            1.612258894089127e-05
+          ],
+          "abi3_slowdown_percent": 3.5207479670053665,
+          "cpython_specific_median_seconds_per_stream": 1.6247888541673438e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            2.0212185057199063e-05,
+            1.597706296801426e-05,
+            1.7365984477597927e-05,
+            1.6340113125763656e-05,
+            1.6157367266714573e-05,
+            1.6247888541673438e-05,
+            1.5840266610140256e-05
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "flat_string_object"
+    },
+    {
+      "chunk_count": 3,
+      "chunk_size_bytes": 4096,
+      "payload_size_bytes": 8203,
+      "python_fallback_control_difference_percent": 13.9592291033249,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 2.696897269936449e-05,
+          "abi3_sample_seconds_per_stream": [
+            1.7864519954522753e-05,
+            1.547796241514998e-05,
+            1.6472770433130237e-05,
+            4.6216449798568596e-05,
+            2.8843424916635628e-05,
+            4.836688789385269e-05,
+            2.696897269936449e-05
+          ],
+          "abi3_slowdown_percent": 80.3062285008759,
+          "cpython_specific_median_seconds_per_stream": 1.4957316185687663e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            1.4415545232076905e-05,
+            1.7741720868677398e-05,
+            2.1503438713205813e-05,
+            1.4957316185687663e-05,
+            1.4583689470844842e-05,
+            1.3971915606573496e-05,
+            2.086718279101393e-05
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 3.526712599115109e-05,
+          "abi3_sample_seconds_per_stream": [
+            1.8556790898611905e-05,
+            1.6857528413610558e-05,
+            3.526712599115109e-05,
+            5.252326644929874e-05,
+            4.290515322855768e-05,
+            3.887081480310631e-05,
+            3.376754392176106e-05
+          ],
+          "abi3_slowdown_percent": 116.18793753856984,
+          "cpython_specific_median_seconds_per_stream": 1.6313179353431376e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            1.352428218090771e-05,
+            1.4592725527876547e-05,
+            1.6313179353431376e-05,
+            1.933415114763193e-05,
+            2.0916313544641864e-05,
+            1.7855057941912384e-05,
+            1.3833497577588859e-05
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "flat_string_object"
+    },
+    {
+      "chunk_count": 8526,
+      "chunk_size_bytes": 1,
+      "payload_size_bytes": 8526,
+      "python_fallback_control_difference_percent": 2.7897751181223063,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.0056827705120667815,
+          "abi3_sample_seconds_per_stream": [
+            0.005007430678233504,
+            0.0051090937631670386,
+            0.006282638991251588,
+            0.005249854002613574,
+            0.0056827705120667815,
+            0.0058504443150013685,
+            0.006234437460079789
+          ],
+          "abi3_slowdown_percent": 31.090439004283677,
+          "cpython_specific_median_seconds_per_stream": 0.004334999985682468,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.004709500004537404,
+            0.004118208249565214,
+            0.00461445830296725,
+            0.004264277677672605,
+            0.004334999985682468,
+            0.0042607640304292245,
+            0.004397583349297444
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.0051372084999457,
+          "abi3_sample_seconds_per_stream": [
+            0.0050216147501487285,
+            0.005050152967063089,
+            0.00631720832704256,
+            0.004875926999375224,
+            0.006101277656853199,
+            0.0055769166598717375,
+            0.0051372084999457
+          ],
+          "abi3_slowdown_percent": 24.409785881394242,
+          "cpython_specific_median_seconds_per_stream": 0.004129263999251028,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.004129263999251028,
+            0.004044513683766127,
+            0.004039708330916862,
+            0.004034416672463219,
+            0.004244430650336047,
+            0.004810736010161539,
+            0.004302805638872087
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "nested_records"
+    },
+    {
+      "chunk_count": 1066,
+      "chunk_size_bytes": 8,
+      "payload_size_bytes": 8526,
+      "python_fallback_control_difference_percent": 3.257570888179795,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.0009995069121941924,
+          "abi3_sample_seconds_per_stream": [
+            0.0008850416634231806,
+            0.0012560270959511399,
+            0.000946856082671068,
+            0.0008935451623983681,
+            0.0009995069121941924,
+            0.0010319340023367356,
+            0.0011519208550453187
+          ],
+          "abi3_slowdown_percent": 8.170933705624384,
+          "cpython_specific_median_seconds_per_stream": 0.0009240069193765521,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0008764230789473424,
+            0.0009240069193765521,
+            0.0009401249990332872,
+            0.0009532563854008913,
+            0.0009186780080199242,
+            0.0009616602283830827,
+            0.0008891281546451724
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.0009397152720743583,
+          "abi3_sample_seconds_per_stream": [
+            0.0009007742531442394,
+            0.0009175520778323213,
+            0.0009371301857754588,
+            0.0009677708498202264,
+            0.0009397152720743583,
+            0.0010543854150455445,
+            0.0009727187571115792
+          ],
+          "abi3_slowdown_percent": 9.34988935143477,
+          "cpython_specific_median_seconds_per_stream": 0.000859365544535897,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0008884943143295294,
+            0.000859365544535897,
+            0.0008428730917247859,
+            0.0008470937512659779,
+            0.0008650801610201597,
+            0.0008751121528733235,
+            0.0008308269226780304
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "nested_records"
+    },
+    {
+      "chunk_count": 134,
+      "chunk_size_bytes": 64,
+      "payload_size_bytes": 8526,
+      "python_fallback_control_difference_percent": 2.9087890427299423,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.00036248357641990435,
+          "abi3_sample_seconds_per_stream": [
+            0.0003934473681606744,
+            0.0003766893959519538,
+            0.00042057947980033024,
+            0.0003236874981666915,
+            0.00030414142406009364,
+            0.00036248357641990435,
+            0.00036025110411604767
+          ],
+          "abi3_slowdown_percent": 2.546447848349098,
+          "cpython_specific_median_seconds_per_stream": 0.0003534823331530347,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0003501024378541236,
+            0.0005001926998374984,
+            0.0003477764414408459,
+            0.00032509948622675675,
+            0.0004654739677789621,
+            0.0003534823331530347,
+            0.00044791864153618616
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.0003280126080481392,
+          "abi3_sample_seconds_per_stream": [
+            0.00034770967754264994,
+            0.00033521225122967735,
+            0.00035123959605698474,
+            0.00032706899946788326,
+            0.0003243030302903869,
+            0.0003264023434894625,
+            0.0003280126080481392
+          ],
+          "abi3_slowdown_percent": 0.5406433516355058,
+          "cpython_specific_median_seconds_per_stream": 0.00032624876578612365,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0004028476541861892,
+            0.0004250845591099385,
+            0.0003458471968770027,
+            0.00032624876578612365,
+            0.0003075241937392181,
+            0.0003059965286714335,
+            0.00032033500028774144
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "nested_records"
+    },
+    {
+      "chunk_count": 34,
+      "chunk_size_bytes": 256,
+      "payload_size_bytes": 8526,
+      "python_fallback_control_difference_percent": 0.4981443048289069,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.00025102717336267233,
+          "abi3_sample_seconds_per_stream": [
+            0.0002476493913180581,
+            0.00025102717336267233,
+            0.00023503029528497294,
+            0.00025141466730496003,
+            0.0004005474158851751,
+            0.00023767361611438294,
+            0.0003402462109189593
+          ],
+          "abi3_slowdown_percent": -8.754969755869347,
+          "cpython_specific_median_seconds_per_stream": 0.00027511325569298025,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.00027511325569298025,
+            0.0002711032257965681,
+            0.00028172968148549156,
+            0.0002603630945529966,
+            0.00033112045671061975,
+            0.00025620833794410164,
+            0.00036368332512211056
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.0002890581395043883,
+          "abi3_sample_seconds_per_stream": [
+            0.0003225892848734345,
+            0.00034952291171066465,
+            0.0002890581395043883,
+            0.0002566481345436639,
+            0.0002552777850290849,
+            0.0002948178146251066,
+            0.0002679138910025358
+          ],
+          "abi3_slowdown_percent": 0.12857410623672294,
+          "cpython_specific_median_seconds_per_stream": 0.00028868696282211784,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0002621145686134696,
+            0.0004701172326539838,
+            0.0003054364729905501,
+            0.0002723173081624107,
+            0.00026018812081240344,
+            0.00028868696282211784,
+            0.00045841479829202095
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "nested_records"
+    },
+    {
+      "chunk_count": 9,
+      "chunk_size_bytes": 1024,
+      "payload_size_bytes": 8526,
+      "python_fallback_control_difference_percent": 0.22164340721146925,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.0002428854085420343,
+          "abi3_sample_seconds_per_stream": [
+            0.0002428854085420343,
+            0.00022370069601325966,
+            0.00023895833874121308,
+            0.0002760962997045782,
+            0.00021732004329641448,
+            0.0002561866252411467,
+            0.00024654599837958813
+          ],
+          "abi3_slowdown_percent": -9.364430395420598,
+          "cpython_specific_median_seconds_per_stream": 0.00026798023072143015,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.00022637139266842732,
+            0.00037644132829214237,
+            0.0004219175645393198,
+            0.000271871786725779,
+            0.0002324574363782354,
+            0.00026798023072143015,
+            0.00025743605159544227
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.00023708426548788944,
+          "abi3_sample_seconds_per_stream": [
+            0.0002268088231657577,
+            0.00024294445072026814,
+            0.00022272135538514704,
+            0.0002179867043060825,
+            0.00027869616557533544,
+            0.00023708426548788944,
+            0.00028004599880659953
+          ],
+          "abi3_slowdown_percent": 6.194282646202387,
+          "cpython_specific_median_seconds_per_stream": 0.0002232552069472149,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.00027522397576831283,
+            0.0003668412241024961,
+            0.0002867369694286026,
+            0.00020776614214160612,
+            0.0002097169811538649,
+            0.00021750628201396398,
+            0.0002232552069472149
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "nested_records"
+    },
+    {
+      "chunk_count": 3,
+      "chunk_size_bytes": 4096,
+      "payload_size_bytes": 8526,
+      "python_fallback_control_difference_percent": 10.010505985452001,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.00021372193812715763,
+          "abi3_sample_seconds_per_stream": [
+            0.00021372193812715763,
+            0.00020578125035032057,
+            0.0002416297178364025,
+            0.00028246976480837547,
+            0.00020989749813452363,
+            0.00021129329323622527,
+            0.0002648913548054064
+          ],
+          "abi3_slowdown_percent": -18.36910084535115,
+          "cpython_specific_median_seconds_per_stream": 0.0002618149993941188,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.00022683413520168798,
+            0.00020842137183212946,
+            0.0003182531338852813,
+            0.0002618149993941188,
+            0.00030621774156668015,
+            0.00021184478828217834,
+            0.0003520654752806184
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.0002660248450970707,
+          "abi3_sample_seconds_per_stream": [
+            0.00026644983718513836,
+            0.00027464133431660196,
+            0.00021358163605721012,
+            0.0003085049986839294,
+            0.00020191482412080993,
+            0.0002120641595683992,
+            0.0002660248450970707
+          ],
+          "abi3_slowdown_percent": 3.434329864862229,
+          "cpython_specific_median_seconds_per_stream": 0.00025719202265305364,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0003392392273751959,
+            0.0003817048733859944,
+            0.00025344876970242086,
+            0.00023005706632671797,
+            0.00025719202265305364,
+            0.0003198035722432126,
+            0.0002537303919191746
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "nested_records"
+    },
+    {
+      "chunk_count": 12541,
+      "chunk_size_bytes": 1,
+      "payload_size_bytes": 12541,
+      "python_fallback_control_difference_percent": 8.972556565691892,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.007916999980807304,
+          "abi3_sample_seconds_per_stream": [
+            0.007934833003673702,
+            0.010037541971541941,
+            0.007916999980807304,
+            0.008440958510618657,
+            0.007068541483022273,
+            0.007122832990717143,
+            0.006576479005161673
+          ],
+          "abi3_slowdown_percent": 28.612327292666116,
+          "cpython_specific_median_seconds_per_stream": 0.006155708513688296,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.006234375003259629,
+            0.005908812512643635,
+            0.006008166470564902,
+            0.006237021007109433,
+            0.006160854478366673,
+            0.0059992289752699435,
+            0.006155708513688296
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.007552812516223639,
+          "abi3_sample_seconds_per_stream": [
+            0.007798645470757037,
+            0.0063380415085703135,
+            0.007552812516223639,
+            0.009522270469460636,
+            0.007563729013781995,
+            0.007152416510507464,
+            0.006849937490187585
+          ],
+          "abi3_slowdown_percent": 27.856216298474834,
+          "cpython_specific_median_seconds_per_stream": 0.005907270475290716,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.00583974999608472,
+            0.005907270475290716,
+            0.005932500003837049,
+            0.005803062522318214,
+            0.006082729029003531,
+            0.00587518751854077,
+            0.005956333538051695
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "number_array"
+    },
+    {
+      "chunk_count": 1568,
+      "chunk_size_bytes": 8,
+      "payload_size_bytes": 12541,
+      "python_fallback_control_difference_percent": 7.788755061904951,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.0018921458686236292,
+          "abi3_sample_seconds_per_stream": [
+            0.0018921458686236292,
+            0.002314541582018137,
+            0.0019829939951055814,
+            0.002009536993379394,
+            0.001886750008755674,
+            0.0018488541633511584,
+            0.0014320312475319952
+          ],
+          "abi3_slowdown_percent": 51.32066463846752,
+          "cpython_specific_median_seconds_per_stream": 0.0012504213308501574,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0012287916615605354,
+            0.0013077963376417756,
+            0.001180513891287976,
+            0.0012584666954353451,
+            0.0012011458049528301,
+            0.0020270728709874675,
+            0.0012504213308501574
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.0015698095667175949,
+          "abi3_sample_seconds_per_stream": [
+            0.0016692558669352106,
+            0.0013656250020075175,
+            0.0012543021148303524,
+            0.0011887916674216588,
+            0.0015698095667175949,
+            0.001985157438967791,
+            0.0029280535776966383
+          ],
+          "abi3_slowdown_percent": 21.876169987988803,
+          "cpython_specific_median_seconds_per_stream": 0.0012880365102319047,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0012880365102319047,
+            0.0012245879948346151,
+            0.0013410040992312133,
+            0.0013226898930345972,
+            0.0011926696419582836,
+            0.0011739676637161109,
+            0.001303055575893571
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "number_array"
+    },
+    {
+      "chunk_count": 196,
+      "chunk_size_bytes": 64,
+      "payload_size_bytes": 12541,
+      "python_fallback_control_difference_percent": 16.579448836508014,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.0013790034184542794,
+          "abi3_sample_seconds_per_stream": [
+            0.0012840805342420936,
+            0.0012780462727985447,
+            0.0015095606425099752,
+            0.0015849017820853209,
+            0.0013790034184542794,
+            0.0012479861163430745,
+            0.0015401374897919596
+          ],
+          "abi3_slowdown_percent": 67.83759996101367,
+          "cpython_specific_median_seconds_per_stream": 0.0008216296102748149,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0012292812534724362,
+            0.0010560740548599926,
+            0.0008216296102748149,
+            0.0010331100701088352,
+            0.0005700757716443728,
+            0.0007272562477737665,
+            0.0005447482496189574
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.001473594890234785,
+          "abi3_sample_seconds_per_stream": [
+            0.0018083749891957268,
+            0.0015901012146579368,
+            0.0013622326659969985,
+            0.0014555535661721869,
+            0.0017488240005655421,
+            0.0013320197375785363,
+            0.001473594890234785
+          ],
+          "abi3_slowdown_percent": 173.61683938775388,
+          "cpython_specific_median_seconds_per_stream": 0.0005385614765275802,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0005385614765275802,
+            0.000621252331054873,
+            0.0005749404621643148,
+            0.0006040092751694223,
+            0.0005340986341858903,
+            0.0005121828613078429,
+            0.0005008106342178177
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "number_array"
+    },
+    {
+      "chunk_count": 49,
+      "chunk_size_bytes": 256,
+      "payload_size_bytes": 12541,
+      "python_fallback_control_difference_percent": 43.275402416545504,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.0006761571805162185,
+          "abi3_sample_seconds_per_stream": [
+            0.0006731406271380062,
+            0.0006757982651163873,
+            0.00069175754271617,
+            0.0006649299545890906,
+            0.0008576272779868708,
+            0.00078373959986493,
+            0.0006761571805162185
+          ],
+          "abi3_slowdown_percent": 37.68198044464726,
+          "cpython_specific_median_seconds_per_stream": 0.0004911007078286881,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0004911007078286881,
+            0.0004611086991170178,
+            0.0004655956581700593,
+            0.0005332872663673602,
+            0.0005779333335037033,
+            0.00047354687315722305,
+            0.0005703786053978231
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.0008401319436315033,
+          "abi3_sample_seconds_per_stream": [
+            0.0007196274134056533,
+            0.0015274628919238846,
+            0.0008880284096283668,
+            0.001403454543006691,
+            0.0008354186679103545,
+            0.0008401319436315033,
+            0.0007334027516966065
+          ],
+          "abi3_slowdown_percent": 62.50162343626884,
+          "cpython_specific_median_seconds_per_stream": 0.0005169991079879844,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0006282063300854393,
+            0.0004512282599614042,
+            0.00043764331843703985,
+            0.00042171781850894064,
+            0.0006311389151960611,
+            0.0005352839620576964,
+            0.0005169991079879844
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "number_array"
+    },
+    {
+      "chunk_count": 13,
+      "chunk_size_bytes": 1024,
+      "payload_size_bytes": 12541,
+      "python_fallback_control_difference_percent": 22.046665651960275,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.0007020154088321659,
+          "abi3_sample_seconds_per_stream": [
+            0.0007020154088321659,
+            0.0006534402187832671,
+            0.0007719166824244894,
+            0.0007189110697557529,
+            0.0006577789570893283,
+            0.0008493097822951233,
+            0.0005544513745311027
+          ],
+          "abi3_slowdown_percent": 85.6999394159759,
+          "cpython_specific_median_seconds_per_stream": 0.0003780375001952052,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0004700694440139665,
+            0.000383194926793554,
+            0.0004010280580797161,
+            0.00037196603672647917,
+            0.0003780375001952052,
+            0.00037408552720750635,
+            0.00037267241337946775
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.00045694565177773654,
+          "abi3_sample_seconds_per_stream": [
+            0.0004495749987351398,
+            0.000531220498184363,
+            0.00045694565177773654,
+            0.00046319240937009454,
+            0.0004344231856521219,
+            0.0004121150029823184,
+            0.0004988636382305148
+          ],
+          "abi3_slowdown_percent": 19.63512602051103,
+          "cpython_specific_median_seconds_per_stream": 0.0003819494048089144,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0003819494048089144,
+            0.00038824824878247455,
+            0.00037802431082430604,
+            0.00040205506957136095,
+            0.00040308334864676,
+            0.00038074868643889204,
+            0.0003682139019171397
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "number_array"
+    },
+    {
+      "chunk_count": 4,
+      "chunk_size_bytes": 4096,
+      "payload_size_bytes": 12541,
+      "python_fallback_control_difference_percent": 17.868867868600024,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.000456423624806727,
+          "abi3_sample_seconds_per_stream": [
+            0.0005960323873700367,
+            0.0004303750012897783,
+            0.0004212777777057555,
+            0.00043571917542620844,
+            0.0007454567329170039,
+            0.0007076301917550154,
+            0.000456423624806727
+          ],
+          "abi3_slowdown_percent": 17.137422922280155,
+          "cpython_specific_median_seconds_per_stream": 0.0003896479992645568,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0003891056403517723,
+            0.0003896479992645568,
+            0.0003879975582308629,
+            0.00039945399902504067,
+            0.00044560186345026724,
+            0.00041612332221120597,
+            0.00037466083886101843
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.0005094136909714767,
+          "abi3_sample_seconds_per_stream": [
+            0.00046903788725930184,
+            0.0006589283188804984,
+            0.0004940705347018173,
+            0.0005094136909714767,
+            0.0004421105183175077,
+            0.0005604256044274994,
+            0.0006364519224287226
+          ],
+          "abi3_slowdown_percent": 35.21065966402015,
+          "cpython_specific_median_seconds_per_stream": 0.0003767555695958436,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.00036542742107544213,
+            0.00037811290577895217,
+            0.00035093196590120593,
+            0.00036981183614942335,
+            0.0003767555695958436,
+            0.0003829700617643539,
+            0.0004887942704954185
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "number_array"
+    },
+    {
+      "chunk_count": 4,
+      "chunk_size_bytes": 1,
+      "payload_size_bytes": 4,
+      "python_fallback_control_difference_percent": 0.8168518718985052,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 4.144063467492742e-06,
+          "abi3_sample_seconds_per_stream": [
+            6.249745581499155e-06,
+            4.547719498759761e-06,
+            4.401743666448965e-06,
+            3.720438712662144e-06,
+            4.144063467492742e-06,
+            3.924306156477542e-06,
+            3.5321755262884835e-06
+          ],
+          "abi3_slowdown_percent": 21.63006693403442,
+          "cpython_specific_median_seconds_per_stream": 3.407104486541357e-06,
+          "cpython_specific_sample_seconds_per_stream": [
+            3.345418207345574e-06,
+            3.3335368812004162e-06,
+            3.407104486541357e-06,
+            3.5358784202799143e-06,
+            3.4484558284475497e-06,
+            3.3781535648813588e-06,
+            3.504343737859017e-06
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 3.1740417512082786e-06,
+          "abi3_sample_seconds_per_stream": [
+            3.1758220302435802e-06,
+            3.2176106117276504e-06,
+            3.7452190042586153e-06,
+            3.1740417512082786e-06,
+            3.100219714724517e-06,
+            3.1681926202509203e-06,
+            3.121358162161414e-06
+          ],
+          "abi3_slowdown_percent": 0.3563646953130606,
+          "cpython_specific_median_seconds_per_stream": 3.1627707528514293e-06,
+          "cpython_specific_sample_seconds_per_stream": [
+            3.0629882701305178e-06,
+            3.628275635492173e-06,
+            3.1627707528514293e-06,
+            3.0759887579279166e-06,
+            3.2492065429323702e-06,
+            3.014404313717023e-06,
+            3.385752421536381e-06
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "root_literal"
+    },
+    {
+      "chunk_count": 4,
+      "chunk_size_bytes": 1,
+      "payload_size_bytes": 4,
+      "python_fallback_control_difference_percent": 15.72409316737029,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 4.5072429202264175e-06,
+          "abi3_sample_seconds_per_stream": [
+            3.552907486437107e-06,
+            3.6460978947161493e-06,
+            3.7495524907171784e-06,
+            4.691843741966295e-06,
+            4.5072429202264175e-06,
+            6.43248486653647e-06,
+            6.552744622467799e-06
+          ],
+          "abi3_slowdown_percent": 35.7059712308617,
+          "cpython_specific_median_seconds_per_stream": 3.321329842265186e-06,
+          "cpython_specific_sample_seconds_per_stream": [
+            3.2540078223064484e-06,
+            3.390604746300596e-06,
+            3.5039265071645787e-06,
+            3.321329842265186e-06,
+            3.297688721204395e-06,
+            3.360738048741041e-06,
+            3.316355218885292e-06
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 3.8141887159781618e-06,
+          "abi3_sample_seconds_per_stream": [
+            5.463948497208548e-06,
+            4.070363274877309e-06,
+            3.638102299419188e-06,
+            3.6759948898179573e-06,
+            4.531677234353992e-06,
+            3.8141887159781618e-06,
+            3.746429456441547e-06
+          ],
+          "abi3_slowdown_percent": 19.90227095180399,
+          "cpython_specific_median_seconds_per_stream": 3.18108129704342e-06,
+          "cpython_specific_sample_seconds_per_stream": [
+            3.0807089785866992e-06,
+            3.0257263006205903e-06,
+            3.18108129704342e-06,
+            3.3214316488283657e-06,
+            3.1227924637278193e-06,
+            3.8139343132570502e-06,
+            4.406555177638438e-06
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "root_number"
+    },
+    {
+      "chunk_count": 2050,
+      "chunk_size_bytes": 1,
+      "payload_size_bytes": 2050,
+      "python_fallback_control_difference_percent": 0.7025511417681263,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.0009388064998867256,
+          "abi3_sample_seconds_per_stream": [
+            0.0009799880707370384,
+            0.0009339702831182097,
+            0.0009054345677473716,
+            0.0012783988578511135,
+            0.001432238146662712,
+            0.0009136815039840128,
+            0.0009388064998867256
+          ],
+          "abi3_slowdown_percent": -6.987462842050807,
+          "cpython_specific_median_seconds_per_stream": 0.0010093332883635803,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0010929077813800956,
+            0.0009632232083406832,
+            0.0009122707914294941,
+            0.0010093332883635803,
+            0.0010324226459488273,
+            0.0013875178576979255,
+            0.0009493482149472195
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.0009141041498099055,
+          "abi3_sample_seconds_per_stream": [
+            0.0009085178608074784,
+            0.0009089107126263636,
+            0.0009744910722864526,
+            0.0009141041498099055,
+            0.00090463985855292,
+            0.0009471458615735173,
+            0.0009377410751767457
+          ],
+          "abi3_slowdown_percent": -9.454886006233398,
+          "cpython_specific_median_seconds_per_stream": 0.0010095565729508443,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0009888898514743363,
+            0.001047363072367651,
+            0.0010784225721311355,
+            0.0010095833567902446,
+            0.0009357053537054785,
+            0.000874752935487777,
+            0.0010095565729508443
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "root_string"
+    },
+    {
+      "chunk_count": 257,
+      "chunk_size_bytes": 8,
+      "payload_size_bytes": 2050,
+      "python_fallback_control_difference_percent": 20.957925885550456,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.00011984222395910641,
+          "abi3_sample_seconds_per_stream": [
+            0.00011717499906404151,
+            0.00016539346622514793,
+            0.00012022029908224084,
+            0.00011984222395910641,
+            0.0001160561792510614,
+            0.00011644943805641673,
+            0.00012199391003991111
+          ],
+          "abi3_slowdown_percent": -5.183910277311032,
+          "cpython_specific_median_seconds_per_stream": 0.00012639439604566273,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0001401011518043417,
+            0.0001268093487745974,
+            0.00012378663763981955,
+            0.0001339315977156051,
+            0.00012387840966270728,
+            0.00012639439604566273,
+            0.0001234889884168903
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.00011938703375765019,
+          "abi3_sample_seconds_per_stream": [
+            0.00011776593472699032,
+            0.00013288901801305738,
+            0.00011980722148466526,
+            0.00011520231039159827,
+            0.00011638998906808287,
+            0.00011938703375765019,
+            0.00012660533676363443
+          ],
+          "abi3_slowdown_percent": -9.419081382371509,
+          "cpython_specific_median_seconds_per_stream": 0.00013180152683328557,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.00013142886497761783,
+            0.00014873046893626451,
+            0.00013695888245772374,
+            0.00014514839739143237,
+            0.00013163709707598211,
+            0.00011366431417334224,
+            0.00013180152683328557
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "root_string"
+    },
+    {
+      "chunk_count": 33,
+      "chunk_size_bytes": 64,
+      "payload_size_bytes": 2050,
+      "python_fallback_control_difference_percent": 0.21624156283721607,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 1.9286704414031084e-05,
+          "abi3_sample_seconds_per_stream": [
+            1.8981828593927687e-05,
+            1.946409105915915e-05,
+            1.9286704414031084e-05,
+            1.936956244429677e-05,
+            1.9071568337986703e-05,
+            2.0214583649224525e-05,
+            1.899961629586906e-05
+          ],
+          "abi3_slowdown_percent": -11.88835766469294,
+          "cpython_specific_median_seconds_per_stream": 2.1888939875432037e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            1.9392153073384277e-05,
+            2.1888939875432037e-05,
+            2.722011493711636e-05,
+            2.025880328860254e-05,
+            2.185197517196125e-05,
+            2.9806725359931976e-05,
+            2.4755749272309432e-05
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 1.898808524733803e-05,
+          "abi3_sample_seconds_per_stream": [
+            1.8653009276561164e-05,
+            1.9516435950531585e-05,
+            2.2626522812699488e-05,
+            1.871370004048034e-05,
+            1.928604836331885e-05,
+            1.898808524733803e-05,
+            1.8100288885069037e-05
+          ],
+          "abi3_slowdown_percent": -14.412673924275488,
+          "cpython_specific_median_seconds_per_stream": 2.2185627379617013e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            1.923632656009644e-05,
+            2.085179023638125e-05,
+            2.1384754928062162e-05,
+            2.6630275873709226e-05,
+            2.2185627379617013e-05,
+            3.389095852296765e-05,
+            2.8132795603698368e-05
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "root_string"
+    },
+    {
+      "chunk_count": 9,
+      "chunk_size_bytes": 256,
+      "payload_size_bytes": 2050,
+      "python_fallback_control_difference_percent": 1.5624725624168612,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 8.655915615520605e-06,
+          "abi3_sample_seconds_per_stream": [
+            8.815128978947917e-06,
+            8.791997641135626e-06,
+            8.235837498064993e-06,
+            8.977719737076828e-06,
+            8.017120467154647e-06,
+            8.655915615520605e-06,
+            8.079153386729665e-06
+          ],
+          "abi3_slowdown_percent": -2.112693138014876,
+          "cpython_specific_median_seconds_per_stream": 8.842735481245689e-06,
+          "cpython_specific_sample_seconds_per_stream": [
+            9.730832451688392e-06,
+            8.491707018712599e-06,
+            9.701762678834429e-06,
+            8.037715474982186e-06,
+            8.532967934700965e-06,
+            9.293452418956255e-06,
+            8.842735481245689e-06
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 7.721716081080531e-06,
+          "abi3_sample_seconds_per_stream": [
+            7.869666505808288e-06,
+            7.581161570754971e-06,
+            7.847448099808869e-06,
+            7.6878863930921e-06,
+            7.721716081080531e-06,
+            7.5837864602805624e-06,
+            7.828814587043842e-06
+          ],
+          "abi3_slowdown_percent": 0.6891659323970734,
+          "cpython_specific_median_seconds_per_stream": 7.668864876947048e-06,
+          "cpython_specific_sample_seconds_per_stream": [
+            8.33773224854766e-06,
+            7.75517309624127e-06,
+            7.746614192613833e-06,
+            7.536646650474607e-06,
+            7.668864876947048e-06,
+            7.4178752360394075e-06,
+            7.5621973771834406e-06
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "root_string"
+    },
+    {
+      "chunk_count": 3,
+      "chunk_size_bytes": 1024,
+      "payload_size_bytes": 2050,
+      "python_fallback_control_difference_percent": 3.1553054808918235,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 5.285656397889541e-06,
+          "abi3_sample_seconds_per_stream": [
+            5.422296762796014e-06,
+            5.515182505629651e-06,
+            5.285656397889541e-06,
+            5.27527295023011e-06,
+            5.255094940157094e-06,
+            5.289819521588669e-06,
+            5.224330760506629e-06
+          ],
+          "abi3_slowdown_percent": 1.9460117947470046,
+          "cpython_specific_median_seconds_per_stream": 5.184760349950145e-06,
+          "cpython_specific_sample_seconds_per_stream": [
+            5.222252013296608e-06,
+            5.216684578009618e-06,
+            5.184760349950145e-06,
+            5.156422460080688e-06,
+            5.208311224956765e-06,
+            5.180703767582895e-06,
+            5.108640743810128e-06
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 4.992935064040498e-06,
+          "abi3_sample_seconds_per_stream": [
+            4.88608595800704e-06,
+            5.015903019285774e-06,
+            5.145305540954895e-06,
+            4.957326067806355e-06,
+            5.042679236518054e-06,
+            4.992935064040498e-06,
+            4.990468098643471e-06
+          ],
+          "abi3_slowdown_percent": 4.861695552572609,
+          "cpython_specific_median_seconds_per_stream": 4.7614479603157664e-06,
+          "cpython_specific_sample_seconds_per_stream": [
+            4.76333128274304e-06,
+            4.7614479603157664e-06,
+            4.931789084380802e-06,
+            4.731358605313087e-06,
+            4.7581759914206724e-06,
+            4.818172799641957e-06,
+            4.76015162694264e-06
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "root_string"
+    },
+    {
+      "chunk_count": 7772,
+      "chunk_size_bytes": 1,
+      "payload_size_bytes": 7772,
+      "python_fallback_control_difference_percent": 13.21147771025184,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.004484989476623014,
+          "abi3_sample_seconds_per_stream": [
+            0.004484989476623014,
+            0.00447869801428169,
+            0.0041475519828964025,
+            0.004017989500425756,
+            0.004532687511527911,
+            0.00505560397868976,
+            0.006279739493038505
+          ],
+          "abi3_slowdown_percent": 29.37975120055052,
+          "cpython_specific_median_seconds_per_stream": 0.003466531226877123,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.003320354240713641,
+            0.00386249998700805,
+            0.003984489740105346,
+            0.003448312490945682,
+            0.0034614687610883266,
+            0.0035333645064383745,
+            0.003466531226877123
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.0037440727464854717,
+          "abi3_sample_seconds_per_stream": [
+            0.0036989895161241293,
+            0.003921697993064299,
+            0.004143697733525187,
+            0.004055020748637617,
+            0.0037440727464854717,
+            0.003741499996976927,
+            0.003714406251674518
+          ],
+          "abi3_slowdown_percent": 7.651132746659095,
+          "cpython_specific_median_seconds_per_stream": 0.003477968741208315,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.003582625009585172,
+            0.0035055102489423007,
+            0.0035499374789651483,
+            0.003332697757286951,
+            0.003477968741208315,
+            0.0033837917435448617,
+            0.003373374987859279
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "string_array"
+    },
+    {
+      "chunk_count": 972,
+      "chunk_size_bytes": 8,
+      "payload_size_bytes": 7772,
+      "python_fallback_control_difference_percent": 18.44158241765468,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.0006956324297269541,
+          "abi3_sample_seconds_per_stream": [
+            0.0008468472078675404,
+            0.000626907039147157,
+            0.0006097361018570761,
+            0.0006433088291326866,
+            0.0007228194412568377,
+            0.0006956324297269541,
+            0.0007100598741089925
+          ],
+          "abi3_slowdown_percent": 27.828776032299785,
+          "cpython_specific_median_seconds_per_stream": 0.000544190792808015,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0005424736851924344,
+            0.0005424188413216095,
+            0.0005568680547488233,
+            0.0005424853996373713,
+            0.0005546171851165127,
+            0.000544190792808015,
+            0.0005451208038721233
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.0006827962740013996,
+          "abi3_sample_seconds_per_stream": [
+            0.0007715161644025809,
+            0.0006827962740013996,
+            0.0006589583491029985,
+            0.0007238854159368202,
+            0.0006200846983119845,
+            0.0009958541486412287,
+            0.0006551328115165234
+          ],
+          "abi3_slowdown_percent": 22.74810168910557,
+          "cpython_specific_median_seconds_per_stream": 0.0005562581128389058,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0005473472216787437,
+            0.0005543861305341124,
+            0.0005493916978593916,
+            0.0005791074731142113,
+            0.0005795950310130138,
+            0.0005562581128389058,
+            0.0005945986823031777
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "string_array"
+    },
+    {
+      "chunk_count": 122,
+      "chunk_size_bytes": 64,
+      "payload_size_bytes": 7772,
+      "python_fallback_control_difference_percent": 15.302203173007234,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.00016069940396673267,
+          "abi3_sample_seconds_per_stream": [
+            0.00016389225576339024,
+            0.0001677288913027677,
+            0.0001476627296289882,
+            0.00015193309871033882,
+            0.00014631886248632023,
+            0.00016069940396673267,
+            0.0001784809582334544
+          ],
+          "abi3_slowdown_percent": 12.772849021219601,
+          "cpython_specific_median_seconds_per_stream": 0.00014249830997574168,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.00013570696760549164,
+            0.00013826042107355438,
+            0.00014249830997574168,
+            0.00015931005884126266,
+            0.0001423265674856265,
+            0.0001660016660268108,
+            0.0001498202133613328
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.00015993806947436597,
+          "abi3_sample_seconds_per_stream": [
+            0.0002785731906171989,
+            0.0001754111849310759,
+            0.00014490047114021663,
+            0.00019663888896401558,
+            0.00014793229153535017,
+            0.00015993806947436597,
+            0.00015128310929269414
+          ],
+          "abi3_slowdown_percent": 16.583111959441908,
+          "cpython_specific_median_seconds_per_stream": 0.0001371880255949994,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0001321447382092868,
+            0.0001371880255949994,
+            0.00015249354912387863,
+            0.00013670032002175084,
+            0.00013897187454858795,
+            0.00014644086802624822,
+            0.00013557603815570474
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "string_array"
+    },
+    {
+      "chunk_count": 31,
+      "chunk_size_bytes": 256,
+      "payload_size_bytes": 7772,
+      "python_fallback_control_difference_percent": 13.434863959119458,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.00011776954005678407,
+          "abi3_sample_seconds_per_stream": [
+            0.00019948172848671675,
+            0.00020086910808458924,
+            0.00011776954005678407,
+            0.00014426425434322212,
+            0.0001089863625429241,
+            0.00011357015274389057,
+            9.651633511318572e-05
+          ],
+          "abi3_slowdown_percent": 26.199722829722248,
+          "cpython_specific_median_seconds_per_stream": 9.331996728367401e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            8.990708017408584e-05,
+            8.833052946583313e-05,
+            0.00011686645887150872,
+            8.887144374764628e-05,
+            9.331996728367401e-05,
+            0.00010107922681720194,
+            0.00011115224602130743
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 9.545612466249582e-05,
+          "abi3_sample_seconds_per_stream": [
+            9.381120398113157e-05,
+            9.15910084650182e-05,
+            0.00010175263063837458,
+            9.545612466249582e-05,
+            9.082819413780779e-05,
+            0.00011199129089205103,
+            0.00012217773396554774
+          ],
+          "abi3_slowdown_percent": 4.13274078139414,
+          "cpython_specific_median_seconds_per_stream": 9.16677348029155e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            8.70105873290745e-05,
+            8.546289063815493e-05,
+            8.570764797785487e-05,
+            9.16677348029155e-05,
+            0.00010168816961888825,
+            0.00011585348357374851,
+            0.00011018360207781074
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "string_array"
+    },
+    {
+      "chunk_count": 8,
+      "chunk_size_bytes": 1024,
+      "payload_size_bytes": 7772,
+      "python_fallback_control_difference_percent": 3.305590049049356,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 9.936153834972244e-05,
+          "abi3_sample_seconds_per_stream": [
+            9.936153834972244e-05,
+            8.261778846365184e-05,
+            8.780456134687654e-05,
+            0.00010619397537328866,
+            9.955771836555667e-05,
+            9.528479781596267e-05,
+            0.0001019844550764494
+          ],
+          "abi3_slowdown_percent": 41.13315504052295,
+          "cpython_specific_median_seconds_per_stream": 7.040269050967733e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            6.926559407504336e-05,
+            6.903249387895423e-05,
+            7.040269050967733e-05,
+            7.176131167331871e-05,
+            7.654966891354677e-05,
+            7.04011518572425e-05,
+            7.816389280681809e-05
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 7.737982609862651e-05,
+          "abi3_sample_seconds_per_stream": [
+            0.0001540290947370934,
+            0.00010055896011181176,
+            7.961751543916762e-05,
+            7.737982609862651e-05,
+            7.724709128244565e-05,
+            7.408510659101373e-05,
+            7.539393683126965e-05
+          ],
+          "abi3_slowdown_percent": 1.7987392827788495,
+          "cpython_specific_median_seconds_per_stream": 7.601255835170912e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            8.195553690806698e-05,
+            8.810087364461077e-05,
+            7.237760413166446e-05,
+            6.796428540648965e-05,
+            7.452868073638798e-05,
+            7.601255835170912e-05,
+            8.570984852891685e-05
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "string_array"
+    },
+    {
+      "chunk_count": 2,
+      "chunk_size_bytes": 4096,
+      "payload_size_bytes": 7772,
+      "python_fallback_control_difference_percent": 7.2707424585580105,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 8.277330788542758e-05,
+          "abi3_sample_seconds_per_stream": [
+            7.482184574816048e-05,
+            0.00010073949641540764,
+            0.0001247618438712522,
+            0.00010774747440309235,
+            7.37902911758603e-05,
+            7.612928142133233e-05,
+            8.277330788542758e-05
+          ],
+          "abi3_slowdown_percent": 19.925823197389224,
+          "cpython_specific_median_seconds_per_stream": 6.9020420855639e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            9.082274563196633e-05,
+            6.839166621141362e-05,
+            6.389340451501447e-05,
+            8.207142876565271e-05,
+            6.899377935892575e-05,
+            6.9020420855639e-05,
+            8.533278168703349e-05
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 7.731869668901168e-05,
+          "abi3_sample_seconds_per_stream": [
+            9.243524982593954e-05,
+            7.638407452982299e-05,
+            6.930956354477261e-05,
+            0.00011677164871656857,
+            8.3425532240447e-05,
+            7.731869668901168e-05,
+            7.260514770153185e-05
+          ],
+          "abi3_slowdown_percent": 6.033412673526906,
+          "cpython_specific_median_seconds_per_stream": 7.291918154805899e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            7.353858004703566e-05,
+            6.954607920758179e-05,
+            0.00011375139001756907,
+            7.291918154805899e-05,
+            6.82279740454285e-05,
+            8.119499307807559e-05,
+            6.793535580935398e-05
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "string_array"
+    },
+    {
+      "chunk_count": 11477,
+      "chunk_size_bytes": 1,
+      "payload_size_bytes": 11477,
+      "python_fallback_control_difference_percent": 27.101653584993855,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.005485354457050562,
+          "abi3_sample_seconds_per_stream": [
+            0.005777708487585187,
+            0.005489687493536621,
+            0.00540672946954146,
+            0.005450437543913722,
+            0.00537495844764635,
+            0.005485354457050562,
+            0.005682937509845942
+          ],
+          "abi3_slowdown_percent": -3.588110704453773,
+          "cpython_specific_median_seconds_per_stream": 0.005689500016160309,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.006001208501402289,
+            0.005425604002084583,
+            0.005689500016160309,
+            0.005852208472788334,
+            0.005508937523700297,
+            0.005984812509268522,
+            0.005303083453327417
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.005533166986424476,
+          "abi3_sample_seconds_per_stream": [
+            0.005556208488997072,
+            0.0054296875023283064,
+            0.005520624981727451,
+            0.005533166986424476,
+            0.005444312526378781,
+            0.005554542003665119,
+            0.005792125011794269
+          ],
+          "abi3_slowdown_percent": 4.004455144725738,
+          "cpython_specific_median_seconds_per_stream": 0.005320124968420714,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.00504131248453632,
+            0.0055938540026545525,
+            0.005135728977620602,
+            0.005320124968420714,
+            0.005311666987836361,
+            0.00580047897528857,
+            0.0059464164660312235
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "unicode_object"
+    },
+    {
+      "chunk_count": 1435,
+      "chunk_size_bytes": 8,
+      "payload_size_bytes": 11477,
+      "python_fallback_control_difference_percent": 43.82979881892945,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.0007543477695435286,
+          "abi3_sample_seconds_per_stream": [
+            0.0007543477695435286,
+            0.0007815443988268574,
+            0.0007427976441769195,
+            0.0007848621507246906,
+            0.0007945178575547678,
+            0.0007478477693019578,
+            0.0007427827804349363
+          ],
+          "abi3_slowdown_percent": -24.05045605821494,
+          "cpython_specific_median_seconds_per_stream": 0.000993222250447919,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0010352083287822704,
+            0.0008333924245865395,
+            0.0010289235894257824,
+            0.001128322920218731,
+            0.0008860104183744019,
+            0.000927837089296769,
+            0.000993222250447919
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.0007850144219656403,
+          "abi3_sample_seconds_per_stream": [
+            0.0007507351360150746,
+            0.0007156993545192693,
+            0.0007991777344917258,
+            0.0008105655017841075,
+            0.0007850144219656403,
+            0.0007425267831422389,
+            0.0008743645836754391
+          ],
+          "abi3_slowdown_percent": -4.166359465641156,
+          "cpython_specific_median_seconds_per_stream": 0.0008191428579656142,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.0007804444680611293,
+            0.0007555499983330567,
+            0.0008191428579656142,
+            0.0009275952137873641,
+            0.0008541434977410568,
+            0.0007824416660393278,
+            0.0008882531591762716
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "unicode_object"
+    },
+    {
+      "chunk_count": 180,
+      "chunk_size_bytes": 64,
+      "payload_size_bytes": 11477,
+      "python_fallback_control_difference_percent": 21.804610569085693,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 0.00013091413463216004,
+          "abi3_sample_seconds_per_stream": [
+            0.00013218181776245694,
+            0.00013211603818720654,
+            0.00012839394213341466,
+            0.0001434050633017964,
+            0.00012883958697784692,
+            0.00012701492538146766,
+            0.00013091413463216004
+          ],
+          "abi3_slowdown_percent": -24.683936249286,
+          "cpython_specific_median_seconds_per_stream": 0.00017381967154506128,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.00016551461016348044,
+            0.00016263906553677925,
+            0.00017664333339780568,
+            0.00017381967154506128,
+            0.00016707864997442812,
+            0.00021986633708531207,
+            0.00020323892395141758
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 0.00015576700005974424,
+          "abi3_sample_seconds_per_stream": [
+            0.00012957646888739702,
+            0.00013239265293426192,
+            0.00016122222656295414,
+            0.00014252760011004283,
+            0.00015576700005974424,
+            0.00016902302587895016,
+            0.00018081475659651128
+          ],
+          "abi3_slowdown_percent": -0.6266971056678283,
+          "cpython_specific_median_seconds_per_stream": 0.00015674934365961235,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.00016141346154304652,
+            0.00015674934365961235,
+            0.0001720566659544905,
+            0.00014521186150467165,
+            0.00015290425545436904,
+            0.0001385854135151021,
+            0.0001951095671105532
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "unicode_object"
+    },
+    {
+      "chunk_count": 45,
+      "chunk_size_bytes": 256,
+      "payload_size_bytes": 11477,
+      "python_fallback_control_difference_percent": 29.640282733488867,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 6.650052173941765e-05,
+          "abi3_sample_seconds_per_stream": [
+            6.488337632767933e-05,
+            8.789065477410049e-05,
+            6.558880631928332e-05,
+            6.705670288406817e-05,
+            7.613690104335546e-05,
+            6.475101193844726e-05,
+            6.650052173941765e-05
+          ],
+          "abi3_slowdown_percent": -18.070427186598202,
+          "cpython_specific_median_seconds_per_stream": 8.11679097740147e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            7.353589802711124e-05,
+            7.722266226010338e-05,
+            0.00010941976388740177,
+            9.52386369856147e-05,
+            7.263805467568068e-05,
+            8.11679097740147e-05,
+            8.181512618021478e-05
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 6.436412596091066e-05,
+          "abi3_sample_seconds_per_stream": [
+            6.441018003189635e-05,
+            5.9726579836707495e-05,
+            7.106076130488266e-05,
+            6.254422253057841e-05,
+            6.0085965618852854e-05,
+            6.564761009408025e-05,
+            6.436412596091066e-05
+          ],
+          "abi3_slowdown_percent": -50.70358390237417,
+          "cpython_specific_median_seconds_per_stream": 0.000130565527995879,
+          "cpython_specific_sample_seconds_per_stream": [
+            6.645684507453726e-05,
+            8.480756591061915e-05,
+            8.704975162717429e-05,
+            0.000130565527995879,
+            0.0002081713718061726,
+            0.00014314414757127697,
+            0.00019216504516442876
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "unicode_object"
+    },
+    {
+      "chunk_count": 12,
+      "chunk_size_bytes": 1024,
+      "payload_size_bytes": 11477,
+      "python_fallback_control_difference_percent": 36.579019701839876,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 4.8103439080160716e-05,
+          "abi3_sample_seconds_per_stream": [
+            5.5572355915678713e-05,
+            4.987826105207205e-05,
+            4.8103439080160716e-05,
+            4.431303405465606e-05,
+            4.3790943686773763e-05,
+            4.9614382327954265e-05,
+            4.459914047753013e-05
+          ],
+          "abi3_slowdown_percent": -23.699609375494845,
+          "cpython_specific_median_seconds_per_stream": 6.304481364570038e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            5.80835253606702e-05,
+            6.178103166779405e-05,
+            0.00011483796006727099,
+            8.718854369362816e-05,
+            6.930602859090833e-05,
+            5.13242409479889e-05,
+            6.304481364570038e-05
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 4.577638825312966e-05,
+          "abi3_sample_seconds_per_stream": [
+            4.423610856368517e-05,
+            4.577638825312966e-05,
+            4.265271896912047e-05,
+            4.42821576928573e-05,
+            5.3640443008605455e-05,
+            5.5530059606381204e-05,
+            6.364831656063778e-05
+          ],
+          "abi3_slowdown_percent": -38.369076619774525,
+          "cpython_specific_median_seconds_per_stream": 7.427503230921443e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            6.85640941587828e-05,
+            7.050864029383879e-05,
+            8.888970596960227e-05,
+            6.747817609547859e-05,
+            7.427503230921443e-05,
+            0.00011490557851150222,
+            8.349800504672755e-05
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "unicode_object"
+    },
+    {
+      "chunk_count": 3,
+      "chunk_size_bytes": 4096,
+      "payload_size_bytes": 11477,
+      "python_fallback_control_difference_percent": 23.225042501422287,
+      "requested_size": 8192,
+      "results": [
+        {
+          "abi3_median_seconds_per_stream": 4.003762787337913e-05,
+          "abi3_sample_seconds_per_stream": [
+            3.995167346493829e-05,
+            4.269170160053157e-05,
+            3.974120901850394e-05,
+            3.976000777233069e-05,
+            4.003762787337913e-05,
+            4.44065689897308e-05,
+            4.137842962705347e-05
+          ],
+          "abi3_slowdown_percent": -47.79415864947153,
+          "cpython_specific_median_seconds_per_stream": 7.669185446998613e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            0.00010538888892059218,
+            0.00011799198826058552,
+            7.89299331329487e-05,
+            7.231155309868468e-05,
+            7.497810588960173e-05,
+            6.455173327897985e-05,
+            7.669185446998613e-05
+          ],
+          "display_name": "StreamingJsonParser (native ABI3)",
+          "name": "streaming_json_parser_native_public"
+        },
+        {
+          "abi3_median_seconds_per_stream": 4.170482181604966e-05,
+          "abi3_sample_seconds_per_stream": [
+            4.170482181604966e-05,
+            4.0075740620284995e-05,
+            4.078736916805307e-05,
+            4.1572666028514507e-05,
+            6.269908573647791e-05,
+            6.385908568030135e-05,
+            4.705649058824071e-05
+          ],
+          "abi3_slowdown_percent": -39.26357326092141,
+          "cpython_specific_median_seconds_per_stream": 6.866525420603358e-05,
+          "cpython_specific_sample_seconds_per_stream": [
+            5.9145992322167915e-05,
+            7.052368357077113e-05,
+            6.437628058177467e-05,
+            7.216064047745682e-05,
+            5.874632390122078e-05,
+            6.866525420603358e-05,
+            7.165665188684356e-05
+          ],
+          "display_name": "IncrementalJsonParser result API (native ABI3)",
+          "name": "native_incremental_direct_result"
+        }
+      ],
+      "shape": "unicode_object"
+    }
+  ],
+  "core_distribution_version": "0.2.2",
+  "date": "2026-09-25",
+  "environment": {
+    "architecture": "arm64",
+    "benchmark_package_versions": {
+      "ijson": "3.5.1",
+      "jiter": "0.17.0",
+      "json-repair": "0.63.5",
+      "jsonriver": "1.0.0",
+      "msgspec": "0.21.1",
+      "orjson": "3.12.0",
+      "partial-json-parser": "0.2.1.1.post7",
+      "partialjson": "1.2.0",
+      "pydantic-core": "2.49.0",
+      "rapidjson": "1.25",
+      "simdjson": "7.0.2",
+      "ujson": "6.0.0",
+      "untruncate-json": "1.1.0"
+    },
+    "cargo_version": "cargo 1.96.0 (30a34c682 2026-05-25)",
+    "maturin_version": "maturin 1.14.0",
+    "operating_system": "Darwin",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "processor": "Apple M2 Pro",
+    "python_version": "3.14.0",
+    "rustc_version": "rustc 1.96.0 (ac68faa20 2026-05-25)"
+  },
+  "methodology": {
+    "chunk_sizes_bytes": [
+      1,
+      8,
+      64,
+      256,
+      1024,
+      4096
+    ],
+    "clock": "time.perf_counter",
+    "comparison": "Both wheels were built locally from the same source revision, Rust files, Cargo.lock, compiler/toolchain, Python, and machine. The PyO3 abi3-py310 feature is the only source manifest difference.",
+    "payload_sizes": [
+      8192
+    ],
+    "python_fallback_control": "to detect timing-environment drift, Python fallback per-workload median differences are limited to 15% at the matrix median, 30% at p90, and 50% maximum; this control is not part of ABI-mode deltas",
+    "samples_per_case": 7,
+    "scope": "strict incremental public API and direct native result API only; Python fallback is excluded from ABI-mode deltas"
+  },
+  "native_distribution_version": "0.2.2",
+  "native_source_fingerprint_without_abi_feature": "151d6c24ee95e5cfeccd1f8e24f2c3fc566ecbaa86a8ea98c1c9138558533c28",
+  "python_fallback_timing_control": {
+    "compared_workload_count": 43,
+    "max_per_workload_difference_percent": 43.82979881892945,
+    "maximum_median_difference_percent": 15.0,
+    "maximum_p90_difference_percent": 30.0,
+    "maximum_single_difference_percent": 50.0,
+    "median_per_workload_difference_percent": 13.3337890083009,
+    "p90_per_workload_difference_percent": 27.101653584993855
+  },
+  "shape_summary": [
+    {
+      "direct_median_abi3_slowdown_percent": -4.33329339217407,
+      "paired_case_count": 6,
+      "public_median_abi3_slowdown_percent": -16.86975300264322,
+      "shape": "escape_heavy_object"
+    },
+    {
+      "direct_median_abi3_slowdown_percent": 11.437058790498643,
+      "paired_case_count": 6,
+      "public_median_abi3_slowdown_percent": 16.534637022471678,
+      "shape": "flat_string_object"
+    },
+    {
+      "direct_median_abi3_slowdown_percent": 4.814306255532308,
+      "paired_case_count": 6,
+      "public_median_abi3_slowdown_percent": -3.1042609537601242,
+      "shape": "nested_records"
+    },
+    {
+      "direct_median_abi3_slowdown_percent": 31.53343798124749,
+      "paired_case_count": 6,
+      "public_median_abi3_slowdown_percent": 44.501322541557386,
+      "shape": "number_array"
+    },
+    {
+      "direct_median_abi3_slowdown_percent": 0.3563646953130606,
+      "paired_case_count": 1,
+      "public_median_abi3_slowdown_percent": 21.63006693403442,
+      "shape": "root_literal"
+    },
+    {
+      "direct_median_abi3_slowdown_percent": 19.90227095180399,
+      "paired_case_count": 1,
+      "public_median_abi3_slowdown_percent": 35.7059712308617,
+      "shape": "root_number"
+    },
+    {
+      "direct_median_abi3_slowdown_percent": -9.419081382371509,
+      "paired_case_count": 5,
+      "public_median_abi3_slowdown_percent": -5.183910277311032,
+      "shape": "root_string"
+    },
+    {
+      "direct_median_abi3_slowdown_percent": 6.842272710093001,
+      "paired_case_count": 6,
+      "public_median_abi3_slowdown_percent": 27.014249431011017,
+      "shape": "string_array"
+    },
+    {
+      "direct_median_abi3_slowdown_percent": -21.26771804270784,
+      "paired_case_count": 6,
+      "public_median_abi3_slowdown_percent": -23.875032716854893,
+      "shape": "unicode_object"
+    }
+  ],
+  "source_revision": "6a0deeff679c89039320d4d428e9af3b257e4775",
+  "summary": {
+    "native_incremental_direct_result": {
+      "abi3_slower_case_count": 30,
+      "median_abi3_slowdown_percent": 4.13274078139414,
+      "paired_case_count": 43,
+      "slowdown_definition": "(ABI3 elapsed time / CPython-specific elapsed time - 1) * 100; positive means ABI3 was slower"
+    },
+    "streaming_json_parser_native_public": {
+      "abi3_slower_case_count": 24,
+      "median_abi3_slowdown_percent": 2.546447848349098,
+      "paired_case_count": 43,
+      "slowdown_definition": "(ABI3 elapsed time / CPython-specific elapsed time - 1) * 100; positive means ABI3 was slower"
+    }
+  }
+}

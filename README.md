@@ -64,6 +64,12 @@ Reads `row.id` and `row.value` from each of 5,000 newline-delimited records. Ful
 
 ![Horizontal chart of NDJSON selective extraction times for streaming-json-parser APIs and alternative approaches; total CPU time for 25 iterations, lower is better](https://raw.githubusercontent.com/aramisfacchinetti/streaming-json-parser/main/docs/assets/benchmarks/ndjson-selective-extraction.svg)
 
+### Strict incremental parsing
+
+This separate chart measures elapsed time for complete streams delivered in exact-width UTF-8 byte chunks. It compares the public parser with the native ABI3 backend, its direct native result path, and the Python fallback; each result is inspected as chunks arrive. Its wall-clock metric is separate from the process CPU time above. See the [full results and provenance](https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/docs/incremental-benchmark.md), [JSON data](https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/docs/incremental-benchmark.json), and the [same-source PyO3 ABI comparison](https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/docs/abi3-incremental-investigation.md).
+
+![Strict incremental parser elapsed milliseconds by byte chunk size for public native, direct native, and Python fallback paths](https://raw.githubusercontent.com/aramisfacchinetti/streaming-json-parser/main/docs/assets/benchmarks/incremental-chunk-size.svg)
+
 These charts compare operations with the same output paths within each workload. Strict incremental parsers, structural partial finishers, and permissive JSON-repair tools have different semantics, so they are measured separately in the [API scorecard](https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/docs/current-api-scorecard.md) and [partial-strategy benchmark harness](https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/scripts/benchmark_partial_strategy_matrix.py).
 
 ### Real-world Python JSON benchmark corpus
@@ -135,17 +141,17 @@ The native package is optional. Backend-specific packages such as `msgspec`, `or
 
 The benchmark snapshot includes the date, source revision and dirty-state flag, Python and platform details, processor and architecture, installed benchmark-package versions, native-extension availability, payload sizes, record counts, and selected paths. The methodology records its clock, warm-up, sample count, and repetitions.
 
-To reproduce the published benchmark artifacts, install core 0.2.2 and native 0.2.1, clone the pinned community corpus, and run the guarded release target from a clean Git checkout:
+To reproduce the published benchmark artifacts, install core 0.2.2 and native 0.2.2, clone the pinned community corpus, and run the guarded release target from a clean Git checkout:
 
 ```bash
 python -m pip install 'streaming-json-parser[benchmark,accelerated]==0.2.2'
-python -m pip install 'streaming-json-parser-native==0.2.1'
+python -m pip install 'streaming-json-parser-native==0.2.2'
 git clone https://github.com/TkTech/json_benchmark.git /tmp/tktech-json-benchmark
 git -C /tmp/tktech-json-benchmark checkout 52d596b8a9bc0e00e654747298a8ec5b0d95152b
 make benchmark-release-artifacts COMMUNITY_JSON_CORPUS_DIR=/tmp/tktech-json-benchmark/data
 ```
 
-The release target refuses to run if the repository has tracked or untracked changes. It measures the installed core and native distributions, checks that their versions match the repository release metadata, collects both benchmark snapshots before writing any artifacts, and records the source commit as clean. The reports retain the module `__version__` separately from installed distribution metadata.
+The release target refuses to run if the repository has tracked or untracked changes. It measures the installed core and native distributions, checks that their versions match the repository release metadata, collects the core, community, and strict incremental snapshots before writing any artifacts, and records the source commit as clean. The reports retain the module `__version__` separately from installed distribution metadata.
 
 For local iteration, you can still regenerate only the synthetic or community snapshot without the release clean-tree guard:
 
