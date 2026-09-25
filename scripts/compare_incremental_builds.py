@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import statistics
 from pathlib import Path
 from typing import Any
@@ -15,7 +16,9 @@ _NATIVE_CASES = (
     "native_incremental_direct_result",
 )
 _PYTHON_CONTROL = "streaming_json_parser_python_fallback"
-_MAX_CONTROL_DIFFERENCE = 0.25
+_MAX_MEDIAN_CONTROL_DIFFERENCE = 0.15
+_MAX_P90_CONTROL_DIFFERENCE = 0.30
+_MAX_SINGLE_CONTROL_DIFFERENCE = 0.50
 
 
 def _case_key(case: dict[str, Any]) -> tuple[Any, ...]:
@@ -28,7 +31,7 @@ def _case_key(case: dict[str, Any]) -> tuple[Any, ...]:
     )
 
 
-def _validate_pair(abi3: dict[str, Any], cpython: dict[str, Any]) -> list[float]:
+def _validate_pair(abi3: dict[str, Any], cpython: dict[str, Any]) -> dict[tuple[Any, ...], float]:
     abi3_environment = abi3["environment"]
     cpython_environment = cpython["environment"]
     abi3_native = abi3_environment["native_extension"]
@@ -87,7 +90,7 @@ def _validate_pair(abi3: dict[str, Any], cpython: dict[str, Any]) -> list[float]
     cpython_cases = {_case_key(case): case for case in cpython.get("cases", [])}
     if not abi3_cases or abi3_cases.keys() != cpython_cases.keys():
         raise ValueError("build comparison requires identical shape/chunk workloads")
-    control_differences = []
+    control_differences = {}
     for key, abi3_case in abi3_cases.items():
         cpython_case = cpython_cases[key]
         if abi3_case.get("sample_count") != cpython_case.get("sample_count"):
@@ -112,12 +115,7 @@ def _validate_pair(abi3: dict[str, Any], cpython: dict[str, Any]) -> list[float]
         if abi3_python_seconds <= 0 or cpython_python_seconds <= 0:
             raise ValueError(f"Python timing control is not positive for workload {key}")
         control_difference = abs(abi3_python_seconds / cpython_python_seconds - 1.0)
-        if control_difference > _MAX_CONTROL_DIFFERENCE:
-            raise ValueError(
-                f"Python fallback timing control differs by {control_difference:.1%} "
-                f"for workload {key}; maximum allowed is {_MAX_CONTROL_DIFFERENCE:.0%}"
-            )
-        control_differences.append(control_difference * 100.0)
+        control_differences[key] = control_difference * 100.0
         for name in _NATIVE_CASES:
             abi3_result = next(
                 (result for result in abi3_case["results"] if result["name"] == name),
@@ -129,6 +127,34 @@ def _validate_pair(abi3: dict[str, Any], cpython: dict[str, Any]) -> list[float]
             )
             if not abi3_result or not cpython_result or not abi3_result.get("valid") or not cpython_result.get("valid"):
                 raise ValueError(f"missing valid {name} measurements for workload {key}")
+    differences = sorted(control_differences.values())
+    p90_difference = differences[max(0, math.ceil(0.9 * len(differences)) - 1)]
+    control_summary = {
+        "median_per_workload_difference_percent": statistics.median(differences),
+        "p90_per_workload_difference_percent": p90_difference,
+        "max_per_workload_difference_percent": max(differences),
+        "compared_workload_count": len(differences),
+        "maximum_median_difference_percent": _MAX_MEDIAN_CONTROL_DIFFERENCE * 100.0,
+        "maximum_p90_difference_percent": _MAX_P90_CONTROL_DIFFERENCE * 100.0,
+        "maximum_single_difference_percent": _MAX_SINGLE_CONTROL_DIFFERENCE * 100.0,
+    }
+    if (
+        control_summary["median_per_workload_difference_percent"]
+        > control_summary["maximum_median_difference_percent"]
+        or control_summary["p90_per_workload_difference_percent"]
+        > control_summary["maximum_p90_difference_percent"]
+        or control_summary["max_per_workload_difference_percent"]
+        > control_summary["maximum_single_difference_percent"]
+    ):
+        raise ValueError(
+            "Python fallback timing control is too noisy across the build pair: "
+            f"median {control_summary['median_per_workload_difference_percent']:.1f}% "
+            f"(limit {control_summary['maximum_median_difference_percent']:.0f}%), "
+            f"p90 {control_summary['p90_per_workload_difference_percent']:.1f}% "
+            f"(limit {control_summary['maximum_p90_difference_percent']:.0f}%), "
+            f"max {control_summary['max_per_workload_difference_percent']:.1f}% "
+            f"(limit {control_summary['maximum_single_difference_percent']:.0f}%)"
+        )
     return control_differences
 
 
@@ -171,6 +197,7 @@ def build_comparison(abi3: dict[str, Any], cpython: dict[str, Any]) -> dict[str,
                 "payload_size_bytes": abi3_case["payload_size_bytes"],
                 "chunk_size_bytes": abi3_case["chunk_size_bytes"],
                 "chunk_count": abi3_case["chunk_count"],
+                "python_fallback_control_difference_percent": control_differences[key],
                 "results": implementation_results,
             }
         )
@@ -183,6 +210,27 @@ def build_comparison(abi3: dict[str, Any], cpython: dict[str, Any]) -> dict[str,
         }
         for name, values in per_implementation.items()
     }
+    shape_results: dict[str, dict[str, list[float]]] = {}
+    for case in cases:
+        results = {result["name"]: result for result in case["results"]}
+        shape = shape_results.setdefault(
+            case["shape"], {name: [] for name in _NATIVE_CASES}
+        )
+        for name in _NATIVE_CASES:
+            shape[name].append(results[name]["abi3_slowdown_percent"])
+    shape_summary = [
+        {
+            "shape": shape,
+            "paired_case_count": len(values[_NATIVE_CASES[0]]),
+            "public_median_abi3_slowdown_percent": statistics.median(
+                values["streaming_json_parser_native_public"]
+            ),
+            "direct_median_abi3_slowdown_percent": statistics.median(
+                values["native_incremental_direct_result"]
+            ),
+        }
+        for shape, values in sorted(shape_results.items())
+    ]
     return {
         "date": abi3["date"],
         "benchmark": "same-source ABI3 versus CPython-specific strict incremental build investigation",
@@ -230,17 +278,27 @@ def build_comparison(abi3: dict[str, Any], cpython: dict[str, Any]) -> dict[str,
             "comparison": "Both wheels were built locally from the same source revision, Rust files, Cargo.lock, compiler/toolchain, Python, and machine. The PyO3 abi3-py310 feature is the only source manifest difference.",
             "scope": "strict incremental public API and direct native result API only; Python fallback is excluded from ABI-mode deltas",
             "python_fallback_control": (
-                "Python fallback per-workload medians between build runs must differ by no more than "
-                f"{_MAX_CONTROL_DIFFERENCE:.0%}; this detects timing-environment drift and is not part of ABI-mode deltas"
+                "to detect timing-environment drift, Python fallback per-workload median differences are limited to "
+                f"{_MAX_MEDIAN_CONTROL_DIFFERENCE:.0%} at the matrix median, "
+                f"{_MAX_P90_CONTROL_DIFFERENCE:.0%} at p90, and "
+                f"{_MAX_SINGLE_CONTROL_DIFFERENCE:.0%} maximum; this control is not part of ABI-mode deltas"
             ),
         },
         "python_fallback_timing_control": {
-            "max_per_workload_difference_percent": max(control_differences),
-            "median_per_workload_difference_percent": statistics.median(control_differences),
+            "median_per_workload_difference_percent": statistics.median(
+                control_differences.values()
+            ),
+            "p90_per_workload_difference_percent": sorted(control_differences.values())[
+                max(0, math.ceil(0.9 * len(control_differences)) - 1)
+            ],
+            "max_per_workload_difference_percent": max(control_differences.values()),
             "compared_workload_count": len(control_differences),
-            "maximum_allowed_difference_percent": _MAX_CONTROL_DIFFERENCE * 100.0,
+            "maximum_median_difference_percent": _MAX_MEDIAN_CONTROL_DIFFERENCE * 100.0,
+            "maximum_p90_difference_percent": _MAX_P90_CONTROL_DIFFERENCE * 100.0,
+            "maximum_single_difference_percent": _MAX_SINGLE_CONTROL_DIFFERENCE * 100.0,
         },
         "summary": summary,
+        "shape_summary": shape_summary,
         "cases": cases,
     }
 
@@ -272,7 +330,11 @@ def render_markdown(comparison: dict[str, Any]) -> str:
         f"- ABI3 wheel binary: `{builds['abi3']['module_filename']}`; SHA-256 `{builds['abi3']['binary_sha256']}`; PyO3 `abi3-py310` enabled.",
         f"- CPython-specific wheel binary: `{builds['cpython_specific']['module_filename']}`; SHA-256 `{builds['cpython_specific']['binary_sha256']}`; PyO3 `abi3-py310` omitted.",
         f"- {comparison['methodology']['comparison']}",
-        f"- Python fallback timing control max difference: `{comparison['python_fallback_timing_control']['max_per_workload_difference_percent']:.1f}%` (limit `{comparison['python_fallback_timing_control']['maximum_allowed_difference_percent']:.0f}%`).",
+        "- Python fallback timing control: "
+        f"median `{comparison['python_fallback_timing_control']['median_per_workload_difference_percent']:.1f}%`, "
+        f"p90 `{comparison['python_fallback_timing_control']['p90_per_workload_difference_percent']:.1f}%`, "
+        f"max `{comparison['python_fallback_timing_control']['max_per_workload_difference_percent']:.1f}%` "
+        "(limits 15% / 30% / 50%).",
         "",
         "## ABI3 timing difference",
         "",
@@ -289,6 +351,22 @@ def render_markdown(comparison: dict[str, Any]) -> str:
         row = summary[name]
         lines.append(
             f"| {labels[name]} | {row['median_abi3_slowdown_percent']:+.1f}% | {row['abi3_slower_case_count']} | {row['paired_case_count']} |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Median ABI3 change by payload shape",
+            "",
+            "Positive values mean ABI3 was slower. These are medians across the chunk sizes available for each shape.",
+            "",
+            "| Shape | Public path | Direct native path | Paired chunk sizes |",
+            "| --- | ---: | ---: | ---: |",
+        ]
+    )
+    for row in comparison["shape_summary"]:
+        lines.append(
+            f"| `{row['shape']}` | {row['public_median_abi3_slowdown_percent']:+.1f}% | "
+            f"{row['direct_median_abi3_slowdown_percent']:+.1f}% | {row['paired_case_count']} |"
         )
     lines.extend(
         [

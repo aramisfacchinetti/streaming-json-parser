@@ -99,6 +99,7 @@ def test_build_comparison_reports_abi3_slowdown_without_mixing_fallback():
 
     public = comparison["cases"][0]["results"][0]
     assert public["abi3_slowdown_percent"] == pytest.approx(10.0)
+    assert comparison["shape_summary"][0]["public_median_abi3_slowdown_percent"] == pytest.approx(10.0)
     assert "streaming_json_parser_python_fallback" not in {
         result["name"]
         for case in comparison["cases"]
@@ -113,7 +114,7 @@ def test_build_comparison_rejects_timing_environment_drift():
     cpython = _snapshot("cpython-specific", False, 0.001)
     cpython["cases"][0]["results"][2]["median_seconds_per_stream"] = 0.02
 
-    with pytest.raises(ValueError, match="Python fallback timing control differs"):
+    with pytest.raises(ValueError, match="Python fallback timing control is too noisy"):
         compare_builds.build_comparison(abi3, cpython)
 
 
