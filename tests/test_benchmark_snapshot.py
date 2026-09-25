@@ -823,6 +823,10 @@ def test_write_artifact_bundle_writes_scorecard(monkeypatch, tmp_path):
     assert created["scorecard"].exists()
     assert created["current_scorecard"].exists()
     assert "Current API Scorecard" in created["scorecard"].read_text()
+    scorecard_text = created["current_scorecard"].read_text()
+    assert "](benchmark-snapshot.md)" in scorecard_text
+    assert "](incremental-benchmark.md)" in scorecard_text
+    assert "](abi3-incremental-investigation.md)" in scorecard_text
     assert created["chart:complete_1mb_object"].exists()
     assert created["chart:complete_selective_extraction"].exists()
     assert created["chart:ndjson_selective_extraction"].exists()

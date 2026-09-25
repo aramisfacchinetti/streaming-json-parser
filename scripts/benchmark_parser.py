@@ -1066,12 +1066,14 @@ def _result_map(snapshot: dict[str, object]) -> dict[str, dict[str, float]]:
     return result_sections
 
 
-def _markdown_link(path: Path) -> str:
+def _markdown_link(path: Path, *, relative_to: Path) -> str:
     try:
         label = str(path.relative_to(REPO_ROOT))
-        target = label
     except ValueError:
         label = path.name
+    try:
+        target = path.relative_to(relative_to).as_posix()
+    except ValueError:
         target = str(path)
     return f"[{label}]({target})"
 
@@ -1174,8 +1176,8 @@ def _format_current_api_scorecard(
         "",
         'This scorecard is the shortest honest answer to "what should I use from this repo today?"',
         "",
-        f"For the {snapshot_description} behind these recommendations, see {_markdown_link(snapshot_markdown_path)} and {_markdown_link(snapshot_json_path)}. To regenerate all tracked artifacts from the current harness, run `make benchmark-artifacts`. To verify that those tracked generated artifacts are current without rewriting them, run `make verify-benchmark-artifacts`.",
-        f"Strict chunk-by-chunk performance is measured separately in {_markdown_link(incremental_report)}; the same-source ABI-mode investigation is in {_markdown_link(abi3_investigation)}.",
+        f"For the {snapshot_description} behind these recommendations, see {_markdown_link(snapshot_markdown_path, relative_to=docs_dir)} and {_markdown_link(snapshot_json_path, relative_to=docs_dir)}. To regenerate all tracked artifacts from the current harness, run `make benchmark-artifacts`. To verify that those tracked generated artifacts are current without rewriting them, run `make verify-benchmark-artifacts`.",
+        f"Strict chunk-by-chunk performance is measured separately in {_markdown_link(incremental_report, relative_to=docs_dir)}; the same-source ABI-mode investigation is in {_markdown_link(abi3_investigation, relative_to=docs_dir)}.",
         "",
         "## Recommended APIs",
         "",

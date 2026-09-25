@@ -1,10 +1,11 @@
 # Current API Scorecard
 
-Date: 2026-09-24
+Date: 2026-09-25
 
 This scorecard is the shortest honest answer to "what should I use from this repo today?"
 
-For the current benchmark snapshot behind these recommendations, see [docs/benchmark-snapshot.md](docs/benchmark-snapshot.md) and [docs/benchmark-snapshot.json](docs/benchmark-snapshot.json). To regenerate all tracked artifacts from the current harness, run `make benchmark-artifacts`. To verify that those tracked generated artifacts are current without rewriting them, run `make verify-benchmark-artifacts`.
+For the current benchmark snapshot behind these recommendations, see [docs/benchmark-snapshot.md](benchmark-snapshot.md) and [docs/benchmark-snapshot.json](benchmark-snapshot.json). To regenerate all tracked artifacts from the current harness, run `make benchmark-artifacts`. To verify that those tracked generated artifacts are current without rewriting them, run `make verify-benchmark-artifacts`.
+Strict chunk-by-chunk performance is measured separately in [docs/incremental-benchmark.md](incremental-benchmark.md); the same-source ABI-mode investigation is in [docs/abi3-incremental-investigation.md](abi3-incremental-investigation.md).
 
 ## Recommended APIs
 
@@ -54,32 +55,32 @@ Use the structural parser when the caller needs a stateful snapshot after many s
 
 ## Latest Snapshot
 
-These numbers come from the current repo benchmark slices run on 2026-09-24; they report median process CPU seconds from seven measured batches after one untimed warm-up invocation, not wall-clock latency.
+These numbers come from the current repo benchmark slices run on 2026-09-25; they report median process CPU seconds from seven measured batches after one untimed warm-up invocation, not wall-clock latency.
 
 - Complete 1 MB object, 20 iterations:
-  - `simdjson_parse`: `0.006358s`
-  - `facade_decode_complete_json`: `0.007608s`
-  - `facade_reusable_complete_decoder`: `0.005388s`
-  - `msgspec_decode`: `0.006181s`
-  - `orjson_loads`: `0.008953s`
-  - `StreamingJsonParser — single chunk`: `0.005216s`
+  - `simdjson_parse`: `0.007543s`
+  - `facade_decode_complete_json`: `0.009247s`
+  - `facade_reusable_complete_decoder`: `0.006107s`
+  - `msgspec_decode`: `0.006674s`
+  - `orjson_loads`: `0.010507s`
+  - `StreamingJsonParser — single chunk`: `0.006023s`
 
 - Complete selective extraction, 200 iterations:
-  - `simdjson_proxy_manual`: `0.077316s`
-  - `tuned_complete_path_extractor`: `0.064587s`
-  - `tuned_json_path_extractor`: `0.062883s`
-  - `repo_path_extractor`: `0.062755s`
-  - `orjson_full_then_select`: `0.305603s`
-  - `msgspec_full_then_select`: `0.314272s`
+  - `simdjson_proxy_manual`: `0.069795s`
+  - `tuned_complete_path_extractor`: `0.075391s`
+  - `tuned_json_path_extractor`: `0.070660s`
+  - `repo_path_extractor`: `0.076004s`
+  - `orjson_full_then_select`: `0.319791s`
+  - `msgspec_full_then_select`: `0.376478s`
 
 - NDJSON selective extraction, 25 iterations:
-  - `tuned_ndjson_path_extractor`: `0.058508s`
-  - `tuned_json_path_extractor`: `0.051251s`
-  - `typed_ndjson_path_extractor`: `0.048078s`
-  - `orjson_full_then_select`: `0.065337s`
-  - `msgspec_full_then_select`: `0.066425s`
-  - `generic_ndjson_path_extractor`: `0.099446s`
-  - native `sonic-rs` path: `0.053115s-0.056378s`
+  - `tuned_ndjson_path_extractor`: `0.055877s`
+  - `tuned_json_path_extractor`: `0.058541s`
+  - `typed_ndjson_path_extractor`: `0.055589s`
+  - `orjson_full_then_select`: `0.075101s`
+  - `msgspec_full_then_select`: `0.077286s`
+  - `generic_ndjson_path_extractor`: `0.130172s`
+  - native `sonic-rs` path: `0.059635s-0.060390s`
 
 ## Non-Recommendations
 
