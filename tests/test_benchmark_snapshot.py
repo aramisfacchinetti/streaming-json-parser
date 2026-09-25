@@ -185,6 +185,32 @@ def test_strategy_matrix_measures_identical_callable_once():
     assert measurements["first"] == measurements["same"]
 
 
+@pytest.mark.parametrize(
+    ("filename", "module_name"),
+    [
+        ("benchmark_strategy_matrix.py", "strategy_matrix_clock_resolution"),
+        ("benchmark_ndjson_strategy_matrix.py", "ndjson_strategy_matrix_clock_resolution"),
+    ],
+)
+def test_strategy_benchmarks_use_high_resolution_clock(
+    monkeypatch, filename, module_name
+):
+    script_path = Path(__file__).resolve().parents[1] / "scripts" / filename
+    module_spec = importlib.util.spec_from_file_location(module_name, script_path)
+    assert module_spec is not None and module_spec.loader is not None
+    module = importlib.util.module_from_spec(module_spec)
+    module_spec.loader.exec_module(module)
+    monkeypatch.setattr(module.time, "process_time", lambda: 0.0)
+
+    measurements = module._measure_functions(
+        [("decoder", lambda payload: payload)],
+        b"{}",
+        1,
+    )
+
+    assert measurements["decoder"][0] > 0
+
+
 def test_strategy_matrix_groups_repeated_builtin_bound_methods():
     matrix_path = Path(__file__).resolve().parents[1] / "scripts" / "benchmark_strategy_matrix.py"
     matrix_spec = importlib.util.spec_from_file_location(

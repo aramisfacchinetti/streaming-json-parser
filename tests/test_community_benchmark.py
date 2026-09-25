@@ -31,6 +31,23 @@ def test_community_corpus_snapshot_includes_compatible_decoders_and_provenance(t
     assert all(result["mib_per_second"] > 0 for result in section["results"])
 
 
+def test_community_benchmark_survives_quantized_process_cpu_clock(monkeypatch, tmp_path):
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+    (data_dir / "canada.json").write_text('{"city":"Zurich"}')
+    monkeypatch.setattr(community_benchmark.time, "process_time", lambda: 0.0)
+
+    snapshot = community_benchmark.collect_snapshot(
+        data_dir,
+        datasets=("canada.json",),
+        samples=1,
+        warmups=0,
+    )
+
+    assert snapshot["methodology"]["clock"] == "time.perf_counter"
+    assert all(result["mib_per_second"] > 0 for result in snapshot["sections"][0]["results"])
+
+
 def test_environment_records_installed_distribution_version(monkeypatch, tmp_path):
     monkeypatch.setattr(community_benchmark, "_USE_INSTALLED_PACKAGE", True)
     monkeypatch.setattr(

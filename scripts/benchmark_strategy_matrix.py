@@ -184,11 +184,11 @@ def _measure_functions(
     for sample_index in range(7):
         for offset in range(len(unique_functions)):
             key, function = unique_functions[(sample_index + offset) % len(unique_functions)]
-            started = time.process_time()
+            started = time.perf_counter()
             for _ in range(repetitions):
                 function(payload)
             samples_by_key[key].append(
-                (time.process_time() - started) / repetitions
+                (time.perf_counter() - started) / repetitions
             )
     measurements = {
         key: (statistics.median(samples), repetitions)
@@ -387,7 +387,7 @@ def collect_matrix(
                 )
 
     return {
-        "clock": "process_cpu_seconds",
+        "clock": "performance_counter_seconds",
         "sample_count": 7,
         "sizes": list(sizes),
         "input_kinds": list(input_kinds),
@@ -399,7 +399,7 @@ def _render_markdown(matrix: dict[str, Any]) -> str:
     lines = [
         "# Complete Strategy Matrix",
         "",
-        "Median process CPU seconds per decode from seven warmed, interleaved samples; these are not wall-clock latency.",
+        "Median elapsed seconds per decode from seven warmed, interleaved samples.",
         "",
     ]
     for case in matrix["cases"]:
