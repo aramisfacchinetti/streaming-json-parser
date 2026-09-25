@@ -58,29 +58,29 @@ Use the structural parser when the caller needs a stateful snapshot after many s
 These numbers come from the current repo benchmark slices run on 2026-09-25; they report median process CPU seconds from seven measured batches after one untimed warm-up invocation, not wall-clock latency.
 
 - Complete 1 MB object, 20 iterations:
-  - `simdjson_parse`: `0.007543s`
-  - `facade_decode_complete_json`: `0.009247s`
-  - `facade_reusable_complete_decoder`: `0.006107s`
-  - `msgspec_decode`: `0.006674s`
-  - `orjson_loads`: `0.010507s`
-  - `StreamingJsonParser — single chunk`: `0.006023s`
+  - `simdjson_parse`: `0.006460s`
+  - `facade_decode_complete_json`: `0.009256s`
+  - `facade_reusable_complete_decoder`: `0.008288s`
+  - `msgspec_decode`: `0.006848s`
+  - `orjson_loads`: `0.012285s`
+  - `StreamingJsonParser — single chunk`: `0.005315s`
 
 - Complete selective extraction, 200 iterations:
-  - `simdjson_proxy_manual`: `0.069795s`
-  - `tuned_complete_path_extractor`: `0.075391s`
-  - `tuned_json_path_extractor`: `0.070660s`
-  - `repo_path_extractor`: `0.076004s`
-  - `orjson_full_then_select`: `0.319791s`
-  - `msgspec_full_then_select`: `0.376478s`
+  - `simdjson_proxy_manual`: `0.062394s`
+  - `tuned_complete_path_extractor`: `0.076090s`
+  - `tuned_json_path_extractor`: `0.074741s`
+  - `repo_path_extractor`: `0.068094s`
+  - `orjson_full_then_select`: `0.286038s`
+  - `msgspec_full_then_select`: `0.309525s`
 
 - NDJSON selective extraction, 25 iterations:
-  - `tuned_ndjson_path_extractor`: `0.055877s`
-  - `tuned_json_path_extractor`: `0.058541s`
-  - `typed_ndjson_path_extractor`: `0.055589s`
-  - `orjson_full_then_select`: `0.075101s`
-  - `msgspec_full_then_select`: `0.077286s`
-  - `generic_ndjson_path_extractor`: `0.130172s`
-  - native `sonic-rs` path: `0.059635s-0.060390s`
+  - `tuned_ndjson_path_extractor`: `0.048918s`
+  - `tuned_json_path_extractor`: `0.047184s`
+  - `typed_ndjson_path_extractor`: `0.051809s`
+  - `orjson_full_then_select`: `0.088229s`
+  - `msgspec_full_then_select`: `0.084574s`
+  - `generic_ndjson_path_extractor`: `0.137621s`
+  - native `sonic-rs` path: `0.065560s-0.074198s`
 
 ## Non-Recommendations
 

@@ -14,170 +14,170 @@
 <line x1="190" y1="312.0" x2="1360" y2="312.0" stroke="#d8dee8" stroke-width="1"/>
 <text x="180" y="316.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">0.00</text>
 <line x1="190" y1="262.0" x2="1360" y2="262.0" stroke="#d8dee8" stroke-width="1"/>
-<text x="180" y="266.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">84.99</text>
+<text x="180" y="266.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">56.34</text>
 <line x1="190" y1="212.0" x2="1360" y2="212.0" stroke="#d8dee8" stroke-width="1"/>
-<text x="180" y="216.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">169.97</text>
+<text x="180" y="216.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">112.68</text>
 <line x1="190" y1="162.0" x2="1360" y2="162.0" stroke="#d8dee8" stroke-width="1"/>
-<text x="180" y="166.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">254.96</text>
-<rect x="254.0" y="308.9" width="21.0" height="3.1" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 5.198 ms, 1 byte chunks</title></rect>
-<rect x="277.0" y="306.7" width="21.0" height="5.3" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 8.987 ms, 1 byte chunks</title></rect>
-<rect x="300.0" y="162.0" width="21.0" height="150.0" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 254.958 ms, 1 byte chunks</title></rect>
+<text x="180" y="166.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">169.02</text>
+<rect x="254.0" y="308.3" width="21.0" height="3.7" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 4.176 ms, 1 byte chunks</title></rect>
+<rect x="277.0" y="308.1" width="21.0" height="3.9" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 4.449 ms, 1 byte chunks</title></rect>
+<rect x="300.0" y="162.0" width="21.0" height="150.0" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 169.024 ms, 1 byte chunks</title></rect>
 <text x="287.5" y="332" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">1</text>
-<rect x="449.0" y="311.1" width="21.0" height="0.9" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 1.476 ms, 8 byte chunks</title></rect>
-<rect x="472.0" y="311.5" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.887 ms, 8 byte chunks</title></rect>
-<rect x="495.0" y="292.8" width="21.0" height="19.2" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 32.707 ms, 8 byte chunks</title></rect>
+<rect x="449.0" y="311.5" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.610 ms, 8 byte chunks</title></rect>
+<rect x="472.0" y="311.5" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.611 ms, 8 byte chunks</title></rect>
+<rect x="495.0" y="287.6" width="21.0" height="24.4" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 27.448 ms, 8 byte chunks</title></rect>
 <text x="482.5" y="332" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">8</text>
-<rect x="644.0" y="311.9" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.209 ms, 64 byte chunks</title></rect>
-<rect x="667.0" y="311.9" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.161 ms, 64 byte chunks</title></rect>
-<rect x="690.0" y="309.6" width="21.0" height="2.4" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 4.016 ms, 64 byte chunks</title></rect>
+<rect x="644.0" y="311.9" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.138 ms, 64 byte chunks</title></rect>
+<rect x="667.0" y="311.9" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.143 ms, 64 byte chunks</title></rect>
+<rect x="690.0" y="308.4" width="21.0" height="3.6" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 4.020 ms, 64 byte chunks</title></rect>
 <text x="677.5" y="332" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">64</text>
-<rect x="839.0" y="312.0" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.061 ms, 256 byte chunks</title></rect>
-<rect x="862.0" y="312.0" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.048 ms, 256 byte chunks</title></rect>
-<rect x="885.0" y="310.8" width="21.0" height="1.2" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 2.111 ms, 256 byte chunks</title></rect>
+<rect x="839.0" y="312.0" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.042 ms, 256 byte chunks</title></rect>
+<rect x="862.0" y="312.0" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.038 ms, 256 byte chunks</title></rect>
+<rect x="885.0" y="310.4" width="21.0" height="1.6" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 1.840 ms, 256 byte chunks</title></rect>
 <text x="872.5" y="332" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">256</text>
-<rect x="1034.0" y="312.0" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.031 ms, 1024 byte chunks</title></rect>
-<rect x="1057.0" y="312.0" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.033 ms, 1024 byte chunks</title></rect>
-<rect x="1080.0" y="311.2" width="21.0" height="0.8" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 1.381 ms, 1024 byte chunks</title></rect>
+<rect x="1034.0" y="312.0" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.026 ms, 1024 byte chunks</title></rect>
+<rect x="1057.0" y="312.0" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.023 ms, 1024 byte chunks</title></rect>
+<rect x="1080.0" y="310.7" width="21.0" height="1.3" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 1.440 ms, 1024 byte chunks</title></rect>
 <text x="1067.5" y="332" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">1,024</text>
-<rect x="1229.0" y="312.0" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.023 ms, 4096 byte chunks</title></rect>
-<rect x="1252.0" y="312.0" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.031 ms, 4096 byte chunks</title></rect>
-<rect x="1275.0" y="311.1" width="21.0" height="0.9" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 1.539 ms, 4096 byte chunks</title></rect>
+<rect x="1229.0" y="311.9" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.071 ms, 4096 byte chunks</title></rect>
+<rect x="1252.0" y="311.9" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.075 ms, 4096 byte chunks</title></rect>
+<rect x="1275.0" y="310.4" width="21.0" height="1.6" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 1.760 ms, 4096 byte chunks</title></rect>
 <text x="1262.5" y="332" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">4,096</text>
-<text x="775.0" y="354" text-anchor="middle" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">Chunk size in bytes · panel maximum 254.958 ms</text>
+<text x="775.0" y="354" text-anchor="middle" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">Chunk size in bytes · panel maximum 169.024 ms</text>
 <text x="36" y="406" fill="#172033" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="18" font-weight="650">number array</text>
 <line x1="190" y1="572.0" x2="1360" y2="572.0" stroke="#d8dee8" stroke-width="1"/>
 <text x="180" y="576.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">0.00</text>
 <line x1="190" y1="522.0" x2="1360" y2="522.0" stroke="#d8dee8" stroke-width="1"/>
-<text x="180" y="526.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">7.79</text>
+<text x="180" y="526.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">9.26</text>
 <line x1="190" y1="472.0" x2="1360" y2="472.0" stroke="#d8dee8" stroke-width="1"/>
-<text x="180" y="476.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">15.58</text>
+<text x="180" y="476.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">18.53</text>
 <line x1="190" y1="422.0" x2="1360" y2="422.0" stroke="#d8dee8" stroke-width="1"/>
-<text x="180" y="426.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">23.36</text>
-<rect x="254.0" y="515.5" width="21.0" height="56.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 8.798 ms, 1 byte chunks</title></rect>
-<rect x="277.0" y="529.3" width="21.0" height="42.7" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 6.649 ms, 1 byte chunks</title></rect>
-<rect x="300.0" y="422.0" width="21.0" height="150.0" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 23.363 ms, 1 byte chunks</title></rect>
+<text x="180" y="426.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">27.79</text>
+<rect x="254.0" y="526.4" width="21.0" height="45.6" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 8.455 ms, 1 byte chunks</title></rect>
+<rect x="277.0" y="531.7" width="21.0" height="40.3" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 7.475 ms, 1 byte chunks</title></rect>
+<rect x="300.0" y="422.0" width="21.0" height="150.0" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 27.790 ms, 1 byte chunks</title></rect>
 <text x="287.5" y="592" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">1</text>
-<rect x="449.0" y="563.2" width="21.0" height="8.8" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 1.367 ms, 8 byte chunks</title></rect>
-<rect x="472.0" y="563.5" width="21.0" height="8.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 1.325 ms, 8 byte chunks</title></rect>
-<rect x="495.0" y="530.1" width="21.0" height="41.9" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 6.520 ms, 8 byte chunks</title></rect>
+<rect x="449.0" y="561.6" width="21.0" height="10.4" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 1.923 ms, 8 byte chunks</title></rect>
+<rect x="472.0" y="561.1" width="21.0" height="10.9" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 2.010 ms, 8 byte chunks</title></rect>
+<rect x="495.0" y="508.6" width="21.0" height="63.4" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 11.743 ms, 8 byte chunks</title></rect>
 <text x="482.5" y="592" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">8</text>
-<rect x="644.0" y="568.0" width="21.0" height="4.0" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.625 ms, 64 byte chunks</title></rect>
-<rect x="667.0" y="567.7" width="21.0" height="4.3" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.666 ms, 64 byte chunks</title></rect>
-<rect x="690.0" y="538.8" width="21.0" height="33.2" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 5.170 ms, 64 byte chunks</title></rect>
+<rect x="644.0" y="565.9" width="21.0" height="6.1" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 1.126 ms, 64 byte chunks</title></rect>
+<rect x="667.0" y="566.4" width="21.0" height="5.6" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 1.038 ms, 64 byte chunks</title></rect>
+<rect x="690.0" y="522.1" width="21.0" height="49.9" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 9.236 ms, 64 byte chunks</title></rect>
 <text x="677.5" y="592" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">64</text>
-<rect x="839.0" y="568.4" width="21.0" height="3.6" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.555 ms, 256 byte chunks</title></rect>
-<rect x="862.0" y="567.5" width="21.0" height="4.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.707 ms, 256 byte chunks</title></rect>
-<rect x="885.0" y="541.2" width="21.0" height="30.8" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 4.793 ms, 256 byte chunks</title></rect>
+<rect x="839.0" y="567.4" width="21.0" height="4.6" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.854 ms, 256 byte chunks</title></rect>
+<rect x="862.0" y="565.2" width="21.0" height="6.8" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 1.264 ms, 256 byte chunks</title></rect>
+<rect x="885.0" y="530.4" width="21.0" height="41.6" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 7.708 ms, 256 byte chunks</title></rect>
 <text x="872.5" y="592" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">256</text>
-<rect x="1034.0" y="567.0" width="21.0" height="5.0" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.784 ms, 1024 byte chunks</title></rect>
-<rect x="1057.0" y="568.4" width="21.0" height="3.6" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.556 ms, 1024 byte chunks</title></rect>
-<rect x="1080.0" y="543.9" width="21.0" height="28.1" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 4.370 ms, 1024 byte chunks</title></rect>
+<rect x="1034.0" y="568.9" width="21.0" height="3.1" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.570 ms, 1024 byte chunks</title></rect>
+<rect x="1057.0" y="569.0" width="21.0" height="3.0" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.550 ms, 1024 byte chunks</title></rect>
+<rect x="1080.0" y="544.1" width="21.0" height="27.9" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 5.161 ms, 1024 byte chunks</title></rect>
 <text x="1067.5" y="592" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">1,024</text>
-<rect x="1229.0" y="568.1" width="21.0" height="3.9" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.605 ms, 4096 byte chunks</title></rect>
-<rect x="1252.0" y="568.1" width="21.0" height="3.9" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.615 ms, 4096 byte chunks</title></rect>
-<rect x="1275.0" y="541.4" width="21.0" height="30.6" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 4.759 ms, 4096 byte chunks</title></rect>
+<rect x="1229.0" y="564.8" width="21.0" height="7.2" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 1.326 ms, 4096 byte chunks</title></rect>
+<rect x="1252.0" y="564.2" width="21.0" height="7.8" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 1.444 ms, 4096 byte chunks</title></rect>
+<rect x="1275.0" y="543.6" width="21.0" height="28.4" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 5.252 ms, 4096 byte chunks</title></rect>
 <text x="1262.5" y="592" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">4,096</text>
-<text x="775.0" y="614" text-anchor="middle" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">Chunk size in bytes · panel maximum 23.363 ms</text>
+<text x="775.0" y="614" text-anchor="middle" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">Chunk size in bytes · panel maximum 27.790 ms</text>
 <text x="36" y="666" fill="#172033" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="18" font-weight="650">nested records</text>
 <line x1="190" y1="832.0" x2="1360" y2="832.0" stroke="#d8dee8" stroke-width="1"/>
 <text x="180" y="836.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">0.00</text>
 <line x1="190" y1="782.0" x2="1360" y2="782.0" stroke="#d8dee8" stroke-width="1"/>
-<text x="180" y="786.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">5.25</text>
+<text x="180" y="786.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">6.78</text>
 <line x1="190" y1="732.0" x2="1360" y2="732.0" stroke="#d8dee8" stroke-width="1"/>
-<text x="180" y="736.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">10.51</text>
+<text x="180" y="736.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">13.56</text>
 <line x1="190" y1="682.0" x2="1360" y2="682.0" stroke="#d8dee8" stroke-width="1"/>
-<text x="180" y="686.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">15.76</text>
-<rect x="254.0" y="777.7" width="21.0" height="54.3" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 5.702 ms, 1 byte chunks</title></rect>
-<rect x="277.0" y="779.0" width="21.0" height="53.0" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 5.575 ms, 1 byte chunks</title></rect>
-<rect x="300.0" y="682.0" width="21.0" height="150.0" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 15.763 ms, 1 byte chunks</title></rect>
+<text x="180" y="686.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">20.34</text>
+<rect x="254.0" y="785.5" width="21.0" height="46.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 6.299 ms, 1 byte chunks</title></rect>
+<rect x="277.0" y="782.5" width="21.0" height="49.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 6.709 ms, 1 byte chunks</title></rect>
+<rect x="300.0" y="682.0" width="21.0" height="150.0" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 20.338 ms, 1 byte chunks</title></rect>
 <text x="287.5" y="852" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">1</text>
-<rect x="449.0" y="822.1" width="21.0" height="9.9" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 1.038 ms, 8 byte chunks</title></rect>
-<rect x="472.0" y="822.4" width="21.0" height="9.6" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 1.011 ms, 8 byte chunks</title></rect>
-<rect x="495.0" y="799.7" width="21.0" height="32.3" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 3.393 ms, 8 byte chunks</title></rect>
+<rect x="449.0" y="819.8" width="21.0" height="12.2" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 1.654 ms, 8 byte chunks</title></rect>
+<rect x="472.0" y="821.0" width="21.0" height="11.0" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 1.491 ms, 8 byte chunks</title></rect>
+<rect x="495.0" y="791.0" width="21.0" height="41.0" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 5.553 ms, 8 byte chunks</title></rect>
 <text x="482.5" y="852" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">8</text>
-<rect x="644.0" y="828.5" width="21.0" height="3.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.368 ms, 64 byte chunks</title></rect>
-<rect x="667.0" y="828.5" width="21.0" height="3.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.367 ms, 64 byte chunks</title></rect>
-<rect x="690.0" y="814.3" width="21.0" height="17.7" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 1.860 ms, 64 byte chunks</title></rect>
+<rect x="644.0" y="826.8" width="21.0" height="5.2" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.701 ms, 64 byte chunks</title></rect>
+<rect x="667.0" y="828.7" width="21.0" height="3.3" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.443 ms, 64 byte chunks</title></rect>
+<rect x="690.0" y="815.0" width="21.0" height="17.0" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 2.304 ms, 64 byte chunks</title></rect>
 <text x="677.5" y="852" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">64</text>
-<rect x="839.0" y="827.5" width="21.0" height="4.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.472 ms, 256 byte chunks</title></rect>
-<rect x="862.0" y="825.2" width="21.0" height="6.8" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.719 ms, 256 byte chunks</title></rect>
-<rect x="885.0" y="810.6" width="21.0" height="21.4" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 2.251 ms, 256 byte chunks</title></rect>
+<rect x="839.0" y="826.9" width="21.0" height="5.1" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.688 ms, 256 byte chunks</title></rect>
+<rect x="862.0" y="828.7" width="21.0" height="3.3" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.443 ms, 256 byte chunks</title></rect>
+<rect x="885.0" y="806.3" width="21.0" height="25.7" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 3.482 ms, 256 byte chunks</title></rect>
 <text x="872.5" y="852" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">256</text>
-<rect x="1034.0" y="827.1" width="21.0" height="4.9" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.515 ms, 1024 byte chunks</title></rect>
-<rect x="1057.0" y="827.4" width="21.0" height="4.6" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.483 ms, 1024 byte chunks</title></rect>
-<rect x="1080.0" y="815.0" width="21.0" height="17.0" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 1.782 ms, 1024 byte chunks</title></rect>
+<rect x="1034.0" y="828.7" width="21.0" height="3.3" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.453 ms, 1024 byte chunks</title></rect>
+<rect x="1057.0" y="828.0" width="21.0" height="4.0" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.549 ms, 1024 byte chunks</title></rect>
+<rect x="1080.0" y="811.2" width="21.0" height="20.8" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 2.814 ms, 1024 byte chunks</title></rect>
 <text x="1067.5" y="852" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">1,024</text>
-<rect x="1229.0" y="828.3" width="21.0" height="3.7" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.384 ms, 4096 byte chunks</title></rect>
-<rect x="1252.0" y="829.2" width="21.0" height="2.8" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.291 ms, 4096 byte chunks</title></rect>
-<rect x="1275.0" y="805.7" width="21.0" height="26.3" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 2.766 ms, 4096 byte chunks</title></rect>
+<rect x="1229.0" y="827.8" width="21.0" height="4.2" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.573 ms, 4096 byte chunks</title></rect>
+<rect x="1252.0" y="828.1" width="21.0" height="3.9" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.534 ms, 4096 byte chunks</title></rect>
+<rect x="1275.0" y="794.7" width="21.0" height="37.3" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 5.057 ms, 4096 byte chunks</title></rect>
 <text x="1262.5" y="852" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">4,096</text>
-<text x="775.0" y="874" text-anchor="middle" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">Chunk size in bytes · panel maximum 15.763 ms</text>
+<text x="775.0" y="874" text-anchor="middle" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">Chunk size in bytes · panel maximum 20.338 ms</text>
 <text x="36" y="926" fill="#172033" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="18" font-weight="650">unicode object</text>
 <line x1="190" y1="1092.0" x2="1360" y2="1092.0" stroke="#d8dee8" stroke-width="1"/>
 <text x="180" y="1096.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">0.00</text>
 <line x1="190" y1="1042.0" x2="1360" y2="1042.0" stroke="#d8dee8" stroke-width="1"/>
-<text x="180" y="1046.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">42.51</text>
+<text x="180" y="1046.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">54.35</text>
 <line x1="190" y1="992.0" x2="1360" y2="992.0" stroke="#d8dee8" stroke-width="1"/>
-<text x="180" y="996.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">85.02</text>
+<text x="180" y="996.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">108.70</text>
 <line x1="190" y1="942.0" x2="1360" y2="942.0" stroke="#d8dee8" stroke-width="1"/>
-<text x="180" y="946.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">127.53</text>
-<rect x="254.0" y="1084.6" width="21.0" height="7.4" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 6.252 ms, 1 byte chunks</title></rect>
-<rect x="277.0" y="1085.0" width="21.0" height="7.0" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 5.953 ms, 1 byte chunks</title></rect>
-<rect x="300.0" y="942.0" width="21.0" height="150.0" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 127.534 ms, 1 byte chunks</title></rect>
+<text x="180" y="946.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">163.05</text>
+<rect x="254.0" y="1085.6" width="21.0" height="6.4" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 6.988 ms, 1 byte chunks</title></rect>
+<rect x="277.0" y="1084.1" width="21.0" height="7.9" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 8.552 ms, 1 byte chunks</title></rect>
+<rect x="300.0" y="942.0" width="21.0" height="150.0" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 163.052 ms, 1 byte chunks</title></rect>
 <text x="287.5" y="1112" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">1</text>
-<rect x="449.0" y="1090.4" width="21.0" height="1.6" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 1.364 ms, 8 byte chunks</title></rect>
-<rect x="472.0" y="1090.0" width="21.0" height="2.0" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 1.689 ms, 8 byte chunks</title></rect>
-<rect x="495.0" y="1001.8" width="21.0" height="90.2" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 76.720 ms, 8 byte chunks</title></rect>
+<rect x="449.0" y="1090.8" width="21.0" height="1.2" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 1.277 ms, 8 byte chunks</title></rect>
+<rect x="472.0" y="1091.0" width="21.0" height="1.0" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 1.132 ms, 8 byte chunks</title></rect>
+<rect x="495.0" y="1050.2" width="21.0" height="41.8" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 45.462 ms, 8 byte chunks</title></rect>
 <text x="482.5" y="1112" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">8</text>
-<rect x="644.0" y="1091.6" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.382 ms, 64 byte chunks</title></rect>
-<rect x="667.0" y="1091.7" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.249 ms, 64 byte chunks</title></rect>
-<rect x="690.0" y="1082.9" width="21.0" height="9.1" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 7.732 ms, 64 byte chunks</title></rect>
+<rect x="644.0" y="1091.8" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.215 ms, 64 byte chunks</title></rect>
+<rect x="667.0" y="1091.8" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.208 ms, 64 byte chunks</title></rect>
+<rect x="690.0" y="1083.9" width="21.0" height="8.1" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 8.788 ms, 64 byte chunks</title></rect>
 <text x="677.5" y="1112" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">64</text>
-<rect x="839.0" y="1091.9" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.106 ms, 256 byte chunks</title></rect>
-<rect x="862.0" y="1091.9" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.112 ms, 256 byte chunks</title></rect>
-<rect x="885.0" y="1089.5" width="21.0" height="2.5" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 2.157 ms, 256 byte chunks</title></rect>
+<rect x="839.0" y="1091.9" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.115 ms, 256 byte chunks</title></rect>
+<rect x="862.0" y="1091.9" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.140 ms, 256 byte chunks</title></rect>
+<rect x="885.0" y="1089.8" width="21.0" height="2.2" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 2.442 ms, 256 byte chunks</title></rect>
 <text x="872.5" y="1112" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">256</text>
-<rect x="1034.0" y="1091.9" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.070 ms, 1024 byte chunks</title></rect>
-<rect x="1057.0" y="1091.9" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.086 ms, 1024 byte chunks</title></rect>
-<rect x="1080.0" y="1090.6" width="21.0" height="1.4" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 1.193 ms, 1024 byte chunks</title></rect>
+<rect x="1034.0" y="1091.9" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.079 ms, 1024 byte chunks</title></rect>
+<rect x="1057.0" y="1091.9" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.103 ms, 1024 byte chunks</title></rect>
+<rect x="1080.0" y="1090.2" width="21.0" height="1.8" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 1.975 ms, 1024 byte chunks</title></rect>
 <text x="1067.5" y="1112" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">1,024</text>
-<rect x="1229.0" y="1091.9" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.060 ms, 4096 byte chunks</title></rect>
-<rect x="1252.0" y="1091.9" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.077 ms, 4096 byte chunks</title></rect>
-<rect x="1275.0" y="1090.6" width="21.0" height="1.4" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 1.194 ms, 4096 byte chunks</title></rect>
+<rect x="1229.0" y="1091.9" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.098 ms, 4096 byte chunks</title></rect>
+<rect x="1252.0" y="1091.9" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.102 ms, 4096 byte chunks</title></rect>
+<rect x="1275.0" y="1091.3" width="21.0" height="0.7" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 0.795 ms, 4096 byte chunks</title></rect>
 <text x="1262.5" y="1112" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">4,096</text>
-<text x="775.0" y="1134" text-anchor="middle" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">Chunk size in bytes · panel maximum 127.534 ms</text>
+<text x="775.0" y="1134" text-anchor="middle" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">Chunk size in bytes · panel maximum 163.052 ms</text>
 <text x="36" y="1186" fill="#172033" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="18" font-weight="650">escape heavy object</text>
 <line x1="190" y1="1352.0" x2="1360" y2="1352.0" stroke="#d8dee8" stroke-width="1"/>
 <text x="180" y="1356.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">0.00</text>
 <line x1="190" y1="1302.0" x2="1360" y2="1302.0" stroke="#d8dee8" stroke-width="1"/>
-<text x="180" y="1306.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">38.72</text>
+<text x="180" y="1306.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">86.11</text>
 <line x1="190" y1="1252.0" x2="1360" y2="1252.0" stroke="#d8dee8" stroke-width="1"/>
-<text x="180" y="1256.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">77.43</text>
+<text x="180" y="1256.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">172.22</text>
 <line x1="190" y1="1202.0" x2="1360" y2="1202.0" stroke="#d8dee8" stroke-width="1"/>
-<text x="180" y="1206.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">116.15</text>
-<rect x="254.0" y="1337.9" width="21.0" height="14.1" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 10.915 ms, 1 byte chunks</title></rect>
-<rect x="277.0" y="1334.4" width="21.0" height="17.6" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 13.618 ms, 1 byte chunks</title></rect>
-<rect x="300.0" y="1202.0" width="21.0" height="150.0" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 116.149 ms, 1 byte chunks</title></rect>
+<text x="180" y="1206.0" text-anchor="end" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">258.33</text>
+<rect x="254.0" y="1339.5" width="21.0" height="12.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 21.472 ms, 1 byte chunks</title></rect>
+<rect x="277.0" y="1338.1" width="21.0" height="13.9" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 23.933 ms, 1 byte chunks</title></rect>
+<rect x="300.0" y="1202.0" width="21.0" height="150.0" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 258.332 ms, 1 byte chunks</title></rect>
 <text x="287.5" y="1372" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">1</text>
-<rect x="449.0" y="1349.0" width="21.0" height="3.0" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 2.313 ms, 8 byte chunks</title></rect>
-<rect x="472.0" y="1348.3" width="21.0" height="3.7" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 2.836 ms, 8 byte chunks</title></rect>
-<rect x="495.0" y="1314.2" width="21.0" height="37.8" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 29.236 ms, 8 byte chunks</title></rect>
+<rect x="449.0" y="1349.3" width="21.0" height="2.7" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 4.605 ms, 8 byte chunks</title></rect>
+<rect x="472.0" y="1349.0" width="21.0" height="3.0" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 5.110 ms, 8 byte chunks</title></rect>
+<rect x="495.0" y="1315.0" width="21.0" height="37.0" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 63.637 ms, 8 byte chunks</title></rect>
 <text x="482.5" y="1372" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">8</text>
-<rect x="644.0" y="1351.4" width="21.0" height="0.6" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.461 ms, 64 byte chunks</title></rect>
-<rect x="667.0" y="1351.6" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.346 ms, 64 byte chunks</title></rect>
-<rect x="690.0" y="1343.7" width="21.0" height="8.3" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 6.432 ms, 64 byte chunks</title></rect>
+<rect x="644.0" y="1350.4" width="21.0" height="1.6" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 2.730 ms, 64 byte chunks</title></rect>
+<rect x="667.0" y="1351.0" width="21.0" height="1.0" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 1.685 ms, 64 byte chunks</title></rect>
+<rect x="690.0" y="1337.0" width="21.0" height="15.0" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 25.840 ms, 64 byte chunks</title></rect>
 <text x="677.5" y="1372" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">64</text>
-<rect x="839.0" y="1351.7" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.226 ms, 256 byte chunks</title></rect>
-<rect x="862.0" y="1351.8" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.151 ms, 256 byte chunks</title></rect>
-<rect x="885.0" y="1347.4" width="21.0" height="4.6" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 3.573 ms, 256 byte chunks</title></rect>
+<rect x="839.0" y="1351.8" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.422 ms, 256 byte chunks</title></rect>
+<rect x="862.0" y="1351.6" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.718 ms, 256 byte chunks</title></rect>
+<rect x="885.0" y="1344.5" width="21.0" height="7.5" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 12.874 ms, 256 byte chunks</title></rect>
 <text x="872.5" y="1372" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">256</text>
-<rect x="1034.0" y="1351.9" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.096 ms, 1024 byte chunks</title></rect>
-<rect x="1057.0" y="1351.8" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.136 ms, 1024 byte chunks</title></rect>
-<rect x="1080.0" y="1347.7" width="21.0" height="4.3" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 3.303 ms, 1024 byte chunks</title></rect>
+<rect x="1034.0" y="1351.9" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.233 ms, 1024 byte chunks</title></rect>
+<rect x="1057.0" y="1351.9" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.168 ms, 1024 byte chunks</title></rect>
+<rect x="1080.0" y="1348.1" width="21.0" height="3.9" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 6.795 ms, 1024 byte chunks</title></rect>
 <text x="1067.5" y="1372" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">1,024</text>
-<rect x="1229.0" y="1351.8" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.123 ms, 4096 byte chunks</title></rect>
-<rect x="1252.0" y="1351.8" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.161 ms, 4096 byte chunks</title></rect>
-<rect x="1275.0" y="1347.1" width="21.0" height="4.9" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 3.770 ms, 4096 byte chunks</title></rect>
+<rect x="1229.0" y="1351.9" width="21.0" height="0.5" rx="2" fill="#2463a6"><title>Public StreamingJsonParser (native ABI3): 0.186 ms, 4096 byte chunks</title></rect>
+<rect x="1252.0" y="1351.9" width="21.0" height="0.5" rx="2" fill="#14836b"><title>Direct IncrementalJsonParser result API (native ABI3): 0.190 ms, 4096 byte chunks</title></rect>
+<rect x="1275.0" y="1347.5" width="21.0" height="4.5" rx="2" fill="#b75a12"><title>StreamingJsonParser (Python fallback): 7.737 ms, 4096 byte chunks</title></rect>
 <text x="1262.5" y="1372" text-anchor="middle" fill="#44505e" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">4,096</text>
-<text x="775.0" y="1394" text-anchor="middle" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">Chunk size in bytes · panel maximum 116.149 ms</text>
+<text x="775.0" y="1394" text-anchor="middle" fill="#667085" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11">Chunk size in bytes · panel maximum 258.332 ms</text>
 </svg>

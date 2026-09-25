@@ -6,8 +6,8 @@ This benchmark measures strict incremental parsing as UTF-8 bytes arrive in fixe
 
 ## Provenance
 
-- Core package: `0.2.2` (installed distribution; installed metadata `0.2.2`)
-- Source revision: `9da80493873f07c024ce80780e42436abddc58e9`; working tree dirty: `False`
+- Core package: `0.2.3` (installed distribution; installed metadata `0.2.3`)
+- Source revision: `55f38cd26ab10d73c015381980be60dcc7ae1f66`; working tree dirty: `False`
 - Native package: `0.2.2`; build variant: `abi3`; ABI3 binary: `True`
 - Native module file: `streaming_json_parser_native.abi3.so`; SHA-256: `ae4a201a96c9bb5adb4f156471abae7cd5397ff796be1958864ef607401c357d`
 - Python/platform: `3.14.0` / `macOS-27.0-arm64-arm-64bit-Mach-O`; processor: `Apple M2 Pro`
@@ -27,12 +27,12 @@ This benchmark measures strict incremental parsing as UTF-8 bytes arrive in fixe
 ## Summary
 
 - Paired shape/chunk cases: 43.
-- Median native public speedup vs Python fallback: `12.64×` (Python elapsed time divided by native elapsed time; above 1 means native is faster).
+- Median native public speedup vs Python fallback: `12.03×` (Python elapsed time divided by native elapsed time; above 1 means native is faster).
 - Cases where native public was faster: 43; not faster (slower or tied): 0.
 
 ## Numeric overflow edge case
 
-`1e400` has valid JSON number syntax but exceeds finite Python float range. Its untimed behavior is recorded separately: `{"native_incremental_direct_result": {"error_type": "ValueError", "outcome": "rejected"}, "streaming_json_parser_native_public": {"error_type": "ValueError", "outcome": "rejected"}, "streaming_json_parser_python_fallback": {"decoded_value": "non-finite float", "outcome": "accepted"}}`. This input is not included in performance timings.
+`1e400` has valid JSON number syntax but exceeds finite Python float range. Its untimed behavior is recorded separately: `{"native_incremental_direct_result": {"error_type": "ValueError", "outcome": "rejected"}, "streaming_json_parser_native_public": {"error_type": "ValueError", "outcome": "rejected"}, "streaming_json_parser_python_fallback": {"error_type": "ValueError", "outcome": "rejected"}}`. This input is not included in performance timings.
 
 ## Results
 
@@ -40,49 +40,49 @@ Times are median elapsed milliseconds per complete stream. `direct native` uses 
 
 | Payload shape | Payload bytes | Chunk bytes | Chunks | Public native ms | Direct native ms | Python fallback ms | Native/Python speedup |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| `flat_string_object` | 8,203 | 1 | 8,203 | 5.198 | 8.987 | 254.958 | 49.05× |
-| `flat_string_object` | 8,203 | 8 | 1,026 | 1.476 | 0.887 | 32.707 | 22.16× |
-| `flat_string_object` | 8,203 | 64 | 129 | 0.209 | 0.161 | 4.016 | 19.17× |
-| `flat_string_object` | 8,203 | 256 | 33 | 0.061 | 0.048 | 2.111 | 34.40× |
-| `flat_string_object` | 8,203 | 1,024 | 9 | 0.031 | 0.033 | 1.381 | 44.46× |
-| `flat_string_object` | 8,203 | 4,096 | 3 | 0.023 | 0.031 | 1.539 | 65.52× |
-| `number_array` | 12,541 | 1 | 12,541 | 8.798 | 6.649 | 23.363 | 2.66× |
-| `number_array` | 12,541 | 8 | 1,568 | 1.367 | 1.325 | 6.520 | 4.77× |
-| `number_array` | 12,541 | 64 | 196 | 0.625 | 0.666 | 5.170 | 8.27× |
-| `number_array` | 12,541 | 256 | 49 | 0.555 | 0.707 | 4.793 | 8.64× |
-| `number_array` | 12,541 | 1,024 | 13 | 0.784 | 0.556 | 4.370 | 5.58× |
-| `number_array` | 12,541 | 4,096 | 4 | 0.605 | 0.615 | 4.759 | 7.86× |
-| `string_array` | 7,772 | 1 | 7,772 | 3.949 | 4.416 | 14.212 | 3.60× |
-| `string_array` | 7,772 | 8 | 972 | 0.701 | 0.710 | 3.321 | 4.74× |
-| `string_array` | 7,772 | 64 | 122 | 0.180 | 0.269 | 1.708 | 9.46× |
-| `string_array` | 7,772 | 256 | 31 | 0.118 | 0.112 | 1.285 | 10.85× |
-| `string_array` | 7,772 | 1,024 | 8 | 0.096 | 0.083 | 1.074 | 11.18× |
-| `string_array` | 7,772 | 4,096 | 2 | 0.076 | 0.104 | 1.342 | 17.76× |
-| `nested_records` | 8,526 | 1 | 8,526 | 5.702 | 5.575 | 15.763 | 2.76× |
-| `nested_records` | 8,526 | 8 | 1,066 | 1.038 | 1.011 | 3.393 | 3.27× |
-| `nested_records` | 8,526 | 64 | 134 | 0.368 | 0.367 | 1.860 | 5.05× |
-| `nested_records` | 8,526 | 256 | 34 | 0.472 | 0.719 | 2.251 | 4.77× |
-| `nested_records` | 8,526 | 1,024 | 9 | 0.515 | 0.483 | 1.782 | 3.46× |
-| `nested_records` | 8,526 | 4,096 | 3 | 0.384 | 0.291 | 2.766 | 7.21× |
-| `unicode_object` | 11,477 | 1 | 11,477 | 6.252 | 5.953 | 127.534 | 20.40× |
-| `unicode_object` | 11,477 | 8 | 1,435 | 1.364 | 1.689 | 76.720 | 56.26× |
-| `unicode_object` | 11,477 | 64 | 180 | 0.382 | 0.249 | 7.732 | 20.22× |
-| `unicode_object` | 11,477 | 256 | 45 | 0.106 | 0.112 | 2.157 | 20.31× |
-| `unicode_object` | 11,477 | 1,024 | 12 | 0.070 | 0.086 | 1.193 | 17.02× |
-| `unicode_object` | 11,477 | 4,096 | 3 | 0.060 | 0.077 | 1.194 | 19.82× |
-| `escape_heavy_object` | 13,115 | 1 | 13,115 | 10.915 | 13.618 | 116.149 | 10.64× |
-| `escape_heavy_object` | 13,115 | 8 | 1,640 | 2.313 | 2.836 | 29.236 | 12.64× |
-| `escape_heavy_object` | 13,115 | 64 | 205 | 0.461 | 0.346 | 6.432 | 13.95× |
-| `escape_heavy_object` | 13,115 | 256 | 52 | 0.226 | 0.151 | 3.573 | 15.82× |
-| `escape_heavy_object` | 13,115 | 1,024 | 13 | 0.096 | 0.136 | 3.303 | 34.29× |
-| `escape_heavy_object` | 13,115 | 4,096 | 4 | 0.123 | 0.161 | 3.770 | 30.58× |
-| `root_number` | 4 | 1 | 4 | 0.004 | 0.004 | 0.016 | 4.02× |
-| `root_literal` | 4 | 1 | 4 | 0.007 | 0.004 | 0.019 | 2.75× |
-| `root_string` | 2,050 | 1 | 2,050 | 1.239 | 1.532 | 14.919 | 12.04× |
-| `root_string` | 2,050 | 8 | 257 | 0.165 | 0.143 | 2.349 | 14.21× |
-| `root_string` | 2,050 | 64 | 33 | 0.028 | 0.023 | 0.524 | 18.97× |
-| `root_string` | 2,050 | 256 | 9 | 0.012 | 0.013 | 0.558 | 45.61× |
-| `root_string` | 2,050 | 1,024 | 3 | 0.015 | 0.016 | 0.360 | 23.23× |
+| `flat_string_object` | 8,203 | 1 | 8,203 | 4.176 | 4.449 | 169.024 | 40.48× |
+| `flat_string_object` | 8,203 | 8 | 1,026 | 0.610 | 0.611 | 27.448 | 45.01× |
+| `flat_string_object` | 8,203 | 64 | 129 | 0.138 | 0.143 | 4.020 | 29.10× |
+| `flat_string_object` | 8,203 | 256 | 33 | 0.042 | 0.038 | 1.840 | 43.52× |
+| `flat_string_object` | 8,203 | 1,024 | 9 | 0.026 | 0.023 | 1.440 | 56.39× |
+| `flat_string_object` | 8,203 | 4,096 | 3 | 0.071 | 0.075 | 1.760 | 24.69× |
+| `number_array` | 12,541 | 1 | 12,541 | 8.455 | 7.475 | 27.790 | 3.29× |
+| `number_array` | 12,541 | 8 | 1,568 | 1.923 | 2.010 | 11.743 | 6.11× |
+| `number_array` | 12,541 | 64 | 196 | 1.126 | 1.038 | 9.236 | 8.20× |
+| `number_array` | 12,541 | 256 | 49 | 0.854 | 1.264 | 7.708 | 9.02× |
+| `number_array` | 12,541 | 1,024 | 13 | 0.570 | 0.550 | 5.161 | 9.05× |
+| `number_array` | 12,541 | 4,096 | 4 | 1.326 | 1.444 | 5.252 | 3.96× |
+| `string_array` | 7,772 | 1 | 7,772 | 5.466 | 5.995 | 19.430 | 3.55× |
+| `string_array` | 7,772 | 8 | 972 | 0.865 | 0.938 | 5.061 | 5.85× |
+| `string_array` | 7,772 | 64 | 122 | 0.695 | 0.299 | 1.280 | 1.84× |
+| `string_array` | 7,772 | 256 | 31 | 0.095 | 0.149 | 1.445 | 15.13× |
+| `string_array` | 7,772 | 1,024 | 8 | 0.075 | 0.099 | 1.671 | 22.34× |
+| `string_array` | 7,772 | 4,096 | 2 | 0.167 | 0.194 | 2.049 | 12.30× |
+| `nested_records` | 8,526 | 1 | 8,526 | 6.299 | 6.709 | 20.338 | 3.23× |
+| `nested_records` | 8,526 | 8 | 1,066 | 1.654 | 1.491 | 5.553 | 3.36× |
+| `nested_records` | 8,526 | 64 | 134 | 0.701 | 0.443 | 2.304 | 3.29× |
+| `nested_records` | 8,526 | 256 | 34 | 0.688 | 0.443 | 3.482 | 5.06× |
+| `nested_records` | 8,526 | 1,024 | 9 | 0.453 | 0.549 | 2.814 | 6.21× |
+| `nested_records` | 8,526 | 4,096 | 3 | 0.573 | 0.534 | 5.057 | 8.82× |
+| `unicode_object` | 11,477 | 1 | 11,477 | 6.988 | 8.552 | 163.052 | 23.33× |
+| `unicode_object` | 11,477 | 8 | 1,435 | 1.277 | 1.132 | 45.462 | 35.59× |
+| `unicode_object` | 11,477 | 64 | 180 | 0.215 | 0.208 | 8.788 | 40.79× |
+| `unicode_object` | 11,477 | 256 | 45 | 0.115 | 0.140 | 2.442 | 21.15× |
+| `unicode_object` | 11,477 | 1,024 | 12 | 0.079 | 0.103 | 1.975 | 24.96× |
+| `unicode_object` | 11,477 | 4,096 | 3 | 0.098 | 0.102 | 0.795 | 8.10× |
+| `escape_heavy_object` | 13,115 | 1 | 13,115 | 21.472 | 23.933 | 258.332 | 12.03× |
+| `escape_heavy_object` | 13,115 | 8 | 1,640 | 4.605 | 5.110 | 63.637 | 13.82× |
+| `escape_heavy_object` | 13,115 | 64 | 205 | 2.730 | 1.685 | 25.840 | 9.47× |
+| `escape_heavy_object` | 13,115 | 256 | 52 | 0.422 | 0.718 | 12.874 | 30.51× |
+| `escape_heavy_object` | 13,115 | 1,024 | 13 | 0.233 | 0.168 | 6.795 | 29.20× |
+| `escape_heavy_object` | 13,115 | 4,096 | 4 | 0.186 | 0.190 | 7.737 | 41.64× |
+| `root_number` | 4 | 1 | 4 | 0.009 | 0.006 | 0.024 | 2.67× |
+| `root_literal` | 4 | 1 | 4 | 0.007 | 0.007 | 0.034 | 4.72× |
+| `root_string` | 2,050 | 1 | 2,050 | 2.400 | 2.450 | 24.295 | 10.12× |
+| `root_string` | 2,050 | 8 | 257 | 0.549 | 0.515 | 4.550 | 8.29× |
+| `root_string` | 2,050 | 64 | 33 | 0.073 | 0.060 | 1.437 | 19.64× |
+| `root_string` | 2,050 | 256 | 9 | 0.031 | 0.024 | 1.557 | 50.29× |
+| `root_string` | 2,050 | 1,024 | 3 | 0.016 | 0.013 | 0.648 | 39.43× |
 
 ## Reproduce
 

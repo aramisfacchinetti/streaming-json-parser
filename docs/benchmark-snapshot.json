@@ -12,17 +12,17 @@
       "simdjson": "7.0.2",
       "ujson": "6.0.0"
     },
-    "commit_sha": "9da80493873f07c024ce80780e42436abddc58e9",
-    "installed_distribution_version": "0.2.2",
+    "commit_sha": "55f38cd26ab10d73c015381980be60dcc7ae1f66",
+    "installed_distribution_version": "0.2.3",
     "native_extension": {
       "importable": true,
       "installed": true,
       "version": "0.2.2"
     },
     "operating_system": "Darwin",
-    "package_module_version": "0.2.2",
+    "package_module_version": "0.2.3",
     "package_source": "installed distribution",
-    "package_version": "0.2.2",
+    "package_version": "0.2.3",
     "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
     "processor": "Apple M2 Pro",
     "python_version": "3.14.0",
@@ -44,27 +44,27 @@
       "results": [
         {
           "name": "streaming_parser_single_chunk",
-          "seconds": 0.006023000000000001
-        },
-        {
-          "name": "facade_reusable_complete_decoder",
-          "seconds": 0.006107000000000029
-        },
-        {
-          "name": "msgspec_decode",
-          "seconds": 0.006673999999999958
+          "seconds": 0.005314999999999959
         },
         {
           "name": "simdjson_parse",
-          "seconds": 0.007542999999999966
+          "seconds": 0.006460000000000021
+        },
+        {
+          "name": "msgspec_decode",
+          "seconds": 0.006847999999999965
+        },
+        {
+          "name": "facade_reusable_complete_decoder",
+          "seconds": 0.008288000000000018
         },
         {
           "name": "facade_decode_complete_json",
-          "seconds": 0.009247000000000005
+          "seconds": 0.009255999999999986
         },
         {
           "name": "orjson_loads",
-          "seconds": 0.010507000000000044
+          "seconds": 0.01228499999999999
         }
       ],
       "samples_per_case": 7,
@@ -79,47 +79,47 @@
       "results": [
         {
           "name": "simdjson_proxy_manual",
-          "seconds": 0.06979500000000005
-        },
-        {
-          "name": "tuned_json_path_extractor",
-          "seconds": 0.07066000000000017
+          "seconds": 0.06239400000000028
         },
         {
           "name": "tuned_json_extract_once",
-          "seconds": 0.07131899999999991
-        },
-        {
-          "name": "tuned_complete_extract_once",
-          "seconds": 0.0739519999999998
-        },
-        {
-          "name": "tuned_complete_path_extractor",
-          "seconds": 0.07539100000000021
+          "seconds": 0.06688899999999975
         },
         {
           "name": "repo_path_extractor",
-          "seconds": 0.07600399999999996
-        },
-        {
-          "name": "typed_complete_extract_once",
-          "seconds": 0.07729499999999989
-        },
-        {
-          "name": "typed_complete_path_extractor",
-          "seconds": 0.07732799999999984
+          "seconds": 0.06809399999999988
         },
         {
           "name": "repo_extract_once",
-          "seconds": 0.08140600000000009
+          "seconds": 0.07463400000000009
+        },
+        {
+          "name": "tuned_json_path_extractor",
+          "seconds": 0.07474100000000039
+        },
+        {
+          "name": "typed_complete_path_extractor",
+          "seconds": 0.07547400000000026
+        },
+        {
+          "name": "tuned_complete_path_extractor",
+          "seconds": 0.07608999999999977
+        },
+        {
+          "name": "tuned_complete_extract_once",
+          "seconds": 0.07900200000000002
+        },
+        {
+          "name": "typed_complete_extract_once",
+          "seconds": 0.09057199999999987
         },
         {
           "name": "orjson_full_then_select",
-          "seconds": 0.3197909999999995
+          "seconds": 0.28603799999999957
         },
         {
           "name": "msgspec_full_then_select",
-          "seconds": 0.37647800000000053
+          "seconds": 0.30952499999999894
         }
       ],
       "samples_per_case": 7,
@@ -137,56 +137,56 @@
       "record_count": 5000,
       "results": [
         {
-          "name": "typed_ndjson_path_extractor",
-          "seconds": 0.055588999999999444
-        },
-        {
-          "name": "tuned_ndjson_path_extractor",
-          "seconds": 0.05587700000000062
+          "name": "tuned_json_path_extractor",
+          "seconds": 0.04718399999999967
         },
         {
           "name": "tuned_ndjson_extract_once",
-          "seconds": 0.05598700000000001
+          "seconds": 0.04885200000000012
         },
         {
-          "name": "tuned_json_path_extractor",
-          "seconds": 0.058540999999999954
-        },
-        {
-          "name": "native_ndjson_extract_once",
-          "seconds": 0.059635000000000105
-        },
-        {
-          "name": "native_ndjson_path_extractor",
-          "seconds": 0.060389999999999944
-        },
-        {
-          "name": "tuned_json_extract_once",
-          "seconds": 0.06044099999999908
+          "name": "tuned_ndjson_path_extractor",
+          "seconds": 0.04891800000000046
         },
         {
           "name": "typed_ndjson_extract_once",
-          "seconds": 0.06257599999999996
+          "seconds": 0.05046199999999956
         },
         {
-          "name": "orjson_full_then_select",
-          "seconds": 0.07510100000000008
+          "name": "typed_ndjson_path_extractor",
+          "seconds": 0.05180900000000044
+        },
+        {
+          "name": "tuned_json_extract_once",
+          "seconds": 0.0625599999999995
+        },
+        {
+          "name": "native_ndjson_extract_once",
+          "seconds": 0.06555999999999962
+        },
+        {
+          "name": "native_ndjson_path_extractor",
+          "seconds": 0.0741979999999991
         },
         {
           "name": "msgspec_full_then_select",
-          "seconds": 0.0772859999999973
+          "seconds": 0.08457399999999993
+        },
+        {
+          "name": "orjson_full_then_select",
+          "seconds": 0.08822899999999834
         },
         {
           "name": "generic_ndjson_extract_once",
-          "seconds": 0.12329800000000013
+          "seconds": 0.13419700000000034
         },
         {
           "name": "generic_ndjson_path_extractor",
-          "seconds": 0.13017199999999995
+          "seconds": 0.1376210000000011
         },
         {
           "name": "simdjson_proxy_manual",
-          "seconds": 0.16529099999999985
+          "seconds": 0.24454000000000065
         }
       ],
       "samples_per_case": 7,
