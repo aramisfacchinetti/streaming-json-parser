@@ -135,6 +135,26 @@ _STRUCTURAL_CALIBRATION_INVALID_DOCUMENTS = (
 )
 
 
+def _parse_finite_json_float(token: str) -> float:
+    value = float(token)
+    if not math.isfinite(value):
+        raise ValueError(f"non-finite JSON number: {token}")
+    return value
+
+
+def _reject_json_constant(token: str) -> Any:
+    raise ValueError(f"invalid JSON constant: {token}")
+
+
+def _strict_json_loads(data: str | bytes | bytearray) -> Any:
+    """Use the stdlib decoder while rejecting non-standard/non-finite numbers."""
+    return json.loads(
+        data,
+        parse_float=_parse_finite_json_float,
+        parse_constant=_reject_json_constant,
+    )
+
+
 class ParseStatus(str, Enum):
     EMPTY = "empty"
     PARTIAL = "partial"
@@ -620,7 +640,7 @@ def _calibrate_ndjson_decoder(
     if len(payload) < _TUNED_CALIBRATION_THRESHOLD:
         return fallback
     try:
-        reference = [json.loads(line) for line in payload.split(b"\n") if line]
+        reference = [_strict_json_loads(line) for line in payload.split(b"\n") if line]
     except Exception:
         return fallback
 
@@ -1258,7 +1278,7 @@ def _calibrate_complete_decoder(
     if len(payload) < _TUNED_CALIBRATION_THRESHOLD:
         return fallback
     try:
-        reference = json.loads(payload)
+        reference = _strict_json_loads(payload)
     except Exception:
         return fallback
 
@@ -1389,7 +1409,7 @@ def _select_complete_decoder(
         return _backend_orjson.loads
     if _backend_native is not None and hasattr(_backend_native, "decode_complete"):
         return _backend_native.decode_complete
-    return json.loads
+    return _strict_json_loads
 
 
 def _select_complete_decoder_text(data: str, value_type: Any | None = None) -> Any:
@@ -1505,7 +1525,7 @@ def _select_complete_decoder_text(data: str, value_type: Any | None = None) -> A
         return _backend_orjson.loads
     if _backend_native is not None and hasattr(_backend_native, "decode_complete"):
         return _backend_native.decode_complete
-    return json.loads
+    return _strict_json_loads
 
 
 def _decode_complete_bytes(payload: bytes, value_type: Any | None = None) -> Any:
@@ -2378,7 +2398,7 @@ def make_complete_json_decoder(*, value_type: Any | None = None) -> Any:
             elif _backend_orjson is not None:
                 cached_decoder = _backend_orjson.loads
             else:
-                cached_decoder = json.loads
+                cached_decoder = _strict_json_loads
             cached_payload = payload
             cached_input = data if isinstance(data, (str, bytes)) else None
             return cached_decoder(data)
@@ -2858,7 +2878,7 @@ def decode_ndjson(data: str | bytes | bytearray, *, record_type: Any | None = No
             return _decode_ndjson_with_orjson(data)
         if _NATIVE_NDJSON_DECODER is not None:
             return _NATIVE_NDJSON_DECODER(data)
-        return _decode_ndjson_with_line_decoder(data, json.loads)
+        return _decode_ndjson_with_line_decoder(data, _strict_json_loads)
 
     payload = data if isinstance(data, bytearray) else _coerce_bytes(data)
     if record_type is not None:
@@ -2876,7 +2896,7 @@ def decode_ndjson(data: str | bytes | bytearray, *, record_type: Any | None = No
     elif _NATIVE_NDJSON_DECODER is not None:
         return _NATIVE_NDJSON_DECODER(payload)
     else:
-        line_decoder = json.loads
+        line_decoder = _strict_json_loads
     return _decode_ndjson_with_line_decoder(payload, line_decoder)
 
 

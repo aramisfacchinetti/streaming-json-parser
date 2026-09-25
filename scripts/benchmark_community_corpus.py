@@ -468,9 +468,25 @@ def _format_report(snapshot: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def _dated_artifact_stem(snapshot: dict[str, Any], output_dir: Path) -> str:
+    stem = f"community-json-benchmark-{snapshot['date']}"
+    prior_json = output_dir / f"{stem}.json"
+    if not prior_json.exists():
+        return stem
+    try:
+        prior_snapshot = json.loads(prior_json.read_text())
+    except (OSError, json.JSONDecodeError):
+        prior_version = None
+    else:
+        prior_version = prior_snapshot.get("environment", {}).get("package_version")
+    current_version = snapshot.get("environment", {}).get("package_version")
+    if prior_version != current_version:
+        return f"{stem}-core-{current_version or 'unknown'}"
+    return stem
+
+
 def write_artifacts(snapshot: dict[str, Any], output_dir: Path) -> dict[str, Path]:
     output_dir.mkdir(parents=True, exist_ok=True)
-    date = str(snapshot["date"])
     chart_path = community_corpus_chart_path(output_dir)
     chart_path.parent.mkdir(parents=True, exist_ok=True)
     chart = render_community_corpus_chart(snapshot)
@@ -478,8 +494,9 @@ def write_artifacts(snapshot: dict[str, Any], output_dir: Path) -> dict[str, Pat
     rendered_json = json.dumps(snapshot, indent=2, sort_keys=True) + "\n"
     current_json = output_dir / "community-json-benchmark.json"
     current_markdown = output_dir / "community-json-benchmark.md"
-    dated_json = output_dir / f"community-json-benchmark-{date}.json"
-    dated_markdown = output_dir / f"community-json-benchmark-{date}.md"
+    dated_stem = _dated_artifact_stem(snapshot, output_dir)
+    dated_json = output_dir / f"{dated_stem}.json"
+    dated_markdown = output_dir / f"{dated_stem}.md"
     for path, content in (
         (current_json, rendered_json),
         (dated_json, rendered_json),
@@ -504,12 +521,12 @@ def verify_artifacts(output_dir: Path) -> list[str]:
     snapshot = json.loads(current_json.read_text())
     expected_json = json.dumps(snapshot, indent=2, sort_keys=True) + "\n"
     expected_markdown = _format_report(snapshot)
-    date = str(snapshot["date"])
+    dated_stem = _dated_artifact_stem(snapshot, output_dir)
     expected = {
         current_json: expected_json,
-        output_dir / f"community-json-benchmark-{date}.json": expected_json,
+        output_dir / f"{dated_stem}.json": expected_json,
         output_dir / "community-json-benchmark.md": expected_markdown,
-        output_dir / f"community-json-benchmark-{date}.md": expected_markdown,
+        output_dir / f"{dated_stem}.md": expected_markdown,
         community_corpus_chart_path(output_dir): render_community_corpus_chart(snapshot),
     }
     return [f"stale-or-missing:{path}" for path, content in expected.items() if not path.exists() or path.read_text() != content]

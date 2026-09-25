@@ -31,7 +31,7 @@ from .high_performance_parser import (
     make_tuned_structural_partial_decoder,
 )
 
-__version__ = "0.2.2"
+__version__ = "0.2.3"
 
 # The canonical public name points to the strict incremental implementation.
 StreamingJsonParser = HighPerformanceStreamingJsonParser
