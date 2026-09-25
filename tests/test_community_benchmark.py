@@ -1,4 +1,5 @@
 import importlib.util
+import json
 from pathlib import Path
 
 
@@ -164,3 +165,16 @@ def test_community_corpus_artifacts_are_deterministic_and_verifiable(tmp_path):
 
     (output_dir / "community-json-benchmark.md").write_text("stale\n")
     assert any("community-json-benchmark.md" in issue for issue in community_benchmark.verify_artifacts(output_dir))
+
+    prior_dated_json = output_dir / "community-json-benchmark-2026-09-23.json"
+    prior_dated_content = prior_dated_json.read_text()
+    updated_snapshot = json.loads(prior_dated_content)
+    updated_snapshot["environment"]["package_version"] = "0.2.3"
+    updated_snapshot["environment"]["package_module_version"] = "0.2.3"
+    updated_snapshot["environment"]["installed_distribution_version"] = "0.2.3"
+
+    paths = community_benchmark.write_artifacts(updated_snapshot, output_dir)
+
+    assert paths["dated_json"].name == "community-json-benchmark-2026-09-23-core-0.2.3.json"
+    assert prior_dated_json.read_text() == prior_dated_content
+    assert community_benchmark.verify_artifacts(output_dir) == []

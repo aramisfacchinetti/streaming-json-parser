@@ -12,24 +12,24 @@
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
             4,
-            4,
-            2,
+            3,
+            3,
             4,
             3,
             4,
-            2
+            4
           ],
-          "median_seconds_per_stream": 0.005198218743316829,
+          "median_seconds_per_stream": 0.0041757915169000626,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.004685489751864225,
-            0.005198218743316829,
-            0.005525375017896295,
-            0.004441010503796861,
-            0.005617458334503074,
-            0.004977218777639791,
-            0.007729708508122712
+            0.0038802917406428605,
+            0.004509319318458438,
+            0.0037560279791553817,
+            0.0041757915169000626,
+            0.005731250004221995,
+            0.004687770997406915,
+            0.0039012290071696043
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -37,25 +37,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            2,
-            1,
-            1,
-            2,
-            2,
-            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
             3
           ],
-          "median_seconds_per_stream": 0.008986583328805864,
+          "median_seconds_per_stream": 0.004448847340730329,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.007950395985972136,
-            0.016516333911567926,
-            0.015622874954715371,
-            0.01064708351623267,
-            0.008093125012237579,
-            0.007760271022561938,
-            0.008986583328805864
+            0.004289041661346952,
+            0.005118235984506707,
+            0.004448847340730329,
+            0.004093027984102567,
+            0.00447550000778089,
+            0.003936472348868847,
+            0.008142597352464994
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -71,17 +71,17 @@
             1,
             1
           ],
-          "median_seconds_per_stream": 0.2549581250641495,
+          "median_seconds_per_stream": 0.16902358294464648,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.25326962501276284,
-            0.2611359580187127,
-            0.22778675006702542,
-            0.2549581250641495,
-            0.25796970806550235,
-            0.24653845804277807,
-            0.3028731669764966
+            0.15868054202292114,
+            0.20183441694825888,
+            0.1686246250756085,
+            0.15637575008440763,
+            0.1725005420157686,
+            0.18255966703873128,
+            0.16902358294464648
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -101,25 +101,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            8,
-            15,
-            8,
-            10,
+            22,
+            22,
+            9,
             14,
-            18,
-            14
+            26,
+            34,
+            22
           ],
-          "median_seconds_per_stream": 0.001475953118642792,
+          "median_seconds_per_stream": 0.000609784090722149,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0017000052466755733,
-            0.0011889555957168342,
-            0.001475953118642792,
-            0.0011700750095769764,
-            0.0018979255692102015,
-            0.0014910046075884667,
-            0.0013563512142614595
+            0.0006181723649867556,
+            0.000609784090722149,
+            0.0013667824419422282,
+            0.0007622797857038677,
+            0.0005069759611685115,
+            0.0005318554125123602,
+            0.0004911856376565993
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -127,25 +127,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            22,
-            22,
-            16,
+            32,
+            18,
+            18,
             19,
             22,
-            22,
-            17
+            20,
+            32
           ],
-          "median_seconds_per_stream": 0.0008867763191167461,
+          "median_seconds_per_stream": 0.0006105708016548306,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0008344488610005515,
-            0.001066503818781877,
-            0.001542486934340559,
-            0.0008867763191167461,
-            0.0006953503629616039,
-            0.000880511366465891,
-            0.0010984877658569638
+            0.0005909166538913269,
+            0.0006026226652061774,
+            0.0005569676092515389,
+            0.0008134802644092002,
+            0.0006816950891251591,
+            0.0006105708016548306,
+            0.0006527239675051533
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -161,17 +161,17 @@
             1,
             1
           ],
-          "median_seconds_per_stream": 0.03270737500861287,
+          "median_seconds_per_stream": 0.027448082924820483,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.02305445889942348,
-            0.0293257919838652,
-            0.03697974991519004,
-            0.03425233392044902,
-            0.03005929198116064,
-            0.03270737500861287,
-            0.04428570903837681
+            0.0217121250461787,
+            0.029090667027048767,
+            0.021373084047809243,
+            0.03131245891563594,
+            0.03219008294399828,
+            0.027448082924820483,
+            0.024892665911465883
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -191,25 +191,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            107,
-            143,
-            98,
-            125,
-            138,
-            106,
-            139
+            92,
+            139,
+            137,
+            93,
+            142,
+            142,
+            202
           ],
-          "median_seconds_per_stream": 0.00020947989558319112,
+          "median_seconds_per_stream": 0.00013818234172972418,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00014861876680298108,
-            0.00020947989558319112,
-            0.00015482992855641914,
-            0.00020613632816821335,
-            0.00024333302913557577,
-            0.00021345439621792088,
-            0.00026960431668478593
+            0.00020840398855912298,
+            0.00013913848879579588,
+            0.0001611998177262662,
+            0.00011019712884820277,
+            7.450528128046385e-05,
+            7.579342993369825e-05,
+            0.00013818234172972418
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -217,25 +217,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            81,
+            142,
+            214,
+            96,
+            136,
             141,
-            66,
-            115,
-            112,
-            115,
-            143
+            137,
+            138
           ],
-          "median_seconds_per_stream": 0.00016072474130796212,
+          "median_seconds_per_stream": 0.0001433707058073624,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00017438734663121494,
-            0.00018317257433944772,
-            0.00016072474130796212,
-            0.0001906623122403803,
-            9.706808071184372e-05,
-            0.00010660978277092395,
-            0.00010278321708181313
+            0.00015121449972174957,
+            0.00011685124335149042,
+            0.00015762283389146128,
+            0.0001433707058073624,
+            0.0001440726943868906,
+            8.89260945569751e-05,
+            0.0001257759640398233
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -245,23 +245,23 @@
           "measurement_repetitions_per_sample": [
             3,
             4,
+            3,
+            3,
+            3,
             4,
-            3,
-            3,
-            3,
             3
           ],
-          "median_seconds_per_stream": 0.0040164029924198985,
+          "median_seconds_per_stream": 0.004020458358960847,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.003412847329551975,
-            0.0038131457404233515,
-            0.0036248957621864974,
-            0.0040164029924198985,
-            0.005494111333973706,
-            0.004155639015759031,
-            0.005375638992215197
+            0.006924041663296521,
+            0.004312968754675239,
+            0.003454180317930877,
+            0.003957527689635754,
+            0.004020458358960847,
+            0.004378781246487051,
+            0.003427041694521904
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -281,25 +281,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            346,
-            313,
-            341,
-            348,
-            328,
-            329,
-            325
+            500,
+            496,
+            345,
+            344,
+            277,
+            390,
+            319
           ],
-          "median_seconds_per_stream": 6.136596821937602e-05,
+          "median_seconds_per_stream": 4.22691679559648e-05,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            6.136596821937602e-05,
-            4.7749067216326065e-05,
-            5.1069161117273516e-05,
-            4.9669181141231594e-05,
-            6.238338445233771e-05,
-            6.448315799032483e-05,
-            6.892371707810805e-05
+            4.22691679559648e-05,
+            3.7808298422474294e-05,
+            3.439734210732622e-05,
+            6.612827040276729e-05,
+            6.50042093052976e-05,
+            3.842435902557694e-05,
+            4.686050184164488e-05
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -307,25 +307,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            358,
-            324,
-            343,
-            341,
+            365,
             334,
-            670,
-            329
+            157,
+            341,
+            570,
+            305,
+            355
           ],
-          "median_seconds_per_stream": 4.7706145172317825e-05,
+          "median_seconds_per_stream": 3.828983269140256e-05,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            5.5327279201849216e-05,
-            4.7706145172317825e-05,
-            6.174999995173413e-05,
-            4.918462749778176e-05,
-            3.708744927694251e-05,
-            4.305167926419804e-05,
-            4.159764451821162e-05
+            4.1398860207975725e-05,
+            3.708994628103104e-05,
+            6.840897465990797e-05,
+            3.828983269140256e-05,
+            3.607024912510002e-05,
+            3.586079024511283e-05,
+            3.855117157259038e-05
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -333,25 +333,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            6,
-            6,
-            8,
             7,
             7,
-            8,
-            7
+            7,
+            6,
+            7,
+            12,
+            8
           ],
-          "median_seconds_per_stream": 0.0021112292597535998,
+          "median_seconds_per_stream": 0.0018395475677347609,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.003908333329794307,
-            0.002075111163624873,
-            0.0021112292597535998,
-            0.002262839282463704,
-            0.0018393571455297725,
-            0.002545796873164363,
-            0.0015563512819686107
+            0.0017585238508347953,
+            0.0020340654300525784,
+            0.0018395475677347609,
+            0.0018939861523297925,
+            0.001987999986990222,
+            0.0014909444143995643,
+            0.001446099005988799
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -371,25 +371,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            466,
-            428,
-            832,
-            712,
-            415,
-            856,
-            490
+            571,
+            529,
+            481,
+            548,
+            880,
+            523,
+            444
           ],
-          "median_seconds_per_stream": 3.106190409625367e-05,
+          "median_seconds_per_stream": 2.5534441512128388e-05,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            3.154139691971786e-05,
-            2.743798595304801e-05,
-            3.1663210253240184e-05,
-            2.3387522591026813e-05,
-            3.73702796445374e-05,
-            2.2368185726977956e-05,
-            3.106190409625367e-05
+            2.0693227544348628e-05,
+            2.2640674936608017e-05,
+            5.651827855132474e-05,
+            3.402448177718333e-05,
+            2.443366472355344e-05,
+            2.659297322081562e-05,
+            2.5534441512128388e-05
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -397,25 +397,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            499,
-            446,
-            462,
-            459,
-            461,
-            444,
-            904
+            567,
+            470,
+            554,
+            511,
+            539,
+            516,
+            521
           ],
-          "median_seconds_per_stream": 3.321859265286029e-05,
+          "median_seconds_per_stream": 2.2909840311300246e-05,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            4.1420507115985685e-05,
-            4.631193952985743e-05,
-            4.5333694650497274e-05,
-            3.321859265286029e-05,
-            2.2210503237447227e-05,
-            2.279307411119409e-05,
-            2.1034891591448568e-05
+            1.8784391564009893e-05,
+            2.2909840311300246e-05,
+            1.8527225712280627e-05,
+            1.9688356062670744e-05,
+            2.377241757458183e-05,
+            2.4954135693941813e-05,
+            4.488787718381797e-05
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -423,25 +423,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            14,
+            10,
             16,
             10,
-            12,
-            16,
-            12,
-            8
+            14,
+            9,
+            9,
+            4
           ],
-          "median_seconds_per_stream": 0.0013810052478220314,
+          "median_seconds_per_stream": 0.0014398363585184728,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0011218601471877524,
-            0.0010970208095386624,
-            0.0014059833018109202,
-            0.001246392426158612,
-            0.0013810052478220314,
-            0.0014693679986521602,
-            0.0015469636273337528
+            0.001523562497459352,
+            0.0010788098734337837,
+            0.0011133000021800398,
+            0.0014398363585184728,
+            0.0013582638930529356,
+            0.0017310647785456644,
+            0.002557156258262694
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -461,25 +461,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            368,
-            437,
-            362,
-            589,
-            589,
-            472,
-            552
+            280,
+            198,
+            264,
+            172,
+            305,
+            228,
+            220
           ],
-          "median_seconds_per_stream": 2.3490368352363257e-05,
+          "median_seconds_per_stream": 7.125177710759835e-05,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            3.0925382895435653e-05,
-            2.3490368352363257e-05,
-            3.762062457621674e-05,
-            1.9205008366213185e-05,
-            2.0614882902651772e-05,
-            3.389212706370942e-05,
-            1.917753631815962e-05
+            5.499940723114248e-05,
+            5.160332328141338e-05,
+            6.980918591249396e-05,
+            8.861991295287775e-05,
+            7.125177710759835e-05,
+            7.326589905444467e-05,
+            0.00011963352285833521
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -487,25 +487,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            684,
-            595,
-            621,
-            552,
-            836,
-            599,
-            632
+            229,
+            219,
+            146,
+            120,
+            223,
+            328,
+            639
           ],
-          "median_seconds_per_stream": 3.1273163705815455e-05,
+          "median_seconds_per_stream": 7.493686038740468e-05,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            1.6372137374860065e-05,
-            8.376316625249235e-05,
-            3.298584202337476e-05,
-            3.89450488264497e-05,
-            2.2852521514493314e-05,
-            3.1273163705815455e-05,
-            2.8629022093395455e-05
+            7.493686038740468e-05,
+            7.780841083933502e-05,
+            8.949543164456136e-05,
+            9.108576632570476e-05,
+            7.385369954054398e-05,
+            3.812601541384782e-05,
+            2.6439813749809312e-05
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -513,25 +513,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
+            7,
+            11,
+            14,
             16,
             8,
-            12,
-            9,
-            12,
-            7,
-            10
+            10,
+            6
           ],
-          "median_seconds_per_stream": 0.0015391015622299165,
+          "median_seconds_per_stream": 0.001759541667221735,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0015391015622299165,
-            0.0014104218716965988,
-            0.001481531246099621,
-            0.0015347036662408048,
-            0.002606888912850991,
-            0.003445571438143296,
-            0.0017688749940134585
+            0.0017084584272067463,
+            0.0017725075383416631,
+            0.0018828988624071436,
+            0.0012482682504924014,
+            0.0022233802592381835,
+            0.0013555916957557201,
+            0.001759541667221735
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -551,25 +551,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
+            2,
+            2,
+            2,
+            2,
+            2,
             1,
-            1,
-            2,
-            2,
-            2,
-            2,
-            2
+            1
           ],
-          "median_seconds_per_stream": 0.008798271010164171,
+          "median_seconds_per_stream": 0.008454583468846977,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.015989042003639042,
-            0.012742749997414649,
-            0.01144927047425881,
-            0.006891791999805719,
-            0.008371875039301813,
-            0.008798271010164171,
-            0.008085978974122554
+            0.006636603968217969,
+            0.006562145543284714,
+            0.009716417000163347,
+            0.007935041503515095,
+            0.008454583468846977,
+            0.01435616600792855,
+            0.014031541999429464
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -585,17 +585,17 @@
             2,
             2
           ],
-          "median_seconds_per_stream": 0.006648520997259766,
+          "median_seconds_per_stream": 0.007475062506273389,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.006592104502487928,
-            0.006934583536349237,
-            0.006503625016193837,
-            0.0064992919797077775,
-            0.006714333489071578,
-            0.006648520997259766,
-            0.006812729523517191
+            0.007677667017560452,
+            0.00743820850038901,
+            0.009829395508859307,
+            0.00736039545154199,
+            0.007610979489982128,
+            0.007475062506273389,
+            0.00731060397811234
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -611,17 +611,17 @@
             1,
             1
           ],
-          "median_seconds_per_stream": 0.02336258301511407,
+          "median_seconds_per_stream": 0.02778979204595089,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.023086374974809587,
-            0.02336258301511407,
-            0.023507375037297606,
-            0.022840999998152256,
-            0.024689125013537705,
-            0.02329829102382064,
-            0.023391458089463413
+            0.02778979204595089,
+            0.03580270800739527,
+            0.032654665992595255,
+            0.026485207956284285,
+            0.02503962500486523,
+            0.02430345898028463,
+            0.028471666970290244
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -641,25 +641,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
+            7,
+            8,
+            7,
+            3,
+            12,
             14,
-            8,
-            8,
-            14,
-            8,
-            9,
-            9
+            5
           ],
-          "median_seconds_per_stream": 0.001367226889770892,
+          "median_seconds_per_stream": 0.0019231756450608373,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0013140089244448713,
-            0.0014127239992376417,
-            0.0014917552471160889,
-            0.0013381964277609118,
-            0.0013703489967156202,
-            0.001367226889770892,
-            0.0013344768926294313
+            0.001732922574904348,
+            0.0015750104939797893,
+            0.002661547706728535,
+            0.0037700000296657286,
+            0.0013018820027355105,
+            0.0019231756450608373,
+            0.002430775016546249
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -667,25 +667,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            9,
-            9,
-            9,
-            9,
+            7,
+            7,
             8,
-            12,
+            8,
+            8,
+            7,
             9
           ],
-          "median_seconds_per_stream": 0.0013253853685455397,
+          "median_seconds_per_stream": 0.0020102447597309947,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.001351861115027633,
-            0.0012453286649866237,
-            0.0013018055534404186,
-            0.0012575602288254434,
-            0.0013253853685455397,
-            0.0017181562531429033,
-            0.00132941666783558
+            0.0020910774390878423,
+            0.0017362975714994328,
+            0.0020102447597309947,
+            0.0016602238756604493,
+            0.0017748384998412803,
+            0.0023679227202332447,
+            0.0022286527738389042
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -694,24 +694,24 @@
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
             2,
+            1,
+            1,
+            1,
             2,
-            2,
-            2,
-            2,
-            2,
-            2
+            1,
+            1
           ],
-          "median_seconds_per_stream": 0.0065195829956792295,
+          "median_seconds_per_stream": 0.011743249953724444,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.006639270985033363,
-            0.0065195829956792295,
-            0.006494146015029401,
-            0.006772687484044582,
-            0.006402729020919651,
-            0.006685437518171966,
-            0.006481520482338965
+            0.016641833004541695,
+            0.011894542025402188,
+            0.012816083035431802,
+            0.011743249953724444,
+            0.00858381245052442,
+            0.010253207990899682,
+            0.010810333071276546
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -731,25 +731,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
+            16,
+            19,
+            18,
+            7,
             17,
-            19,
-            19,
-            19,
-            19,
-            20,
-            17
+            28,
+            10
           ],
-          "median_seconds_per_stream": 0.000625342106152522,
+          "median_seconds_per_stream": 0.001125909250861566,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0006342229967498604,
-            0.0005492039490491152,
-            0.000625342106152522,
-            0.0005848859988251015,
-            0.0005704780525871014,
-            0.0006289083510637283,
-            0.000674277003032758
+            0.0009338490053778514,
+            0.0009493925241067222,
+            0.0013960069498150712,
+            0.001500613139277058,
+            0.0009333333548377542,
+            0.001125909250861566,
+            0.0017090999986976384
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -757,25 +757,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            19,
-            26,
+            10,
+            16,
+            16,
+            14,
             20,
-            24,
-            19,
-            19,
-            22
+            17,
+            9
           ],
-          "median_seconds_per_stream": 0.0006661562481895089,
+          "median_seconds_per_stream": 0.0010383512126281857,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0006706842074268742,
-            0.0006049823803970447,
-            0.0006661562481895089,
-            0.0008129531245989104,
-            0.0007809385792107174,
-            0.0006281864204394974,
-            0.0006443238658407195
+            0.002323466702364385,
+            0.0016717395628802478,
+            0.0007156640640459955,
+            0.0010383512126281857,
+            0.0005865083017852158,
+            0.0006029901765834759,
+            0.001644152785754866
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -783,25 +783,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            3,
-            3,
-            3,
             2,
             3,
+            1,
+            1,
             2,
-            3
+            2,
+            2
           ],
-          "median_seconds_per_stream": 0.005169937503524125,
+          "median_seconds_per_stream": 0.009235645469743758,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.004769528013033171,
-            0.004341291651750605,
-            0.005814514006488025,
-            0.005918979004491121,
-            0.004991569323465228,
-            0.005169937503524125,
-            0.005662778004383047
+            0.005839854013174772,
+            0.0074861803247282905,
+            0.010574125102721155,
+            0.010569625068455935,
+            0.009235645469743758,
+            0.010903916496317834,
+            0.0069043749826960266
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -821,25 +821,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            20,
-            38,
-            30,
-            23,
+            21,
             22,
-            24,
-            22
+            20,
+            16,
+            30,
+            14,
+            12
           ],
-          "median_seconds_per_stream": 0.0005546008683986178,
+          "median_seconds_per_stream": 0.0008543303618872804,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0005865208455361426,
-            0.0005546008683986178,
-            0.0005276027678822478,
-            0.000555451088787421,
-            0.0005959110038185662,
-            0.00047690104111097753,
-            0.0005083465895784849
+            0.001799998001106793,
+            0.0005381060922941701,
+            0.0018177771009504796,
+            0.0007514661265304312,
+            0.0006790374987758696,
+            0.0008543303618872804,
+            0.001219972250207017
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -847,25 +847,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            17,
-            38,
+            12,
+            7,
+            11,
+            8,
             18,
-            16,
-            22,
-            32,
-            26
+            40,
+            17
           ],
-          "median_seconds_per_stream": 0.0007070859392115381,
+          "median_seconds_per_stream": 0.0012640729255508631,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0006202401812462246,
-            0.0007132236864172706,
-            0.0017603796117732094,
-            0.0007932786902529188,
-            0.0005255833172916689,
-            0.0007070859392115381,
-            0.0005369455007334742
+            0.0012640729255508631,
+            0.0014877618689622199,
+            0.0013581590980968692,
+            0.0019146874983562157,
+            0.000802097221215566,
+            0.00046672605094499886,
+            0.000766651937738061
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -874,24 +874,24 @@
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
             3,
-            3,
             2,
-            3,
-            3,
-            3,
-            4
+            2,
+            2,
+            1,
+            2,
+            3
           ],
-          "median_seconds_per_stream": 0.004792805334242682,
+          "median_seconds_per_stream": 0.007707917015068233,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.004660402657464147,
-            0.004792805334242682,
-            0.006020854460075498,
-            0.0050117083204289275,
-            0.004207389002355437,
-            0.004523722338490188,
-            0.00511528123752214
+            0.006466999999247491,
+            0.007707917015068233,
+            0.008952000003773719,
+            0.011459603963885456,
+            0.013865166925825179,
+            0.006178958516102284,
+            0.003986819336811702
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -911,25 +911,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            9,
-            20,
-            20,
-            21,
-            23,
+            26,
+            26,
             22,
-            22
+            19,
+            24,
+            30,
+            25
           ],
-          "median_seconds_per_stream": 0.0007837812532670796,
+          "median_seconds_per_stream": 0.0005702517519239336,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0016337638953700662,
-            0.0007096353976521641,
-            0.0007837812532670796,
-            0.000927686480627883,
-            0.0009489039556406763,
-            0.000677420456089418,
-            0.0006817784107459539
+            0.0004066538486558084,
+            0.0006140320373770709,
+            0.0006637651346285235,
+            0.0007483486796876317,
+            0.0005702517519239336,
+            0.0004990721975142757,
+            0.0005173050006851554
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -937,25 +937,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            26,
+            25,
+            17,
             21,
             23,
-            19,
-            36,
-            23,
+            26,
+            25,
             36
           ],
-          "median_seconds_per_stream": 0.0005558405638388965,
+          "median_seconds_per_stream": 0.000550001783741881,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0005375031928101984,
-            0.0007600258104503155,
-            0.0004619275189369269,
-            0.0005836710517637824,
-            0.0006554849452287373,
-            0.0005558405638388965,
-            0.00046508449789447087
+            0.0004896700009703636,
+            0.0007406054064631462,
+            0.0005543115216174296,
+            0.000550001783741881,
+            0.0005275000003166497,
+            0.0005423916783183813,
+            0.000661420137880163
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -964,24 +964,24 @@
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
             2,
+            2,
             3,
-            4,
+            2,
+            2,
             3,
-            3,
-            4,
-            3
+            4
           ],
-          "median_seconds_per_stream": 0.00437018065713346,
+          "median_seconds_per_stream": 0.005160513644417127,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.006724896025843918,
-            0.0052047916688025,
-            0.004337604274041951,
-            0.0042258333414793015,
-            0.00443590300468107,
-            0.004170926986262202,
-            0.00437018065713346
+            0.006325291527900845,
+            0.005996250023599714,
+            0.005160513644417127,
+            0.005088437523227185,
+            0.005112416518386453,
+            0.007354874978773296,
+            0.00511561447638087
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1001,25 +1001,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            24,
-            24,
-            24,
-            21,
-            24,
+            38,
+            48,
             40,
-            26
+            7,
+            14,
+            10,
+            7
           ],
-          "median_seconds_per_stream": 0.0006053888743432859,
+          "median_seconds_per_stream": 0.0013258104008855298,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0007579305383842438,
-            0.0006053888743432859,
-            0.0007236927097740894,
-            0.0006361587605039988,
-            0.0005074201277845228,
-            0.0005391864746343344,
-            0.0005727163471209889
+            0.0004957105265930295,
+            0.000475348958085912,
+            0.0013258104008855298,
+            0.0015131071475999697,
+            0.0010305595018767885,
+            0.0019144083955325187,
+            0.0015807738693963205
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1027,25 +1027,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            25,
-            25,
-            34,
             32,
-            21,
-            34,
+            8,
+            6,
+            7,
+            8,
+            12,
             26
           ],
-          "median_seconds_per_stream": 0.0006148046850285027,
+          "median_seconds_per_stream": 0.0014435273442359176,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0006738333217799664,
-            0.0006323583191260695,
-            0.0007778137360754259,
-            0.0006148046850285027,
-            0.0004828511903594647,
-            0.00045578064643503986,
-            0.0004570849257736252
+            0.0014435273442359176,
+            0.0017107239982578903,
+            0.0017574583374274273,
+            0.0015371308462428196,
+            0.0013751301157753915,
+            0.0010780381659666698,
+            0.0007530128081830648
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1054,24 +1054,24 @@
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
             3,
+            2,
             3,
-            4,
             3,
-            4,
-            4,
-            4
+            3,
+            2,
+            2
           ],
-          "median_seconds_per_stream": 0.004759264023353656,
+          "median_seconds_per_stream": 0.005252437491435558,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.004039180309822162,
-            0.010196555638685822,
-            0.005143822985701263,
-            0.004759264023353656,
-            0.00528503124951385,
-            0.004373447998659685,
-            0.003972895996412262
+            0.009781610996772846,
+            0.0077278329990804195,
+            0.005044666662191351,
+            0.004432277986779809,
+            0.004452236035528283,
+            0.008273521030787379,
+            0.005252437491435558
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1093,23 +1093,23 @@
           "measurement_repetitions_per_sample": [
             4,
             4,
+            2,
+            2,
+            2,
             4,
-            4,
-            4,
-            4,
-            4
+            2
           ],
-          "median_seconds_per_stream": 0.003949010511860251,
+          "median_seconds_per_stream": 0.005466167000122368,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0037564272643066943,
-            0.005464343761559576,
-            0.0038953227340243757,
-            0.004148687497945502,
-            0.004036072990857065,
-            0.003949010511860251,
-            0.003784010244999081
+            0.0049826144822873175,
+            0.00430630226037465,
+            0.005466167000122368,
+            0.008067021030001342,
+            0.005682499962858856,
+            0.004873500001849607,
+            0.007922979537397623
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1117,25 +1117,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            4,
-            4,
-            4,
-            4,
-            4,
-            4,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
             4
           ],
-          "median_seconds_per_stream": 0.004416395764565095,
+          "median_seconds_per_stream": 0.005995374987833202,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.004519552021520212,
-            0.004678270750446245,
-            0.004064103995915502,
-            0.004051468742545694,
-            0.004979416757123545,
-            0.004055104247527197,
-            0.004416395764565095
+            0.005995374987833202,
+            0.0071069999830797315,
+            0.006316541461274028,
+            0.005091770552098751,
+            0.005348291480913758,
+            0.0053220209665596485,
+            0.006164854246890172
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1151,17 +1151,17 @@
             2,
             2
           ],
-          "median_seconds_per_stream": 0.014211957983206958,
+          "median_seconds_per_stream": 0.01942952099489048,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.014270687475800514,
-            0.01460535399382934,
-            0.014211957983206958,
-            0.01405599998543039,
-            0.013802583504002541,
-            0.013772499980404973,
-            0.014460145495831966
+            0.01942952099489048,
+            0.02007220801897347,
+            0.018876062473282218,
+            0.017653458518907428,
+            0.016884208540432155,
+            0.019545270479284227,
+            0.02732135448604822
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1181,25 +1181,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
+            18,
+            20,
             17,
             18,
-            30,
-            30,
-            14,
+            17,
             18,
-            18
+            12
           ],
-          "median_seconds_per_stream": 0.0007006111166750392,
+          "median_seconds_per_stream": 0.0008646041711067988,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0006022328195874305,
-            0.0008024189996326135,
-            0.0006454138977763554,
-            0.0006879499997012317,
-            0.0008005208552016743,
-            0.0007857291687590381,
-            0.0007006111166750392
+            0.0008646041711067988,
+            0.0007542146020568907,
+            0.0008800465901217916,
+            0.0006932708331280284,
+            0.0010968014693764202,
+            0.0016939328892880844,
+            0.0008388472488150001
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1207,25 +1207,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
+            14,
+            17,
             18,
-            11,
-            28,
-            22,
+            17,
             18,
-            18,
-            18
+            17,
+            17
           ],
-          "median_seconds_per_stream": 0.0007101116061676294,
+          "median_seconds_per_stream": 0.000938156879890491,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0006037824463823603,
-            0.0015443105525760488,
-            0.0007101116061676294,
-            0.0006355549081821333,
-            0.0006708773305743105,
-            0.0016372801166855628,
-            0.0009861064997191231
+            0.0007315476458253605,
+            0.0008590098210226963,
+            0.001110402783120258,
+            0.0011315686450175503,
+            0.000726613442465249,
+            0.0009933259981848737,
+            0.000938156879890491
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1236,22 +1236,22 @@
             4,
             4,
             4,
-            4,
-            4,
-            4,
+            2,
+            2,
+            2,
             2
           ],
-          "median_seconds_per_stream": 0.0033210729889106005,
+          "median_seconds_per_stream": 0.00506085401866585,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0033210729889106005,
-            0.003149677242618054,
-            0.002865635498892516,
-            0.002952031238237396,
-            0.0037220625090412796,
-            0.003715250000823289,
-            0.006208416481968015
+            0.0033639582397881895,
+            0.0026670520019251853,
+            0.003517770761391148,
+            0.005896000016946346,
+            0.016791791538707912,
+            0.006511979037895799,
+            0.00506085401866585
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1271,25 +1271,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            71,
-            88,
-            72,
-            84,
-            69,
-            72,
-            52
+            15,
+            36,
+            27,
+            34,
+            37,
+            42,
+            68
           ],
-          "median_seconds_per_stream": 0.00018048011274500325,
+          "median_seconds_per_stream": 0.0006952060276590702,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00019001994367269143,
-            0.00018048011274500325,
-            0.0001506163195396463,
-            0.00020197371347984743,
-            0.0001580217377404156,
-            0.00014794270747289475,
-            0.0004817291740507174
+            0.0007545388691748182,
+            0.0006952060276590702,
+            0.0012990540385039316,
+            0.0005341887350796777,
+            0.0006614842175229176,
+            0.0017881706174063896,
+            0.000651625616763554
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1297,25 +1297,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            40,
-            72,
-            88,
-            73,
-            34,
-            50,
-            71
+            48,
+            68,
+            38,
+            54,
+            64,
+            47,
+            62
           ],
-          "median_seconds_per_stream": 0.00026859036600873084,
+          "median_seconds_per_stream": 0.0002985808823723346,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0004453354253200814,
-            0.0001518211809323273,
-            0.00015433380692477593,
-            0.0002611581098977221,
-            0.00029908455839818893,
-            0.0003255199990235269,
-            0.00026859036600873084
+            0.0003489175408806962,
+            0.0002985808823723346,
+            0.00029030921072454045,
+            0.0003843835007433814,
+            0.00033540754702698905,
+            0.0002737136587421311,
+            0.00017538777507481075
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1323,25 +1323,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            7,
-            9,
-            10,
-            12,
+            14,
             9,
             8,
-            7
+            8,
+            9,
+            14,
+            9
           ],
-          "median_seconds_per_stream": 0.0017082175602101618,
+          "median_seconds_per_stream": 0.0012802592245861888,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.001766940429141479,
-            0.0017748704412952065,
-            0.0019229667028412222,
-            0.0013775312496970098,
-            0.0017082175602101618,
-            0.0015740521339466795,
-            0.001496232147993786
+            0.0015318928635679185,
+            0.0014027732217477427,
+            0.0013429426326183602,
+            0.0012722343672066927,
+            0.001279763890326851,
+            0.0012499285678911423,
+            0.0012802592245861888
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1361,25 +1361,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            109,
-            112,
-            110,
-            92,
-            109,
-            184,
-            180
+            114,
+            111,
+            104,
+            160,
+            202,
+            120,
+            118
           ],
-          "median_seconds_per_stream": 0.00011835258160515323,
+          "median_seconds_per_stream": 9.54945173457657e-05,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            9.343463290961237e-05,
-            0.00012880208877114846,
-            0.00010621439961885864,
-            0.00011775045625298567,
-            0.00016893960488532936,
-            0.00011835258160515323,
-            0.00012633865569821662
+            9.54945173457657e-05,
+            9.952815299904025e-05,
+            0.00010754687536973506,
+            9.31338501686696e-05,
+            9.368894515688172e-05,
+            9.863958305989702e-05,
+            9.389618664222248e-05
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1387,25 +1387,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            112,
-            102,
-            132,
-            89,
-            112,
-            111,
-            204
+            104,
+            114,
+            113,
+            206,
+            78,
+            60,
+            50
           ],
-          "median_seconds_per_stream": 0.00011157386347115266,
+          "median_seconds_per_stream": 0.00014931633978069406,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00014183035714917684,
-            0.0001003080100168054,
-            0.00011157386347115266,
-            0.00012210393167529882,
-            0.00015055766977768923,
-            0.00010062687346493608,
-            0.00010672957332823061
+            9.696634571390369e-05,
+            9.510819207909598e-05,
+            9.057854005522961e-05,
+            0.00014931633978069406,
+            0.0001579198720626151,
+            0.00023220554964306455,
+            0.00028937831986695526
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1415,23 +1415,23 @@
           "measurement_repetitions_per_sample": [
             9,
             10,
-            9,
+            8,
+            4,
             8,
             10,
-            10,
-            7
+            10
           ],
-          "median_seconds_per_stream": 0.0012845508883603746,
+          "median_seconds_per_stream": 0.0014447790919803083,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0012845508883603746,
-            0.0011006667045876384,
-            0.0011305694416579273,
-            0.001360583381028846,
-            0.0010984583059325814,
-            0.001363479089923203,
-            0.001956357138364443
+            0.0016515323400704397,
+            0.0014447790919803083,
+            0.002650494745466858,
+            0.002906666515627876,
+            0.0013321406295290217,
+            0.0013764875009655952,
+            0.0011011082911863922
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1451,25 +1451,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
+            138,
             136,
-            98,
-            136,
-            102,
-            124,
-            133,
-            133
+            149,
+            149,
+            141,
+            145,
+            128
           ],
-          "median_seconds_per_stream": 9.605576547876219e-05,
+          "median_seconds_per_stream": 7.478094074245105e-05,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00011639307366054067,
-            0.00010790390898568594,
-            9.605576547876219e-05,
-            0.00011564747033202472,
-            9.593548395881249e-05,
-            7.888721827333583e-05,
-            8.533615006231947e-05
+            7.657306538759798e-05,
+            7.478094074245105e-05,
+            7.233025518639776e-05,
+            7.378802659777587e-05,
+            7.414420511811337e-05,
+            0.0001261416621955818,
+            8.045247705013026e-05
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1477,25 +1477,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
+            145,
+            146,
+            144,
             143,
-            131,
-            138,
-            137,
-            139,
-            143,
-            140
+            144,
+            140,
+            65
           ],
-          "median_seconds_per_stream": 8.347290209852732e-05,
+          "median_seconds_per_stream": 9.901544007544334e-05,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            8.347290209852732e-05,
-            7.96329464678091e-05,
-            7.533393479694706e-05,
-            8.692883165811536e-05,
-            8.428207910184166e-05,
-            7.429311843263311e-05,
-            9.052142850123346e-05
+            7.144684164688505e-05,
+            7.929823246516593e-05,
+            8.717708341363404e-05,
+            9.901544007544334e-05,
+            0.0001023397021021487,
+            0.0001573985068327082,
+            0.00015609936896138468
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1503,25 +1503,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            9,
-            18,
-            10,
-            10,
-            11,
+            8,
             14,
-            18
+            8,
+            10,
+            10,
+            9,
+            16
           ],
-          "median_seconds_per_stream": 0.0010738832992501558,
+          "median_seconds_per_stream": 0.00167084886925295,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0011405092276011903,
-            0.0010561041676232384,
-            0.0010211499989964067,
-            0.0010738832992501558,
-            0.0010807613567025824,
-            0.001100333357628967,
-            0.0010371227270095712
+            0.0018701822555158287,
+            0.0014742470728898688,
+            0.00167084886925295,
+            0.0019155833055265249,
+            0.0017401707940734924,
+            0.00124513889507701,
+            0.0011569661292014644
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1541,25 +1541,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            147,
-            151,
-            238,
-            150,
-            149,
-            148,
-            150
+            137,
+            108,
+            55,
+            164,
+            130,
+            82,
+            46
           ],
-          "median_seconds_per_stream": 7.558455876614742e-05,
+          "median_seconds_per_stream": 0.00016660137150277632,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            7.392573455462651e-05,
-            8.363576161841683e-05,
-            7.558455876614742e-05,
-            7.475721960266432e-05,
-            7.574971852786589e-05,
-            7.069454059583714e-05,
-            9.070499955366055e-05
+            0.00010503618977963924,
+            0.00013310918519790802,
+            0.0002234219636937434,
+            0.00016660137150277632,
+            0.00015288173095681347,
+            0.0002558084386514454,
+            0.0002663523469970602
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1567,25 +1567,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            224,
-            121,
-            133,
-            142,
-            164,
-            116,
-            150
+            60,
+            94,
+            62,
+            75,
+            122,
+            152,
+            79
           ],
-          "median_seconds_per_stream": 0.0001039746238436914,
+          "median_seconds_per_stream": 0.0001935477109415637,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            8.240569150075316e-05,
-            0.00010947004145334575,
-            0.0001039746238436914,
-            0.00013271478844255628,
-            0.00011789176837404871,
-            0.00010126795627754824,
-            0.00010184861331557234
+            0.00022060763246069351,
+            0.00022465292552604953,
+            0.0001935477109415637,
+            0.00013730054721236229,
+            0.00013300102513252957,
+            0.0001831137625757899,
+            0.00022587288595453094
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1593,25 +1593,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
+            2,
+            6,
+            11,
+            9,
+            10,
             8,
-            10,
-            10,
-            18,
-            16,
-            10,
-            11
+            9
           ],
-          "median_seconds_per_stream": 0.0013421916053630411,
+          "median_seconds_per_stream": 0.0020494333002716303,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0013292759977048263,
-            0.0013421916053630411,
-            0.0012735333060845734,
-            0.001115090278391209,
-            0.001416145809344016,
-            0.0014795334078371524,
-            0.0016880984502759848
+            0.00557483354350552,
+            0.0019664374995045364,
+            0.002196242461319674,
+            0.002599509213016265,
+            0.0020494333002716303,
+            0.0017578072438482195,
+            0.0015099444426596165
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1631,25 +1631,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            2,
-            2,
-            2,
             4,
             3,
+            2,
             3,
-            4
+            4,
+            2,
+            2
           ],
-          "median_seconds_per_stream": 0.005702416645362973,
+          "median_seconds_per_stream": 0.006299010245129466,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00763214600738138,
-            0.005446791998110712,
-            0.005228021007496864,
-            0.005846302257850766,
-            0.005850986344739795,
-            0.005702416645362973,
-            0.0052443020103964955
+            0.006974749994697049,
+            0.005437569343484938,
+            0.008308666467200965,
+            0.005327472308029731,
+            0.006299010245129466,
+            0.005848729459103197,
+            0.006561021029483527
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1657,25 +1657,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            3,
             2,
-            4,
-            3,
-            3,
-            3,
-            3
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
           ],
-          "median_seconds_per_stream": 0.005574833330077429,
+          "median_seconds_per_stream": 0.0067085205228067935,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.005171277676708996,
-            0.006569458462763578,
-            0.005588343745330349,
-            0.005574833330077429,
-            0.005622388989043732,
-            0.0046186526694024605,
-            0.004448763987359901
+            0.00850089598679915,
+            0.006260208028834313,
+            0.006588625023141503,
+            0.008589187462348491,
+            0.0066708954982459545,
+            0.0071528335101902485,
+            0.0067085205228067935
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1691,17 +1691,17 @@
             1,
             1
           ],
-          "median_seconds_per_stream": 0.01576308300718665,
+          "median_seconds_per_stream": 0.020337917027063668,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.017351542017422616,
-            0.016812916030175984,
-            0.015667166910134256,
-            0.016118291998282075,
-            0.01572091702837497,
-            0.015664792037568986,
-            0.01576308300718665
+            0.020337917027063668,
+            0.0196395410457626,
+            0.019723250064998865,
+            0.021663499996066093,
+            0.019969125045463443,
+            0.02086116699501872,
+            0.020776916993781924
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1722,24 +1722,24 @@
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
             12,
-            16,
-            12,
             12,
             10,
-            10,
-            16
+            9,
+            9,
+            11,
+            7
           ],
-          "median_seconds_per_stream": 0.0010382256684048723,
+          "median_seconds_per_stream": 0.0016542386411773887,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0010427534968281786,
-            0.0009008203123812564,
-            0.0009140278367946545,
-            0.0010382256684048723,
-            0.001304908306337893,
-            0.001245162496343255,
-            0.0009558463061694056
+            0.0013838020871238161,
+            0.0010204340020815532,
+            0.001709745789412409,
+            0.0012463981078730689,
+            0.0020449861056274837,
+            0.0016542386411773887,
+            0.002276392869784364
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1747,25 +1747,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            11,
+            14,
+            9,
+            10,
             12,
-            20,
-            20,
+            8,
             12,
-            11,
-            20
+            10
           ],
-          "median_seconds_per_stream": 0.0010111098156564615,
+          "median_seconds_per_stream": 0.00149079579859972,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0010111098156564615,
-            0.0010448299096121143,
-            0.0010840062517672778,
-            0.0009565020969603211,
-            0.0010373958308870594,
-            0.0009426136331802064,
-            0.0009278583514969796
+            0.0014125267875247768,
+            0.001459180558514264,
+            0.00149079579859972,
+            0.0016375034174416214,
+            0.0017600624996703118,
+            0.0011591528309509158,
+            0.0027961165993474423
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1775,23 +1775,23 @@
           "measurement_repetitions_per_sample": [
             3,
             4,
+            3,
             4,
             4,
-            4,
-            4,
-            4
+            2,
+            2
           ],
-          "median_seconds_per_stream": 0.0033934477251023054,
+          "median_seconds_per_stream": 0.0055532605038024485,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0034211803382883468,
-            0.003348520753206685,
-            0.0033934477251023054,
-            0.003523666731780395,
-            0.0034168230195064098,
-            0.003353541746037081,
-            0.003381541755516082
+            0.006000805684986214,
+            0.0055532605038024485,
+            0.006190958355243008,
+            0.004739510244689882,
+            0.003971916739828885,
+            0.005326562444679439,
+            0.007291187532246113
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1811,25 +1811,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            32,
             30,
-            32,
             30,
-            33,
-            34,
-            32
+            27,
+            30,
+            25,
+            32,
+            38
           ],
-          "median_seconds_per_stream": 0.0003680235977905492,
+          "median_seconds_per_stream": 0.0007007399993017316,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0003469439980108291,
-            0.0003680235977905492,
-            0.00040431772140436806,
-            0.0003403958321238557,
-            0.0003744456952324871,
-            0.0003486176480210441,
-            0.0003701835958054289
+            0.0009955750002215305,
+            0.0006607666689281662,
+            0.0006454814811823544,
+            0.0007689152999470632,
+            0.0007007399993017316,
+            0.0007243932195706293,
+            0.00033767873690904756
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1837,25 +1837,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            33,
-            32,
             31,
-            56,
-            27,
-            29,
-            27
+            40,
+            32,
+            34,
+            30,
+            33,
+            29
           ],
-          "median_seconds_per_stream": 0.00036683460612866014,
+          "median_seconds_per_stream": 0.00044251354993321004,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00036683460612866014,
-            0.00035125390422763303,
-            0.0003305806462923365,
-            0.0003818013397644141,
-            0.000394208330868019,
-            0.00034491234491097517,
-            0.0004159706661960593
+            0.000447901870845066,
+            0.00044251354993321004,
+            0.000341149716405198,
+            0.0003581188845119494,
+            0.00034144166857004167,
+            0.0004972739984761133,
+            0.00057427444623719
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1863,25 +1863,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            7,
-            7,
             6,
-            7,
-            7,
-            7,
+            5,
+            8,
+            5,
+            6,
+            6,
             6
           ],
-          "median_seconds_per_stream": 0.0018600348266772926,
+          "median_seconds_per_stream": 0.0023041111805165806,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0018501665742535675,
-            0.0017761071545204946,
-            0.0018600348266772926,
-            0.0017758512902738793,
-            0.002026273719301181,
-            0.0018660655644323146,
-            0.0019996666621106365
+            0.002128201498029133,
+            0.0037608831888064744,
+            0.0022162396198837087,
+            0.003363308380357921,
+            0.002169631829019636,
+            0.0027327846619300544,
+            0.0023041111805165806
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1901,25 +1901,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            41,
-            13,
-            42,
             37,
-            32,
-            41,
-            36
+            37,
+            9,
+            42,
+            33,
+            24,
+            24
           ],
-          "median_seconds_per_stream": 0.00047200347115803097,
+          "median_seconds_per_stream": 0.0006877162141373028,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00025389633970562277,
-            0.0009045319971986688,
-            0.0004309285736997568,
-            0.000541532676465608,
-            0.0004154127527726814,
-            0.0007760365828644576,
-            0.00047200347115803097
+            0.0004121531619111428,
+            0.0006877162141373028,
+            0.001418444444425404,
+            0.0004569900726589064,
+            0.0008152020304943576,
+            0.00092995137674734,
+            0.0005889669992029667
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1927,25 +1927,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            42,
-            7,
-            19,
-            43,
             41,
-            13,
-            6
+            42,
+            16,
+            40,
+            39,
+            42,
+            24
           ],
-          "median_seconds_per_stream": 0.0007190284760374772,
+          "median_seconds_per_stream": 0.0004434434508550025,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0007169662858359516,
-            0.0015871129996542419,
-            0.0007190284760374772,
-            0.0005196288829062913,
-            0.0006291412708644824,
-            0.0008485031564934895,
-            0.0017775346641428769
+            0.0004282987807173191,
+            0.0004802222136363742,
+            0.0007410364341922104,
+            0.0003008083498571068,
+            0.0004303344101525652,
+            0.0004434434508550025,
+            0.0005995625009139379
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1953,25 +1953,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            4,
-            4,
-            7,
-            6,
+            5,
             8,
-            7,
-            7
+            4,
+            4,
+            4,
+            3,
+            10
           ],
-          "median_seconds_per_stream": 0.0022507975642968503,
+          "median_seconds_per_stream": 0.0034815624821931124,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0030006874876562506,
-            0.0025822395109571517,
-            0.0022507975642968503,
-            0.0023230068230380616,
-            0.0017740156181389466,
-            0.001707017854122179,
-            0.0015358750076432312
+            0.0024418581975623964,
+            0.0025991301226895303,
+            0.003642198018496856,
+            0.0034815624821931124,
+            0.004738958494272083,
+            0.0038059302993739643,
+            0.0021733999950811268
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -1991,25 +1991,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            60,
-            56,
-            20,
-            48,
-            28,
+            47,
+            42,
+            36,
             45,
-            27
+            42,
+            42,
+            43
           ],
-          "median_seconds_per_stream": 0.000515372899826616,
+          "median_seconds_per_stream": 0.00045307365051189133,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0005598493172631909,
-            0.0003830550724939842,
-            0.000515372899826616,
-            0.0004023888977826573,
-            0.0006850550707895309,
-            0.0004493777769514256,
-            0.0005501574077815921
+            0.0003953430841260768,
+            0.0005824742145792005,
+            0.0004258970018579728,
+            0.00048731111197008027,
+            0.0005092985950232972,
+            0.00034396923867808214,
+            0.00045307365051189133
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2017,25 +2017,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
+            45,
+            18,
             42,
-            41,
-            12,
-            13,
-            32,
-            44,
-            40
+            36,
+            37,
+            34,
+            42
           ],
-          "median_seconds_per_stream": 0.00048264329287609674,
+          "median_seconds_per_stream": 0.0005489387070102727,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00048605557198503187,
-            0.00048264329287609674,
-            0.0010077465849462897,
-            0.0010343204574802746,
-            0.0003940494680136908,
-            0.00024424620311368596,
-            0.00039726667455397546
+            0.0005411287122923467,
+            0.0007385833305306733,
+            0.00040581350081733296,
+            0.00028258680443589884,
+            0.0006053006761027751,
+            0.0005489387070102727,
+            0.0008193988109096175
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2044,24 +2044,24 @@
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
             8,
-            7,
             6,
-            8,
-            8,
             12,
-            7
+            6,
+            5,
+            7,
+            4
           ],
-          "median_seconds_per_stream": 0.001782041663924853,
+          "median_seconds_per_stream": 0.002814180663942049,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0015609791153110564,
-            0.0021108214277774096,
-            0.001782041663924853,
-            0.0020967812597518787,
-            0.0016057916218414903,
-            0.0016650173347443342,
-            0.002218857141477721
+            0.002533161372411996,
+            0.002814180663942049,
+            0.00206919441310068,
+            0.002999743000448992,
+            0.0033989165909588336,
+            0.0018325237158153737,
+            0.0037237707583699375
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2081,25 +2081,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            37,
-            39,
-            46,
-            50,
-            43,
             41,
-            9
+            41,
+            17,
+            44,
+            25,
+            34,
+            38
           ],
-          "median_seconds_per_stream": 0.0003839208395220339,
+          "median_seconds_per_stream": 0.000573280486051084,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0003945405399930236,
-            0.0004105641034980997,
-            0.0002520344341578691,
-            0.0003839208395220339,
-            0.0002726201390371073,
-            0.00031602438879994356,
-            0.0011717546731233597
+            0.0007454237798456011,
+            0.000573280486051084,
+            0.000842411769554019,
+            0.00043531818135472184,
+            0.0005455083213746547,
+            0.0007356874994002283,
+            0.0004522828967310488
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2107,25 +2107,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            37,
-            46,
-            47,
-            35,
-            50,
-            51,
-            47
+            24,
+            14,
+            45,
+            48,
+            38,
+            18,
+            39
           ],
-          "median_seconds_per_stream": 0.0002908235950831403,
+          "median_seconds_per_stream": 0.0005339322912429149,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0003764380549860967,
-            0.00023200091369369108,
-            0.0002908235950831403,
-            0.0004362238005601934,
-            0.0002278716815635562,
-            0.00022812582342428904,
-            0.00031310017220675945
+            0.001322555583707678,
+            0.0013030803529545665,
+            0.0004551222211577826,
+            0.0005339322912429149,
+            0.00040805155386854157,
+            0.0014576782252536053,
+            0.00049308225667725
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2133,25 +2133,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            8,
-            5,
-            5,
             4,
-            6,
-            6,
-            4
+            4,
+            4,
+            2,
+            3,
+            3,
+            5
           ],
-          "median_seconds_per_stream": 0.0027662418084219097,
+          "median_seconds_per_stream": 0.005057312489952892,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0024374531203648075,
-            0.0027662418084219097,
-            0.0026814750162884593,
-            0.002660572761669755,
-            0.003110416679798315,
-            0.0029095138306729496,
-            0.003237093740608543
+            0.005286802013870329,
+            0.0060783437511418015,
+            0.006761374999769032,
+            0.005057312489952892,
+            0.004519611014984548,
+            0.0035012083438535533,
+            0.003257458400912583
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2172,24 +2172,24 @@
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
             2,
-            1,
+            2,
             2,
             2,
             2,
             2,
             2
           ],
-          "median_seconds_per_stream": 0.00625175004824996,
+          "median_seconds_per_stream": 0.0069884795229882,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.007383521005976945,
-            0.011735542095266283,
-            0.006639187515247613,
-            0.00625175004824996,
-            0.005498229002114385,
-            0.005501895502675325,
-            0.0058907290222123265
+            0.007333666493650526,
+            0.007034271024167538,
+            0.0058929999941028655,
+            0.006122145976405591,
+            0.007658249989617616,
+            0.0069884795229882,
+            0.00611141650006175
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2201,21 +2201,21 @@
             2,
             2,
             2,
-            2,
-            2,
-            2
+            1,
+            1,
+            1
           ],
-          "median_seconds_per_stream": 0.0059529790305532515,
+          "median_seconds_per_stream": 0.008552375016734004,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0059529790305532515,
-            0.007761687505990267,
-            0.006182666518725455,
-            0.00590302050113678,
-            0.005497437552548945,
-            0.005696458509191871,
-            0.006832895509433001
+            0.006111937458626926,
+            0.00612583348993212,
+            0.007825499982573092,
+            0.008552375016734004,
+            0.019562457920983434,
+            0.015135333058424294,
+            0.014963083085604012
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2231,17 +2231,17 @@
             1,
             1
           ],
-          "median_seconds_per_stream": 0.12753366702236235,
+          "median_seconds_per_stream": 0.16305204096715897,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.12753366702236235,
-            0.12596550001762807,
-            0.1299982499331236,
-            0.15891062503214926,
-            0.13123800000175834,
-            0.12311337504070252,
-            0.11586491705384105
+            0.17175595799926668,
+            0.1985369159374386,
+            0.1808479999890551,
+            0.13992416590917856,
+            0.12380679196212441,
+            0.16305204096715897,
+            0.1415327920112759
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2261,25 +2261,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            26,
-            26,
-            9,
-            7,
+            14,
+            10,
             8,
+            8,
+            13,
             9,
-            14
+            12
           ],
-          "median_seconds_per_stream": 0.0013635736943867344,
+          "median_seconds_per_stream": 0.0012773298367392272,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0008353894227184355,
-            0.0013635736943867344,
-            0.0017395185487758783,
-            0.002027976143706058,
-            0.0024339062365470454,
-            0.0013403749972995785,
-            0.0012558422916169678
+            0.0017787529338550354,
+            0.0011438333080150188,
+            0.0013273124932311475,
+            0.0013366458733798936,
+            0.001025621770307995,
+            0.001165838006676899,
+            0.0012773298367392272
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2287,25 +2287,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
+            12,
+            14,
+            18,
+            14,
+            22,
             10,
-            11,
-            8,
-            13,
-            11,
-            5,
-            6
+            10
           ],
-          "median_seconds_per_stream": 0.0016888370949097655,
+          "median_seconds_per_stream": 0.0011323290993459523,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0013778042048215866,
-            0.0017836969980800693,
-            0.0016758021229179576,
-            0.0011162115350508918,
-            0.0016888370949097655,
-            0.0024597249925136567,
-            0.002506354183424264
+            0.001341986081873377,
+            0.0012086399282062693,
+            0.0010869884475444753,
+            0.001067059497082872,
+            0.001477374996862967,
+            0.0011323290993459523,
+            0.0010415125056169928
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2321,17 +2321,17 @@
             1,
             1
           ],
-          "median_seconds_per_stream": 0.07672012504190207,
+          "median_seconds_per_stream": 0.04546166700311005,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0458152920473367,
-            0.08564933307934552,
-            0.07043716695625335,
-            0.09013174998108298,
-            0.05666237499099225,
-            0.07672012504190207,
-            0.10037262493278831
+            0.05060512502677739,
+            0.0658988329814747,
+            0.04128420795314014,
+            0.05230529198888689,
+            0.04425708297640085,
+            0.04124154197052121,
+            0.04546166700311005
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2351,25 +2351,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            37,
-            50,
-            58,
             64,
-            80,
-            19,
-            66
+            66,
+            86,
+            81,
+            72,
+            83,
+            63
           ],
-          "median_seconds_per_stream": 0.000382473484161451,
+          "median_seconds_per_stream": 0.0002154682537481662,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0002980146217285781,
-            0.0005687074991874396,
-            0.0007665689637210092,
-            0.00024412434504483826,
-            0.0003677437489386648,
-            0.0006443004209646269,
-            0.000382473484161451
+            0.00038385156221920624,
+            0.00026006122634774357,
+            0.0001463047445340212,
+            0.0001456100870222773,
+            0.0002267089035336135,
+            0.0002129106510273484,
+            0.0002154682537481662
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2377,25 +2377,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            55,
-            64,
-            94,
-            79,
-            70,
             78,
-            68
+            78,
+            82,
+            77,
+            43,
+            84,
+            140
           ],
-          "median_seconds_per_stream": 0.00024930404651968274,
+          "median_seconds_per_stream": 0.00020764791489844876,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00040381059939549726,
-            0.00024930404651968274,
-            0.00023083997880445515,
-            0.00027606908903940567,
-            0.00019998451462015509,
-            0.0002645069363121039,
-            0.00015148039742865984
+            0.000169569974204,
+            0.00020979433350312786,
+            0.00019278201109888715,
+            0.00015919372687333978,
+            0.0003208275126336619,
+            0.0002323229162443784,
+            0.00020764791489844876
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2405,23 +2405,23 @@
           "measurement_repetitions_per_sample": [
             1,
             2,
-            3,
+            1,
             2,
+            1,
             2,
-            2,
-            1
+            2
           ],
-          "median_seconds_per_stream": 0.007731999969109893,
+          "median_seconds_per_stream": 0.008787937520537525,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.011084708967246115,
-            0.013671603985130787,
-            0.007194708334282041,
-            0.007731999969109893,
-            0.005222666484769434,
-            0.00698152044788003,
-            0.010430458001792431
+            0.012019042042084038,
+            0.00624499999685213,
+            0.014004249940626323,
+            0.008787937520537525,
+            0.01011725002899766,
+            0.00635068747214973,
+            0.0059027704992331564
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2441,25 +2441,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            104,
-            152,
-            111,
-            127,
-            162,
-            155,
-            156
+            153,
+            169,
+            164,
+            167,
+            140,
+            160,
+            155
           ],
-          "median_seconds_per_stream": 0.00010619811683652863,
+          "median_seconds_per_stream": 0.00011545442466740497,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00011138982797722117,
-            9.543393465910892e-05,
-            0.00015981982017422583,
-            0.00010185301630193089,
-            8.669675882606779e-05,
-            0.00010619811683652863,
-            0.000152192038233177
+            0.00011562091508405465,
+            0.0001185147929385569,
+            0.00012869232904915584,
+            9.477670056310421e-05,
+            0.00011265982175245881,
+            0.00011545442466740497,
+            0.00011057554248480066
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2467,25 +2467,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            92,
-            176,
-            93,
-            142,
+            152,
             161,
-            118,
-            109
+            159,
+            161,
+            96,
+            124,
+            118
           ],
-          "median_seconds_per_stream": 0.00011224249704677311,
+          "median_seconds_per_stream": 0.00014038302469998598,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00014900543559950006,
-            0.00012102556832939048,
-            0.00012067383936335963,
-            9.857863351755159e-05,
-            0.00011224249704677311,
-            9.701059345882071e-05,
-            0.00010417889880546189
+            0.00012022917125202519,
+            0.00010946531699079534,
+            0.00011441640265918565,
+            0.00014038302469998598,
+            0.0001551848957509113,
+            0.00022210046787926507,
+            0.00018104307562649504
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2493,25 +2493,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            6,
-            8,
-            7,
-            6,
             10,
-            6,
+            4,
+            5,
+            8,
+            5,
+            4,
             7
           ],
-          "median_seconds_per_stream": 0.00215661312852587,
+          "median_seconds_per_stream": 0.0024424113798886538,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.002567000008032968,
-            0.002001281245611608,
-            0.00215661312852587,
-            0.003704638841251532,
-            0.003059233305975795,
-            0.0018842500091219942,
-            0.0016880178591236472
+            0.002774716599378735,
+            0.0048133125237654895,
+            0.0020268750144168735,
+            0.0024424113798886538,
+            0.002137233200483024,
+            0.005079333233879879,
+            0.0020588868563728674
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2531,25 +2531,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            189,
-            197,
-            211,
-            192,
-            207,
-            204,
-            199
+            57,
+            194,
+            220,
+            201,
+            224,
+            200,
+            120
           ],
-          "median_seconds_per_stream": 7.007720343636227e-05,
+          "median_seconds_per_stream": 7.9144973946332e-05,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            5.797442312416418e-05,
-            7.007720343636227e-05,
-            5.806081981278991e-05,
-            6.691557791782543e-05,
-            9.110125101166934e-05,
-            0.00010656719563948904,
-            8.728789942498183e-05
+            0.00020317836836176482,
+            7.9144973946332e-05,
+            5.77786000741815e-05,
+            5.468677101536325e-05,
+            6.221354435963024e-05,
+            9.433583007194102e-05,
+            0.00011063993345790853
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2557,25 +2557,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            160,
-            210,
+            239,
+            216,
+            181,
+            215,
             213,
-            208,
-            143,
-            199,
-            198
+            86,
+            244
           ],
-          "median_seconds_per_stream": 8.634505992352812e-05,
+          "median_seconds_per_stream": 0.00010251357973918565,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00010150676826015115,
-            7.755496217647479e-05,
-            8.952797624444318e-05,
-            9.652584132989153e-05,
-            8.538199289070142e-05,
-            8.634505992352812e-05,
-            5.299242382699793e-05
+            4.743340144627513e-05,
+            8.486265249774549e-05,
+            0.00010251357973918565,
+            8.485774877806042e-05,
+            0.00010541705644204163,
+            0.00019027422003577962,
+            0.00010984170071200514
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2583,25 +2583,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            16,
+            10,
+            5,
+            8,
+            4,
             12,
             12,
-            13,
-            16,
-            9,
-            12
+            13
           ],
-          "median_seconds_per_stream": 0.0011925208746106364,
+          "median_seconds_per_stream": 0.001975204834404091,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0011234374978812411,
-            0.0010830346630730976,
-            0.0016188888306108613,
-            0.0010501538457062382,
-            0.0011925208746106364,
-            0.0012882870052837664,
-            0.0015603437495883554
+            0.00103342910297215,
+            0.0028912584064528348,
+            0.0023229843645822257,
+            0.002724989491980523,
+            0.001975204834404091,
+            0.0019683785018666335,
+            0.0017014968459709333
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2621,25 +2621,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            209,
-            356,
-            245,
-            249,
-            246,
-            236,
-            184
+            140,
+            120,
+            186,
+            207,
+            244,
+            87,
+            212
           ],
-          "median_seconds_per_stream": 6.025264846650347e-05,
+          "median_seconds_per_stream": 9.817916628283759e-05,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            8.813317243508888e-05,
-            4.5793890636518936e-05,
-            4.18785712396612e-05,
-            4.279317266969796e-05,
-            7.151049983922422e-05,
-            6.025264846650347e-05,
-            6.0756337125380725e-05
+            0.00011087707909090179,
+            9.817916628283759e-05,
+            8.706115586783296e-05,
+            8.499919288400291e-05,
+            0.00013885365610133063,
+            0.00013196743735722425,
+            9.460652791807111e-05
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2647,25 +2647,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            255,
-            96,
-            157,
-            233,
-            117,
-            224,
-            162
+            237,
+            217,
+            130,
+            164,
+            88,
+            220,
+            366
           ],
-          "median_seconds_per_stream": 7.715629605584391e-05,
+          "median_seconds_per_stream": 0.00010180837162357719,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            4.840212527151201e-05,
-            0.00012219010507881953,
-            7.183731839084511e-05,
-            7.715629605584391e-05,
-            0.0001382955815643072,
-            5.742894635269684e-05,
-            0.00011728806737350461
+            0.00010180837162357719,
+            0.0001189011102971462,
+            9.027724602044775e-05,
+            0.000113587652577269,
+            0.00014519744251050395,
+            5.588068161159754e-05,
+            4.54796229417899e-05
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2673,25 +2673,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            8,
-            14,
-            18,
-            14,
+            15,
             16,
             16,
-            12
+            15,
+            15,
+            14,
+            8
           ],
-          "median_seconds_per_stream": 0.0011942546698264778,
+          "median_seconds_per_stream": 0.0007951110679035385,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0013371718669077381,
-            0.0007402291438276214,
-            0.0011942546698264778,
-            0.0007442975682871682,
-            0.0007514140670537017,
-            0.0013300963764777407,
-            0.0016428645758423954
+            0.0007951110679035385,
+            0.0007931353684398346,
+            0.0007166848808992654,
+            0.000717697199434042,
+            0.0010279166667411725,
+            0.0011379702149757317,
+            0.0015451978833880275
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2719,17 +2719,17 @@
             1,
             1
           ],
-          "median_seconds_per_stream": 0.01091495796572417,
+          "median_seconds_per_stream": 0.021472332999110222,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.01084562495816499,
-            0.01317466702312231,
-            0.010300125111825764,
-            0.01091495796572417,
-            0.011587292072363198,
-            0.010456625022925436,
-            0.011108458042144775
+            0.021472332999110222,
+            0.022456999984569848,
+            0.021253083017654717,
+            0.028089249972254038,
+            0.0170663750031963,
+            0.02321645792108029,
+            0.01836812507826835
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2741,21 +2741,21 @@
             1,
             1,
             1,
-            2,
+            1,
             1,
             1
           ],
-          "median_seconds_per_stream": 0.013618062483146787,
+          "median_seconds_per_stream": 0.023932958021759987,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.013737292028963566,
-            0.010582791059277952,
-            0.012008290970697999,
-            0.011256207944825292,
-            0.013618062483146787,
-            0.01649304199963808,
-            0.014709291979670525
+            0.025918625062331557,
+            0.014019625028595328,
+            0.019832208985462785,
+            0.019872832926921546,
+            0.023932958021759987,
+            0.027852917090058327,
+            0.026732000056654215
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2771,17 +2771,17 @@
             1,
             1
           ],
-          "median_seconds_per_stream": 0.1161486670607701,
+          "median_seconds_per_stream": 0.2583323330618441,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.17322100000455976,
-            0.14525691699236631,
-            0.1161486670607701,
-            0.12556158402003348,
-            0.10460120893549174,
-            0.1113234160002321,
-            0.10953004099428654
+            0.29178316693287343,
+            0.37257024995051324,
+            0.2583323330618441,
+            0.20725604193285108,
+            0.2561236670007929,
+            0.32459929201286286,
+            0.23405683401506394
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2801,25 +2801,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            6,
-            8,
-            6,
-            6,
-            5,
+            4,
+            4,
+            4,
+            2,
             3,
-            6
+            5,
+            3
           ],
-          "median_seconds_per_stream": 0.002313006999126325,
+          "median_seconds_per_stream": 0.004604833258781582,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.002098812508241584,
-            0.0018972760008182377,
-            0.0018779791619939108,
-            0.002313006999126325,
-            0.0028404750162735583,
-            0.0038152776348094144,
-            0.002568500000052154
+            0.004055875004269183,
+            0.005089187499834225,
+            0.004604833258781582,
+            0.0056673960061743855,
+            0.003563014014313618,
+            0.004232333390973508,
+            0.00538012501783669
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2827,25 +2827,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
+            3,
             4,
-            5,
-            5,
-            6,
-            6,
             4,
-            6
+            1,
+            1,
+            4,
+            3
           ],
-          "median_seconds_per_stream": 0.002835566806606948,
+          "median_seconds_per_stream": 0.005109646008349955,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.002660958271007985,
-            0.0024360667914152144,
-            0.002835566806606948,
-            0.0023845276640107236,
-            0.0035477776740056774,
-            0.0038415835006162524,
-            0.0028688888414762914
+            0.004038472349445025,
+            0.002963281236588955,
+            0.0064478645217604935,
+            0.013995958026498556,
+            0.010160750010982156,
+            0.005109646008349955,
+            0.0036417083271468678
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2861,17 +2861,17 @@
             1,
             1
           ],
-          "median_seconds_per_stream": 0.029235542053356767,
+          "median_seconds_per_stream": 0.06363683298695832,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.029494915972463787,
-            0.029297207947820425,
-            0.02534479193855077,
-            0.024044540943577886,
-            0.029235542053356767,
-            0.028168416931293905,
-            0.03158916695974767
+            0.05859699996653944,
+            0.042684750049375,
+            0.06400166696403176,
+            0.0735487500205636,
+            0.0521096249576658,
+            0.06363683298695832,
+            0.0991531249601394
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2891,25 +2891,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            30,
-            28,
-            23,
-            38,
-            15,
-            30,
-            33
+            5,
+            13,
+            32,
+            32,
+            4,
+            34,
+            6
           ],
-          "median_seconds_per_stream": 0.0004610847022073964,
+          "median_seconds_per_stream": 0.0027299653350686035,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0004610847022073964,
-            0.0004508377876066204,
-            0.0006537209973549066,
-            0.00036198792268375034,
-            0.0007496861352895696,
-            0.0005040708347223699,
-            0.0003304798191300396
+            0.004491550009697675,
+            0.0010612564555440957,
+            0.00046597006439697,
+            0.005171372406039154,
+            0.004358145990408957,
+            0.002175667884704821,
+            0.0027299653350686035
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2917,25 +2917,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            34,
-            32,
-            33,
-            58,
-            34,
-            34,
-            34
+            15,
+            14,
+            5,
+            10,
+            12,
+            14,
+            11
           ],
-          "median_seconds_per_stream": 0.00034561328357085586,
+          "median_seconds_per_stream": 0.0016845416341146285,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00032512743971036635,
-            0.00034561328357085586,
-            0.0003985100898496581,
-            0.00043710703552090404,
-            0.00030229044119443963,
-            0.00037701102658448853,
-            0.0003271727918592446
+            0.0015184083332618079,
+            0.0011429405006180917,
+            0.0034913918003439902,
+            0.0013431041035801173,
+            0.004223899333737791,
+            0.002638839285022446,
+            0.0016845416341146285
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2943,25 +2943,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            3,
-            2,
-            2,
-            2,
             2,
             1,
-            2
+            1,
+            1,
+            1,
+            1,
+            1
           ],
-          "median_seconds_per_stream": 0.006431583489757031,
+          "median_seconds_per_stream": 0.02583962492644787,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.005562221980653703,
-            0.005325624952092767,
-            0.006431583489757031,
-            0.0054417080245912075,
-            0.008689625014085323,
-            0.01057774992659688,
-            0.009337396011687815
+            0.00909091648645699,
+            0.019260750035755336,
+            0.013929208973422647,
+            0.02583962492644787,
+            0.026646750047802925,
+            0.04853749996982515,
+            0.03725254104938358
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -2981,25 +2981,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            75,
-            72,
-            75,
-            65,
-            74,
-            136,
-            19
+            88,
+            69,
+            62,
+            85,
+            71,
+            43,
+            29
           ],
-          "median_seconds_per_stream": 0.0002257944194271284,
+          "median_seconds_per_stream": 0.00042203307183909006,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00029693556018173695,
-            0.00025992650060086616,
-            0.0001980877745275696,
-            0.00021549678371789364,
-            0.0001720782570742272,
-            0.0002257944194271284,
-            0.0006497785216197371
+            0.00048754877273247325,
+            0.00031113526041525,
+            0.0003007204185480312,
+            0.001226579411612714,
+            0.00029887383128188443,
+            0.000979023257292114,
+            0.00042203307183909006
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3007,25 +3007,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
+            83,
+            64,
+            17,
+            82,
             56,
-            75,
-            90,
-            74,
-            74,
-            72,
-            80
+            3,
+            23
           ],
-          "median_seconds_per_stream": 0.00015063513529713492,
+          "median_seconds_per_stream": 0.0007180267039075261,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0001789441968347611,
-            0.0002929561057438453,
-            0.00014430647845276528,
-            0.00017419539240969193,
-            0.00015063513529713492,
-            0.0001503640006477427,
-            0.00014817343762842938
+            0.0007483217954994684,
+            0.0007180267039075261,
+            0.0005903161774553797,
+            0.0004906412554768528,
+            0.0007222433050628752,
+            0.003346208327760299,
+            0.0004423224802493401
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3033,25 +3033,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            4,
-            3,
-            6,
-            4,
-            4,
-            4,
-            4
+            2,
+            2,
+            1,
+            1,
+            2,
+            2,
+            1
           ],
-          "median_seconds_per_stream": 0.0035725104971788824,
+          "median_seconds_per_stream": 0.012874207983259112,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.004126906249439344,
-            0.004034250004527469,
-            0.0033940416566717127,
-            0.0035725104971788824,
-            0.003215843753423542,
-            0.00375611474737525,
-            0.003301197983091697
+            0.007550332986284047,
+            0.00824337505036965,
+            0.013648333959281445,
+            0.01769662497099489,
+            0.012874207983259112,
+            0.00639900000533089,
+            0.01359112502541393
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3071,25 +3071,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            182,
-            115,
-            112,
-            119,
-            214,
-            121,
-            104
+            64,
+            63,
+            60,
+            114,
+            60,
+            104,
+            124
           ],
-          "median_seconds_per_stream": 9.632231436731402e-05,
+          "median_seconds_per_stream": 0.00023270032677548722,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0001014379559309928,
-            9.534709540236256e-05,
-            0.00010644419671734795,
-            9.368907585896614e-05,
-            9.319353272059114e-05,
-            9.632231436731402e-05,
-            0.0001415176240978046
+            0.00019526237520040013,
+            0.0004136362371759282,
+            0.0001871777678995083,
+            0.00026168055289114517,
+            0.00018171110035230715,
+            0.00023270032677548722,
+            0.0002334684109119999
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3097,25 +3097,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            123,
-            116,
+            100,
+            131,
+            129,
+            72,
+            80,
             119,
-            124,
-            112,
-            112,
-            44
+            116
           ],
-          "median_seconds_per_stream": 0.00013611904536706528,
+          "median_seconds_per_stream": 0.00016750230537986176,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00013918225176450682,
-            0.00010030495669243151,
-            9.080567181955616e-05,
-            9.306149196720892e-05,
-            0.00013611904536706528,
-            0.0001574114545032249,
-            0.0004795028415339237
+            0.00014377875020727516,
+            0.00015578307620185705,
+            0.00016016311683627062,
+            0.00016750230537986176,
+            0.00021215312590356917,
+            0.00027421218472212054,
+            0.0003859507931589053
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3123,25 +3123,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            6,
-            8,
+            2,
             4,
+            2,
             3,
-            4,
-            5,
+            2,
+            2,
             4
           ],
-          "median_seconds_per_stream": 0.003303364501334727,
+          "median_seconds_per_stream": 0.0067950625088997185,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.002709833342426767,
-            0.0025670573668321595,
-            0.0038370417314581573,
-            0.0033384443183119097,
-            0.0034611875016707927,
-            0.0027365666115656494,
-            0.003303364501334727
+            0.0067950625088997185,
+            0.0063355727470479906,
+            0.0059681040002033114,
+            0.007972264002698163,
+            0.01048631250159815,
+            0.007314020476769656,
+            0.00673175000702031
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3161,25 +3161,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            146,
-            226,
-            148,
-            220,
-            190,
-            149,
-            72
+            75,
+            151,
+            72,
+            113,
+            51,
+            151,
+            71
           ],
-          "median_seconds_per_stream": 0.00012328941217699163,
+          "median_seconds_per_stream": 0.00018582229783129417,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            7.328453429094325e-05,
-            0.0001126729334144136,
-            0.00012328941217699163,
-            0.00010909620905295015,
-            0.00015352105256170035,
-            0.00012942253699488687,
-            0.00015522743019068407
+            0.00020578110590577125,
+            0.00018582229783129417,
+            0.00015156713844690885,
+            0.0001838340710403513,
+            0.0002206617660418737,
+            0.00015554829139805196,
+            0.00023988908333835048
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3187,25 +3187,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            51,
-            83,
-            141,
-            147,
-            118,
-            94,
-            148
+            109,
+            96,
+            149,
+            112,
+            78,
+            149,
+            100
           ],
-          "median_seconds_per_stream": 0.0001607189670779762,
+          "median_seconds_per_stream": 0.00018997649954727446,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00037003104008880315,
-            0.00012928211966147982,
-            0.00010667878024755641,
-            0.00011174036760111244,
-            0.00024318255945819162,
-            0.0001607189670779762,
-            0.00029846537162902186
+            0.00021912041333837246,
+            0.00012342273961015357,
+            0.0001606389805174514,
+            0.00017673698208195025,
+            0.00018997649954727446,
+            0.00023352544310958993,
+            0.0002023529203142971
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3213,25 +3213,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            3,
+            2,
+            2,
+            5,
+            1,
             3,
             2,
-            4,
-            4,
-            4,
             3
           ],
-          "median_seconds_per_stream": 0.0037701110122725368,
+          "median_seconds_per_stream": 0.007737166675118108,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0050683193452035384,
-            0.0037701110122725368,
-            0.0050089164869859815,
-            0.004303406254621223,
-            0.0032937812502495944,
-            0.003031437488971278,
-            0.0034880276458958783
+            0.008485041500534862,
+            0.0058548335218802094,
+            0.006860608211718499,
+            0.01202583301346749,
+            0.007567583350464702,
+            0.00996868748916313,
+            0.007737166675118108
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3259,17 +3259,17 @@
             4096,
             4096
           ],
-          "median_seconds_per_stream": 3.922129394595686e-06,
+          "median_seconds_per_stream": 9.090637206554675e-06,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            4.505798330001198e-06,
-            3.945149671835679e-06,
-            4.708465581870769e-06,
-            3.922129394595686e-06,
-            3.707936514274479e-06,
-            3.77232885284684e-06,
-            3.6655883945968526e-06
+            1.0023356196597888e-05,
+            1.1732198004210659e-05,
+            1.1322367441835013e-05,
+            8.515614979387465e-06,
+            7.756256081847823e-06,
+            8.676381582972681e-06,
+            9.090637206554675e-06
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3285,17 +3285,17 @@
             4096,
             4096
           ],
-          "median_seconds_per_stream": 4.416727534817255e-06,
+          "median_seconds_per_stream": 6.25927737019083e-06,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            3.2018432420954923e-06,
-            4.416727534817255e-06,
-            4.931599846713652e-06,
-            4.012451171320208e-06,
-            3.74923706658592e-06,
-            4.762685051673543e-06,
-            5.007354729968938e-06
+            7.999898173238762e-06,
+            6.0099997369889024e-06,
+            5.936920160820591e-06,
+            6.25927737019083e-06,
+            9.6659445887326e-06,
+            6.904724131118201e-06,
+            6.206949706211162e-06
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3311,17 +3311,17 @@
             4096,
             4096
           ],
-          "median_seconds_per_stream": 1.5782918211471042e-05,
+          "median_seconds_per_stream": 2.4276763923580802e-05,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            1.7717722641918954e-05,
-            1.4354817608364101e-05,
-            1.825351978368417e-05,
-            1.4054677251351677e-05,
-            1.295229077413751e-05,
-            1.5782918211471042e-05,
-            2.1745035894582543e-05
+            2.4276763923580802e-05,
+            2.315050244305894e-05,
+            2.726896144622515e-05,
+            2.890985106773769e-05,
+            2.7317382802038992e-05,
+            2.2648874988817624e-05,
+            2.381083177738219e-05
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3349,17 +3349,17 @@
             4096,
             4096
           ],
-          "median_seconds_per_stream": 6.810424793002312e-06,
+          "median_seconds_per_stream": 7.243051982186444e-06,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            8.719757090602798e-06,
-            6.810424793002312e-06,
-            5.9760131989605725e-06,
-            7.123270762576794e-06,
-            7.780863541029248e-06,
-            5.604746348808476e-06,
-            5.228932622003413e-06
+            7.318613768347859e-06,
+            7.243051982186444e-06,
+            7.710021975526615e-06,
+            7.351593012572266e-06,
+            5.419575927589904e-06,
+            6.284881607143689e-06,
+            5.433736077975482e-06
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3375,17 +3375,17 @@
             4096,
             4096
           ],
-          "median_seconds_per_stream": 4.461720692461313e-06,
+          "median_seconds_per_stream": 7.385935532511212e-06,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            5.168141854028363e-06,
-            4.258402327650401e-06,
-            4.713073735729267e-06,
-            5.121042988776026e-06,
-            4.461720692461313e-06,
-            4.325602304788845e-06,
-            3.7428283690132957e-06
+            5.299112785905891e-06,
+            5.66087840070395e-06,
+            7.385935532511212e-06,
+            8.556498045209082e-06,
+            8.072804945413736e-06,
+            9.982828601096116e-06,
+            7.132822503308489e-06
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3401,17 +3401,17 @@
             4096,
             4096
           ],
-          "median_seconds_per_stream": 1.8699462884796958e-05,
+          "median_seconds_per_stream": 3.4160217296630435e-05,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            1.4778187988895297e-05,
-            2.285894777287467e-05,
-            1.8699462884796958e-05,
-            1.924773170003391e-05,
-            1.7293843768584338e-05,
-            2.238398218423754e-05,
-            1.4872548348421333e-05
+            3.1613047354994706e-05,
+            3.967037963548137e-05,
+            3.4160217296630435e-05,
+            2.6333831783631467e-05,
+            3.135363769501964e-05,
+            3.876415013337464e-05,
+            3.464598583491352e-05
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3431,25 +3431,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            14,
-            14,
             7,
-            14,
-            14,
-            14,
-            14
+            7,
+            7,
+            7,
+            7,
+            7,
+            7
           ],
-          "median_seconds_per_stream": 0.0012393035742986416,
+          "median_seconds_per_stream": 0.0023999940105048673,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.001038675570660936,
-            0.0015824047066936536,
-            0.001445053577689188,
-            0.0012393035742986416,
-            0.001033235141741378,
-            0.00142161306991641,
-            0.0009768155037558504
+            0.0024448392879483955,
+            0.002848035722438778,
+            0.0023999940105048673,
+            0.0019367024235959565,
+            0.0022991964360699058,
+            0.002028119151613542,
+            0.0027252202853560448
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3457,25 +3457,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            14,
             7,
-            14,
-            14,
             7,
-            14,
+            7,
+            7,
+            7,
+            7,
             7
           ],
-          "median_seconds_per_stream": 0.0015316101406434818,
+          "median_seconds_per_stream": 0.0024497500022075008,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.0015316101406434818,
-            0.0015578392859814422,
-            0.002463967289908656,
-            0.0014954226457380823,
-            0.0018260357236223562,
-            0.001344529787145023,
-            0.0014571071369573474
+            0.002385493999879275,
+            0.0023168334238497274,
+            0.0024813392997852395,
+            0.0025240357166954447,
+            0.0024497500022075008,
+            0.0022945357153990437,
+            0.002664994149069701
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3491,17 +3491,17 @@
             7,
             7
           ],
-          "median_seconds_per_stream": 0.014919077295676939,
+          "median_seconds_per_stream": 0.02429450599343649,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.014919077295676939,
-            0.012661565427801438,
-            0.012056922573330147,
-            0.014040690430972193,
-            0.016192178574523756,
-            0.020761232141272297,
-            0.01641237499591495
+            0.026279386864709004,
+            0.03278283342452986,
+            0.030834422712879523,
+            0.02429450599343649,
+            0.020879637000949254,
+            0.01600713685287961,
+            0.02186822613501655
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3521,25 +3521,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            94,
-            84,
-            85,
-            86,
-            86,
-            86,
-            86
+            78,
+            83,
+            56,
+            28,
+            44,
+            34,
+            40
           ],
-          "median_seconds_per_stream": 0.00016537451098651388,
+          "median_seconds_per_stream": 0.0005488419110941537,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00020137588255741496,
-            0.00014698363070021428,
-            0.00015439951710183831,
-            0.00013688274491361753,
-            0.00016537451098651388,
-            0.0001896579525173577,
-            0.00023814583695385346
+            0.00019674252670926927,
+            0.000281489457014993,
+            0.0005696718768116885,
+            0.0006834330353220659,
+            0.0007442405225116421,
+            0.0005488419110941537,
+            0.0003206187509931624
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3547,25 +3547,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            64,
-            76,
-            88,
-            75,
-            150,
-            85,
-            74
+            62,
+            54,
+            28,
+            28,
+            22,
+            37,
+            27
           ],
-          "median_seconds_per_stream": 0.00014261916667843857,
+          "median_seconds_per_stream": 0.0005152415186684164,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00016729428170947358,
-            0.00014232127700540187,
-            0.00015404971517537805,
-            0.00013555444000909727,
-            0.00014261916667843857,
-            0.000155556364916265,
-            0.00013800225585598397
+            0.0003571444840711211,
+            0.0005152415186684164,
+            0.000830982142360881,
+            0.00048640178699445514,
+            0.0006084753602573818,
+            0.0005266756775814134,
+            0.0004227731454496582
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3581,17 +3581,17 @@
             7,
             7
           ],
-          "median_seconds_per_stream": 0.0023492262865017566,
+          "median_seconds_per_stream": 0.004550101285401199,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.002683220281531768,
-            0.001921202421986631,
-            0.002063244132192007,
-            0.0022710834330480012,
-            0.0023492262865017566,
-            0.002442339285542922,
-            0.0028079881366076215
+            0.003525035721915109,
+            0.0044929881447127885,
+            0.004550101285401199,
+            0.006392553581723145,
+            0.003296863138010459,
+            0.006110529864339956,
+            0.005538988143338689
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3611,25 +3611,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            530,
-            538,
-            466,
-            476,
-            519,
-            520,
-            530
+            340,
+            515,
+            217,
+            217,
+            208,
+            175,
+            221
           ],
-          "median_seconds_per_stream": 2.7627489477510856e-05,
+          "median_seconds_per_stream": 7.318106787369668e-05,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            2.8572564303242372e-05,
-            2.775921574603337e-05,
-            2.462285407918781e-05,
-            2.1735819383375658e-05,
-            2.7627489477510856e-05,
-            2.790288462375219e-05,
-            2.0423271684503217e-05
+            7.942083243773702e-05,
+            7.318106787369668e-05,
+            7.788671453135766e-05,
+            8.079012928848167e-05,
+            5.46011584587037e-05,
+            7.164476572402886e-05,
+            6.766496826704946e-05
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3637,25 +3637,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            556,
-            545,
-            547,
+            234,
+            508,
+            232,
+            198,
+            531,
             493,
-            543,
-            550,
-            535
+            196
           ],
-          "median_seconds_per_stream": 2.2668688785847572e-05,
+          "median_seconds_per_stream": 5.957336338141408e-05,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            2.2668688785847572e-05,
-            2.4699999891016462e-05,
-            2.602079518861265e-05,
-            2.340398777019361e-05,
-            2.1765270771228917e-05,
-            1.924931812523441e-05,
-            1.890950283540465e-05
+            5.957336338141408e-05,
+            6.565026179007365e-05,
+            6.869216780740253e-05,
+            5.881186878082879e-05,
+            4.4910233466063405e-05,
+            4.987668956329566e-05,
+            7.46887752178068e-05
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3663,25 +3663,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            32,
-            25,
-            44,
-            21,
-            22,
-            32,
-            18
+            16,
+            7,
+            14,
+            14,
+            14,
+            7,
+            7
           ],
-          "median_seconds_per_stream": 0.0005241508118896967,
+          "median_seconds_per_stream": 0.0014374761542837536,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00047264190652640536,
-            0.0005466833198443055,
-            0.0004933986585290933,
-            0.0005241508118896967,
-            0.0004551306853748181,
-            0.0007557395911135245,
-            0.0007242222264822987
+            0.0010753541937447153,
+            0.0015984761329101665,
+            0.0021509851462074687,
+            0.0009985594993590244,
+            0.0011164583515242807,
+            0.0014374761542837536,
+            0.0014548870136163064
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3701,25 +3701,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            1223,
-            1178,
-            1144,
-            985,
-            1219,
-            916,
-            1077
+            514,
+            419,
+            800,
+            1184,
+            539,
+            407,
+            1202
           ],
-          "median_seconds_per_stream": 1.2234578910007036e-05,
+          "median_seconds_per_stream": 3.095638914693306e-05,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            2.2093655780652265e-05,
-            1.2234578910007036e-05,
-            1.2052629384785318e-05,
-            1.3031091347223308e-05,
-            1.2176886710496444e-05,
-            1.1433087371688288e-05,
-            1.247357561952584e-05
+            3.095638914693306e-05,
+            3.341636770496007e-05,
+            3.324281249660999e-05,
+            2.055869933699157e-05,
+            2.5639068577196693e-05,
+            3.167372957759832e-05,
+            1.9499098129737843e-05
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3727,25 +3727,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            577,
-            1299,
-            1244,
-            1192,
-            1248,
-            1273,
-            1229
+            403,
+            1252,
+            948,
+            754,
+            1240,
+            1058,
+            1374
           ],
-          "median_seconds_per_stream": 1.2553711707110445e-05,
+          "median_seconds_per_stream": 2.357570685456144e-05,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            2.018594811710834e-05,
-            9.857967629988575e-06,
-            1.6003717792630674e-05,
-            1.0590429570925916e-05,
-            1.3561832486466767e-05,
-            1.2553711707110445e-05,
-            8.755560549077607e-06
+            2.9171940352924853e-05,
+            1.8903388200661007e-05,
+            1.961484704685362e-05,
+            2.357570685456144e-05,
+            3.172291692481526e-05,
+            2.2196872441524144e-05,
+            3.319929622986735e-05
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3753,25 +3753,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            35,
-            34,
-            33,
-            19,
-            18,
-            34,
-            38
+            14,
+            14,
+            7,
+            14,
+            14,
+            7,
+            14
           ],
-          "median_seconds_per_stream": 0.0005580087890848517,
+          "median_seconds_per_stream": 0.001556708277868373,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00044382739745612654,
-            0.00040340685518458486,
-            0.0005744015162980014,
-            0.0005580087890848517,
-            0.000707900442648679,
-            0.0006445968208615394,
-            0.00044355700160131643
+            0.0016930862828823073,
+            0.00163433635939977,
+            0.0022033214336261153,
+            0.001418205352300512,
+            0.0012191160681790539,
+            0.001556708277868373,
+            0.0013366339262574911
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3791,25 +3791,25 @@
         {
           "display_name": "StreamingJsonParser (native ABI3)",
           "measurement_repetitions_per_sample": [
-            1084,
-            1240,
-            1238,
-            1223,
-            1111,
-            1290,
-            1251
+            809,
+            963,
+            1827,
+            739,
+            896,
+            614,
+            1316
           ],
-          "median_seconds_per_stream": 1.5498705620276615e-05,
+          "median_seconds_per_stream": 1.643397083129819e-05,
           "name": "streaming_json_parser_native_public",
           "reason": null,
           "sample_seconds_per_stream": [
-            1.658160336972025e-05,
-            2.932462985852673e-05,
-            1.250885134361239e-05,
-            1.5498705620276615e-05,
-            1.4061656253266506e-05,
-            1.4929618603412727e-05,
-            2.2114741784944045e-05
+            1.43810778301398e-05,
+            2.3179257439443626e-05,
+            1.569704432244355e-05,
+            1.69166103534713e-05,
+            2.5670200946998583e-05,
+            1.643397083129819e-05,
+            1.430278033581435e-05
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3817,25 +3817,25 @@
         {
           "display_name": "IncrementalJsonParser result API (native ABI3)",
           "measurement_repetitions_per_sample": [
-            856,
-            1307,
-            2036,
-            1104,
-            1276,
-            1435,
-            1313
+            1954,
+            1463,
+            861,
+            946,
+            881,
+            1880,
+            1639
           ],
-          "median_seconds_per_stream": 1.6104215032805124e-05,
+          "median_seconds_per_stream": 1.3045895373129756e-05,
           "name": "native_incremental_direct_result",
           "reason": null,
           "sample_seconds_per_stream": [
-            1.4731260511597671e-05,
-            1.6104215032805124e-05,
-            1.6226731345957705e-05,
-            2.7238337877307735e-05,
-            1.1931361264160901e-05,
-            1.2378193736595559e-05,
-            2.595896797888804e-05
+            1.3370308588938588e-05,
+            1.63653451836046e-05,
+            1.467615228068434e-05,
+            1.3045895373129756e-05,
+            1.1470204374618685e-05,
+            9.972651048186928e-06,
+            1.004153931919142e-05
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3843,25 +3843,25 @@
         {
           "display_name": "StreamingJsonParser (Python fallback)",
           "measurement_repetitions_per_sample": [
-            35,
-            38,
-            42,
-            41,
-            46,
-            41,
-            37
+            28,
+            20,
+            18,
+            22,
+            30,
+            29,
+            25
           ],
-          "median_seconds_per_stream": 0.00036007857083209926,
+          "median_seconds_per_stream": 0.0006480323888051013,
           "name": "streaming_json_parser_python_fallback",
           "reason": null,
           "sample_seconds_per_stream": [
-            0.00036007857083209926,
-            0.0002692478163608987,
-            0.000433313477385257,
-            0.00037658331552293243,
-            0.0003756730002351105,
-            0.00034802846281175936,
-            0.0002955225126415088
+            0.0007956503208593599,
+            0.0009735791478306055,
+            0.0006480323888051013,
+            0.0004688352293504233,
+            0.0003562263989200195,
+            0.00120029596868774,
+            0.0005985116772353649
           ],
           "semantics_family": "strict_incremental",
           "valid": true
@@ -3899,8 +3899,8 @@
       "untruncate-json": "1.1.0"
     },
     "cargo_version": "cargo 1.96.0 (30a34c682 2026-05-25)",
-    "commit_sha": "9da80493873f07c024ce80780e42436abddc58e9",
-    "installed_distribution_version": "0.2.2",
+    "commit_sha": "55f38cd26ab10d73c015381980be60dcc7ae1f66",
+    "installed_distribution_version": "0.2.3",
     "maturin_version": "maturin 1.14.0",
     "native_extension": {
       "abi3_binary": true,
@@ -3912,9 +3912,9 @@
     },
     "native_source_fingerprint_without_abi_feature": "151d6c24ee95e5cfeccd1f8e24f2c3fc566ecbaa86a8ea98c1c9138558533c28",
     "operating_system": "Darwin",
-    "package_module_version": "0.2.2",
+    "package_module_version": "0.2.3",
     "package_source": "installed distribution",
-    "package_version": "0.2.2",
+    "package_version": "0.2.3",
     "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
     "processor": "Apple M2 Pro",
     "python_version": "3.14.0",
@@ -3962,8 +3962,8 @@
       "outcome": "rejected"
     },
     "streaming_json_parser_python_fallback": {
-      "decoded_value": "non-finite float",
-      "outcome": "accepted"
+      "error_type": "ValueError",
+      "outcome": "rejected"
     }
   },
   "semantics_family": "strict_incremental",
@@ -3971,9 +3971,9 @@
     8192
   ],
   "summary": {
-    "native_direct_median_speedup_vs_python": 12.865052876472374,
+    "native_direct_median_speedup_vs_python": 10.588775709625413,
     "native_public_faster_case_count": 43,
-    "native_public_median_speedup_vs_python": 12.63962541591949,
+    "native_public_median_speedup_vs_python": 12.030939212453019,
     "native_public_not_faster_case_count": 0,
     "paired_case_count": 43,
     "speedup_definition": "Python fallback median elapsed time divided by native median elapsed time; values above 1 mean native is faster"

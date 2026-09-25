@@ -41,6 +41,69 @@ def test_decode_complete_json_object():
     assert decode_complete_json(b'{"a":1,"b":[1,2,3]}') == {"a": 1, "b": [1, 2, 3]}
 
 
+def _force_stdlib_json_fallback(monkeypatch):
+    for name in (
+        "_backend_orjson",
+        "_backend_msgspec",
+        "_backend_simdjson",
+        "_backend_yyjson",
+        "_backend_ujson",
+        "_backend_rapidjson",
+        "_backend_native",
+        "_GLOBAL_MSGSPEC_DECODER",
+        "_GLOBAL_SIMD_PARSER",
+        "_NATIVE_NDJSON_DECODER",
+    ):
+        monkeypatch.setattr(high_performance_parser, name, None)
+    monkeypatch.setattr(high_performance_parser, "_LAST_ADAPTIVE_NDJSON_DECODER", None)
+
+
+@pytest.mark.parametrize("number", ["1e400", "-1e400"])
+@pytest.mark.parametrize("as_bytes", [False, True])
+def test_stdlib_fallback_strict_public_decoders_reject_float_overflow(
+    monkeypatch,
+    number,
+    as_bytes,
+):
+    _force_stdlib_json_fallback(monkeypatch)
+
+    def represent(text):
+        return text.encode() if as_bytes else text
+
+    complete_payload = represent(f'{{"value":{number}}}')
+    ndjson_payload = represent(f'{{"value":{number}}}\n')
+    complete_sample = represent(json.dumps({"value": "x" * 80}))
+    ndjson_sample = represent(json.dumps({"value": "x" * 80}) + "\n")
+    complete_decoders = (
+        decode_complete_json,
+        make_complete_json_decoder(),
+        make_tuned_complete_json_decoder(
+            sample=complete_sample,
+            payload_size_hint=1024,
+        ),
+        decode_complete_json_view,
+        make_complete_json_view_decoder(),
+        lambda payload: extract_complete_json_paths(payload, ("value",)),
+    )
+    ndjson_decoders = (
+        decode_ndjson,
+        make_ndjson_decoder(),
+        make_tuned_ndjson_decoder(
+            sample=ndjson_sample,
+            payload_size_hint=1024,
+        ),
+        decode_ndjson_adaptive,
+        lambda payload: extract_ndjson_paths(payload, ("value",)),
+    )
+
+    for decoder in complete_decoders:
+        with pytest.raises(ValueError):
+            decoder(complete_payload)
+    for decoder in ndjson_decoders:
+        with pytest.raises(ValueError):
+            decoder(ndjson_payload)
+
+
 def test_decode_ndjson_adaptive_uses_stable_schema_when_available():
     payload = b'{"a":1,"b":"x"}\n{"a":2,"b":"y"}\n'
 
@@ -448,8 +511,9 @@ def test_complete_decoders_avoid_yyjson_for_non_ascii_unicode_escapes(
     assert high_performance_parser._has_non_ascii_unicode_escape(bytearray(payload.encode()))
     assert not high_performance_parser._has_non_ascii_unicode_escape(r'{"text":"\\u2019"}')
     assert not high_performance_parser._has_non_ascii_unicode_escape(r'{"text":"\u007f"}')
-    assert high_performance_parser._select_complete_decoder_text(payload) is json.loads
-    assert high_performance_parser._select_complete_decoder(payload.encode()) is json.loads
+    strict_decoder = high_performance_parser._strict_json_loads
+    assert high_performance_parser._select_complete_decoder_text(payload) is strict_decoder
+    assert high_performance_parser._select_complete_decoder(payload.encode()) is strict_decoder
     assert decode_complete_json(payload) == expected
     assert decode_complete_json(payload.encode()) == expected
     assert decode_complete_json(bytearray(payload.encode())) == expected
@@ -797,7 +861,7 @@ def test_complete_calibration_rejects_permissive_candidate(monkeypatch):
 
     def permissive(candidate_payload):
         if candidate_payload == b'{"value":NaN}':
-            return {"value": float("nan")}
+            raise ValueError("invalid constant")
         return json.loads(candidate_payload)
 
     monkeypatch.setattr(
@@ -1169,7 +1233,7 @@ def test_ndjson_calibration_rejects_permissive_candidate(monkeypatch):
 
     def permissive(candidate_payload):
         if b"NaN" in candidate_payload:
-            return [{"value": float("nan")}]
+            raise ValueError("invalid constant")
         return [json.loads(line) for line in candidate_payload.split(b"\n") if line]
 
     monkeypatch.setattr(

@@ -36,8 +36,16 @@ def test_native_complete_materializer_is_strict_and_unicode_safe():
     assert native.decode_complete(bytearray(b'{"value":1}')) == {"value": 1}
     with pytest.raises(ValueError):
         native.decode_complete(b'{"value":NaN}')
-    with pytest.raises(ValueError, match="non-finite"):
-        native.decode_complete(b'{"value":1e400}')
+    for number in ("1e400", "-1e400"):
+        with pytest.raises(ValueError, match="non-finite"):
+            native.decode_complete(f'{{"value":{number}}}'.encode())
+
+
+@pytest.mark.parametrize("number", ["1e400", "-1e400"])
+def test_native_strict_incremental_parser_rejects_float_overflow(number):
+    parser = HighPerformanceStreamingJsonParser()
+    result = parser.feed(f'{{"value":{number}}}')
+    assert result.status is ParseStatus.INVALID
 
 
 def test_native_ndjson_materializer_is_strict_and_unicode_safe():

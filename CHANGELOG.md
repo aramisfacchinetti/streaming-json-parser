@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 0.2.3 - 2026-09-25
+
+- Strict Python fallback and standard-library complete/NDJSON decoding now reject numeric overflow such as `1e400` instead of returning a non-finite float, aligning those paths with the native strict parser.
+
 ## 0.2.2 - 2026-09-24
 
 - Updated README links so the PyPI project page can render its documentation and benchmark images.

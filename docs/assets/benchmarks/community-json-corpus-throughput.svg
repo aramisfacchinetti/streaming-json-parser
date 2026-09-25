@@ -9,229 +9,229 @@
   <rect x="258" y="87" width="13" height="13" rx="2" fill="#98a3b1"/>
   <text x="278" y="98" fill="#344052" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12">alternative libraries</text>
   <text x="36" y="151" fill="#17202b" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="15" font-weight="700">data/canada.json · 2.15 MiB</text>
-  <text x="36" y="201" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">yyjson</text>
+  <text x="36" y="201" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">simdjson (Python objects)</text>
   <rect x="390" y="187" width="720" height="16" rx="4" fill="#edf0f4"/>
   <rect x="390" y="187" width="720.00" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="201" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">253.1 MiB/s</text>
-  <text x="36" y="225" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">decode_complete_json</text>
+  <text x="1126" y="201" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">188.2 MiB/s</text>
+  <text x="36" y="225" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">msgspec</text>
   <rect x="390" y="211" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="211" width="668.49" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="225" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">235.0 MiB/s</text>
+  <rect x="390" y="211" width="717.05" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="225" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">187.4 MiB/s</text>
   <text x="36" y="249" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">orjson</text>
   <rect x="390" y="235" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="235" width="651.18" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="249" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">228.9 MiB/s</text>
-  <text x="36" y="273" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">simdjson (Python objects)</text>
+  <rect x="390" y="235" width="604.82" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="249" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">158.1 MiB/s</text>
+  <text x="36" y="273" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">yyjson</text>
   <rect x="390" y="259" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="259" width="630.29" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="273" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">221.5 MiB/s</text>
-  <text x="36" y="297" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">Reusable complete decoder</text>
+  <rect x="390" y="259" width="565.01" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="273" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">147.7 MiB/s</text>
+  <text x="36" y="297" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">decode_complete_json</text>
   <rect x="390" y="283" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="283" width="497.45" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="297" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">174.8 MiB/s</text>
-  <text x="36" y="321" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">msgspec</text>
+  <rect x="390" y="283" width="547.21" height="16" rx="4" fill="#315fc5"/>
+  <text x="1126" y="297" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">143.0 MiB/s</text>
+  <text x="36" y="321" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">ujson</text>
   <rect x="390" y="307" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="307" width="363.56" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="321" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">127.8 MiB/s</text>
-  <text x="36" y="345" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">ujson</text>
+  <rect x="390" y="307" width="427.43" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="321" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">111.7 MiB/s</text>
+  <text x="36" y="345" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">Reusable complete decoder</text>
   <rect x="390" y="331" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="331" width="333.63" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="345" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">117.3 MiB/s</text>
-  <text x="36" y="369" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">python-rapidjson</text>
+  <rect x="390" y="331" width="414.80" height="16" rx="4" fill="#315fc5"/>
+  <text x="1126" y="345" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">108.4 MiB/s</text>
+  <text x="36" y="369" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">Python json.loads</text>
   <rect x="390" y="355" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="355" width="169.46" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="369" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">59.6 MiB/s</text>
-  <text x="36" y="393" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">Python json.loads</text>
+  <rect x="390" y="355" width="218.82" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="369" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">57.2 MiB/s</text>
+  <text x="36" y="393" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">python-rapidjson</text>
   <rect x="390" y="379" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="379" width="161.11" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="393" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">56.6 MiB/s</text>
+  <rect x="390" y="379" width="197.01" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="393" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">51.5 MiB/s</text>
   <text x="36" y="417" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">StreamingJsonParser — single chunk</text>
   <rect x="390" y="403" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="403" width="97.12" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="417" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">34.1 MiB/s</text>
+  <rect x="390" y="403" width="124.85" height="16" rx="4" fill="#315fc5"/>
+  <text x="1126" y="417" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">32.6 MiB/s</text>
   <text x="36" y="465" fill="#17202b" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="15" font-weight="700">data/citm_catalog.json · 1.65 MiB</text>
   <text x="36" y="515" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">Reusable complete decoder</text>
   <rect x="390" y="501" width="720" height="16" rx="4" fill="#edf0f4"/>
   <rect x="390" y="501" width="720.00" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="515" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">484.8 MiB/s</text>
-  <text x="36" y="539" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">decode_complete_json</text>
+  <text x="1126" y="515" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">334.4 MiB/s</text>
+  <text x="36" y="539" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">orjson</text>
   <rect x="390" y="525" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="525" width="587.70" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="539" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">395.8 MiB/s</text>
-  <text x="36" y="563" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">msgspec</text>
+  <rect x="390" y="525" width="678.21" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="539" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">315.0 MiB/s</text>
+  <text x="36" y="563" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">decode_complete_json</text>
   <rect x="390" y="549" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="549" width="579.98" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="563" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">390.6 MiB/s</text>
-  <text x="36" y="587" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">orjson</text>
+  <rect x="390" y="549" width="632.97" height="16" rx="4" fill="#315fc5"/>
+  <text x="1126" y="563" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">294.0 MiB/s</text>
+  <text x="36" y="587" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">msgspec</text>
   <rect x="390" y="573" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="573" width="496.39" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="587" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">334.3 MiB/s</text>
-  <text x="36" y="611" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">simdjson (Python objects)</text>
+  <rect x="390" y="573" width="613.41" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="587" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">284.9 MiB/s</text>
+  <text x="36" y="611" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">ujson</text>
   <rect x="390" y="597" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="597" width="403.64" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="611" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">271.8 MiB/s</text>
-  <text x="36" y="635" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">Python json.loads</text>
+  <rect x="390" y="597" width="456.12" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="611" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">211.9 MiB/s</text>
+  <text x="36" y="635" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">python-rapidjson</text>
   <rect x="390" y="621" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="621" width="297.38" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="635" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">200.3 MiB/s</text>
-  <text x="36" y="659" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">ujson</text>
+  <rect x="390" y="621" width="410.57" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="635" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">190.7 MiB/s</text>
+  <text x="36" y="659" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">simdjson (Python objects)</text>
   <rect x="390" y="645" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="645" width="249.65" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="659" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">168.1 MiB/s</text>
-  <text x="36" y="683" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">python-rapidjson</text>
+  <rect x="390" y="645" width="349.23" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="659" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">162.2 MiB/s</text>
+  <text x="36" y="683" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">Python json.loads</text>
   <rect x="390" y="669" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="669" width="206.07" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="683" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">138.8 MiB/s</text>
+  <rect x="390" y="669" width="264.59" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="683" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">122.9 MiB/s</text>
   <text x="36" y="707" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">StreamingJsonParser — single chunk</text>
   <rect x="390" y="693" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="693" width="109.49" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="707" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">73.7 MiB/s</text>
+  <rect x="390" y="693" width="151.72" height="16" rx="4" fill="#315fc5"/>
+  <text x="1126" y="707" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">70.5 MiB/s</text>
   <text x="36" y="755" fill="#17202b" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="15" font-weight="700">data/twitter.json · 0.60 MiB</text>
-  <text x="36" y="805" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">decode_complete_json</text>
+  <text x="36" y="805" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">orjson</text>
   <rect x="390" y="791" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="791" width="720.00" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="805" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">454.0 MiB/s</text>
-  <text x="36" y="829" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">orjson</text>
+  <rect x="390" y="791" width="720.00" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="805" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">326.3 MiB/s</text>
+  <text x="36" y="829" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">decode_complete_json</text>
   <rect x="390" y="815" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="815" width="515.84" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="829" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">325.3 MiB/s</text>
+  <rect x="390" y="815" width="520.52" height="16" rx="4" fill="#315fc5"/>
+  <text x="1126" y="829" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">235.9 MiB/s</text>
   <text x="36" y="853" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">Reusable complete decoder</text>
   <rect x="390" y="839" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="839" width="474.78" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="853" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">299.4 MiB/s</text>
+  <rect x="390" y="839" width="436.73" height="16" rx="4" fill="#315fc5"/>
+  <text x="1126" y="853" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">197.9 MiB/s</text>
   <text x="36" y="877" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">msgspec</text>
   <rect x="390" y="863" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="863" width="430.82" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="877" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">271.7 MiB/s</text>
-  <text x="36" y="901" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">ujson</text>
+  <rect x="390" y="863" width="394.19" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="877" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">178.6 MiB/s</text>
+  <text x="36" y="901" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">python-rapidjson</text>
   <rect x="390" y="887" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="887" width="393.25" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="901" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">248.0 MiB/s</text>
-  <text x="36" y="925" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">simdjson (Python objects)</text>
+  <rect x="390" y="887" width="393.05" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="901" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">178.1 MiB/s</text>
+  <text x="36" y="925" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">Python json.loads</text>
   <rect x="390" y="911" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="911" width="317.82" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="925" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">200.4 MiB/s</text>
-  <text x="36" y="949" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">Python json.loads</text>
+  <rect x="390" y="911" width="276.37" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="925" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">125.2 MiB/s</text>
+  <text x="36" y="949" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">simdjson (Python objects)</text>
   <rect x="390" y="935" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="935" width="202.25" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="949" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">127.5 MiB/s</text>
-  <text x="36" y="973" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">python-rapidjson</text>
+  <rect x="390" y="935" width="217.57" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="949" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">98.6 MiB/s</text>
+  <text x="36" y="973" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">ujson</text>
   <rect x="390" y="959" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="959" width="199.11" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="973" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">125.5 MiB/s</text>
+  <rect x="390" y="959" width="205.60" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="973" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">93.2 MiB/s</text>
   <text x="36" y="997" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">StreamingJsonParser — single chunk</text>
   <rect x="390" y="983" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="983" width="113.83" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="997" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">71.8 MiB/s</text>
+  <rect x="390" y="983" width="58.36" height="16" rx="4" fill="#315fc5"/>
+  <text x="1126" y="997" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">26.4 MiB/s</text>
   <text x="36" y="1045" fill="#17202b" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="15" font-weight="700">data/gsoc-2018.json · 3.17 MiB</text>
-  <text x="36" y="1095" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">ujson</text>
+  <text x="36" y="1095" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">msgspec</text>
   <rect x="390" y="1081" width="720" height="16" rx="4" fill="#edf0f4"/>
   <rect x="390" y="1081" width="720.00" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1095" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">417.1 MiB/s</text>
-  <text x="36" y="1119" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">simdjson (Python objects)</text>
+  <text x="1126" y="1095" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">707.8 MiB/s</text>
+  <text x="36" y="1119" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">orjson</text>
   <rect x="390" y="1105" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1105" width="705.25" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1119" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">408.5 MiB/s</text>
+  <rect x="390" y="1105" width="499.79" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="1119" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">491.4 MiB/s</text>
   <text x="36" y="1143" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">Python json.loads</text>
   <rect x="390" y="1129" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1129" width="627.96" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1143" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">363.8 MiB/s</text>
-  <text x="36" y="1167" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">Reusable complete decoder</text>
+  <rect x="390" y="1129" width="296.36" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="1143" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">291.4 MiB/s</text>
+  <text x="36" y="1167" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">StreamingJsonParser — single chunk</text>
   <rect x="390" y="1153" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1153" width="569.03" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="1167" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">329.6 MiB/s</text>
-  <text x="36" y="1191" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">msgspec</text>
+  <rect x="390" y="1153" width="280.58" height="16" rx="4" fill="#315fc5"/>
+  <text x="1126" y="1167" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">275.8 MiB/s</text>
+  <text x="36" y="1191" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">simdjson (Python objects)</text>
   <rect x="390" y="1177" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1177" width="559.05" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1191" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">323.9 MiB/s</text>
-  <text x="36" y="1215" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">decode_complete_json</text>
+  <rect x="390" y="1177" width="249.46" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="1191" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">245.2 MiB/s</text>
+  <text x="36" y="1215" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">python-rapidjson</text>
   <rect x="390" y="1201" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1201" width="547.05" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="1215" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">316.9 MiB/s</text>
-  <text x="36" y="1239" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">python-rapidjson</text>
+  <rect x="390" y="1201" width="203.98" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="1215" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">200.5 MiB/s</text>
+  <text x="36" y="1239" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">decode_complete_json</text>
   <rect x="390" y="1225" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1225" width="364.47" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1239" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">211.1 MiB/s</text>
-  <text x="36" y="1263" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">orjson</text>
+  <rect x="390" y="1225" width="115.52" height="16" rx="4" fill="#315fc5"/>
+  <text x="1126" y="1239" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">113.6 MiB/s</text>
+  <text x="36" y="1263" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">Reusable complete decoder</text>
   <rect x="390" y="1249" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1249" width="317.38" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1263" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">183.9 MiB/s</text>
-  <text x="36" y="1287" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">StreamingJsonParser — single chunk</text>
+  <rect x="390" y="1249" width="115.48" height="16" rx="4" fill="#315fc5"/>
+  <text x="1126" y="1263" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">113.5 MiB/s</text>
+  <text x="36" y="1287" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">ujson</text>
   <rect x="390" y="1273" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1273" width="314.87" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="1287" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">182.4 MiB/s</text>
+  <rect x="390" y="1273" width="103.72" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="1287" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">102.0 MiB/s</text>
   <text x="36" y="1335" fill="#17202b" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="15" font-weight="700">data/poet.json · 3.35 MiB</text>
-  <text x="36" y="1385" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">msgspec</text>
+  <text x="36" y="1385" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">Reusable complete decoder</text>
   <rect x="390" y="1371" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1371" width="720.00" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1385" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">475.4 MiB/s</text>
-  <text x="36" y="1409" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">orjson</text>
+  <rect x="390" y="1371" width="720.00" height="16" rx="4" fill="#315fc5"/>
+  <text x="1126" y="1385" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">342.8 MiB/s</text>
+  <text x="36" y="1409" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">decode_complete_json</text>
   <rect x="390" y="1395" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1395" width="667.24" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1409" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">440.6 MiB/s</text>
-  <text x="36" y="1433" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">ujson</text>
+  <rect x="390" y="1395" width="620.58" height="16" rx="4" fill="#315fc5"/>
+  <text x="1126" y="1409" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">295.4 MiB/s</text>
+  <text x="36" y="1433" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">msgspec</text>
   <rect x="390" y="1419" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1419" width="569.16" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1433" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">375.8 MiB/s</text>
-  <text x="36" y="1457" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">Reusable complete decoder</text>
+  <rect x="390" y="1419" width="583.64" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="1433" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">277.8 MiB/s</text>
+  <text x="36" y="1457" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">orjson</text>
   <rect x="390" y="1443" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1443" width="566.21" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="1457" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">373.9 MiB/s</text>
+  <rect x="390" y="1443" width="541.84" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="1457" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">257.9 MiB/s</text>
   <text x="36" y="1481" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">simdjson (Python objects)</text>
   <rect x="390" y="1467" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1467" width="524.59" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1481" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">346.4 MiB/s</text>
-  <text x="36" y="1505" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">decode_complete_json</text>
+  <rect x="390" y="1467" width="444.69" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="1481" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">211.7 MiB/s</text>
+  <text x="36" y="1505" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">Python json.loads</text>
   <rect x="390" y="1491" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1491" width="517.63" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="1505" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">341.8 MiB/s</text>
-  <text x="36" y="1529" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">Python json.loads</text>
+  <rect x="390" y="1491" width="417.60" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="1505" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">198.8 MiB/s</text>
+  <text x="36" y="1529" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">StreamingJsonParser — single chunk</text>
   <rect x="390" y="1515" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1515" width="435.53" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1529" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">287.6 MiB/s</text>
-  <text x="36" y="1553" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">StreamingJsonParser — single chunk</text>
+  <rect x="390" y="1515" width="360.59" height="16" rx="4" fill="#315fc5"/>
+  <text x="1126" y="1529" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">171.7 MiB/s</text>
+  <text x="36" y="1553" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">ujson</text>
   <rect x="390" y="1539" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1539" width="216.59" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="1553" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">143.0 MiB/s</text>
+  <rect x="390" y="1539" width="247.51" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="1553" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">117.8 MiB/s</text>
   <text x="36" y="1577" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">python-rapidjson</text>
   <rect x="390" y="1563" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1563" width="214.94" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1577" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">141.9 MiB/s</text>
+  <rect x="390" y="1563" width="181.45" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="1577" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">86.4 MiB/s</text>
   <text x="36" y="1625" fill="#17202b" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="15" font-weight="700">data/fgo.json · 46.51 MiB</text>
-  <text x="36" y="1675" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">Reusable complete decoder</text>
+  <text x="36" y="1675" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">msgspec</text>
   <rect x="390" y="1661" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1661" width="720.00" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="1675" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">205.0 MiB/s</text>
-  <text x="36" y="1699" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">decode_complete_json</text>
+  <rect x="390" y="1661" width="720.00" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="1675" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">188.0 MiB/s</text>
+  <text x="36" y="1699" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">Reusable complete decoder</text>
   <rect x="390" y="1685" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1685" width="701.61" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="1699" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">199.8 MiB/s</text>
-  <text x="36" y="1723" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">orjson</text>
+  <rect x="390" y="1685" width="636.12" height="16" rx="4" fill="#315fc5"/>
+  <text x="1126" y="1699" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">166.1 MiB/s</text>
+  <text x="36" y="1723" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">ujson</text>
   <rect x="390" y="1709" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1709" width="697.21" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1723" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">198.5 MiB/s</text>
-  <text x="36" y="1747" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">msgspec</text>
+  <rect x="390" y="1709" width="539.00" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="1723" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">140.7 MiB/s</text>
+  <text x="36" y="1747" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">orjson</text>
   <rect x="390" y="1733" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1733" width="694.09" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1747" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">197.6 MiB/s</text>
-  <text x="36" y="1771" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">ujson</text>
+  <rect x="390" y="1733" width="404.02" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="1747" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">105.5 MiB/s</text>
+  <text x="36" y="1771" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">decode_complete_json</text>
   <rect x="390" y="1757" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1757" width="355.53" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1771" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">101.2 MiB/s</text>
+  <rect x="390" y="1757" width="399.99" height="16" rx="4" fill="#315fc5"/>
+  <text x="1126" y="1771" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">104.4 MiB/s</text>
   <text x="36" y="1795" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">simdjson (Python objects)</text>
   <rect x="390" y="1781" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1781" width="343.49" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1795" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">97.8 MiB/s</text>
-  <text x="36" y="1819" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">Python json.loads</text>
+  <rect x="390" y="1781" width="357.42" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="1795" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">93.3 MiB/s</text>
+  <text x="36" y="1819" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">python-rapidjson</text>
   <rect x="390" y="1805" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1805" width="285.84" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1819" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">81.4 MiB/s</text>
-  <text x="36" y="1843" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">python-rapidjson</text>
+  <rect x="390" y="1805" width="317.11" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="1819" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">82.8 MiB/s</text>
+  <text x="36" y="1843" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="400">Python json.loads</text>
   <rect x="390" y="1829" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1829" width="145.22" height="16" rx="4" fill="#98a3b1"/>
-  <text x="1126" y="1843" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">41.3 MiB/s</text>
+  <rect x="390" y="1829" width="188.98" height="16" rx="4" fill="#98a3b1"/>
+  <text x="1126" y="1843" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">49.3 MiB/s</text>
   <text x="36" y="1867" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="600">StreamingJsonParser — single chunk</text>
   <rect x="390" y="1853" width="720" height="16" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="1853" width="129.62" height="16" rx="4" fill="#315fc5"/>
-  <text x="1126" y="1867" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">36.9 MiB/s</text>
+  <rect x="390" y="1853" width="180.92" height="16" rx="4" fill="#315fc5"/>
+  <text x="1126" y="1867" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-variant-numeric="tabular-nums">47.2 MiB/s</text>
 </svg>
