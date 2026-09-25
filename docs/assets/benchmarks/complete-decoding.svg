@@ -10,26 +10,26 @@
   <text x="267" y="94" fill="#344052" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12">alternative</text>
   <text x="36" y="133" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">StreamingJsonParser — single chunk</text>
   <rect x="390" y="119" width="600" height="18" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="119" width="349.56" height="18" rx="4" fill="#315fc5"/>
-  <text x="1008" y="133" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">5.22 ms</text>
+  <rect x="390" y="119" width="343.94" height="18" rx="4" fill="#315fc5"/>
+  <text x="1008" y="133" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">6.02 ms</text>
   <text x="36" y="167" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">Reusable complete decoder</text>
   <rect x="390" y="153" width="600" height="18" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="153" width="361.09" height="18" rx="4" fill="#315fc5"/>
-  <text x="1008" y="167" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">5.39 ms</text>
+  <rect x="390" y="153" width="348.74" height="18" rx="4" fill="#315fc5"/>
+  <text x="1008" y="167" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">6.11 ms</text>
   <text x="36" y="201" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="400">msgspec</text>
   <rect x="390" y="187" width="600" height="18" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="187" width="414.23" height="18" rx="4" fill="#98a3b1"/>
-  <text x="1008" y="201" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">6.18 ms</text>
+  <rect x="390" y="187" width="381.12" height="18" rx="4" fill="#98a3b1"/>
+  <text x="1008" y="201" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">6.67 ms</text>
   <text x="36" y="235" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="400">simdjson, materialized as dict</text>
   <rect x="390" y="221" width="600" height="18" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="221" width="426.09" height="18" rx="4" fill="#98a3b1"/>
-  <text x="1008" y="235" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">6.36 ms</text>
+  <rect x="390" y="221" width="430.74" height="18" rx="4" fill="#98a3b1"/>
+  <text x="1008" y="235" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">7.54 ms</text>
   <text x="36" y="269" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="600">decode_complete_json</text>
   <rect x="390" y="255" width="600" height="18" rx="4" fill="#edf0f4"/>
-  <rect x="390" y="255" width="509.86" height="18" rx="4" fill="#315fc5"/>
-  <text x="1008" y="269" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">7.61 ms</text>
+  <rect x="390" y="255" width="528.05" height="18" rx="4" fill="#315fc5"/>
+  <text x="1008" y="269" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">9.25 ms</text>
   <text x="36" y="303" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-weight="400">orjson</text>
   <rect x="390" y="289" width="600" height="18" rx="4" fill="#edf0f4"/>
   <rect x="390" y="289" width="600.00" height="18" rx="4" fill="#98a3b1"/>
-  <text x="1008" y="303" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">8.95 ms</text>
+  <text x="1008" y="303" fill="#253142" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" font-variant-numeric="tabular-nums">10.51 ms</text>
 </svg>
