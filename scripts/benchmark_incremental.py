@@ -44,8 +44,9 @@ _NATIVE = partial_matrix._partial.streaming_json_parser_native
 _DEFAULT_SIZES = (8192,)
 _DEFAULT_CHUNK_SIZES = (1, 8, 64, 256, 1024, 4096)
 _SAMPLE_COUNT = 7
-_MAX_REPETITIONS = 64
+_MAX_REPETITIONS = 4096
 _TARGET_BYTES_PER_SAMPLE = 16 * 1024
+_TARGET_SECONDS_PER_SAMPLE = 0.01
 _INVALID_PAYLOADS = (
     b'{"value":NaN}',
     b'{"value":01}',
@@ -456,13 +457,25 @@ def _measure(
             for _ in range(batch_repetitions):
                 function()
             elapsed = time.perf_counter() - started
-            if elapsed > 0:
+            if elapsed > 0 and (
+                elapsed >= _TARGET_SECONDS_PER_SAMPLE
+                or batch_repetitions >= _MAX_REPETITIONS
+            ):
                 sample_seconds.append(elapsed / batch_repetitions)
                 repetitions_per_sample.append(batch_repetitions)
                 break
             if batch_repetitions >= _MAX_REPETITIONS:
                 raise RuntimeError("performance clock returned zero elapsed time for a benchmark batch")
-            batch_repetitions = min(_MAX_REPETITIONS, batch_repetitions * 2)
+            if elapsed > 0:
+                target_repetitions = math.ceil(
+                    batch_repetitions * _TARGET_SECONDS_PER_SAMPLE / elapsed
+                )
+                batch_repetitions = min(
+                    _MAX_REPETITIONS,
+                    max(batch_repetitions * 2, target_repetitions),
+                )
+            else:
+                batch_repetitions = min(_MAX_REPETITIONS, batch_repetitions * 2)
     return statistics.median(sample_seconds), sample_seconds, repetitions_per_sample
 
 
@@ -604,7 +617,10 @@ def collect_snapshot(
             "warmup_full_streams_per_case": 1,
             "timing_scope": "parser construction, every delta-chunk feed/consume-and-poll call, inspection of each partial status/value/error, and finalization; payload construction and reference JSON decoding are outside timing",
             "chunking": "UTF-8 serialized payloads are sliced as bytes at exact requested byte widths; cases with fewer than two chunks are omitted",
-            "measurement_resolution": "zero-duration batches are retried with doubled repetitions, up to 64 full streams",
+            "measurement_resolution": (
+                "batches target at least 10 ms elapsed when possible; repetitions grow based on observed duration, "
+                "up to 4096 full streams, and zero-duration batches are retried"
+            ),
             "comparison": "all three adapters must produce the same complete Python value and reject NaN, leading-zero numbers, trailing commas, and trailing data",
             "numeric_overflow_note": "1e400 is valid JSON number syntax but exceeds finite Python float range; backend numeric-range behavior is recorded separately",
             "semantic_scope": "strict incremental only; complete decoding, cumulative-prefix reparsing, structural finishers, and permissive repair libraries are excluded",

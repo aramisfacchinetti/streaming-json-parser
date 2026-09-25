@@ -26,6 +26,7 @@ def test_incremental_benchmark_clock_is_elapsed_and_never_records_zero(monkeypat
 def test_incremental_benchmark_repeats_when_clock_resolution_returns_zero(monkeypatch):
     timestamps = iter((0.0, 0.0, 1.0, 2.0))
     monkeypatch.setattr(incremental_benchmark.time, "perf_counter", lambda: next(timestamps))
+    monkeypatch.setattr(incremental_benchmark, "_TARGET_SECONDS_PER_SAMPLE", 0.0)
 
     median, samples, repetitions = incremental_benchmark._measure(
         lambda: None, incremental_benchmark._TARGET_BYTES_PER_SAMPLE, samples=1
@@ -34,6 +35,20 @@ def test_incremental_benchmark_repeats_when_clock_resolution_returns_zero(monkey
     assert median > 0
     assert samples == [0.5]
     assert repetitions == [2]
+
+
+def test_incremental_benchmark_extends_short_batches_to_target_duration(monkeypatch):
+    timestamps = iter((0.0, 0.001, 0.002, 0.013))
+    monkeypatch.setattr(incremental_benchmark.time, "perf_counter", lambda: next(timestamps))
+    monkeypatch.setattr(incremental_benchmark, "_TARGET_SECONDS_PER_SAMPLE", 0.01)
+
+    median, samples, repetitions = incremental_benchmark._measure(
+        lambda: None, incremental_benchmark._TARGET_BYTES_PER_SAMPLE, samples=1
+    )
+
+    assert median == pytest.approx(0.0011)
+    assert samples == pytest.approx([0.0011])
+    assert repetitions == [10]
 
 
 @pytest.mark.skipif(
