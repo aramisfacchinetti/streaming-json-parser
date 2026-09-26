@@ -1,0 +1,115 @@
+name: Bug report
+description: Report a reproducible parser, decoder, or extraction problem.
+title: "[bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please remove secrets and personal data from sample inputs.
+        For security-sensitive reports, follow the [security policy](https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/SECURITY.md) instead of filing a public issue.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Describe the behavior you observed.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproducer
+    attributes:
+      label: Minimal reproducer
+      description: Include the smallest runnable Python example and JSON input that show the problem.
+      placeholder: |
+        from streaming_json_parser import StreamingJsonParser
+
+        parser = StreamingJsonParser()
+        result = parser.feed(b'{"key":')
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: dropdown
+    id: parser_area
+    attributes:
+      label: Parser area
+      options:
+        - Strict incremental parsing
+        - Complete-document decoding
+        - NDJSON
+        - Partial parsing
+        - Selective extraction
+        - Other or unsure
+    validations:
+      required: true
+
+  - type: input
+    id: core_version
+    attributes:
+      label: Core package version
+      placeholder: For example, 0.2.2
+    validations:
+      required: true
+
+  - type: input
+    id: native_version
+    attributes:
+      label: Native package version, if installed
+      placeholder: For example, 0.2.2 or not installed
+
+  - type: input
+    id: python_version
+    attributes:
+      label: Python version
+      placeholder: For example, 3.12.8
+    validations:
+      required: true
+
+  - type: input
+    id: platform
+    attributes:
+      label: Operating system and architecture
+      placeholder: For example, macOS 15 on arm64
+    validations:
+      required: true
+
+  - type: input
+    id: optional_backends
+    attributes:
+      label: Relevant optional backends
+      description: Include installed backend package names and versions, or write none.
+
+  - type: input
+    id: parser_options
+    attributes:
+      label: Framing or partial-mode options
+      description: For example, framing=ndjson or partial_mode=structural.
+
+  - type: textarea
+    id: error_output
+    attributes:
+      label: Error or traceback
+      description: Remove secrets and unrelated data before sharing.
+
+  - type: checkboxes
+    id: security_acknowledgment
+    attributes:
+      label: Security reporting
+      options:
+        - label: I have read the security policy and will not include private vulnerability details in this public issue.
+    validations:
+      required: true

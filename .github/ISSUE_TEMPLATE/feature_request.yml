@@ -1,0 +1,53 @@
+name: Feature request
+description: Describe a problem or use case that the current APIs do not cover.
+title: "[feature]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Start with the user-visible problem. The [public API guide](https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/docs/public-api.md) describes current API tiers and contracts.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem or use case should this address?
+      description: Describe what you need to accomplish and when it matters.
+    validations:
+      required: true
+
+  - type: textarea
+    id: desired_behavior
+    attributes:
+      label: What behavior would help?
+      description: Describe the outcome from a caller's perspective; implementation details are optional.
+    validations:
+      required: true
+
+  - type: textarea
+    id: api_gap
+    attributes:
+      label: Why are the existing APIs insufficient?
+      description: Link to the closest API or documentation if useful.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Related area
+      options:
+        - Strict incremental parsing
+        - NDJSON
+        - Partial parsing
+        - Selective extraction
+        - Typing
+        - Native acceleration
+        - Other or unsure
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives or workarounds considered
+      description: What do you use today, if anything?
