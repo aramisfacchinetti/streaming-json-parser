@@ -4,13 +4,13 @@ import pytest
 
 native = pytest.importorskip("streaming_json_parser_native")
 
+import streaming_json_parser.high_performance_parser as high_performance_parser
 from streaming_json_parser import (
-    StreamingJsonParser,
     ParseResult,
     ParseStatus,
+    StreamingJsonParser,
     decode_ndjson,
 )
-import streaming_json_parser.high_performance_parser as high_performance_parser
 
 
 def _is_native_public_parser(parser):

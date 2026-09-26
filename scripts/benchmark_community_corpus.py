@@ -19,8 +19,9 @@ import statistics
 import subprocess
 import sys
 import time
+from collections.abc import Callable
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_ROOT = REPO_ROOT / "src"
@@ -37,6 +38,7 @@ from generate_community_benchmark_chart import (  # noqa: E402
     community_corpus_chart_path,
     render_community_corpus_chart,
 )
+
 import streaming_json_parser as _PROJECT_MODULE  # noqa: E402
 from streaming_json_parser import (  # noqa: E402
     ParseStatus,
@@ -232,7 +234,7 @@ def _json_values_equal(value: Any, reference: Any) -> bool:
     if isinstance(value, list) and isinstance(reference, list):
         return len(value) == len(reference) and all(
             _json_values_equal(item, expected)
-            for item, expected in zip(value, reference)
+            for item, expected in zip(value, reference, strict=True)
         )
     if isinstance(value, bool) or isinstance(reference, bool):
         return type(value) is type(reference) and value is reference

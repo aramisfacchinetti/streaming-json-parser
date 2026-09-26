@@ -5,8 +5,8 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import importlib.metadata
 import importlib
+import importlib.metadata
 import json
 import math
 import os
@@ -17,9 +17,10 @@ import subprocess
 import sys
 import sysconfig
 import time
+from collections.abc import Callable
 from html import escape
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_ROOT = REPO_ROOT / "src"
@@ -32,6 +33,7 @@ if str(SCRIPTS_ROOT) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_ROOT))
 
 import benchmark_partial_strategy_matrix as partial_matrix
+
 import streaming_json_parser as project_module
 import streaming_json_parser.high_performance_parser as high_performance_module
 from streaming_json_parser import (
@@ -805,7 +807,7 @@ def render_chart(snapshot: dict[str, Any]) -> str:
             )
         group_width = plot_width / len(cases)
         bar_width = min(21.0, group_width / 5)
-        for case_index, (case, row) in enumerate(zip(cases, values_by_case)):
+        for case_index, (case, row) in enumerate(zip(cases, values_by_case, strict=True)):
             center = left + group_width * (case_index + 0.5)
             offsets = (-bar_width - 2, 0, bar_width + 2)
             for implementation_index, (name, _label) in enumerate(_IMPLEMENTATIONS):

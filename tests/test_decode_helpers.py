@@ -2,38 +2,40 @@ import importlib.util
 import json
 from types import SimpleNamespace
 
+import msgspec
 import pytest
 
-import msgspec
-
 import streaming_json_parser.high_performance_parser as high_performance_parser
-from streaming_json_parser import (decode_complete_json, decode_ndjson,
-                                   decode_ndjson_adaptive,
-                                   decode_complete_json_view,
-                                   extract_complete_json_paths,
-                                   extract_complete_json_typed_paths,
-                                   extract_ndjson_paths,
-                                   extract_tuned_json_paths,
-                                   extract_tuned_complete_json_paths,
-                                   extract_tuned_ndjson_paths,
-                                   extract_ndjson_paths_native,
-                                   extract_ndjson_typed_paths,
-                                   ParseStatus,
-                                   StreamingJsonParser,
-                                   make_complete_json_decoder,
-                                   make_complete_json_typed_path_extractor,
-                                   make_ndjson_path_extractor,
-                                   make_tuned_ndjson_decoder,
-                                   make_tuned_json_path_extractor,
-                                   make_tuned_complete_json_path_extractor,
-                                   make_tuned_ndjson_path_extractor,
-                                   make_tuned_complete_json_decoder,
-                                   make_tuned_structural_partial_decoder,
-                                   make_complete_json_view_decoder,
-                                   make_json_path_extractor,
-                                   make_ndjson_path_extractor_native,
-                                   make_ndjson_typed_path_extractor,
-                                   make_ndjson_decoder)
+from streaming_json_parser import (
+    ParseStatus,
+    StreamingJsonParser,
+    decode_complete_json,
+    decode_complete_json_view,
+    decode_ndjson,
+    decode_ndjson_adaptive,
+    extract_complete_json_paths,
+    extract_complete_json_typed_paths,
+    extract_ndjson_paths,
+    extract_ndjson_paths_native,
+    extract_ndjson_typed_paths,
+    extract_tuned_complete_json_paths,
+    extract_tuned_json_paths,
+    extract_tuned_ndjson_paths,
+    make_complete_json_decoder,
+    make_complete_json_typed_path_extractor,
+    make_complete_json_view_decoder,
+    make_json_path_extractor,
+    make_ndjson_decoder,
+    make_ndjson_path_extractor,
+    make_ndjson_path_extractor_native,
+    make_ndjson_typed_path_extractor,
+    make_tuned_complete_json_decoder,
+    make_tuned_complete_json_path_extractor,
+    make_tuned_json_path_extractor,
+    make_tuned_ndjson_decoder,
+    make_tuned_ndjson_path_extractor,
+    make_tuned_structural_partial_decoder,
+)
 
 
 def test_decode_complete_json_object():
@@ -624,7 +626,7 @@ def test_decode_complete_json_rejects_nonstandard_large_utf8_number():
     payload = json.dumps(
         {"text": "hé🙂" * 300}, ensure_ascii=False, separators=(",", ":")
     ).encode()[:-1] + b',"bad":NaN}'
-    with pytest.raises(Exception):
+    with pytest.raises((ValueError, msgspec.DecodeError)):
         decode_complete_json(payload)
 
 
@@ -1209,6 +1211,34 @@ def test_make_ndjson_decoder_handles_mixed_record_workloads():
     assert decoder(ordinary) == [{"a": 1}, {"a": 2}]
     assert decoder(ordinary.decode()) == [{"a": 1}, {"a": 2}]
     assert decoder(escaped) == [escaped_value]
+
+
+def test_make_ndjson_decoder_uses_orjson_for_large_text_numeric_arrays(monkeypatch):
+    calls = []
+
+    def decode_orjson(line):
+        calls.append(line)
+        return json.loads(line)
+
+    def decode_msgspec_lines(_payload):
+        pytest.fail("large text numeric arrays should use the orjson line decoder")
+
+    monkeypatch.setattr(
+        high_performance_parser,
+        "_backend_orjson",
+        SimpleNamespace(loads=decode_orjson),
+    )
+    monkeypatch.setattr(
+        high_performance_parser,
+        "_GLOBAL_MSGSPEC_DECODER",
+        SimpleNamespace(decode_lines=decode_msgspec_lines),
+    )
+    record = {"values": list(range(200))}
+    payload = json.dumps(record) + "\n"
+    decoder = make_ndjson_decoder()
+
+    assert decoder(payload) == [record]
+    assert calls == [payload.rstrip("\n")]
 
 
 def test_make_ndjson_decoder_preserves_bytearray_input(monkeypatch):

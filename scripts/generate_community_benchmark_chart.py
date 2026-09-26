@@ -6,7 +6,6 @@ import html
 from pathlib import Path
 from typing import Any
 
-
 RESULT_LABELS = {
     "decode_complete_json": "decode_complete_json",
     "reusable_complete_decoder": "Reusable complete decoder",
@@ -68,7 +67,7 @@ def render_community_corpus_chart(snapshot: dict[str, Any]) -> str:
     ]
 
     y = header_height
-    for section, section_height in zip(sections, section_heights):
+    for section, section_height in zip(sections, section_heights, strict=True):
         name = html.escape(str(section.get("name", "JSON corpus file")))
         size_bytes = int(section.get("payload_size_bytes", 0))
         size_text = _format_bytes(size_bytes)

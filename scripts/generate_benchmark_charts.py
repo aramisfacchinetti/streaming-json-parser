@@ -7,7 +7,6 @@ import html
 from pathlib import Path
 from typing import Any
 
-
 CHARTS = (
     ("complete_1mb_object", "complete-decoding.svg", "Complete JSON decoding"),
     (

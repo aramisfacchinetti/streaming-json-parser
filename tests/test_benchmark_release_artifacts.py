@@ -4,7 +4,6 @@ from types import SimpleNamespace
 
 import pytest
 
-
 MODULE_PATH = Path(__file__).resolve().parents[1] / "scripts" / "benchmark_release_artifacts.py"
 MODULE_SPEC = importlib.util.spec_from_file_location("release_benchmark_artifacts_for_tests", MODULE_PATH)
 assert MODULE_SPEC is not None and MODULE_SPEC.loader is not None
