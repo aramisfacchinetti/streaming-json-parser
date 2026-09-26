@@ -1067,13 +1067,16 @@ def _result_map(snapshot: dict[str, object]) -> dict[str, dict[str, float]]:
 
 def _markdown_link(path: Path, *, relative_to: Path) -> str:
     try:
-        label = str(path.relative_to(REPO_ROOT))
+        label = path.relative_to(REPO_ROOT).as_posix()
     except ValueError:
         label = path.name
     try:
         target = path.relative_to(relative_to).as_posix()
     except ValueError:
-        target = str(path)
+        try:
+            target = Path(os.path.relpath(path, start=relative_to)).as_posix()
+        except ValueError:
+            target = path.as_posix()
     return f"[{label}]({target})"
 
 
@@ -1257,7 +1260,7 @@ def emit_snapshot(snapshot_format: str, output_path: Path | None = None, snapsho
     if output_path is not None:
         resolved_output_path = output_path.resolve()
         resolved_output_path.parent.mkdir(parents=True, exist_ok=True)
-        resolved_output_path.write_text(rendered)
+        resolved_output_path.write_text(rendered, encoding="utf-8", newline="\n")
     return rendered
 
 
@@ -1278,19 +1281,25 @@ def write_artifact_bundle(output_dir: Path, snapshot: dict[str, object] | None =
     snapshot_date = str(current_snapshot["date"])
     snapshot_paths = write_snapshot_bundle(resolved_output_dir, snapshot=current_snapshot)
     scorecard_path = resolved_output_dir / f"current-api-scorecard-{snapshot_date}.md"
-    scorecard_path.write_text(_format_current_api_scorecard(current_snapshot, resolved_output_dir))
+    scorecard_path.write_text(
+        _format_current_api_scorecard(current_snapshot, resolved_output_dir),
+        encoding="utf-8",
+        newline="\n",
+    )
     current_markdown_path = resolved_output_dir / "benchmark-snapshot.md"
     current_json_path = resolved_output_dir / "benchmark-snapshot.json"
     current_scorecard_path = resolved_output_dir / "current-api-scorecard.md"
     emit_snapshot("markdown", current_markdown_path, snapshot=current_snapshot)
     emit_snapshot("json", current_json_path, snapshot=current_snapshot)
     current_scorecard_path.write_text(
-        _format_current_api_scorecard(current_snapshot, resolved_output_dir, stable_links=True)
+        _format_current_api_scorecard(current_snapshot, resolved_output_dir, stable_links=True),
+        encoding="utf-8",
+        newline="\n",
     )
     chart_artifacts = render_benchmark_charts(current_snapshot, resolved_output_dir)
     for chart_path, chart_content in chart_artifacts.values():
         chart_path.parent.mkdir(parents=True, exist_ok=True)
-        chart_path.write_text(chart_content)
+        chart_path.write_text(chart_content, encoding="utf-8", newline="\n")
     return {
         "markdown": snapshot_paths["markdown"],
         "json": snapshot_paths["json"],
@@ -1412,14 +1421,14 @@ def verify_artifact_bundle(output_dir: Path, snapshot: dict[str, object] | None 
     if mismatches:
         return mismatches
 
-    tracked_snapshot = json.loads(json_path.read_text())
+    tracked_snapshot = json.loads(json_path.read_text(encoding="utf-8"))
 
     expected_markdown = _render_snapshot(tracked_snapshot, "markdown")
-    if markdown_path.read_text() != expected_markdown:
+    if markdown_path.read_text(encoding="utf-8") != expected_markdown:
         mismatches.append(f"stale:markdown:{markdown_path}")
 
     expected_scorecard = _format_current_api_scorecard(tracked_snapshot, resolved_output_dir, stable_links=True)
-    if scorecard_path.read_text() != expected_scorecard:
+    if scorecard_path.read_text(encoding="utf-8") != expected_scorecard:
         mismatches.append(f"stale:scorecard:{scorecard_path}")
 
     snapshot_date = str(tracked_snapshot["date"])
@@ -1443,7 +1452,7 @@ def verify_artifact_bundle(output_dir: Path, snapshot: dict[str, object] | None 
     for label, path, expected in dated_artifacts:
         if not path.exists():
             mismatches.append(f"missing:{label}:{path}")
-        elif path.read_text() != expected:
+        elif path.read_text(encoding="utf-8") != expected:
             mismatches.append(f"stale:{label}:{path}")
 
     for label, (chart_path, expected_chart) in render_benchmark_charts(
@@ -1451,7 +1460,7 @@ def verify_artifact_bundle(output_dir: Path, snapshot: dict[str, object] | None 
     ).items():
         if not chart_path.exists():
             mismatches.append(f"missing:{label}:{chart_path}")
-        elif chart_path.read_text() != expected_chart:
+        elif chart_path.read_text(encoding="utf-8") != expected_chart:
             mismatches.append(f"stale:{label}:{chart_path}")
 
     mismatches.extend(_compare_snapshots(tracked_snapshot, current_snapshot))

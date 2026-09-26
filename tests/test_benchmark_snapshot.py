@@ -1,7 +1,7 @@
 import importlib.util
 import json
 import sys
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 
 import pytest
 
@@ -687,16 +687,40 @@ def test_format_current_api_scorecard_renders_dynamic_links_and_values():
     assert 'native `sonic-rs` path: `0.039371s-0.040976s`' in rendered
 
 
+def test_markdown_link_uses_posix_paths_for_windows_repository_paths(monkeypatch):
+    repo_root = PureWindowsPath(r"C:\workspace\streaming-json-parser")
+    docs_dir = repo_root / "docs"
+    monkeypatch.setattr(benchmark_parser, "REPO_ROOT", repo_root)
+
+    link = benchmark_parser._markdown_link(
+        docs_dir / "benchmark-snapshot.md",
+        relative_to=docs_dir,
+    )
+
+    assert link == "[docs/benchmark-snapshot.md](benchmark-snapshot.md)"
+    assert "\\" not in link
+
+
+def test_markdown_link_fallback_is_relative_and_uses_posix_separators(tmp_path):
+    relative_to = tmp_path / "docs"
+    path = tmp_path / "assets" / "chart.svg"
+
+    link = benchmark_parser._markdown_link(path, relative_to=relative_to)
+
+    assert link == "[chart.svg](../assets/chart.svg)"
+    assert "\\" not in link
+
+
 def test_tracked_api_scorecard_matches_primary_api_recommendations():
     docs_dir = benchmark_parser.REPO_ROOT / "docs"
-    snapshot = json.loads((docs_dir / "benchmark-snapshot.json").read_text())
+    snapshot = json.loads((docs_dir / "benchmark-snapshot.json").read_text(encoding="utf-8"))
     rendered = benchmark_parser._format_current_api_scorecard(
         snapshot,
         docs_dir,
         stable_links=True,
     )
 
-    assert (docs_dir / "current-api-scorecard.md").read_text() == rendered
+    assert (docs_dir / "current-api-scorecard.md").read_text(encoding="utf-8") == rendered
     assert "[docs/public-api.md](public-api.md)" in rendered
     assert "Use `StreamingJsonParser`" in rendered
     assert "HighPerformanceStreamingJsonParser" not in rendered
@@ -743,7 +767,7 @@ def test_emit_snapshot_json_writes_output_file(monkeypatch, tmp_path):
     rendered = benchmark_parser.emit_snapshot("json", output_path)
 
     assert json.loads(rendered) == snapshot
-    assert json.loads(output_path.read_text()) == snapshot
+    assert json.loads(output_path.read_text(encoding="utf-8")) == snapshot
 
 
 def test_emit_snapshot_markdown_writes_output_file(monkeypatch, tmp_path):
@@ -756,7 +780,7 @@ def test_emit_snapshot_markdown_writes_output_file(monkeypatch, tmp_path):
     rendered = benchmark_parser.emit_snapshot("markdown", output_path)
 
     assert rendered == "date=2026-06-13\n"
-    assert output_path.read_text() == "date=2026-06-13\n"
+    assert output_path.read_text(encoding="utf-8") == "date=2026-06-13\n"
 
 
 def test_main_snapshot_markdown_with_output_file(monkeypatch, capsys, tmp_path):
@@ -785,8 +809,8 @@ def test_write_snapshot_bundle_writes_markdown_and_json(monkeypatch, tmp_path):
 
     assert created["markdown"] == tmp_path / "benchmark-snapshot-2026-06-13.md"
     assert created["json"] == tmp_path / "benchmark-snapshot-2026-06-13.json"
-    assert created["markdown"].read_text() == "date=2026-06-13\n"
-    assert json.loads(created["json"].read_text()) == snapshot
+    assert created["markdown"].read_text(encoding="utf-8") == "date=2026-06-13\n"
+    assert json.loads(created["json"].read_text(encoding="utf-8")) == snapshot
 
 
 def test_write_artifact_bundle_writes_scorecard(monkeypatch, tmp_path):
@@ -846,8 +870,11 @@ def test_write_artifact_bundle_writes_scorecard(monkeypatch, tmp_path):
     assert created["current_scorecard"] == tmp_path / "current-api-scorecard.md"
     assert created["scorecard"].exists()
     assert created["current_scorecard"].exists()
-    assert "Current API Scorecard" in created["scorecard"].read_text()
-    scorecard_text = created["current_scorecard"].read_text()
+    assert "Current API Scorecard" in created["scorecard"].read_text(encoding="utf-8")
+    scorecard_text = created["current_scorecard"].read_text(encoding="utf-8")
+    scorecard_bytes = created["current_scorecard"].read_bytes()
+    assert "StreamingJsonParser — single chunk".encode("utf-8") in scorecard_bytes
+    assert b"\r\n" not in scorecard_bytes
     assert "](benchmark-snapshot.md)" in scorecard_text
     assert "](incremental-benchmark.md)" in scorecard_text
     assert "](abi3-incremental-investigation.md)" in scorecard_text
@@ -1035,7 +1062,9 @@ def test_verify_artifact_bundle_reports_stale_and_large_drift(monkeypatch, tmp_p
     benchmark_parser.write_artifact_bundle(tmp_path)
     monkeypatch.setattr(benchmark_parser, "collect_current_snapshot", lambda: current_snapshot)
 
-    (tmp_path / "benchmark-snapshot.md").write_text("stale\n")
+    (tmp_path / "benchmark-snapshot.md").write_text(
+        "stale\n", encoding="utf-8", newline="\n"
+    )
 
     mismatches = benchmark_parser.verify_artifact_bundle(tmp_path)
 
@@ -1069,7 +1098,7 @@ def test_verify_artifact_bundle_reports_stale_chart(monkeypatch, tmp_path):
     monkeypatch.setattr(benchmark_parser, "collect_current_snapshot", lambda: snapshot)
     benchmark_parser.write_artifact_bundle(tmp_path)
     chart_path = tmp_path / "assets/benchmarks/complete-decoding.svg"
-    chart_path.write_text("stale\n")
+    chart_path.write_text("stale\n", encoding="utf-8", newline="\n")
 
     mismatches = benchmark_parser.verify_artifact_bundle(tmp_path)
 
@@ -1088,7 +1117,7 @@ def test_verify_artifact_bundle_reports_stale_dated_artifact(monkeypatch, tmp_pa
     monkeypatch.setattr(benchmark_parser, "collect_current_snapshot", lambda: snapshot)
     benchmark_parser.write_artifact_bundle(tmp_path)
     dated_path = tmp_path / "benchmark-snapshot-2026-06-13.md"
-    dated_path.write_text("stale\n")
+    dated_path.write_text("stale\n", encoding="utf-8", newline="\n")
 
     mismatches = benchmark_parser.verify_artifact_bundle(tmp_path)
 

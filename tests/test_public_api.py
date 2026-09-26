@@ -69,7 +69,7 @@ def test_streaming_parser_compatibility_alias_is_identical():
 
 def test_api_inventory_and_migration_matrix_cover_exported_surface():
     documentation_path = Path(__file__).resolve().parents[1] / "docs" / "public-api.md"
-    documentation = documentation_path.read_text()
+    documentation = documentation_path.read_text(encoding="utf-8")
     inventory = documentation.split("| Export (kind) |", 1)[1].split(
         "The README shows the quickstart", 1
     )[0]
