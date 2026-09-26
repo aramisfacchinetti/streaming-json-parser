@@ -164,6 +164,8 @@ class ParseStatus(str, Enum):
 
 @dataclasses.dataclass(slots=True)
 class _PythonParseResult:
+    """Python implementation of the public parser result field contract."""
+
     status: ParseStatus
     value: Any | None
     complete: bool
@@ -175,6 +177,8 @@ _NATIVE_RESULT_TYPE = (
     if _backend_native is not None
     else None
 )
+# ParseResult is a returned value. Its public fields are stable; its concrete
+# class and direct-construction behavior are implementation details.
 ParseResult = _NATIVE_RESULT_TYPE or _PythonParseResult
 _NATIVE_STRICT_RESULT_METHODS = (
     "configure_statuses",

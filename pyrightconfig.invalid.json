@@ -1,0 +1,6 @@
+{
+  "include": ["typing_tests/invalid_input.py"],
+  "extraPaths": ["src"],
+  "pythonVersion": "3.10",
+  "typeCheckingMode": "strict"
+}

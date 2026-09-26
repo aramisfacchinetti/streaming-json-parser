@@ -137,6 +137,8 @@ python -m pip install streaming-json-parser-native
 
 The native package is optional. Backend-specific packages such as `msgspec`, `orjson`, and `simdjson` are also optional; APIs fall back to the Python implementation where applicable.
 
+The package ships PEP 561 type information for Pyright, IDEs, and other static type checkers.
+
 ## Reproduce the benchmarks
 
 The benchmark snapshot includes the date, source revision and dirty-state flag, Python and platform details, processor and architecture, installed benchmark-package versions, native-extension availability, payload sizes, record counts, and selected paths. The methodology records its clock, warm-up, sample count, and repetitions.
