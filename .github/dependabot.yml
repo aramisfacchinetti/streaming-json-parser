@@ -1,0 +1,49 @@
+version: 2
+updates:
+  - package-ecosystem: pip
+    directories:
+      - "/"
+      - "/rust_native"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Europe/Zurich
+    open-pull-requests-limit: 5
+    groups:
+      python-tooling-minor-patch:
+        applies-to: version-updates
+        patterns:
+          - pytest
+          - pytest-cov
+          - pyright
+          - ruff
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: cargo
+    directory: "/rust_native"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Europe/Zurich
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Europe/Zurich
+    open-pull-requests-limit: 5
+    groups:
+      action-minor-patch-updates:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch

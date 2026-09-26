@@ -1,6 +1,10 @@
 # GitHub repository settings follow-up
 
-After merging this update, apply these repository settings in GitHub:
+The earlier description and social-preview follow-ups are complete. The current
+repository description matches the intended copy, and the repository page uses
+a custom preview image. The repository topics and active `safe` branch ruleset
+are also present.
 
-- **Description:** `Python JSON decoding with strict incremental parsing, NDJSON, and selective extraction.`
-- **Social preview:** In repository **Settings → Social preview**, upload [`assets/social-preview.png`](assets/social-preview.png). It is a solid-background 1280 × 640 PNG under 1 MB; the editable source is [`assets/social-preview.svg`](assets/social-preview.svg).
+## Remaining manual action
+
+- [ ] Enable [private vulnerability reporting](https://github.com/aramisfacchinetti/streaming-json-parser/settings/security_analysis) under **Settings → Security and quality → Code security and analysis**. It was disabled when this note was checked on 2026-09-26. After enabling it, update [`SECURITY.md`](../SECURITY.md) to link directly to the private report form.

@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security vulnerability reporting
+    about: Use the non-public reporting route described in the security policy.
+    url: https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/SECURITY.md
+  - name: Public API guide
+    about: Review the current API inventory, tiers, and contracts.
+    url: https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/docs/public-api.md
+  - name: General questions and design discussion
+    about: Use Discussions for questions that are not bug reports.
+    url: https://github.com/aramisfacchinetti/streaming-json-parser/discussions
