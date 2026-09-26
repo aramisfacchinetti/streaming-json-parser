@@ -28,7 +28,6 @@ from generate_benchmark_charts import render_benchmark_charts
 from streaming_json_parser import ParseStatus, StreamingJsonParser
 
 from streaming_json_parser.high_performance_parser import (
-    HighPerformanceStreamingJsonParser,
     decode_complete_json,
     decode_complete_json_view,
     decode_ndjson,
@@ -426,7 +425,7 @@ def benchmark_streaming_baselines(count: int) -> None:
 
 
 def show_hybrid_partial_state_semantics() -> None:
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
     parser.consume('{"key": "partial string')
     first = parser.poll()
     parser.consume(' complete"}')
@@ -445,7 +444,7 @@ def benchmark_hybrid_delta_stream(value_size: int, chunk_size: int) -> None:
     payload = json.dumps({"data": "x" * value_size, "n": 1, "ok": True, "arr": [1, 2, 3]})
     chunks = [payload[i : i + chunk_size] for i in range(0, len(payload), chunk_size)]
 
-    hybrid = HighPerformanceStreamingJsonParser()
+    hybrid = StreamingJsonParser()
     started = time.perf_counter()
     for chunk in chunks:
         hybrid.consume(chunk)
@@ -464,7 +463,7 @@ def benchmark_hybrid_delta_stream(value_size: int, chunk_size: int) -> None:
 
 def benchmark_hybrid_reuse(payload_size: int, iterations: int) -> None:
     payload = json.dumps({"data": "x" * payload_size, "ok": True, "n": 1}).encode()
-    hybrid = HighPerformanceStreamingJsonParser()
+    hybrid = StreamingJsonParser()
 
     started = time.perf_counter()
     for _ in range(iterations):
@@ -528,7 +527,7 @@ def benchmark_ndjson_modes(count: int, iterations: int) -> None:
         record_type = msgspec.defstruct("BenchmarkRecord", [("a", int), ("b", str)])
 
     def streaming_parser() -> list[object]:
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson")
+        parser = StreamingJsonParser(framing="ndjson")
         parser.consume(payload)
         out = []
         while True:
@@ -538,7 +537,7 @@ def benchmark_ndjson_modes(count: int, iterations: int) -> None:
             out.append(result.value)
 
     def streaming_typed_parser() -> list[object]:
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson", record_type=record_type)
+        parser = StreamingJsonParser(framing="ndjson", record_type=record_type)
         parser.consume(payload)
         out = []
         while True:
@@ -548,12 +547,12 @@ def benchmark_ndjson_modes(count: int, iterations: int) -> None:
             out.append(result.value)
 
     def streaming_batch_parser() -> list[object]:
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson")
+        parser = StreamingJsonParser(framing="ndjson")
         parser.consume(payload)
         return parser.poll_many(copy_value=False)
 
     def streaming_typed_batch_parser() -> list[object]:
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson", record_type=record_type)
+        parser = StreamingJsonParser(framing="ndjson", record_type=record_type)
         parser.consume(payload)
         return parser.poll_many(copy_value=False)
 
@@ -1168,6 +1167,7 @@ def _format_current_api_scorecard(
     snapshot_description = "current benchmark snapshot" if stable_links else "dated benchmark snapshot"
     incremental_report = docs_dir / "incremental-benchmark.md"
     abi3_investigation = docs_dir / "abi3-incremental-investigation.md"
+    public_api_inventory = docs_dir / "public-api.md"
 
     lines = [
         "# Current API Scorecard",
@@ -1177,6 +1177,7 @@ def _format_current_api_scorecard(
         'This scorecard is the shortest honest answer to "what should I use from this repo today?"',
         "",
         f"For the {snapshot_description} behind these recommendations, see {_markdown_link(snapshot_markdown_path, relative_to=docs_dir)} and {_markdown_link(snapshot_json_path, relative_to=docs_dir)}. To regenerate all tracked artifacts from the current harness, run `make benchmark-artifacts`. To verify that those tracked generated artifacts are current without rewriting them, run `make verify-benchmark-artifacts`.",
+        f"For the complete top-level export inventory and proposed 0.3 API tiers, see {_markdown_link(public_api_inventory, relative_to=docs_dir)}. Primary recommendations use framing and workload semantics while leaving backend selection to the library.",
         f"Strict chunk-by-chunk performance is measured separately in {_markdown_link(incremental_report, relative_to=docs_dir)}; the same-source ABI-mode investigation is in {_markdown_link(abi3_investigation, relative_to=docs_dir)}.",
         "",
         "## Recommended APIs",
@@ -1205,25 +1206,26 @@ def _format_current_api_scorecard(
         "  - If you know the payload size band or have a representative sample and will reuse the decoder, prefer `make_tuned_complete_json_decoder(...)`",
         "  - Pass both `sample=` and `payload_size_hint=` to validate and benchmark strict compatible backends once at construction for representatives at least 64 bytes; calibration uses the sample's input representation and replaces the static fallback only after a 10% measured speed margin for complete JSON or a 20% margin for NDJSON",
         "",
-        "- Complete document, fastest in-repo large-payload path:",
+        "- Advanced complete-document view path:",
         "  - Use `decode_complete_json_view(...)` or `make_complete_json_view_decoder(...)`",
         "  - Best when `simdjson` view/proxy semantics are acceptable",
         "",
         "- Complete document, selective field extraction:",
         "  - Reused extractor: `make_tuned_json_path_extractor(..., framing=\"single\")`",
-        "  - One-shot call: `extract_tuned_json_paths(..., framing=\"single\")`",
+        "  - One-shot call: `extract_complete_json_paths(...)`",
         "  - For large documents this effectively tracks the existing `simdjson` view extractor",
         "",
         "- NDJSON full-record decode:",
-        "  - Generic: `decode_ndjson(...)`",
-        "  - Schema-adaptive typed option: `decode_ndjson_adaptive(...)` (returns inferred msgspec records when the lines are type-stable)",
-        "  - Typed: `make_ndjson_decoder(record_type=...)`",
+        "  - One-shot generic decode: `decode_ndjson(...)`",
         "  - Stable repeated workload: `make_tuned_ndjson_decoder(sample=..., payload_size_hint=...)`",
+        "  - Advanced typed options: `make_ndjson_decoder(record_type=...)` or `decode_ndjson_adaptive(...)` (the latter infers `msgspec` records when the lines are type-stable)",
         "",
         "- NDJSON selective field extraction:",
         "  - Reused extractor: `make_tuned_json_path_extractor(..., framing=\"ndjson\")`",
-        "  - One-shot call: `extract_tuned_json_paths(..., framing=\"ndjson\")`",
-        "  - This is the clearest top-level selective API in the repo right now",
+        "  - One-shot call: `extract_ndjson_paths(...)`",
+        "  - One-shot calls express framing directly; construct and reuse the tuned extractor for a stable workload",
+        "",
+        "- Advanced complete-document and NDJSON typed path extractors are available when `msgspec` records match the workload; they are not the default selective API",
         "",
         "## Latest Snapshot",
         "",
@@ -1242,8 +1244,8 @@ def _format_current_api_scorecard(
         "## Non-Recommendations",
         "",
         "- Do not compare Pydantic Core `allow_partial` as a strict partial-value peer; it is a fast structural finisher but does not preserve unfinished string values.",
-        "- Do not recommend the native selective NDJSON path as the default. Current evidence still does not justify it.",
-        "- Do not recommend the typed complete selective extractor as the universal complete selective path. It helps on smaller object-shaped documents, but the tuned selector is the practical recommendation.",
+        "- Native selective NDJSON functions are experimental backend-forcing APIs for tests and benchmarks, not normal recommendations.",
+        "- Do not recommend the typed complete selective extractor as the universal complete selective path. It helps on smaller object-shaped documents, but the backend-selecting tuned factory is the practical reusable recommendation.",
     ]
     return "\n".join(lines) + "\n"
 

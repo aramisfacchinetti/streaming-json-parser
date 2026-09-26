@@ -687,6 +687,30 @@ def test_format_current_api_scorecard_renders_dynamic_links_and_values():
     assert 'native `sonic-rs` path: `0.039371s-0.040976s`' in rendered
 
 
+def test_tracked_api_scorecard_matches_primary_api_recommendations():
+    docs_dir = benchmark_parser.REPO_ROOT / "docs"
+    snapshot = json.loads((docs_dir / "benchmark-snapshot.json").read_text())
+    rendered = benchmark_parser._format_current_api_scorecard(
+        snapshot,
+        docs_dir,
+        stable_links=True,
+    )
+
+    assert (docs_dir / "current-api-scorecard.md").read_text() == rendered
+    assert "[docs/public-api.md](public-api.md)" in rendered
+    assert "Use `StreamingJsonParser`" in rendered
+    assert "HighPerformanceStreamingJsonParser" not in rendered
+    assert "One-shot call: `extract_complete_json_paths(...)`" in rendered
+    assert "One-shot call: `extract_ndjson_paths(...)`" in rendered
+    assert "Reused extractor: `make_tuned_json_path_extractor" in rendered
+    assert "Advanced complete-document and NDJSON typed path extractors" in rendered
+    assert "experimental backend-forcing APIs" in rendered
+    assert "extract_tuned_json_paths" not in rendered
+    assert "extract_tuned_complete_json_paths" not in rendered
+    assert "extract_ndjson_paths_native" not in rendered
+    assert "make_ndjson_path_extractor_native" not in rendered
+
+
 def test_main_snapshot_json_emits_structured_output(monkeypatch, capsys):
     snapshot = {"date": "2026-06-13", "sections": [{"section": "complete_1mb_object", "iterations": 20, "results": []}]}
 

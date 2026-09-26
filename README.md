@@ -82,6 +82,10 @@ Results vary by dataset and decoder; compare the per-file values, dataset hashes
 
 ## Choose an API
 
+This table covers the normal workflows. The [public API inventory and proposed
+0.3 tiers](docs/public-api.md) classify every top-level export, including
+advanced, experimental, and compatibility names.
+
 | Workload | API | Notes |
 | --- | --- | --- |
 | One complete JSON document | `decode_complete_json(data)` | Returns a regular Python value. |
@@ -89,8 +93,8 @@ Results vary by dataset and decoder; compare the per-file values, dataset hashes
 | JSON arriving in chunks | `StreamingJsonParser` | Strict resumable parser; inspect `ParseResult.status` and `.value` after each `feed()`. |
 | Newline-delimited records | `decode_ndjson(data)` or `StreamingJsonParser(framing="ndjson")` | Call `finish()` to consume a final record without a newline. |
 | Incomplete prefix; unfinished strings can be omitted | `decode_structural_partial_json(prefix)` | Structural finisher; not equivalent to strict incremental parsing. |
-| A few fields from JSON or NDJSON | `make_tuned_json_path_extractor(..., framing="single" or "ndjson")` | Reuse the extractor for a stable workload. |
-| Typed records | `make_ndjson_decoder(record_type=...)` | Optional typed decoding through `msgspec`. |
+| A few fields from JSON or NDJSON | `make_tuned_json_path_extractor(..., framing="single" or "ndjson")` | One-shot calls use `extract_complete_json_paths(...)` or `extract_ndjson_paths(...)`; reuse the factory for stable workloads. |
+| Advanced typed records | `make_ndjson_decoder(record_type=...)` | Optional typed decoding through `msgspec`. |
 
 There is no single best backend for every input. The tuned factories can benchmark compatible backends once during setup when given a representative `sample` and `payload_size_hint`.
 
@@ -104,7 +108,7 @@ from streaming_json_parser import decode_complete_json
 value = decode_complete_json(b'{"name":"example","ok":true}')
 ```
 
-For large read-only payloads, `decode_complete_json_view()` can return a view backed by `simdjson`; use it only when proxy/view semantics are suitable for your application.
+For large read-only payloads, the advanced `decode_complete_json_view()` API can return a view backed by `simdjson`; use it only when proxy/view semantics are suitable for your application.
 
 ### Read NDJSON records
 

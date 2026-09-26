@@ -4,7 +4,7 @@ from types import SimpleNamespace
 import msgspec
 import pytest
 
-from streaming_json_parser import (HighPerformanceStreamingJsonParser,
+from streaming_json_parser import (StreamingJsonParser,
                                    ParseStatus, decode_structural_partial_json)
 from streaming_json_parser.high_performance_parser import (
     _IncrementalStrictCore,
@@ -17,10 +17,10 @@ from streaming_json_parser.high_performance_parser import (
 import streaming_json_parser.high_performance_parser as high_performance_parser
 
 
-class TestHighPerformanceStreamingJsonParser:
+class TestStreamingJsonParser:
     def test_invalid_framing_is_rejected(self):
         try:
-            HighPerformanceStreamingJsonParser(framing="unknown")
+            StreamingJsonParser(framing="unknown")
         except ValueError as exc:
             assert str(exc) == "framing must be 'single' or 'ndjson'"
         else:
@@ -28,7 +28,7 @@ class TestHighPerformanceStreamingJsonParser:
 
     def test_invalid_schema_mode_is_rejected(self):
         try:
-            HighPerformanceStreamingJsonParser(schema_mode="unknown")
+            StreamingJsonParser(schema_mode="unknown")
         except ValueError as exc:
             assert str(exc) == "schema_mode must be 'generic' or 'adaptive'"
         else:
@@ -36,7 +36,7 @@ class TestHighPerformanceStreamingJsonParser:
 
     def test_invalid_partial_mode_is_rejected(self):
         try:
-            HighPerformanceStreamingJsonParser(partial_mode="unknown")
+            StreamingJsonParser(partial_mode="unknown")
         except ValueError as exc:
             assert str(exc) == (
                 "partial_mode must be 'strict', 'structural', or "
@@ -67,21 +67,21 @@ class TestHighPerformanceStreamingJsonParser:
 
     def test_structural_partial_mode_requires_single_generic_documents(self):
         try:
-            HighPerformanceStreamingJsonParser(framing="ndjson", partial_mode="structural")
+            StreamingJsonParser(framing="ndjson", partial_mode="structural")
         except ValueError as exc:
             assert "framing='single'" in str(exc)
         else:
             raise AssertionError("structural partial mode should require single framing")
 
         try:
-            HighPerformanceStreamingJsonParser(partial_mode="structural", value_type=dict)
+            StreamingJsonParser(partial_mode="structural", value_type=dict)
         except ValueError as exc:
             assert "value_type" in str(exc)
         else:
             raise AssertionError("structural partial mode should reject typed values")
 
     def test_structural_partial_mode_uses_native_finisher_semantics(self):
-        parser = HighPerformanceStreamingJsonParser(partial_mode="structural")
+        parser = StreamingJsonParser(partial_mode="structural")
         parser.consume('{"text":"hel')
         partial = parser.poll()
         assert partial.status == ParseStatus.PARTIAL
@@ -93,7 +93,7 @@ class TestHighPerformanceStreamingJsonParser:
         assert complete.value == {"text": "hello"}
 
     def test_structural_trailing_strings_preserves_unfinished_string_values(self):
-        parser = HighPerformanceStreamingJsonParser(
+        parser = StreamingJsonParser(
             partial_mode="structural_trailing_strings"
         )
         parser.consume('{"text":"hel')
@@ -107,7 +107,7 @@ class TestHighPerformanceStreamingJsonParser:
         assert complete.value == {"text": "hello"}
 
     def test_feed_supports_structural_partial_modes(self):
-        parser = HighPerformanceStreamingJsonParser(partial_mode="structural")
+        parser = StreamingJsonParser(partial_mode="structural")
         assert parser.feed('{"text":"hel').value == {}
         result = parser.feed('lo"}')
         assert result.status == ParseStatus.COMPLETE
@@ -117,7 +117,7 @@ class TestHighPerformanceStreamingJsonParser:
         import streaming_json_parser.high_performance_parser as high_performance_parser
 
         monkeypatch.setattr(high_performance_parser, "_backend_native", None)
-        parser = HighPerformanceStreamingJsonParser(partial_mode="structural")
+        parser = StreamingJsonParser(partial_mode="structural")
         assert parser.feed('{"a":[1').value == {"a": [1]}
         assert parser.feed(']}').status == ParseStatus.COMPLETE
 
@@ -565,7 +565,7 @@ class TestHighPerformanceStreamingJsonParser:
         assert decode_structural_partial_json(bytearray(b'{"items":[1')) == {
             "items": [1]
         }
-        parser = HighPerformanceStreamingJsonParser(
+        parser = StreamingJsonParser(
             partial_mode="structural_trailing_strings"
         )
         parser.consume(b'{"text":"hel')
@@ -586,7 +586,7 @@ class TestHighPerformanceStreamingJsonParser:
         assert object_decoder(bytearray(b'{"data":"x')) == {}
 
     def test_structural_partial_mode_finishes_incomplete_documents_as_invalid(self):
-        parser = HighPerformanceStreamingJsonParser(partial_mode="structural")
+        parser = StreamingJsonParser(partial_mode="structural")
         parser.consume('{"a":1')
         result = parser.finish()
         assert result.status == ParseStatus.INVALID
@@ -595,7 +595,7 @@ class TestHighPerformanceStreamingJsonParser:
 
     def test_record_type_requires_ndjson_framing(self):
         try:
-            HighPerformanceStreamingJsonParser(record_type=dict)
+            StreamingJsonParser(record_type=dict)
         except ValueError as exc:
             assert "record_type" in str(exc)
         else:
@@ -603,14 +603,14 @@ class TestHighPerformanceStreamingJsonParser:
 
     def test_value_type_requires_single_framing(self):
         try:
-            HighPerformanceStreamingJsonParser(framing="ndjson", value_type=dict)
+            StreamingJsonParser(framing="ndjson", value_type=dict)
         except ValueError as exc:
             assert "value_type" in str(exc)
         else:
             raise AssertionError("value_type should require single framing")
 
     def test_complete_object(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume('{"a":1,"b":[1,2,3],"ok":true}')
         result = parser.poll()
         assert result.status == ParseStatus.COMPLETE
@@ -709,7 +709,7 @@ class TestHighPerformanceStreamingJsonParser:
 
     def test_complete_object_with_value_type(self):
         record_type = msgspec.defstruct("TypedParserRecordTest", [("a", int), ("b", str)])
-        parser = HighPerformanceStreamingJsonParser(value_type=record_type)
+        parser = StreamingJsonParser(value_type=record_type)
         parser.consume('{"a":1,"b":"x"}')
         result = parser.poll()
         assert result.status == ParseStatus.COMPLETE
@@ -718,7 +718,7 @@ class TestHighPerformanceStreamingJsonParser:
 
     def test_chunked_value_type_is_preserved_at_completion(self):
         record_type = msgspec.defstruct("ChunkedTypedParserRecordTest", [("a", int)])
-        parser = HighPerformanceStreamingJsonParser(value_type=record_type)
+        parser = StreamingJsonParser(value_type=record_type)
         parser.consume('{"a":')
         assert parser.poll().status == ParseStatus.PARTIAL
         parser.consume("1}")
@@ -728,7 +728,7 @@ class TestHighPerformanceStreamingJsonParser:
 
     def test_value_type_mismatch_is_invalid(self):
         record_type = msgspec.defstruct("MismatchedTypedParserRecordTest", [("a", int)])
-        parser = HighPerformanceStreamingJsonParser(value_type=record_type)
+        parser = StreamingJsonParser(value_type=record_type)
         parser.consume('{"a":"wrong"}')
         result = parser.poll()
         assert result.status == ParseStatus.INVALID
@@ -736,7 +736,7 @@ class TestHighPerformanceStreamingJsonParser:
 
     def test_chunked_value_type_mismatch_is_invalid(self):
         record_type = msgspec.defstruct("ChunkedMismatchedTypedParserRecordTest", [("a", int)])
-        parser = HighPerformanceStreamingJsonParser(value_type=record_type)
+        parser = StreamingJsonParser(value_type=record_type)
         parser.consume('{"a":')
         assert parser.poll().status == ParseStatus.PARTIAL
         parser.consume('"wrong"}')
@@ -745,7 +745,7 @@ class TestHighPerformanceStreamingJsonParser:
         assert result.error == "value does not match value_type"
 
     def test_partial_string_delta_stream(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume('{"key":"hel')
         first = parser.poll()
         assert first.status == ParseStatus.PARTIAL
@@ -757,7 +757,7 @@ class TestHighPerformanceStreamingJsonParser:
         assert second.value == {"key": "hello"}
 
     def test_unicode_single_string_feed_uses_native_core(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         result = None
         for chunk in '{"data":"hé🙂"}':
             result = parser.feed(chunk)
@@ -767,7 +767,7 @@ class TestHighPerformanceStreamingJsonParser:
         assert result.value == {"data": "hé🙂"}
 
     def test_fast_path_does_not_decode_a_partial_key_chunk_as_root_string(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         results = [
             parser.feed(chunk)
             for chunk in ('{', '"data"', ':"YrHs', '"}')
@@ -777,7 +777,7 @@ class TestHighPerformanceStreamingJsonParser:
         assert results[-1].value == {"data": "YrHs"}
 
     def test_feed_consumes_and_polls_one_chunk(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         first = parser.feed('{"key":"hel')
         assert first.status == ParseStatus.PARTIAL
         assert first.value == {"key": "hel"}
@@ -787,7 +787,7 @@ class TestHighPerformanceStreamingJsonParser:
         assert second.value == {"key": "hello"}
 
     def test_split_unicode_escape_across_chunks(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume('{"text":"\\u00')
         assert parser.poll().status == ParseStatus.PARTIAL
         parser.consume('e9"}')
@@ -826,7 +826,7 @@ class TestHighPerformanceStreamingJsonParser:
         assert array.root == ["hello"]
 
     def test_nested_partial_delta_stream(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume('{"a":{"b":"hel')
         first = parser.poll()
         assert first.status == ParseStatus.PARTIAL
@@ -849,7 +849,7 @@ class TestHighPerformanceStreamingJsonParser:
         expected = json.loads(payload)
         for input_value in (payload, payload.encode("utf-8")):
             for width in (1, 2, 5):
-                parser = HighPerformanceStreamingJsonParser()
+                parser = StreamingJsonParser()
                 for offset in range(0, len(input_value), width):
                     parser.feed(input_value[offset : offset + width])
                 result = parser.finish()
@@ -857,14 +857,14 @@ class TestHighPerformanceStreamingJsonParser:
                 assert result.value == expected
 
     def test_root_array_supported(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume("[1,2,3]")
         result = parser.poll()
         assert result.status == ParseStatus.COMPLETE
         assert result.value == [1, 2, 3]
 
     def test_large_root_array_supported_on_fast_path(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume("[" + ",".join('{"a":1,"b":"xyz"}' for _ in range(256)) + "]")
         result = parser.poll()
         assert result.status == ParseStatus.COMPLETE
@@ -872,7 +872,7 @@ class TestHighPerformanceStreamingJsonParser:
         assert result.value[0] == {"a": 1, "b": "xyz"}
 
     def test_invalid_number_rejected(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume('{"a":01}')
         result = parser.poll()
         assert result.status == ParseStatus.INVALID
@@ -889,7 +889,7 @@ class TestHighPerformanceStreamingJsonParser:
     )
     def test_python_fallback_rejects_float_overflow(self, monkeypatch, payload, token):
         monkeypatch.setattr(high_performance_parser, "_backend_native", None)
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
 
         for offset in range(len(payload)):
             parser.feed(payload[offset : offset + 1])
@@ -899,33 +899,33 @@ class TestHighPerformanceStreamingJsonParser:
         assert result.error == f"invalid number {token!r}"
 
     def test_invalid_prefix_rejected(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume("noise")
         result = parser.poll()
         assert result.status == ParseStatus.INVALID
         assert result.error is not None
 
     def test_non_json_whitespace_rejected(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume('{"a":1\u00a0}')
         result = parser.poll()
         assert result.status == ParseStatus.INVALID
 
     def test_bytes_input(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume(b'{"a":1}')
         result = parser.poll()
         assert result.status == ParseStatus.COMPLETE
         assert result.value == {"a": 1}
 
     def test_feed_uses_native_path_for_closed_one_chunk_document(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         result = parser.feed(b'{"a":1}')
         assert result.status == ParseStatus.COMPLETE
         assert result.value == {"a": 1}
 
     def test_feed_does_not_complete_on_nested_closing_delimiter(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.feed('{"a":1,"nested":{"ok":true}')
         result = parser.feed(',"tail":2}')
         assert result.status == ParseStatus.COMPLETE
@@ -935,14 +935,14 @@ class TestHighPerformanceStreamingJsonParser:
         import streaming_json_parser.high_performance_parser as high_performance_parser
 
         monkeypatch.setattr(high_performance_parser, "_backend_native", None)
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         assert parser.feed('{"a":1,"nested":{"ok":true}').status == ParseStatus.PARTIAL
         result = parser.feed(',"tail":2}')
         assert result.status == ParseStatus.COMPLETE
         assert result.value == {"a": 1, "nested": {"ok": True}, "tail": 2}
 
     def test_feed_large_nested_prefix_uses_root_boundary_not_last_delimiter(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         prefix = '{"head":"' + ("x" * 9000) + '","nested":{"ok":true}'
         assert parser.feed(prefix).status == ParseStatus.PARTIAL
         result = parser.feed(',"tail":2}')
@@ -951,7 +951,7 @@ class TestHighPerformanceStreamingJsonParser:
         assert result.value["tail"] == 2
 
     def test_single_document_rejects_trailing_chunks_after_completion(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         assert parser.feed('{"a":1}').status == ParseStatus.COMPLETE
         assert parser.feed(" \n\t").status == ParseStatus.COMPLETE
         result = parser.feed(" trailing")
@@ -962,7 +962,7 @@ class TestHighPerformanceStreamingJsonParser:
         import streaming_json_parser.high_performance_parser as high_performance_parser
 
         monkeypatch.setattr(high_performance_parser, "_backend_native", None)
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.feed('{"a":')
         assert parser.feed("1}").status == ParseStatus.COMPLETE
 
@@ -976,14 +976,14 @@ class TestHighPerformanceStreamingJsonParser:
             "structural",
             "structural_trailing_strings",
         ):
-            parser = HighPerformanceStreamingJsonParser(partial_mode=partial_mode)
+            parser = StreamingJsonParser(partial_mode=partial_mode)
             parser.consume(" \n{\"a\":1}\t ")
             result = parser.poll()
             assert result.status == ParseStatus.COMPLETE
             assert result.value == {"a": 1}
 
     def test_finish_completes_split_root_number(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume("1")
         assert parser.poll().status == ParseStatus.PARTIAL
         parser.consume("2")
@@ -993,7 +993,7 @@ class TestHighPerformanceStreamingJsonParser:
         assert result.value == 12
 
     def test_finish_completes_split_root_literal(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume("tr")
         assert parser.poll().status == ParseStatus.PARTIAL
         parser.consume("ue")
@@ -1006,7 +1006,7 @@ class TestHighPerformanceStreamingJsonParser:
         import streaming_json_parser.high_performance_parser as high_performance_parser
 
         monkeypatch.setattr(high_performance_parser, "_backend_native", None)
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume("nu")
         assert parser.poll().status == ParseStatus.PARTIAL
         parser.consume("ll")
@@ -1016,14 +1016,14 @@ class TestHighPerformanceStreamingJsonParser:
         assert result.value is None
 
     def test_finish_rejects_unterminated_document(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume('{"a":1')
         result = parser.finish()
         assert result.status == ParseStatus.INVALID
         assert result.error == "incomplete json document"
 
     def test_consume_after_finish_requires_reset(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume("1")
         assert parser.finish().status == ParseStatus.COMPLETE
         try:
@@ -1034,7 +1034,7 @@ class TestHighPerformanceStreamingJsonParser:
             raise AssertionError("consume after finish should raise RuntimeError")
 
     def test_split_utf8_byte_sequence_across_chunks(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume(b'{"text":"caf\xc3')
         first = parser.poll()
         assert first.status == ParseStatus.PARTIAL
@@ -1046,21 +1046,21 @@ class TestHighPerformanceStreamingJsonParser:
         assert second.value == {"text": "caf\u00e9"}
 
     def test_invalid_utf8_byte_is_rejected(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume(b'{"text":"bad\xff"}')
         result = parser.poll()
         assert result.status == ParseStatus.INVALID
         assert "invalid utf-8" in (result.error or "")
 
     def test_unescaped_control_character_in_partial_string_is_rejected(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume('{"text":"bad\n')
         result = parser.poll()
         assert result.status == ParseStatus.INVALID
         assert "control character" in (result.error or "")
 
     def test_copy_value(self):
-        parser = HighPerformanceStreamingJsonParser()
+        parser = StreamingJsonParser()
         parser.consume('{"a":{"b":1}}')
         result = parser.poll(copy_value=True)
         assert result.status == ParseStatus.COMPLETE
@@ -1069,7 +1069,7 @@ class TestHighPerformanceStreamingJsonParser:
         assert live.value == {"a": {"b": 1}}
 
     def test_ndjson_mode(self):
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson")
+        parser = StreamingJsonParser(framing="ndjson")
         parser.consume('{"a":1}\n{"b":2}\n')
         first = parser.poll()
         second = parser.poll()
@@ -1081,7 +1081,7 @@ class TestHighPerformanceStreamingJsonParser:
         assert third.status == ParseStatus.EMPTY
 
     def test_ndjson_partial_line(self):
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson")
+        parser = StreamingJsonParser(framing="ndjson")
         parser.consume('{"a":1')
         first = parser.poll()
         assert first.status == ParseStatus.PARTIAL
@@ -1091,7 +1091,7 @@ class TestHighPerformanceStreamingJsonParser:
         assert second.value == {"a": 1}
 
     def test_ndjson_finish_accepts_final_line_without_newline(self):
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson")
+        parser = StreamingJsonParser(framing="ndjson")
         parser.consume('{"a":1}')
         assert parser.poll().status == ParseStatus.PARTIAL
         result = parser.finish()
@@ -1100,7 +1100,7 @@ class TestHighPerformanceStreamingJsonParser:
 
     def test_typed_ndjson_finish_accepts_final_line_without_newline(self):
         record_type = msgspec.defstruct("TypedFinalNdjsonRecordTest", [("a", int)])
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson", record_type=record_type)
+        parser = StreamingJsonParser(framing="ndjson", record_type=record_type)
         parser.consume('{"a":1}')
         result = parser.finish()
         assert result.status == ParseStatus.COMPLETE
@@ -1108,7 +1108,7 @@ class TestHighPerformanceStreamingJsonParser:
 
     def test_ndjson_record_type(self):
         record_type = msgspec.defstruct("TypedStreamRecordTest", [("a", int), ("b", str)])
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson", record_type=record_type)
+        parser = StreamingJsonParser(framing="ndjson", record_type=record_type)
         parser.consume('{"a":1,"b":"x"}\n{"a":2,"b":"y"}\n')
         first = parser.poll()
         second = parser.poll()
@@ -1118,21 +1118,21 @@ class TestHighPerformanceStreamingJsonParser:
         assert second.value.b == "y"
 
     def test_ndjson_poll_many(self):
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson")
+        parser = StreamingJsonParser(framing="ndjson")
         parser.consume('{"a":1}\n{"a":2}\n')
         result = parser.poll_many()
         assert result == [{"a": 1}, {"a": 2}]
         assert parser.poll().status == ParseStatus.EMPTY
 
     def test_ndjson_generic_parser_handles_adaptive_escape_heavy_prefixes(self):
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson")
+        parser = StreamingJsonParser(framing="ndjson")
         value = {"text": "\n\t\"" * 400}
         payload = (json.dumps(value, separators=(",", ":")) + "\n").encode()
         parser.consume(payload)
         assert parser.poll_many() == [value]
 
     def test_ndjson_bytes_batch_and_mixed_chunks(self):
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson")
+        parser = StreamingJsonParser(framing="ndjson")
         parser.consume(b'{"a":1}\n{"a":2')
         assert parser.poll_many() == [{"a": 1}]
         parser.consume('}\n')
@@ -1145,14 +1145,14 @@ class TestHighPerformanceStreamingJsonParser:
 
     def test_ndjson_poll_many_typed(self):
         record_type = msgspec.defstruct("TypedStreamBatchRecordTest", [("a", int), ("b", str)])
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson", record_type=record_type)
+        parser = StreamingJsonParser(framing="ndjson", record_type=record_type)
         parser.consume('{"a":1,"b":"x"}\n{"a":2,"b":"y"}\n')
         result = parser.poll_many()
         assert [item.a for item in result] == [1, 2]
         assert [item.b for item in result] == ["x", "y"]
 
     def test_ndjson_poll_many_max_items(self):
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson")
+        parser = StreamingJsonParser(framing="ndjson")
         parser.consume('{"a":1}\n{"a":2}\n{"a":3}\n')
         first = parser.poll_many(max_items=2)
         second = parser.poll_many()

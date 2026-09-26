@@ -35,7 +35,6 @@ import benchmark_partial_strategy_matrix as partial_matrix
 import streaming_json_parser as project_module
 import streaming_json_parser.high_performance_parser as high_performance_module
 from streaming_json_parser import (
-    HighPerformanceStreamingJsonParser,
     ParseStatus,
     StreamingJsonParser,
 )
@@ -102,7 +101,7 @@ _CHART_COLORS = {
 }
 
 
-class _PythonFallbackParser(HighPerformanceStreamingJsonParser):
+class _PythonFallbackParser(StreamingJsonParser):
     """Use the normal parser implementation while preventing native dispatch."""
 
     def _can_use_native_incremental(self) -> bool:

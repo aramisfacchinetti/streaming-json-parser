@@ -2481,8 +2481,15 @@ def extract_tuned_json_paths(
     framing: str = "single",
     sample: dict[str, Any] | None = None,
 ) -> Any:
+    """Compatibility dispatcher for one-shot complete or NDJSON extraction.
+
+    Prefer :func:`extract_complete_json_paths` or :func:`extract_ndjson_paths`
+    for one-shot calls. In ``framing="single"`` mode, ``sample`` is accepted
+    for compatibility but has no effect. Reuse
+    :func:`make_tuned_json_path_extractor` for repeated inputs.
+    """
     if framing == "single":
-        return extract_tuned_complete_json_paths(data, *paths, sample=sample)
+        return extract_complete_json_paths(_coerce_bytes(data), *paths)
     if framing == "ndjson":
         return extract_tuned_ndjson_paths(data, *paths, sample=sample)
     raise ValueError("framing must be 'single' or 'ndjson'")
@@ -2493,10 +2500,14 @@ def extract_tuned_complete_json_paths(
     *paths: tuple[str | int, ...],
     sample: dict[str, Any] | None = None,
 ) -> Any:
+    """Compatibility wrapper for one-shot complete-document extraction.
+
+    ``sample`` is retained for call compatibility and currently has no effect.
+    Use :func:`extract_complete_json_paths` for one-shot extraction, or reuse
+    :func:`make_tuned_json_path_extractor` for a stable workload.
+    """
     payload = _coerce_bytes(data)
-    # One-shot complete extraction does not amortize typed extractor setup well.
-    # The reusable tuned factory is the right API for repeated small-document calls.
-    return make_json_path_extractor(*paths)(payload)
+    return extract_complete_json_paths(payload, *paths)
 
 
 def extract_complete_json_typed_paths(

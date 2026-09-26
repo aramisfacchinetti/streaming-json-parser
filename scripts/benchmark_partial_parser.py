@@ -21,7 +21,7 @@ if not _USE_INSTALLED_PACKAGE:
         sys.path.insert(0, str(SRC_ROOT))
 
 from streaming_json_parser import (
-    HighPerformanceStreamingJsonParser,
+    StreamingJsonParser,
     decode_structural_partial_json,
     make_tuned_structural_partial_decoder,
 )
@@ -124,14 +124,14 @@ def _prefixes(payload: str, chunk_size: int) -> list[str]:
 
 
 def _run_facade(chunks: list[str]) -> Any:
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
     for chunk in chunks:
         parser.feed(chunk, copy_value=False)
     return parser.poll(copy_value=False).value
 
 
 def _run_structural_facade(chunks: list[str], partial_mode: str = "structural") -> Any:
-    parser = HighPerformanceStreamingJsonParser(partial_mode=partial_mode)
+    parser = StreamingJsonParser(partial_mode=partial_mode)
     for chunk in chunks:
         parser.consume(chunk)
         parser.poll(copy_value=False)
