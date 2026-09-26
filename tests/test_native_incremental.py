@@ -5,7 +5,7 @@ import pytest
 native = pytest.importorskip("streaming_json_parser_native")
 
 from streaming_json_parser import (
-    HighPerformanceStreamingJsonParser,
+    StreamingJsonParser,
     ParseResult,
     ParseStatus,
     decode_ndjson,
@@ -18,6 +18,18 @@ def _is_native_public_parser(parser):
         parser,
         (native.IncrementalJsonParser, native.FacadeIncrementalJsonParser),
     )
+
+
+class _PythonFallbackParser(StreamingJsonParser):
+    """Exercise the Python parser implementation when the extension is installed."""
+
+    def _can_use_native_incremental(self):
+        return False
+
+
+def _result_for_case(parser_factory, options, action, payload):
+    parser = parser_factory(**options)
+    return parser.poll() if action == "poll" else parser.feed(payload)
 
 
 def test_native_incremental_preserves_partial_nested_values():
@@ -43,7 +55,7 @@ def test_native_complete_materializer_is_strict_and_unicode_safe():
 
 @pytest.mark.parametrize("number", ["1e400", "-1e400"])
 def test_native_strict_incremental_parser_rejects_float_overflow(number):
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
     result = parser.feed(f'{{"value":{number}}}')
     assert result.status is ParseStatus.INVALID
 
@@ -95,7 +107,7 @@ def test_native_numbers_match_python_json_semantics(payload):
 
     assert native.decode_complete(payload) == expected
 
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
     text = payload.decode()
     for index in range(0, len(text), 2):
         parser.feed(text[index : index + 2])
@@ -298,6 +310,168 @@ def test_native_incremental_public_mode_exposes_facade_result_api():
     assert parser.poll_many() == [{"a": 1}]
 
 
+def test_public_parse_result_fields_match_python_and_native_implementations(monkeypatch):
+    monkeypatch.setattr(
+        high_performance_parser,
+        "ParseResult",
+        high_performance_parser._PythonParseResult,
+    )
+    cases = (
+        ("single empty", {}, "poll", None, ParseStatus.EMPTY, None),
+        (
+            "single partial",
+            {},
+            "feed",
+            b'{"value":"hel',
+            ParseStatus.PARTIAL,
+            {"value": "hel"},
+        ),
+        (
+            "single complete",
+            {},
+            "feed",
+            b'{"value":1}',
+            ParseStatus.COMPLETE,
+            {"value": 1},
+        ),
+        (
+            "single invalid",
+            {},
+            "feed",
+            b'{"value":1,}',
+            ParseStatus.INVALID,
+            None,
+        ),
+        (
+            "ndjson empty",
+            {"framing": "ndjson"},
+            "poll",
+            None,
+            ParseStatus.EMPTY,
+            None,
+        ),
+        (
+            "ndjson partial",
+            {"framing": "ndjson"},
+            "feed",
+            b'{"value":',
+            ParseStatus.PARTIAL,
+            None,
+        ),
+        (
+            "ndjson complete",
+            {"framing": "ndjson"},
+            "feed",
+            b'{"value":1}\n',
+            ParseStatus.COMPLETE,
+            {"value": 1},
+        ),
+        (
+            "ndjson invalid",
+            {"framing": "ndjson"},
+            "feed",
+            b'{"value":1,}\n',
+            ParseStatus.INVALID,
+            None,
+        ),
+        (
+            "structural empty",
+            {"partial_mode": "structural"},
+            "poll",
+            None,
+            ParseStatus.EMPTY,
+            None,
+        ),
+        (
+            "structural partial",
+            {"partial_mode": "structural"},
+            "feed",
+            b'{"value":1',
+            ParseStatus.PARTIAL,
+            {"value": 1},
+        ),
+        (
+            "structural complete",
+            {"partial_mode": "structural"},
+            "feed",
+            b'{"value":1}',
+            ParseStatus.COMPLETE,
+            {"value": 1},
+        ),
+        (
+            "structural trailing strings partial",
+            {"partial_mode": "structural_trailing_strings"},
+            "feed",
+            b'{"value":"hel',
+            ParseStatus.PARTIAL,
+            {"value": "hel"},
+        ),
+        (
+            "structural invalid",
+            {"partial_mode": "structural"},
+            "feed",
+            b'{"value":1,}',
+            ParseStatus.INVALID,
+            None,
+        ),
+    )
+
+    for name, options, action, payload, expected_status, expected_value in cases:
+        fallback_result = _result_for_case(
+            _PythonFallbackParser,
+            options,
+            action,
+            payload,
+        )
+        public_parser = StreamingJsonParser(**options)
+        if options.get("framing") != "ndjson" and not _is_native_public_parser(public_parser):
+            pytest.skip(f"native public parser is unavailable for {name}")
+        public_result = (
+            public_parser.poll()
+            if action == "poll"
+            else public_parser.feed(payload)
+        )
+
+        for result in (fallback_result, public_result):
+            assert isinstance(result.status, ParseStatus), name
+            assert result.status is expected_status, name
+            assert result.complete is (expected_status is ParseStatus.COMPLETE), name
+            if expected_status is ParseStatus.INVALID:
+                assert isinstance(result.error, str) and result.error, name
+            else:
+                assert result.error is None, name
+                assert result.value == expected_value, name
+
+        assert fallback_result.status is public_result.status, name
+        assert fallback_result.complete is public_result.complete, name
+        assert (fallback_result.error is None) == (public_result.error is None), name
+        if fallback_result.error is not None:
+            assert isinstance(fallback_result.error, str), name
+            assert isinstance(public_result.error, str), name
+        if expected_status is not ParseStatus.INVALID:
+            assert fallback_result.value == public_result.value, name
+
+        assert isinstance(fallback_result, high_performance_parser._PythonParseResult), name
+        if options.get("framing") != "ndjson":
+            assert isinstance(public_result, native.ParseResult), name
+
+
+def test_copy_value_keeps_partial_parse_result_snapshot_across_backends(monkeypatch):
+    monkeypatch.setattr(
+        high_performance_parser,
+        "ParseResult",
+        high_performance_parser._PythonParseResult,
+    )
+    for parser_factory in (_PythonFallbackParser, StreamingJsonParser):
+        parser = parser_factory()
+        snapshot = parser.feed('{"value":"hel', copy_value=True)
+
+        parser.feed('lo"}')
+
+        assert snapshot.status is ParseStatus.PARTIAL
+        assert snapshot.value == {"value": "hel"}
+
+
 def test_native_incremental_rejects_unpaired_surrogate():
     parser = native.IncrementalJsonParser()
     parser.consume('{"text":"\\uD800"}')
@@ -315,19 +489,19 @@ def test_native_incremental_rejects_non_json_whitespace():
 
 
 def test_facade_selects_native_core_for_incomplete_generic_documents():
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
     parser.consume('{"key":"partial')
     if hasattr(native, "FacadeIncrementalJsonParser"):
         assert _is_native_public_parser(parser)
     result = parser.poll()
     assert result.status == ParseStatus.PARTIAL
     assert result.value == {"key": "partial"}
-    assert isinstance(parser, HighPerformanceStreamingJsonParser)
+    assert isinstance(parser, StreamingJsonParser)
 
 
 def test_facade_eagerly_binds_only_compatible_strict_configuration():
-    strict = HighPerformanceStreamingJsonParser()
-    structural = HighPerformanceStreamingJsonParser(partial_mode="structural")
+    strict = StreamingJsonParser()
+    structural = StreamingJsonParser(partial_mode="structural")
 
     if hasattr(native, "FacadeIncrementalJsonParser"):
         assert _is_native_public_parser(strict)
@@ -341,7 +515,7 @@ def test_facade_feed_uses_simple_string_fast_path_without_native_backend(monkeyp
     import streaming_json_parser.high_performance_parser as high_performance_parser
 
     monkeypatch.setattr(high_performance_parser, "_backend_native", None)
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
     result = parser.feed('{"key":"partial')
     assert result.status == ParseStatus.PARTIAL
     assert result.value == {"key": "partial"}
@@ -352,7 +526,7 @@ def test_facade_feed_uses_simple_string_fast_path_without_native_backend(monkeyp
 
 
 def test_facade_feed_prefers_native_core_when_available():
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
     result = parser.feed('{"key":"partial')
 
     assert isinstance(result, ParseResult)
@@ -365,7 +539,7 @@ def test_facade_feed_prefers_native_core_when_available():
 
 
 def test_facade_feed_uses_native_core_for_medium_unicode_chunks():
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
     first = parser.feed('{"data":"' + ("hé🙂" * 10))
 
     assert first.status == ParseStatus.PARTIAL
@@ -379,7 +553,7 @@ def test_facade_feed_uses_native_core_for_medium_unicode_chunks():
 
 
 def test_native_feed_result_honors_copy_value():
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
     parser.feed('{"a":{"b":')
     result = parser.feed('1}', copy_value=True)
 
@@ -388,21 +562,21 @@ def test_native_feed_result_honors_copy_value():
 
 
 def test_native_facade_reset_preserves_public_behavior():
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
     parser.reset()
     assert parser.poll().status == ParseStatus.EMPTY
     assert parser.feed('{"b":2}').value == {"b": 2}
 
 
 def test_native_facade_complete_chunk_fast_path_preserves_state_and_trailing_data():
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
     result = parser.feed('{"nested":{"value":1}}')
 
     assert result.status is ParseStatus.COMPLETE
     assert parser.poll().value == {"nested": {"value": 1}}
     assert parser.finish().status is ParseStatus.COMPLETE
 
-    trailing_parser = HighPerformanceStreamingJsonParser()
+    trailing_parser = StreamingJsonParser()
     assert trailing_parser.feed('{"nested":{"value":1}}').status is ParseStatus.COMPLETE
     trailing = trailing_parser.feed(" trailing")
     assert trailing.status is ParseStatus.INVALID
@@ -410,7 +584,7 @@ def test_native_facade_complete_chunk_fast_path_preserves_state_and_trailing_dat
 
 
 def test_native_facade_consume_poll_uses_complete_chunk_fast_path():
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
     parser.consume(' \n{"nested":{"value":1}}\t')
 
     result = parser.poll()
@@ -418,20 +592,20 @@ def test_native_facade_consume_poll_uses_complete_chunk_fast_path():
     assert result.status is ParseStatus.COMPLETE
     assert result.value == {"nested": {"value": 1}}
 
-    trailing_parser = HighPerformanceStreamingJsonParser()
+    trailing_parser = StreamingJsonParser()
     trailing_parser.consume('{"nested":{"value":1}}')
     trailing_parser.consume(" trailing")
     trailing = trailing_parser.poll()
     assert trailing.status is ParseStatus.INVALID
     assert trailing.error == "extra trailing data after complete document"
 
-    scalar_parser = HighPerformanceStreamingJsonParser()
+    scalar_parser = StreamingJsonParser()
     scalar_parser.consume("1")
     assert scalar_parser.poll().status is ParseStatus.PARTIAL
 
 
 def test_native_facade_complete_root_string_fast_path_is_complete():
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
 
     result = parser.feed('"complete"')
 
@@ -440,18 +614,18 @@ def test_native_facade_complete_root_string_fast_path_is_complete():
 
 
 def test_native_facade_complete_hint_still_rejects_malformed_documents():
-    malformed = HighPerformanceStreamingJsonParser().feed('{"a":[}')
+    malformed = StreamingJsonParser().feed('{"a":[}')
     assert malformed.status is ParseStatus.INVALID
 
-    trailing = HighPerformanceStreamingJsonParser().feed('{} {}')
+    trailing = StreamingJsonParser().feed('{} {}')
     assert trailing.status is ParseStatus.INVALID
 
-    overflow = HighPerformanceStreamingJsonParser().feed('{"value":1e400}')
+    overflow = StreamingJsonParser().feed('{"value":1e400}')
     assert overflow.status is ParseStatus.INVALID
 
 
 def test_native_facade_single_document_poll_many_matches_python_facade():
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
     parser.feed('{"b":2}')
 
     assert parser.poll_many() == [{"b": 2}]
@@ -459,14 +633,14 @@ def test_native_facade_single_document_poll_many_matches_python_facade():
 
 
 def test_native_bound_finish_preserves_scalar_and_copy_semantics():
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
     assert parser.feed("1").status == ParseStatus.PARTIAL
     result = parser.finish(copy_value=True)
     assert result.status == ParseStatus.COMPLETE
     assert result.value == 1
     assert parser.poll().status == ParseStatus.COMPLETE
 
-    copied = HighPerformanceStreamingJsonParser()
+    copied = StreamingJsonParser()
     copied.feed('{"nested":{"value":1}}')
     result = copied.finish(copy_value=True)
     result.value["nested"]["value"] = 2
@@ -474,7 +648,7 @@ def test_native_bound_finish_preserves_scalar_and_copy_semantics():
 
 
 def test_facade_simple_string_fast_path_is_bounded():
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
     result = None
     for chunk in '{"key":"' + ('x' * 8_000) + '"}':
         result = parser.feed(chunk)
@@ -485,7 +659,7 @@ def test_facade_simple_string_fast_path_is_bounded():
 
 
 def test_facade_simple_string_fast_path_falls_back_for_escaped_values():
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
     assert parser.feed('{"key":"partial').value == {"key": "partial"}
     result = parser.feed('\\n"}')
     assert result.status == ParseStatus.COMPLETE
@@ -493,12 +667,12 @@ def test_facade_simple_string_fast_path_falls_back_for_escaped_values():
 
 
 def test_facade_structural_modes_use_native_partial_snapshots():
-    parser = HighPerformanceStreamingJsonParser(partial_mode="structural")
+    parser = StreamingJsonParser(partial_mode="structural")
     result = parser.feed('{"a":[1')
     assert result.status == ParseStatus.PARTIAL
     assert result.value == {"a": [1]}
 
-    trailing = HighPerformanceStreamingJsonParser(
+    trailing = StreamingJsonParser(
         partial_mode="structural_trailing_strings"
     )
     result = trailing.feed('{"text":"hel')

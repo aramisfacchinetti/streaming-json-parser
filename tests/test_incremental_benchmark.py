@@ -177,7 +177,11 @@ def test_incremental_artifact_rendering_is_deterministic_and_svg_is_valid(tmp_pa
     ET.fromstring(first[svg_path])
     written = incremental_benchmark.write_artifacts(snapshot, tmp_path)
     assert incremental_benchmark.verify_artifacts(tmp_path) == []
-    assert json.loads((tmp_path / "incremental-benchmark.json").read_text()) == snapshot
-    (tmp_path / "incremental-benchmark.md").write_text("stale\n")
+    assert json.loads(
+        (tmp_path / "incremental-benchmark.json").read_text(encoding="utf-8")
+    ) == snapshot
+    (tmp_path / "incremental-benchmark.md").write_text(
+        "stale\n", encoding="utf-8", newline="\n"
+    )
     assert any("incremental-benchmark.md" in issue for issue in incremental_benchmark.verify_artifacts(tmp_path))
     assert len(written) == 3

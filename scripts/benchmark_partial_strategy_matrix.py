@@ -140,14 +140,14 @@ def _prefixes(payload: str, chunk_size: int, input_kind: str = "str") -> list[In
 
 
 def _run_facade_snapshots(chunks: list[InputChunk]) -> Any:
-    parser = _partial.HighPerformanceStreamingJsonParser()
+    parser = _partial.StreamingJsonParser()
     for chunk in chunks:
         parser.feed(chunk)
     return parser.finish().value
 
 
 def _run_facade_consume_poll(chunks: list[InputChunk]) -> Any:
-    parser = _partial.HighPerformanceStreamingJsonParser()
+    parser = _partial.StreamingJsonParser()
     for chunk in chunks:
         parser.consume(chunk)
         parser.poll()
@@ -192,7 +192,7 @@ def _run_native_incremental_public_result(chunks: list[InputChunk]) -> Any:
 
 
 def _run_structural_snapshots(chunks: list[InputChunk], partial_mode: str = "structural") -> Any:
-    parser = _partial.HighPerformanceStreamingJsonParser(partial_mode=partial_mode)
+    parser = _partial.StreamingJsonParser(partial_mode=partial_mode)
     for chunk in chunks:
         parser.feed(chunk, copy_value=False)
     return parser.finish(copy_value=False).value

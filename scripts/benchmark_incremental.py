@@ -35,7 +35,6 @@ import benchmark_partial_strategy_matrix as partial_matrix
 import streaming_json_parser as project_module
 import streaming_json_parser.high_performance_parser as high_performance_module
 from streaming_json_parser import (
-    HighPerformanceStreamingJsonParser,
     ParseStatus,
     StreamingJsonParser,
 )
@@ -102,7 +101,7 @@ _CHART_COLORS = {
 }
 
 
-class _PythonFallbackParser(HighPerformanceStreamingJsonParser):
+class _PythonFallbackParser(StreamingJsonParser):
     """Use the normal parser implementation while preventing native dispatch."""
 
     def _can_use_native_incremental(self) -> bool:
@@ -200,10 +199,13 @@ def _command_version(command: str) -> str | None:
 
 def _native_source_fingerprint() -> str:
     native_root = REPO_ROOT / "rust_native"
-    manifest = (native_root / "Cargo.toml").read_text().replace(', "abi3-py310"', "")
+    manifest_path = native_root / "Cargo.toml"
+    manifest = manifest_path.read_text(encoding="utf-8").replace(
+        ', "abi3-py310"', ""
+    )
     digest = hashlib.sha256()
     for path, content in [
-        (native_root / "Cargo.toml", manifest.encode()),
+        (manifest_path, manifest.encode()),
         (native_root / "Cargo.lock", (native_root / "Cargo.lock").read_bytes()),
         *[(path, path.read_bytes()) for path in sorted((native_root / "src").rglob("*.rs"))],
     ]:
@@ -839,7 +841,7 @@ def write_artifacts(snapshot: dict[str, Any], output_dir: Path) -> list[Path]:
     contents = artifact_contents(snapshot, output_dir.resolve())
     for path, content in contents.items():
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(content)
+        path.write_text(content, encoding="utf-8", newline="\n")
     return list(contents)
 
 
@@ -848,12 +850,12 @@ def verify_artifacts(output_dir: Path) -> list[str]:
     if not json_path.exists():
         return [f"missing:{json_path}"]
     try:
-        snapshot = json.loads(json_path.read_text())
+        snapshot = json.loads(json_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         return [f"invalid-json:{json_path}:{exc}"]
     mismatches = []
     for path, expected in artifact_contents(snapshot, output_dir.resolve()).items():
-        if not path.exists() or path.read_text() != expected:
+        if not path.exists() or path.read_text(encoding="utf-8") != expected:
             mismatches.append(f"stale-or-missing:{path}")
     if snapshot.get("semantics_family") != "strict_incremental":
         mismatches.append("invalid:semantic-family")

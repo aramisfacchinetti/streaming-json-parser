@@ -28,7 +28,6 @@ from generate_benchmark_charts import render_benchmark_charts
 from streaming_json_parser import ParseStatus, StreamingJsonParser
 
 from streaming_json_parser.high_performance_parser import (
-    HighPerformanceStreamingJsonParser,
     decode_complete_json,
     decode_complete_json_view,
     decode_ndjson,
@@ -426,7 +425,7 @@ def benchmark_streaming_baselines(count: int) -> None:
 
 
 def show_hybrid_partial_state_semantics() -> None:
-    parser = HighPerformanceStreamingJsonParser()
+    parser = StreamingJsonParser()
     parser.consume('{"key": "partial string')
     first = parser.poll()
     parser.consume(' complete"}')
@@ -445,7 +444,7 @@ def benchmark_hybrid_delta_stream(value_size: int, chunk_size: int) -> None:
     payload = json.dumps({"data": "x" * value_size, "n": 1, "ok": True, "arr": [1, 2, 3]})
     chunks = [payload[i : i + chunk_size] for i in range(0, len(payload), chunk_size)]
 
-    hybrid = HighPerformanceStreamingJsonParser()
+    hybrid = StreamingJsonParser()
     started = time.perf_counter()
     for chunk in chunks:
         hybrid.consume(chunk)
@@ -464,7 +463,7 @@ def benchmark_hybrid_delta_stream(value_size: int, chunk_size: int) -> None:
 
 def benchmark_hybrid_reuse(payload_size: int, iterations: int) -> None:
     payload = json.dumps({"data": "x" * payload_size, "ok": True, "n": 1}).encode()
-    hybrid = HighPerformanceStreamingJsonParser()
+    hybrid = StreamingJsonParser()
 
     started = time.perf_counter()
     for _ in range(iterations):
@@ -528,7 +527,7 @@ def benchmark_ndjson_modes(count: int, iterations: int) -> None:
         record_type = msgspec.defstruct("BenchmarkRecord", [("a", int), ("b", str)])
 
     def streaming_parser() -> list[object]:
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson")
+        parser = StreamingJsonParser(framing="ndjson")
         parser.consume(payload)
         out = []
         while True:
@@ -538,7 +537,7 @@ def benchmark_ndjson_modes(count: int, iterations: int) -> None:
             out.append(result.value)
 
     def streaming_typed_parser() -> list[object]:
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson", record_type=record_type)
+        parser = StreamingJsonParser(framing="ndjson", record_type=record_type)
         parser.consume(payload)
         out = []
         while True:
@@ -548,12 +547,12 @@ def benchmark_ndjson_modes(count: int, iterations: int) -> None:
             out.append(result.value)
 
     def streaming_batch_parser() -> list[object]:
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson")
+        parser = StreamingJsonParser(framing="ndjson")
         parser.consume(payload)
         return parser.poll_many(copy_value=False)
 
     def streaming_typed_batch_parser() -> list[object]:
-        parser = HighPerformanceStreamingJsonParser(framing="ndjson", record_type=record_type)
+        parser = StreamingJsonParser(framing="ndjson", record_type=record_type)
         parser.consume(payload)
         return parser.poll_many(copy_value=False)
 
@@ -1068,13 +1067,16 @@ def _result_map(snapshot: dict[str, object]) -> dict[str, dict[str, float]]:
 
 def _markdown_link(path: Path, *, relative_to: Path) -> str:
     try:
-        label = str(path.relative_to(REPO_ROOT))
+        label = path.relative_to(REPO_ROOT).as_posix()
     except ValueError:
         label = path.name
     try:
         target = path.relative_to(relative_to).as_posix()
     except ValueError:
-        target = str(path)
+        try:
+            target = Path(os.path.relpath(path, start=relative_to)).as_posix()
+        except ValueError:
+            target = path.as_posix()
     return f"[{label}]({target})"
 
 
@@ -1168,6 +1170,7 @@ def _format_current_api_scorecard(
     snapshot_description = "current benchmark snapshot" if stable_links else "dated benchmark snapshot"
     incremental_report = docs_dir / "incremental-benchmark.md"
     abi3_investigation = docs_dir / "abi3-incremental-investigation.md"
+    public_api_inventory = docs_dir / "public-api.md"
 
     lines = [
         "# Current API Scorecard",
@@ -1177,6 +1180,7 @@ def _format_current_api_scorecard(
         'This scorecard is the shortest honest answer to "what should I use from this repo today?"',
         "",
         f"For the {snapshot_description} behind these recommendations, see {_markdown_link(snapshot_markdown_path, relative_to=docs_dir)} and {_markdown_link(snapshot_json_path, relative_to=docs_dir)}. To regenerate all tracked artifacts from the current harness, run `make benchmark-artifacts`. To verify that those tracked generated artifacts are current without rewriting them, run `make verify-benchmark-artifacts`.",
+        f"For the complete top-level export inventory and proposed 0.3 API tiers, see {_markdown_link(public_api_inventory, relative_to=docs_dir)}. Primary recommendations use framing and workload semantics while leaving backend selection to the library.",
         f"Strict chunk-by-chunk performance is measured separately in {_markdown_link(incremental_report, relative_to=docs_dir)}; the same-source ABI-mode investigation is in {_markdown_link(abi3_investigation, relative_to=docs_dir)}.",
         "",
         "## Recommended APIs",
@@ -1205,25 +1209,26 @@ def _format_current_api_scorecard(
         "  - If you know the payload size band or have a representative sample and will reuse the decoder, prefer `make_tuned_complete_json_decoder(...)`",
         "  - Pass both `sample=` and `payload_size_hint=` to validate and benchmark strict compatible backends once at construction for representatives at least 64 bytes; calibration uses the sample's input representation and replaces the static fallback only after a 10% measured speed margin for complete JSON or a 20% margin for NDJSON",
         "",
-        "- Complete document, fastest in-repo large-payload path:",
+        "- Advanced complete-document view path:",
         "  - Use `decode_complete_json_view(...)` or `make_complete_json_view_decoder(...)`",
         "  - Best when `simdjson` view/proxy semantics are acceptable",
         "",
         "- Complete document, selective field extraction:",
         "  - Reused extractor: `make_tuned_json_path_extractor(..., framing=\"single\")`",
-        "  - One-shot call: `extract_tuned_json_paths(..., framing=\"single\")`",
+        "  - One-shot call: `extract_complete_json_paths(...)`",
         "  - For large documents this effectively tracks the existing `simdjson` view extractor",
         "",
         "- NDJSON full-record decode:",
-        "  - Generic: `decode_ndjson(...)`",
-        "  - Schema-adaptive typed option: `decode_ndjson_adaptive(...)` (returns inferred msgspec records when the lines are type-stable)",
-        "  - Typed: `make_ndjson_decoder(record_type=...)`",
+        "  - One-shot generic decode: `decode_ndjson(...)`",
         "  - Stable repeated workload: `make_tuned_ndjson_decoder(sample=..., payload_size_hint=...)`",
+        "  - Advanced typed options: `make_ndjson_decoder(record_type=...)` or `decode_ndjson_adaptive(...)` (the latter infers `msgspec` records when the lines are type-stable)",
         "",
         "- NDJSON selective field extraction:",
         "  - Reused extractor: `make_tuned_json_path_extractor(..., framing=\"ndjson\")`",
-        "  - One-shot call: `extract_tuned_json_paths(..., framing=\"ndjson\")`",
-        "  - This is the clearest top-level selective API in the repo right now",
+        "  - One-shot call: `extract_ndjson_paths(...)`",
+        "  - One-shot calls express framing directly; construct and reuse the tuned extractor for a stable workload",
+        "",
+        "- Advanced complete-document and NDJSON typed path extractors are available when `msgspec` records match the workload; they are not the default selective API",
         "",
         "## Latest Snapshot",
         "",
@@ -1242,8 +1247,8 @@ def _format_current_api_scorecard(
         "## Non-Recommendations",
         "",
         "- Do not compare Pydantic Core `allow_partial` as a strict partial-value peer; it is a fast structural finisher but does not preserve unfinished string values.",
-        "- Do not recommend the native selective NDJSON path as the default. Current evidence still does not justify it.",
-        "- Do not recommend the typed complete selective extractor as the universal complete selective path. It helps on smaller object-shaped documents, but the tuned selector is the practical recommendation.",
+        "- Native selective NDJSON functions are experimental backend-forcing APIs for tests and benchmarks, not normal recommendations.",
+        "- Do not recommend the typed complete selective extractor as the universal complete selective path. It helps on smaller object-shaped documents, but the backend-selecting tuned factory is the practical reusable recommendation.",
     ]
     return "\n".join(lines) + "\n"
 
@@ -1255,7 +1260,7 @@ def emit_snapshot(snapshot_format: str, output_path: Path | None = None, snapsho
     if output_path is not None:
         resolved_output_path = output_path.resolve()
         resolved_output_path.parent.mkdir(parents=True, exist_ok=True)
-        resolved_output_path.write_text(rendered)
+        resolved_output_path.write_text(rendered, encoding="utf-8", newline="\n")
     return rendered
 
 
@@ -1276,19 +1281,25 @@ def write_artifact_bundle(output_dir: Path, snapshot: dict[str, object] | None =
     snapshot_date = str(current_snapshot["date"])
     snapshot_paths = write_snapshot_bundle(resolved_output_dir, snapshot=current_snapshot)
     scorecard_path = resolved_output_dir / f"current-api-scorecard-{snapshot_date}.md"
-    scorecard_path.write_text(_format_current_api_scorecard(current_snapshot, resolved_output_dir))
+    scorecard_path.write_text(
+        _format_current_api_scorecard(current_snapshot, resolved_output_dir),
+        encoding="utf-8",
+        newline="\n",
+    )
     current_markdown_path = resolved_output_dir / "benchmark-snapshot.md"
     current_json_path = resolved_output_dir / "benchmark-snapshot.json"
     current_scorecard_path = resolved_output_dir / "current-api-scorecard.md"
     emit_snapshot("markdown", current_markdown_path, snapshot=current_snapshot)
     emit_snapshot("json", current_json_path, snapshot=current_snapshot)
     current_scorecard_path.write_text(
-        _format_current_api_scorecard(current_snapshot, resolved_output_dir, stable_links=True)
+        _format_current_api_scorecard(current_snapshot, resolved_output_dir, stable_links=True),
+        encoding="utf-8",
+        newline="\n",
     )
     chart_artifacts = render_benchmark_charts(current_snapshot, resolved_output_dir)
     for chart_path, chart_content in chart_artifacts.values():
         chart_path.parent.mkdir(parents=True, exist_ok=True)
-        chart_path.write_text(chart_content)
+        chart_path.write_text(chart_content, encoding="utf-8", newline="\n")
     return {
         "markdown": snapshot_paths["markdown"],
         "json": snapshot_paths["json"],
@@ -1410,14 +1421,14 @@ def verify_artifact_bundle(output_dir: Path, snapshot: dict[str, object] | None 
     if mismatches:
         return mismatches
 
-    tracked_snapshot = json.loads(json_path.read_text())
+    tracked_snapshot = json.loads(json_path.read_text(encoding="utf-8"))
 
     expected_markdown = _render_snapshot(tracked_snapshot, "markdown")
-    if markdown_path.read_text() != expected_markdown:
+    if markdown_path.read_text(encoding="utf-8") != expected_markdown:
         mismatches.append(f"stale:markdown:{markdown_path}")
 
     expected_scorecard = _format_current_api_scorecard(tracked_snapshot, resolved_output_dir, stable_links=True)
-    if scorecard_path.read_text() != expected_scorecard:
+    if scorecard_path.read_text(encoding="utf-8") != expected_scorecard:
         mismatches.append(f"stale:scorecard:{scorecard_path}")
 
     snapshot_date = str(tracked_snapshot["date"])
@@ -1441,7 +1452,7 @@ def verify_artifact_bundle(output_dir: Path, snapshot: dict[str, object] | None 
     for label, path, expected in dated_artifacts:
         if not path.exists():
             mismatches.append(f"missing:{label}:{path}")
-        elif path.read_text() != expected:
+        elif path.read_text(encoding="utf-8") != expected:
             mismatches.append(f"stale:{label}:{path}")
 
     for label, (chart_path, expected_chart) in render_benchmark_charts(
@@ -1449,7 +1460,7 @@ def verify_artifact_bundle(output_dir: Path, snapshot: dict[str, object] | None 
     ).items():
         if not chart_path.exists():
             mismatches.append(f"missing:{label}:{chart_path}")
-        elif chart_path.read_text() != expected_chart:
+        elif chart_path.read_text(encoding="utf-8") != expected_chart:
             mismatches.append(f"stale:{label}:{chart_path}")
 
     mismatches.extend(_compare_snapshots(tracked_snapshot, current_snapshot))

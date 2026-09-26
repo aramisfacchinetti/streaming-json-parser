@@ -10,7 +10,6 @@ import streaming_json_parser.high_performance_parser as high_performance_parser
 from streaming_json_parser import (decode_complete_json, decode_ndjson,
                                    decode_ndjson_adaptive,
                                    decode_complete_json_view,
-                                   HighPerformanceStreamingJsonParser,
                                    extract_complete_json_paths,
                                    extract_complete_json_typed_paths,
                                    extract_ndjson_paths,
@@ -1028,6 +1027,94 @@ def test_extract_tuned_complete_json_paths():
     )
 
 
+def test_extract_tuned_complete_json_paths_sample_is_compatibility_only(monkeypatch):
+    payload = '{"meta":{"name":"dataset"},"tail":{"count":2}}'
+    paths = (("meta", "name"), ("tail", "count"))
+    sample = {"different": "shape"}
+    canonical_calls = []
+    extract_canonical = high_performance_parser.extract_complete_json_paths
+
+    def tracked_canonical_extractor(data, *selected_paths):
+        canonical_calls.append((data, selected_paths))
+        return extract_canonical(data, *selected_paths)
+
+    def unexpected_tuned_extractor(*_args, **_kwargs):
+        pytest.fail("one-shot compatibility wrapper must not select a tuned extractor")
+
+    monkeypatch.setattr(high_performance_parser, "extract_complete_json_paths", tracked_canonical_extractor)
+    monkeypatch.setattr(
+        high_performance_parser,
+        "make_tuned_complete_json_path_extractor",
+        unexpected_tuned_extractor,
+    )
+
+    expected = ("dataset", 2)
+    assert extract_tuned_complete_json_paths(payload, *paths) == expected
+    assert extract_tuned_complete_json_paths(payload, *paths, sample=sample) == expected
+    assert extract_tuned_json_paths(
+        payload,
+        *paths,
+        framing="single",
+        sample=sample,
+    ) == expected
+    assert canonical_calls == [(payload.encode(), paths)] * 3
+
+
+def test_extract_tuned_complete_json_paths_preserves_error_categories():
+    invalid_inputs = (
+        '{"value":1,}',
+        b'{"value":1,}',
+        bytearray(b'{"value":1,}'),
+    )
+    for data in invalid_inputs:
+        try:
+            extract_complete_json_paths(high_performance_parser._coerce_bytes(data), ("value",))
+        except Exception as canonical_error:
+            canonical_error_type = type(canonical_error)
+        else:  # pragma: no cover - malformed JSON must fail
+            raise AssertionError("canonical extraction accepted invalid JSON")
+
+        try:
+            extract_tuned_complete_json_paths(data, ("value",), sample={"value": 1})
+        except Exception as compatibility_error:
+            assert type(compatibility_error) is canonical_error_type
+        else:  # pragma: no cover - malformed JSON must fail
+            raise AssertionError("compatibility extraction accepted invalid JSON")
+
+
+def test_extract_tuned_json_paths_single_bypasses_internal_candidate(monkeypatch):
+    payload = '{"meta":{"name":"dataset"}}'
+    paths = (("meta", "name"),)
+    canonical_calls = []
+    extract_canonical = high_performance_parser.extract_complete_json_paths
+
+    def tracked_canonical_extractor(data, *selected_paths):
+        canonical_calls.append((data, selected_paths))
+        return extract_canonical(data, *selected_paths)
+
+    def unexpected_compatibility_call(*_args, **_kwargs):
+        pytest.fail("the supported dispatcher must bypass the internal candidate")
+
+    monkeypatch.setattr(
+        high_performance_parser,
+        "extract_complete_json_paths",
+        tracked_canonical_extractor,
+    )
+    monkeypatch.setattr(
+        high_performance_parser,
+        "extract_tuned_complete_json_paths",
+        unexpected_compatibility_call,
+    )
+
+    assert extract_tuned_json_paths(
+        payload,
+        *paths,
+        framing="single",
+        sample={"different": "shape"},
+    ) == "dataset"
+    assert canonical_calls == [(payload.encode(), paths)]
+
+
 def test_make_tuned_json_path_extractor_single():
     sample = {"meta": {"name": "dataset"}, "tail": {"count": 2, "done": True}}
     extractor = make_tuned_json_path_extractor(
@@ -1397,10 +1484,15 @@ def test_extract_tuned_json_paths_ndjson():
         b'{"row":{"id":1,"value":"x"},"meta":{"ok":true}}\n'
         b'{"row":{"id":2,"value":"y"},"meta":{"ok":false}}\n'
     )
-    assert extract_tuned_json_paths(payload, ("row", "id"), ("meta", "ok"), framing="ndjson", sample=sample) == [
-        (1, True),
-        (2, False),
-    ]
+    expected = [(1, True), (2, False)]
+    assert extract_tuned_json_paths(
+        payload,
+        ("row", "id"),
+        ("meta", "ok"),
+        framing="ndjson",
+        sample=sample,
+    ) == expected
+    assert extract_ndjson_paths(payload, ("row", "id"), ("meta", "ok")) == expected
 
 
 def test_extract_tuned_json_paths_ndjson_infers_sample():
@@ -1423,8 +1515,7 @@ def test_make_tuned_json_path_extractor_rejects_bad_framing():
         raise AssertionError("expected ValueError")
 
 
-def test_streaming_parser_exported_as_strict_parser():
-    assert StreamingJsonParser is HighPerformanceStreamingJsonParser
+def test_streaming_parser_uses_strict_incremental_contract():
     parser = StreamingJsonParser()
     result = parser.feed('{"a":')
     assert result.status is ParseStatus.PARTIAL
