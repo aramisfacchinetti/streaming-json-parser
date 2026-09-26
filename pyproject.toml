@@ -38,6 +38,9 @@ test = [
     "pydantic-core>=2.0",
     "jiter>=0.12",
 ]
+typecheck = [
+    "pyright>=1.1",
+]
 accelerated = [
     "msgspec>=0.18",
     "orjson>=3.9",
@@ -78,3 +81,6 @@ Contributing = "https://github.com/aramisfacchinetti/streaming-json-parser/blob/
 where = ["src"]
 include = ["streaming_json_parser*"]
 exclude = ["tests*"]
+
+[tool.setuptools.package-data]
+streaming_json_parser = ["py.typed", "*.pyi"]
