@@ -614,7 +614,7 @@ def _select_calibrated_candidate(
             )
     timings = [
         (sorted(samples)[len(samples) // 2], candidate)
-        for candidate, samples in zip(compatible, samples_by_candidate)
+        for candidate, samples in zip(compatible, samples_by_candidate, strict=True)
     ]
     best_time, best_candidate = min(timings, key=lambda item: item[0])
     fallback_time = next(
@@ -3215,7 +3215,7 @@ class HighPerformanceStreamingJsonParser(metaclass=_HighPerformanceParserMeta):
         partial_mode: str = "strict",
         record_type: Any | None = None,
         value_type: Any | None = None,
-    ) -> "HighPerformanceStreamingJsonParser":
+    ) -> HighPerformanceStreamingJsonParser:
         if (
             cls is HighPerformanceStreamingJsonParser
             and framing == "single"

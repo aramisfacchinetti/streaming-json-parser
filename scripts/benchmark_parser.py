@@ -2,15 +2,14 @@
 import argparse
 import importlib.metadata
 import json
-import math
 import os
 import platform
 import statistics
 import subprocess
 import sys
 import time
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_ROOT = REPO_ROOT / "src"
@@ -25,34 +24,33 @@ if str(SCRIPTS_ROOT) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_ROOT))
 
 from generate_benchmark_charts import render_benchmark_charts
-from streaming_json_parser import ParseStatus, StreamingJsonParser
 
+from streaming_json_parser import ParseStatus, StreamingJsonParser
 from streaming_json_parser.high_performance_parser import (
+    _backend_native,
     decode_complete_json,
     decode_complete_json_view,
     decode_ndjson,
     extract_complete_json_paths,
     extract_complete_json_typed_paths,
     extract_ndjson_paths,
-    extract_tuned_json_paths,
-    extract_tuned_complete_json_paths,
-    extract_tuned_ndjson_paths,
     extract_ndjson_paths_native,
     extract_ndjson_typed_paths,
+    extract_tuned_complete_json_paths,
+    extract_tuned_json_paths,
+    extract_tuned_ndjson_paths,
     make_complete_json_decoder,
     make_complete_json_typed_path_extractor,
-    make_ndjson_path_extractor,
-    make_tuned_json_path_extractor,
-    make_tuned_complete_json_path_extractor,
-    make_tuned_ndjson_path_extractor,
-    make_tuned_complete_json_decoder,
     make_complete_json_view_decoder,
     make_json_path_extractor,
+    make_ndjson_decoder,
+    make_ndjson_path_extractor,
     make_ndjson_path_extractor_native,
     make_ndjson_typed_path_extractor,
-    make_ndjson_decoder,
-    make_tuned_ndjson_decoder,
-    _backend_native,
+    make_tuned_complete_json_decoder,
+    make_tuned_complete_json_path_extractor,
+    make_tuned_json_path_extractor,
+    make_tuned_ndjson_path_extractor,
 )
 
 try:
@@ -598,7 +596,6 @@ def benchmark_compiled_decoders(iterations: int, ndjson_iterations: int) -> None
 
     value_type = msgspec.defstruct("CompiledValueRecord", [("a", int), ("b", str), ("ok", bool), ("arr", list[int])])
     record_type = msgspec.defstruct("CompiledNdjsonRecord", [("a", int), ("b", str)])
-    payload = json.dumps({"a": 1, "b": "xyz", "ok": True, "arr": [1, 2, 3]}).encode()
     line = json.dumps({"a": 1, "b": "xyz"}).encode()
     ndjson_payload = (b"\n".join([line] * 5_000) + b"\n")
 

@@ -1,9 +1,8 @@
-from collections import Counter
 import re
+from collections import Counter
 from pathlib import Path
 
 import streaming_json_parser
-
 
 EXPECTED_PUBLIC_API = {
     "StreamingJsonParser",

@@ -4,17 +4,20 @@ from types import SimpleNamespace
 import msgspec
 import pytest
 
-from streaming_json_parser import (StreamingJsonParser,
-                                   ParseStatus, decode_structural_partial_json)
+import streaming_json_parser.high_performance_parser as high_performance_parser
+from streaming_json_parser import (
+    ParseStatus,
+    StreamingJsonParser,
+    decode_structural_partial_json,
+)
 from streaming_json_parser.high_performance_parser import (
-    _IncrementalStrictCore,
     _has_many_object_fields,
     _has_numeric_array_record,
+    _IncrementalStrictCore,
     _may_be_complete,
     _select_complete_decoder,
     _select_complete_decoder_text,
 )
-import streaming_json_parser.high_performance_parser as high_performance_parser
 
 
 class TestStreamingJsonParser:

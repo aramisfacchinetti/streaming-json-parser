@@ -1,7 +1,6 @@
 import importlib.util
 from pathlib import Path
 
-
 MODULE_PATH = Path(__file__).resolve().parents[1] / "scripts" / "generate_benchmark_charts.py"
 MODULE_SPEC = importlib.util.spec_from_file_location("benchmark_charts_for_tests", MODULE_PATH)
 assert MODULE_SPEC is not None and MODULE_SPEC.loader is not None

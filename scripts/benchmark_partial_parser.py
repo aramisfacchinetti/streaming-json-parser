@@ -8,8 +8,9 @@ import os
 import statistics
 import sys
 import time
+from collections.abc import Callable
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_ROOT = REPO_ROOT / "src"
@@ -22,7 +23,7 @@ if not _USE_INSTALLED_PACKAGE:
 
 from streaming_json_parser import (
     StreamingJsonParser,
-    decode_structural_partial_json,
+    decode_structural_partial_json,  # noqa: F401 - consumed through dynamic benchmark loading
     make_tuned_structural_partial_decoder,
 )
 

@@ -5,7 +5,6 @@ from pathlib import Path, PureWindowsPath
 
 import pytest
 
-
 MODULE_PATH = Path(__file__).resolve().parents[1] / "scripts" / "benchmark_parser.py"
 MODULE_SPEC = importlib.util.spec_from_file_location("benchmark_parser_for_tests", MODULE_PATH)
 assert MODULE_SPEC is not None and MODULE_SPEC.loader is not None
@@ -873,7 +872,7 @@ def test_write_artifact_bundle_writes_scorecard(monkeypatch, tmp_path):
     assert "Current API Scorecard" in created["scorecard"].read_text(encoding="utf-8")
     scorecard_text = created["current_scorecard"].read_text(encoding="utf-8")
     scorecard_bytes = created["current_scorecard"].read_bytes()
-    assert "StreamingJsonParser — single chunk".encode("utf-8") in scorecard_bytes
+    assert "StreamingJsonParser — single chunk".encode("utf-8") in scorecard_bytes  # noqa: UP012
     assert b"\r\n" not in scorecard_bytes
     assert "](benchmark-snapshot.md)" in scorecard_text
     assert "](incremental-benchmark.md)" in scorecard_text

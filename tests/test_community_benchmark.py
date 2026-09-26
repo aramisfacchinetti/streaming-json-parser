@@ -2,7 +2,6 @@ import importlib.util
 import json
 from pathlib import Path
 
-
 MODULE_PATH = Path(__file__).resolve().parents[1] / "scripts" / "benchmark_community_corpus.py"
 MODULE_SPEC = importlib.util.spec_from_file_location("community_corpus_benchmark_for_tests", MODULE_PATH)
 assert MODULE_SPEC is not None and MODULE_SPEC.loader is not None
@@ -26,7 +25,9 @@ def test_community_corpus_snapshot_includes_compatible_decoders_and_provenance(t
     names = {result["name"] for result in section["results"]}
     assert snapshot["upstream"]["benchmark_definition"] == "tests/test_json.py::test_full_document_read"
     assert section["name"] == "data/canada.json"
-    assert section["payload_size_bytes"] == len('{"city":"Zurich","rows":[1,2,3]}'.encode())
+    assert section["payload_size_bytes"] == len(
+        '{"city":"Zurich","rows":[1,2,3]}'.encode("utf-8")  # noqa: UP012
+    )
     assert len(section["sha256"]) == 64
     assert {"decode_complete_json", "reusable_complete_decoder", "streaming_parser_single_chunk", "json_loads"} <= names
     assert all(result["mib_per_second"] > 0 for result in section["results"])

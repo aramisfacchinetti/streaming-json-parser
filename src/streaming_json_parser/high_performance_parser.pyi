@@ -1,5 +1,6 @@
+from collections.abc import Callable
 from enum import Enum
-from typing import Any, Callable, Literal, Protocol, TypeAlias, TypeVar, overload
+from typing import Any, Literal, Protocol, TypeAlias, TypeVar, overload
 
 _T = TypeVar("_T")
 _JsonInput: TypeAlias = str | bytes | bytearray

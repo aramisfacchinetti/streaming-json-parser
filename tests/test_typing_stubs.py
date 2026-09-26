@@ -4,7 +4,6 @@ from pathlib import Path
 import streaming_json_parser
 import streaming_json_parser.high_performance_parser as implementation
 
-
 PACKAGE_DIR = Path(__file__).resolve().parents[1] / "src" / "streaming_json_parser"
 
 

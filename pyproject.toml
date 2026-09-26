@@ -41,6 +41,10 @@ test = [
 typecheck = [
     "pyright>=1.1",
 ]
+quality = [
+    "pytest-cov>=7.1.0",
+    "ruff>=0.14.0",
+]
 accelerated = [
     "msgspec>=0.18",
     "orjson>=3.9",
@@ -84,3 +88,34 @@ exclude = ["tests*"]
 
 [tool.setuptools.package-data]
 streaming_json_parser = ["py.typed", "*.pyi"]
+
+[tool.ruff]
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+# Line length and lambda style are left to maintainers; this PR does not adopt formatting.
+ignore = ["E501", "E731"]
+
+[tool.ruff.lint.per-file-ignores]
+# These scripts add the checkout source to sys.path before first-party imports.
+"scripts/benchmark_incremental.py" = ["E402"]
+"scripts/benchmark_ndjson_strategy_matrix.py" = ["E402"]
+"scripts/benchmark_parser.py" = ["E402"]
+# The lambdas are consumed inside the current chunk-size iteration.
+"scripts/benchmark_partial_parser.py" = ["E402", "B023"]
+"scripts/benchmark_partial_strategy_matrix.py" = ["E402"]
+"scripts/benchmark_strategy_matrix.py" = ["E402"]
+# Native-only tests skip the module before importing the package when the extension is absent.
+"tests/test_native_incremental.py" = ["E402"]
+# Preserve the grouped typed re-exports instead of expanding them into one import per symbol.
+"src/streaming_json_parser/__init__.pyi" = ["I001"]
+
+[tool.coverage.run]
+branch = true
+source = ["streaming_json_parser"]
+
+[tool.coverage.report]
+fail_under = 68.0
+precision = 1
+show_missing = true

@@ -1,7 +1,12 @@
-.PHONY: help benchmark-artifacts verify-benchmark-artifacts benchmark-community-corpus benchmark-release-artifacts verify-release-benchmark-artifacts verify-community-benchmark-artifacts benchmark-incremental verify-incremental-benchmark-artifacts benchmark-strategy benchmark-ndjson benchmark-partial benchmark-partial-matrix native-wheel native-install
+.PHONY: help lint typecheck test coverage check benchmark-artifacts verify-benchmark-artifacts benchmark-community-corpus benchmark-release-artifacts verify-release-benchmark-artifacts verify-community-benchmark-artifacts benchmark-incremental verify-incremental-benchmark-artifacts benchmark-strategy benchmark-ndjson benchmark-partial benchmark-partial-matrix native-wheel native-install
 
 help:
 	@printf '%s\n' 'Available targets:'
+	@printf '%s\n' '  make lint                       Run Ruff'
+	@printf '%s\n' '  make typecheck                  Run downstream typing and verifytypes checks'
+	@printf '%s\n' '  make test                       Run the Python test suite'
+	@printf '%s\n' '  make coverage                   Run the authoritative branch-coverage suite'
+	@printf '%s\n' '  make check                      Run lint, typing, and tests with branch coverage'
 	@printf '%s\n' '  make benchmark-artifacts        Regenerate benchmark snapshot, scorecard, and SVG charts'
 	@printf '%s\n' '  make verify-benchmark-artifacts Verify generated reports and charts against the snapshot and current measurements'
 	@printf '%s\n' '  make benchmark-community-corpus Run the TkTech complete-load corpus (set COMMUNITY_JSON_CORPUS_DIR)'
@@ -16,6 +21,21 @@ help:
 	@printf '%s\n' '  make benchmark-partial-matrix   Compare partial strategies across shapes and chunk sizes'
 	@printf '%s\n' '  make native-wheel               Build the optional Rust incremental backend wheel'
 	@printf '%s\n' '  make native-install             Build and install the optional Rust incremental backend'
+
+lint:
+	python -m ruff check .
+
+typecheck:
+	python scripts/check_public_typing.py
+	python -m pyright --verifytypes streaming_json_parser --ignoreexternal
+
+test:
+	python -m pytest -q
+
+coverage:
+	python -m pytest --cov --cov-report=term-missing
+
+check: lint typecheck coverage
 
 benchmark-artifacts:
 	python scripts/benchmark_parser.py --artifacts
