@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.3.0 - 2026-09-29
+
+- Added PEP 561 typing with `py.typed`, package-owned stubs, and a type-complete public API, including useful generic and overloaded decoder/extractor interfaces.
+- Stabilized the documented 32-export API contract, tiers, canonical `StreamingJsonParser` name, complete/NDJSON/selective extraction guidance, and observable `ParseResult` fields while retaining compatibility, experimental, and internal-candidate exports.
+- Linked the public API guide from the README with a stable URL that also works on PyPI.
+
 ## 0.2.3 - 2026-09-25
 
 - Strict Python fallback and standard-library complete/NDJSON decoding now reject numeric overflow such as `1e400` instead of returning a non-finite float, aligning those paths with the native strict parser.

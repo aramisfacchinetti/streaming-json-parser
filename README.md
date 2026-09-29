@@ -82,9 +82,10 @@ Results vary by dataset and decoder; compare the per-file values, dataset hashes
 
 ## Choose an API
 
-This table covers the normal workflows. The [public API inventory and proposed
-0.3 tiers](docs/public-api.md) classify every top-level export, including
-advanced, experimental, and compatibility names.
+This table covers the normal workflows. The [0.3 API inventory and stability
+tiers](https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/docs/public-api.md)
+classify every top-level export, including advanced, experimental, and
+compatibility names.
 
 | Workload | API | Notes |
 | --- | --- | --- |

@@ -1,20 +1,19 @@
-# Public API design for 0.3
+# Public API contract for 0.3
 
-This document records the current top-level exports and proposes the tiers for
-the 0.3 API stabilization work. It describes current behavior separately from
-the proposal: no exports, parser behavior, or package versions are changed by
-this document.
+This document records the current top-level exports and the API tiers shipping
+with core 0.3.0. It describes the public contract separately from implementation
+details; the release retains all 32 exports and their existing behavior.
 
 The package is still beta. The 0.2.0 changelog introduced the complete-document,
 NDJSON, structural-partial, typed, and selective-extraction families, and
 replaced the earlier `StreamingJsonParser` with strict incremental parsing.
 That history supports a deliberate 0.3 contract and migration period; it does
-not justify removing exported names under 0.2.x.
+not justify removing exported names in 0.3.0.
 
-## Proposed tiers
+## 0.3.0 API tiers
 
-The current `__all__` contains **32 names**. The proposed 0.3 classification
-assigns each name one tier:
+The current `__all__` contains **32 names**. The 0.3.0 classification assigns
+each name one tier:
 
 | Tier | Count | Meaning |
 | --- | ---: | --- |
@@ -40,7 +39,7 @@ exported surface. Backend coupling describes the public operation or exposed
 result, not the implementation backends that the library may select
 internally.
 
-| Export (kind) | Purpose, overlap, and semantic distinction | README / scorecard | Backend coupling | Package use | Proposed 0.3 tier and replacement |
+| Export (kind) | Purpose, overlap, and semantic distinction | README / scorecard | Backend coupling | Package use | 0.3 tier and replacement |
 | --- | --- | --- | --- | --- | --- |
 | `StreamingJsonParser` (class alias) | Canonical incremental parser name. Strict partial state by default; `framing="ndjson"` also supports streaming records. Backend selection is internal. | Yes / Yes | No backend choice in its contract; runtime may use native code. | No | **Primary.** |
 | `__version__` (metadata) | Module version string used for package and benchmark provenance; not a parsing operation. | Yes / No | No | No | **Compatibility.** Keep as package metadata; no replacement or removal planned. |
@@ -130,8 +129,8 @@ runtime invocation totals. There is no tracked `examples/` directory.
 All exports are present in `__all__` and pinned by `tests/test_public_api.py`.
 The behavior tests are concentrated in `test_decode_helpers.py`, parser tests,
 and benchmark contract tests; benchmark calls live primarily in
-`scripts/benchmark_parser.py`. Runtime `__version__` is 0.2.3 and the native
-distribution is 0.2.2, as required for this audit baseline.
+`scripts/benchmark_parser.py`. The usage and benchmark audit data in this
+section were recorded against core 0.2.3 and native 0.2.2.
 
 For external use, exact quoted searches were run for
 `HighPerformanceStreamingJsonParser`,
@@ -289,7 +288,7 @@ constraints and produce typed structs rather than ordinary dictionaries.
 objects, so callers needing a stable result type should choose an explicit
 `record_type` instead.
 
-No `advanced` or `experimental` module namespace is proposed in this PR. The
+No `advanced` or `experimental` module namespace is part of the 0.3.0 API. The
 current classification and doc page provide the needed distinction without
 package-layout churn; a namespace should be considered only with a concrete
 migration benefit.
@@ -358,13 +357,13 @@ payloads. Differences to resolve before or during consolidation:
   framing-specific factories. This is reasonable for semantic clarity, but
   should be stated consistently in their docstrings.
 
-These are contract-review findings, not grounds for breaking signature changes
-under 0.2.x. Aside from this documentation, the 0.3 proposal makes no backend,
-performance, benchmark, or package-version changes.
+These are documented contract limitations, not grounds for breaking signature
+changes in 0.3.0. The release makes no backend, performance, or benchmark
+changes.
 
-## Current 0.3 direction
+## 0.3.0 API recommendations
 
-| Question | Proposed answer |
+| Question | 0.3.0 contract |
 | --- | --- |
 | Canonical incremental parser? | `StreamingJsonParser`; `HighPerformanceStreamingJsonParser` is a compatibility alias. |
 | One complete document? | `decode_complete_json`. |
@@ -379,9 +378,11 @@ performance, benchmark, or package-version changes.
 | Direct native/backend forcing? | No for normal users; retain the two native path exports as experimental benchmark/test hooks. |
 | Names kept for compatibility? | Keep `HighPerformanceStreamingJsonParser`, `extract_tuned_json_paths`, and `__version__`; review `extract_tuned_complete_json_paths` for staged deprecation. |
 
-## Recommended next implementation PR
+## Release preparation
 
 The public API contract, compatibility dispositions, and PEP 561 typing are
-now documented and tested. The next PR should focus on linting and coverage
-infrastructure around the stabilized API; it should not reopen API-tier or
-signature design without new compatibility evidence.
+implemented and tested. The release-preparation PR updates the core version,
+release notes, PyPI-safe README link, and tag/version validation. It preserves
+the current exports, signatures, tier assignments, and compatibility policy;
+API-tier or signature design should not be reopened without new compatibility
+evidence.

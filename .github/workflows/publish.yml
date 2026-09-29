@@ -33,6 +33,9 @@ jobs:
       - name: Build package
         run: python -m build
 
+      - name: Validate release tag and package version
+        run: python scripts/check_release_version.py --tag "$GITHUB_REF_NAME" --dist-dir dist
+
       - name: Check package metadata
         run: python -m twine check dist/*
 
