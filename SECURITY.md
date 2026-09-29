@@ -10,11 +10,11 @@ considered case by case.
 
 ## Reporting a vulnerability
 
-GitHub private vulnerability reporting is currently disabled for this
-repository. Until it is enabled, contact the maintainer using the author
-contact listed in the [core package's PyPI metadata](https://pypi.org/project/streaming-json-parser/).
-Use an initial message to request private coordination; do not post vulnerability
-details, exploit inputs, or sensitive data in a public issue or Discussion.
+Please report suspected vulnerabilities through GitHub's private vulnerability
+reporting feature on the repository's [Security Advisories page](https://github.com/aramisfacchinetti/streaming-json-parser/security/advisories).
+Select **Report a vulnerability** to submit details privately. Do not post
+vulnerability details, exploit inputs, or sensitive data in a public issue or
+Discussion.
 
 Reports may concern crafted input that causes a crash or resource exhaustion,
 a security-relevant validation bypass or strictness discrepancy, or memory
@@ -28,8 +28,8 @@ impact. Redact secrets and personal data from payloads, logs, and traces.
 
 This is a small project with no response-time guarantee. The maintainer aims
 to acknowledge reports within 14 days when possible. If you receive no
-acknowledgment, follow up through the same contact without disclosing details
-publicly. After acknowledgment, the maintainer will make a best-effort
+acknowledgment, follow up through the same private report without disclosing
+details publicly. After acknowledgment, the maintainer will make a best-effort
 assessment of impact and affected releases, but cannot promise a fix schedule
 or disclosure date. The reporter and maintainer should coordinate any public
 disclosure.

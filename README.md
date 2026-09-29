@@ -183,7 +183,7 @@ python -m pip install -e '.[test]'
 python -m pytest -q
 ```
 
-See [contributing guidance](https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/CONTRIBUTING.md), the [changelog](https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/CHANGELOG.md), the [current API scorecard](https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/docs/current-api-scorecard.md), [open issues](https://github.com/aramisfacchinetti/streaming-json-parser/issues), and [manual GitHub settings follow-up](https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/docs/github-settings-follow-up.md).
+See [contributing guidance](https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/CONTRIBUTING.md), the [changelog](https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/CHANGELOG.md), the [current API scorecard](https://github.com/aramisfacchinetti/streaming-json-parser/blob/main/docs/current-api-scorecard.md), and [open issues](https://github.com/aramisfacchinetti/streaming-json-parser/issues).
 
 ## License
 
