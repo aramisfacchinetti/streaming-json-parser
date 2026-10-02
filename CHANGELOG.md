@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Native package 0.2.3
+
+- Refresh the locked parser dependencies to `sonic-rs 0.5.10` and compatible `sonic-number 0.1.3`.
+
 ## 0.3.0 - 2026-09-29
 
 - Added PEP 561 typing with `py.typed`, package-owned stubs, and a type-complete public API, including useful generic and overloaded decoder/extractor interfaces.
