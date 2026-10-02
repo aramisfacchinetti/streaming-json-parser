@@ -9,7 +9,7 @@ native extension with:
 python -m pip install streaming-json-parser streaming-json-parser-native
 ```
 
-Version 0.2.2 provides ABI-stable wheels for GIL-enabled CPython 3.10 and newer
+Version 0.2.3 provides ABI-stable wheels for GIL-enabled CPython 3.10 and newer
 on Linux x86_64 and arm64 (manylinux2014), Windows x86_64, and macOS arm64
 (macOS 11 or newer). Each platform and architecture uses one wheel across
 supported CPython versions. On other platforms or architectures, pip builds
