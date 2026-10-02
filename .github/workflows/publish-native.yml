@@ -72,7 +72,7 @@ jobs:
         run: python -m pytest -q
 
       - name: Save Linux x86_64 distributions
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: native-linux-x86_64
           path: dist-native/*
@@ -100,7 +100,7 @@ jobs:
           args: --release --locked --compatibility pypi -i python3.10 --manifest-path rust_native/Cargo.toml --out dist-native
 
       - name: Save Linux arm64 wheel
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: native-linux-aarch64
           path: dist-native/*.whl
@@ -130,7 +130,7 @@ jobs:
         run: maturin build --release --locked --interpreter python --manifest-path rust_native/Cargo.toml --out dist-native
 
       - name: Save Windows x86_64 wheel
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: native-windows-x86_64
           path: dist-native/*.whl
@@ -160,7 +160,7 @@ jobs:
         run: maturin build --release --locked --interpreter python --manifest-path rust_native/Cargo.toml --out dist-native
 
       - name: Save macOS arm64 wheel
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: native-macos-arm64
           path: dist-native/*.whl
