@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-### Native package 0.2.3
+## Native package 0.2.3 - 2026-10-02
 
 - Refresh the locked parser dependencies to `sonic-rs 0.5.10` and compatible `sonic-number 0.1.3`.
 
