@@ -12,6 +12,6 @@ name = "streaming_json_parser_native"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3 = { version = "0.29.2", features = ["extension-module", "abi3-py310"] }
+pyo3 = { version = "0.30.1", features = ["extension-module", "abi3-py310"] }
 sonic-rs = "0.5.8"
 serde_json = "1.0"
